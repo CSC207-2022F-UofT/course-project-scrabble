@@ -1,6 +1,6 @@
 package tutorial;
 
-# testing, starting October 24th
+// testing, starting October 24th
 
 public class HelloWorld {
 
