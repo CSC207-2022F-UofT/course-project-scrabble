@@ -1,4 +1,4 @@
-package tutorial;
+package GamesManager;
 
 // testing, starting October 24th
 

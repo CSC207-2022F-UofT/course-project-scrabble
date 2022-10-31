@@ -1,4 +1,4 @@
-package tutorial;
+package GamesManager;
 import java.io.File; //the File class
 import java.io.FileNotFoundException; //handle errors in File class
 import java.util.ArrayList; //the ArrayList class
