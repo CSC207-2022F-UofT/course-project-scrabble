@@ -27,16 +27,16 @@ public class GameBoard {
     
     
     public Cell getBoardCell(int row, int column) {
-        return this.board[row][column];
+        return this.board[column][row];
     }
     public String getBoardCellValue(int row, int column) {
-        return this.board[row][column].getValue();
+        return this.board[column][row].getValue();
     }
     public Cell[][] getBoard() {
         return board;
     }
     public void setBoardCell(int row, int column, String value){
-        this.board[row][column].setValue(value);
+        this.board[column][row].setValue(value);
     }
         
         
