@@ -25,12 +25,23 @@ public class Cell {
         score = 0;
         multiplier = mult;
     }
-    
     public void setValue(String value) {
         this.value = value;
    
     }
-    
+    public void setScore(int score) {
+        this.score = score;
+    }
+    public void setMultiplier(int multiplier) {
+        this.multiplier = multiplier;
+    }
+
+    public int getMultiplier() {
+        return this.multiplier;
+    }
+    public int getScore() {
+        return this.score;
+    }
     public String getValue() {
         return this.value;
         
