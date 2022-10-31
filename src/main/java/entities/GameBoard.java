@@ -1,4 +1,4 @@
-package group.Scrabble.entities;
+package entities;
 
 
 
