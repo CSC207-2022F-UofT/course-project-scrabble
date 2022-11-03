@@ -1,4 +1,4 @@
-package GamesManager;
+package TileChecker;
 
 import entities.GameBoard;
 import java.util.Objects;
