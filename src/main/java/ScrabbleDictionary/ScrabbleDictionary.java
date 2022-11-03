@@ -8,7 +8,7 @@ import java.util.Scanner; //to read the files
 
 
 public class ScrabbleDictionary {
-    private HashMap<String, ArrayList<String>> dictionary;
+    private static HashMap<String, ArrayList<String>> dictionary; //made static so that static methods can access
 
     public static void main(String [] args) { //apparently I needed this to test it
         new ScrabbleDictionary();
@@ -40,10 +40,10 @@ public class ScrabbleDictionary {
         }
 
     }
-    public boolean inDictionary(List<String> wordlist) { //searches for words in the dictionary
+    public static boolean inDictionary(List<String> wordlist) { //searches for words in the dictionary
         for (String word: wordlist) {
             String key = String.valueOf(word.charAt(0)); //takes the first letter of the word as the key
-            ArrayList<String> dict = this.dictionary.get(key); //an ArrayList of all the words starting with that letter
+            ArrayList<String> dict = dictionary.get(key); //an ArrayList of all the words starting with that letter
             if (!dict.contains(word)) {
                 return false; //returns false if the word is not in the list
             }
