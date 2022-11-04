@@ -69,4 +69,5 @@ public class TileChecker implements PlacementChecker {
     }
 
     //TODO: Write a word parser function that returns a list of words that need to be checked.
+    //TODO: Write the final TileChecker function that calls all of these functions to return true or false.
 }
