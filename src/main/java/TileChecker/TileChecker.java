@@ -16,6 +16,7 @@ public class TileChecker implements PlacementChecker {
             return row <= 15 & column <= 15; //based on the default board size, 15 can be replaced with board.size or something
         }
     }
+    @Override
     public boolean isConsecutive(ArrayList<List<Integer>> move, GameBoard board) { //hopefully a list of ordered row/column pairs.
         ArrayList<Integer> row = new ArrayList<>(); // a list of all the desired row coordinates
         ArrayList<Integer> column = new ArrayList<>(); // a list of all the desired column coordinates
@@ -42,7 +43,7 @@ public class TileChecker implements PlacementChecker {
         }
         return true;
     }
-
+    @Override
     public boolean isTouching(ArrayList<List<Integer>> move, GameBoard board) { // determines whether the desired tiles touch already placed tiles
         // TODO: add something here to tell whether or not it's the first move
         for (List<Integer> coordinates : move) {
