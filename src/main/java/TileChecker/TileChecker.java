@@ -43,7 +43,30 @@ public class TileChecker implements PlacementChecker {
         return true;
     }
 
-    //TODO: Write a function that ensures the placed tiles are touching tiles already on the board.
+    public boolean isTouching(ArrayList<List<Integer>> move, GameBoard board) { // determines whether the desired tiles touch already placed tiles
+        // TODO: add something here to tell whether or not it's the first move
+        for (List<Integer> coordinates : move) {
+            if (adjacentTile(coordinates.get(0), coordinates.get(1), board)) { // calls helper function
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean adjacentTile(int row, int column, GameBoard board) { // determines the adjacency for single tiles
+        // TODO: somehow determine whether tile is on the edge of the board
+        if (board.getBoardCellValue(row + 1, column) != "-") { // checks for a horizontally adjacent tile
+            return true;
+        } else if (board.getBoardCellValue(row - 1, column) != "-") { // checks horizontally adjacent tile
+            return true;
+        } else if (board.getBoardCellValue(row, column + 1) != "-") { // checks vertically adjacent tile
+            return true;
+        } else if (board.getBoardCellValue(row, column - 1) != "-") { // checks vertically adjacent tile
+            return true;
+        } else { // if no tiles are adjacent
+            return false;
+        }
+    }
 
     //TODO: Write a word parser function that returns a list of words that need to be checked.
 }
