@@ -43,5 +43,7 @@ public class TileChecker implements PlacementChecker {
         return true;
     }
 
+    //TODO: Write a function that ensures the placed tiles are touching tiles already on the board.
+
     //TODO: Write a word parser function that returns a list of words that need to be checked.
 }
