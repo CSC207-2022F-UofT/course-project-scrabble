@@ -27,16 +27,18 @@ public class GameBoard {
     
     
     public Cell getBoardCell(int row, int column) {
-        return this.board[column][row];
+        return this.board[row][column];
     }
     public String getBoardCellValue(int row, int column) {
-        return this.board[column][row].getValue();
+        return this.board[row][column].getValue();
     }
     public Cell[][] getBoard() {
         return board;
     }
-    public void setBoardCell(int row, int column, String value){
-        this.board[column][row].setValue(value);
+    public void setBoardCell(int row, int column, Cell letter){
+        int multiplier = this.board[row][column].getMultiplier();
+        letter.setMultiplier(multiplier); // The letter cell takes on the multiplier value of the board space
+        this.board[row][column] = letter; // Set the space on the board to the letter cell
     }
         
         

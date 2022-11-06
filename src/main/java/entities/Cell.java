@@ -25,6 +25,13 @@ public class Cell {
         score = 0;
         multiplier = mult;
     }
+
+    public Cell(String val, int score, int mult){
+        value = val;
+        this.score = score;
+        multiplier = mult;
+    }
+
     public void setValue(String value) {
         this.value = value;
    

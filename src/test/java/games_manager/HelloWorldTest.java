@@ -1,4 +1,4 @@
-package GamesManager;
+package games_manager;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package GamesManager;
+package games_manager;
 
 /*
 Receives inputs from GUI
