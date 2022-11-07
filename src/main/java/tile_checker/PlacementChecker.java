@@ -1,4 +1,4 @@
-package TileChecker;
+package tile_checker;
 
 import entities.GameBoard;
 import java.util.ArrayList;

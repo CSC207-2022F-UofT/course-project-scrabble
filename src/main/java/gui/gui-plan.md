@@ -1,8 +1,8 @@
-# GUI Plan 
+# gui Plan 
 
 Implementation plan: 
 1. Research JavaFX
-2. Victor and Clark meet to talk about GUI to Game functions and how we want to make it work together. 
+2. Victor and Clark meet to talk about gui to Game functions and how we want to make it work together. 
 3. Complete a basic console simulation of the same thing without JavaFX
     - 15 x 15 board simulated scrabble game. Every cell is separated by "-"
     - player first starts game by running the program. First input is the player 1 and player 2 names
