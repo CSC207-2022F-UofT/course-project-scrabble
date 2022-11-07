@@ -1,7 +1,7 @@
 # Official rules of scrabble: https://scrabble.hasbro.com/en-us/rules 
 
 ### Set up
-You should have a game board, 100 letter tiles, a letter bag, and four racks.
+You should have a game board, 100 letter tiles, a letter bag, ~~and~~ ~~four racks~~.
 
 ~~Before the game begins, all players should agree upon the dictionary that they will use, in case of a challenge. All words labeled as a part of speech (including those listed of foreign origin, and as archaic, obsolete, colloquial, slang, etc.) are permitted with the exception of the following: words always capitalized, abbreviations, prefixes and suffixes standing alone, words requiring a hyphen or an apostrophe.~~
 The dictionary will be decided beforehand by the game machine. We use the Collins Scrabble Dictionary
@@ -27,7 +27,7 @@ Placing a complete word parallel to a word already played so that adjacent lette
 No tile may be shifted or replaced after it has been played and scored.
 ### 6
 ~~Blanks: The two blank tiles may be used as any letters. When playing a blank, you must state which letter it represents. It remains that letter for the rest of the game.~~
-There are no blacks in the game. The blanks are replaced by extra k and extra z.
+There are no blanks in the game. The blanks are replaced by extra k and extra z.
 ### 7
 ~~You may use a turn to exchange all, some, or none of the letters. To do this, place your discarded letter(s) facedown. Draw the same number of letters from the pool, then mix your discarded letter(s) into the pool. This ends your turn.~~
 You can only exchange your entire hand of words. This ends your turn
@@ -35,8 +35,7 @@ You can only exchange your entire hand of words. This ends your turn
 ~~Any play may be challenged before the next player starts a turn. If the play challenged is unacceptable, the challenged player takes back his or her tiles and loses that turn. If the play challenged is acceptable, the challenger loses his or her next turn. Consult the dictionary for challenges only. All words made in one play are challenged simultaneously. If any word is unacceptable, then the entire play is unacceptable. Only one turn is lost on any challenge.~~
 No words can be challenge - the game is decided by the computer. 
 ### 9
-The game ends when all letters have been drawn and one player uses his or her last letter; or when all possible plays have been made.
-
+The game ends when all letters have been drawn and one player uses his or her last letter; or when both players agree to end the game ~~all possible plays have been made~~.
 
 ## Scoring System
 
@@ -47,13 +46,16 @@ The score for each turn is the sum of the letter values in each word(s) formed o
 ### 3
 Premium Letter Squares: A light blue square doubles the score of a letter placed on it; a dark blue square triples the letter score.
 ### 4
-Premium Word Squares: The score for an entire word is doubled when one of its letters is placed on a pink square: it is tripled when one of its letters is placed on a red square. Include premiums for double or triple letter values, if any, before doubling or tripling the word score. If a word is formed that covers two premium word squares, the score is doubled and then re-doubled (4 times the letter count), or tripled and then re-tripled (9 times the letter count). NOTE: the center square is a pink square, which doubles the score for the first word.
+~~Premium Word Squares: The score for an entire word is doubled when one of its letters is placed on a pink square: it is tripled when one of its letters is placed on a red square. Include premiums for double or triple letter values, if any, before doubling or tripling the word score. If a word is formed that covers two premium word squares, the score is doubled and then re-doubled (4 times the letter count), or tripled and then re-tripled (9 times the letter count). NOTE: the center square is a pink square, which doubles the score for the first word.~~
+No premium word squares
 ### 5
 Letter and word premiums count only on the turn in which they are played. On later turns, letters already played on premium squares count at face value.
 ### 6
-When a blank tile is played on a pink or red square, the value of the word is doubled or tripled, even though the blank itself has no score value.
+~~When a blank tile is played on a pink or red square, the value of the word is doubled or tripled, even though the blank itself has no score value.~~
+No blank tiles
 ### 7
-When two or more words are formed in the same play, each is scored. The common letter is counted (with full premium value, if any) for each word. (See Turns 3, 4 and 5 in the Scoring Examples section.)
+~~When two or more words are formed in the same play, each is scored. The common letter is counted (with full premium value, if any) for each word. (See Turns 3, 4 and 5 in the Scoring Examples section.)~~
+There are no word bonuses. 
 ### 8
 BINGO! If you play seven tiles on a turn, it's a Bingo. You score a premium of 50 points after totaling your score for the turn.
 ### 9
