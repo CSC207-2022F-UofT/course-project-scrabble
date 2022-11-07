@@ -1,4 +1,4 @@
-package GamesManager;
+package games_manager;
 
 // testing, starting October 24th
 
