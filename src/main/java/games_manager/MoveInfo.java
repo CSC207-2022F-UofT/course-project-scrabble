@@ -1,4 +1,4 @@
-package GamesManager;
+package games_manager;
 // helper class used in BoardManager functions
 public class MoveInfo {
     private int y;
