@@ -1,8 +1,9 @@
 package entities;
 
 
+import java.io.Serializable;
 
-public class GameBoard {
+public class GameBoard implements Serializable {
     private final int DEFAULT_SIZE = 15;
     private final int[][] TILE_MULTIPLIERS = new int[0][0]; 
     

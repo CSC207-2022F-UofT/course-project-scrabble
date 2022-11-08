@@ -6,10 +6,12 @@
 package entities;
 import java.io.*;
 
+
 /**
  *
  * @author Clark
  */
+
 public class Player implements Serializable {
     private int score;
     private String name;
