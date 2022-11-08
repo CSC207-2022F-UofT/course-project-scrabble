@@ -5,11 +5,12 @@
  */
 package entities;
 
+
 /**
  *
  * @author Clark
  */
-public class Player {
+public class Player{
     private int score;
     private String name;
     private Cell[] hand;
