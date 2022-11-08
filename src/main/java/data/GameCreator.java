@@ -1,8 +1,6 @@
 package data;
 
-import entities.GameBoard;
-import entities.LetterBag;
-import entities.Player;
+import entities.*;
 
 public class GameCreator {
     public static void newGame(String name1, String name2){
