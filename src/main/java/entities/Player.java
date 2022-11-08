@@ -4,13 +4,15 @@
  * and open the template in the editor.
  */
 package entities;
+import java.io.*;
 
 
 /**
  *
  * @author Clark
  */
-public class Player{
+
+public class Player implements Serializable {
     private int score;
     private String name;
     private Cell[] hand;
