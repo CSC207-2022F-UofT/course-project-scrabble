@@ -1,5 +1,6 @@
 package games_manager;
 
+import entities.Cell;
 import entities.GameBoard;
 
 import java.util.ArrayList;
@@ -41,5 +42,20 @@ public class BoardManager implements BoardManagement{
             board.getBoard()[move.getY()][move.getX()].setValue(move.getLetter());
         }
         moves.clear();
+    }
+
+    public Cell BoardManagerGetCell(int row, int column, GameBoard board) {
+        return board.getBoard()[row][column];
+    }
+    public String BoardManagerGetCellValue(int row, int column, GameBoard board) {
+        return board.getBoard()[row][column].getValue();
+    }
+    public Cell[][] BoardManagerGetBoard(GameBoard board) {
+        return board.getBoard();
+    }
+    public void BoardManagerSetCell(int row, int column, Cell letter, GameBoard board){
+        int multiplier = board.getBoard()[row][column].getMultiplier();
+        letter.setMultiplier(multiplier); // The letter cell takes on the multiplier value of the board space
+        board.getBoard()[row][column] = letter; // Set the space on the board to the letter cell
     }
 }
