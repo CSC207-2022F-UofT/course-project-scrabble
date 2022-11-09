@@ -4,18 +4,24 @@ package entities;
 
 public class GameBoard {
     private final int DEFAULT_SIZE = 15;
-    private final int[][] TILE_MULTIPLIERS = new int[0][0]; 
+    private static int[][] TILE_MULTIPLIERS = new int[][] {{3,1,1,2,1,1,1,3,1,1,1,2,1,1,3}, {1,2,1,1,1,3,1,1,1,3,1,1,1,2,1},
+            {1,1,2,1,1,1,2,1,2,1,1,1,2,1,1}, {2,1,1,2,1,1,1,2,1,1,1,2,1,1,2}, {1,1,1,1,2,1,1,1,1,1,2,1,1,1,1},
+            {1,3,1,1,1,3,1,1,1,3,1,1,1,3,1}, {1,1,2,1,1,1,2,1,2,1,1,1,2,1,1}, {3,1,1,2,1,1,1,1,1,1,1,2,1,1,3},
+            {1,1,2,1,1,1,2,1,2,1,1,1,2,1,1}, {1,3,1,1,1,3,1,1,1,3,1,1,1,3,1}, {1,1,1,1,2,1,1,1,1,1,2,1,1,1,1},
+            {2,1,1,2,1,1,1,2,1,1,1,2,1,1,2}, {1,1,2,1,1,1,2,1,2,1,1,1,2,1,1}, {1,2,1,1,1,3,1,1,1,3,1,1,1,2,1},
+            {3,1,1,2,1,1,1,3,1,1,1,2,1,1,3}};
     
     private Cell[][] board;
     
     public GameBoard() {
         board = new Cell[DEFAULT_SIZE][DEFAULT_SIZE];
-        
+
         for (int i=0; i < DEFAULT_SIZE; i++) {
             for (int j=0; j < DEFAULT_SIZE; j++) {
-                board[i][j] = new Cell ("-", 1); //TODO add multipliers
+                board[i][j] = new Cell ("-", TILE_MULTIPLIERS[i][j]);
             }
         }
+
     }  
         
     public GameBoard(Cell[][] loaded_cells) {
