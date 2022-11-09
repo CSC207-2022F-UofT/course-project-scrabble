@@ -24,12 +24,20 @@ public class LetterBag implements Serializable {
     }
     
     
-    public void putTile(String tile) {
+    public void putTile(String tile) { // adds a tile to the bag
         if(Arrays.asList(LETTERS).contains(tile)) {
             bag.put(tile, bag.get(tile)+1);
         }
     }
-    
+
+    public void removeTile(String tile){ // takes out a tile from the bag
+        if (Arrays.asList(LETTERS).contains(tile)) {
+            if (bag.get(tile) > 0){ // checks if there is a tile that can be removed
+                bag.replace(tile, bag.get(tile)-1);
+            }
+        }
+    }
+
     public int getNumTile(String tile) {
         if(Arrays.asList(LETTERS).contains(tile)) {
             return bag.get(tile);
