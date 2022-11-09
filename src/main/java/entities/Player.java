@@ -40,7 +40,7 @@ public class Player implements Serializable {
     }
     
     public void setScore(int new_score) {
-        this.score = score;
+        this.score = new_score;
     }
     
     public int getScore() {

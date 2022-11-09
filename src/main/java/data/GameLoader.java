@@ -5,14 +5,14 @@ import entities.*;
 import java.io.*;
 
 public class GameLoader {
-    final static String FILENAME = "data.ser";
-    public static Object[] load(){
-        // Method to read data.ser to load back into objects
+    final static File filename = new File("src/main/java/data/data.ser");
+    public static Object[] loadGame(){
+        // Method to load objects required to play game by reading data.ser to load objects
         // Deserialization
         try
         {
             // Reading the object from a file
-            FileInputStream file = new FileInputStream(FILENAME); // Creates file to read stream of bytes
+            FileInputStream file = new FileInputStream(filename); // Creates file to read stream of bytes
 
             ObjectInputStream in = new ObjectInputStream(file);
             // Creates object that converts stream of bytes to this object
@@ -22,6 +22,7 @@ public class GameLoader {
             Player p1 = (Player) in.readObject(); // Read Player 1
             Player p2 = (Player) in.readObject(); // Read Player 2
             LetterBag lb = (LetterBag) in.readObject(); // Read LetterBag
+            // TODO add turn to saved objects once type is known
 
             in.close();
             file.close();

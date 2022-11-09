@@ -5,11 +5,13 @@
  */
 package entities;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Clark
  */
-public class Cell {
+public class Cell implements Serializable {
     private String value;
     private int score;
     private int multiplier; 
