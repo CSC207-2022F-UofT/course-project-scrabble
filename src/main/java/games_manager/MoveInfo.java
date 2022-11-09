@@ -19,7 +19,7 @@ public class MoveInfo {
         return this.x;
     }
 
-    public String getXLetter() {
+    public String getLetter() {
         return this.letter;
     }
 }
