@@ -2,6 +2,7 @@ package games_manager;
 
 import entities.Cell;
 import entities.GameBoard;
+import entities.Player;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
@@ -16,37 +17,29 @@ public class ScoringSystemTest {
         Cell c0 = new Cell("C", 3, 1);
         Cell c1 = new Cell("A", 1, 1);
         Cell c2 = new Cell("R", 1, 1);
-        Cell c3 = new Cell("E", 1, 1);
 
         // initializing board state and adding letters
         GameBoard board = new GameBoard();
-        board.setBoardCell(0, 0, c0);
-        board.setBoardCell(0, 1, c1);
-        board.setBoardCell(0, 2, c2);
-        board.setBoardCell(0, 3, c3);
+        BoardManager.boardManagerSetBoardCell(0, 4, c0, board);
+        BoardManager.boardManagerSetBoardCell(0, 5, c1, board);
+        BoardManager.boardManagerSetBoardCell(0, 6, c2, board);
 
-
-        ScoringSystem scorer = new ScoringSystem();
         ArrayList<List<Integer>> pos = new ArrayList<>(); // creating 2d position arraylist of new word
 
         ArrayList<Integer> pos1 = new ArrayList<>(); // adding individual coordinates of word to arraylist
         pos1.add(0);
-        pos1.add(0);
+        pos1.add(4);
         ArrayList<Integer> pos2 = new ArrayList<>();
         pos2.add(0);
-        pos2.add(1);
+        pos2.add(5);
         ArrayList<Integer> pos3 = new ArrayList<>();
         pos3.add(0);
-        pos3.add(2);
-        ArrayList<Integer> pos4 = new ArrayList<>();
-        pos4.add(0);
-        pos4.add(3);
+        pos3.add(6);
 
         pos.add(pos1); // combining the coordinates arraylists into the pos arraylist
         pos.add(pos2);
         pos.add(pos3);
-        pos.add(pos4);
-        Assertions.assertEquals(6, scorer.score(board, pos));
+        Assertions.assertEquals(5, ScoreCalculator.score(board, pos));
     }
 
     @Test
@@ -60,14 +53,11 @@ public class ScoringSystemTest {
 
         // initializing board state and adding letters
         GameBoard board = new GameBoard();
-        board.getBoard()[0][0] = new Cell("", 3); // triple score
-        board.getBoard()[0][4] = new Cell("", 2); // double score
-
-        board.setBoardCell(0, 0, c0);
-        board.setBoardCell(0, 1, c1);
-        board.setBoardCell(0, 2, c2);
-        board.setBoardCell(0, 3, c3);
-        board.setBoardCell(0, 4, c4);
+        BoardManager.boardManagerSetBoardCell(0, 0, c0, board);
+        BoardManager.boardManagerSetBoardCell(0, 1, c1, board);
+        BoardManager.boardManagerSetBoardCell(0, 2, c2, board);
+        BoardManager.boardManagerSetBoardCell(0, 3, c3, board);
+        BoardManager.boardManagerSetBoardCell(0, 4, c4, board);
 
 
         ScoringSystem scorer = new ScoringSystem();
@@ -95,7 +85,7 @@ public class ScoringSystemTest {
         pos.add(pos4);
         pos.add(pos5);
 
-        Assertions.assertEquals(17, scorer.score(board, pos));
+        Assertions.assertEquals(17, ScoreCalculator.score(board, pos));
     }
 
     @Test
@@ -111,13 +101,13 @@ public class ScoringSystemTest {
         // initializing board state and adding letters
         GameBoard board = new GameBoard();
 
-        board.setBoardCell(0, 0, c0);
-        board.setBoardCell(0, 1, c1);
-        board.setBoardCell(0, 2, c2);
-        board.setBoardCell(0, 3, c3);
-        board.setBoardCell(0, 4, c4);
-        board.setBoardCell(0, 5, c5);
-        board.setBoardCell(0, 6, c6);
+        BoardManager.boardManagerSetBoardCell(0, 0, c0, board);
+        BoardManager.boardManagerSetBoardCell(0, 1, c1, board);
+        BoardManager.boardManagerSetBoardCell(0, 2, c2, board);
+        BoardManager.boardManagerSetBoardCell(0, 3, c3, board);
+        BoardManager.boardManagerSetBoardCell(0, 4, c4, board);
+        BoardManager.boardManagerSetBoardCell(0, 5, c5, board);
+        BoardManager.boardManagerSetBoardCell(0, 6, c6, board);
 
         ScoringSystem scorer = new ScoringSystem();
         ArrayList<List<Integer>> pos = new ArrayList<>(); // creating 2d position arraylist of new word
@@ -152,7 +142,7 @@ public class ScoringSystemTest {
         pos.add(pos6);
         pos.add(pos7);
 
-        Assertions.assertEquals(76, scorer.score(board, pos));
+        Assertions.assertEquals(99, ScoreCalculator.score(board, pos));
     }
     @Test
     public void multiScoreTest(){
@@ -170,15 +160,15 @@ public class ScoringSystemTest {
         // initializing board state and adding letters
         GameBoard board = new GameBoard();
 
-        board.setBoardCell(0, 0, c0);
-        board.setBoardCell(0, 1, c1);
-        board.setBoardCell(0, 2, c2);
-        board.setBoardCell(0, 3, c3);
+        BoardManager.boardManagerSetBoardCell(0, 0, c0, board);
+        BoardManager.boardManagerSetBoardCell(0, 1, c1, board);
+        BoardManager.boardManagerSetBoardCell(0, 2, c2, board);
+        BoardManager.boardManagerSetBoardCell(0, 3, c3, board);
 
-        board.setBoardCell(3, 4, w0);
-        board.setBoardCell(2, 4, w1);
-        board.setBoardCell(1, 4, w2);
-        board.setBoardCell(0, 4, w3);
+        BoardManager.boardManagerSetBoardCell(3, 4, w0, board);
+        BoardManager.boardManagerSetBoardCell(2, 4, w1, board);
+        BoardManager.boardManagerSetBoardCell(1, 4, w2, board);
+        BoardManager.boardManagerSetBoardCell(0, 4, w3, board);
 
         ScoringSystem scorer = new ScoringSystem();
         ArrayList<List<List<Integer>>> pos = new ArrayList<>(); // creating 3d position arraylist of new words
@@ -224,7 +214,7 @@ public class ScoringSystemTest {
         pos.add(word1);
         pos.add(word2);
 
-        Assertions.assertEquals(14, scorer.multiScore(board, pos));
+        Assertions.assertEquals(23, ScoreCalculator.multiScore(board, pos));
     }
 
     @Test
@@ -232,7 +222,7 @@ public class ScoringSystemTest {
         Cell[] hand = {};
         ScoringSystem scorer = new ScoringSystem();
 
-        Assertions.assertEquals(0, scorer.calculateUnplacedLetters(hand));
+        Assertions.assertEquals(0, ScoreCalculator.calculateUnplacedLetters(hand));
     }
 
     @Test
@@ -243,8 +233,29 @@ public class ScoringSystemTest {
         Cell c2 = new Cell("L", 1, 1);
         Cell c3 = new Cell("U", 1, 1);
         Cell[] hand = {c0, c1, c2, c3};
-        ScoringSystem scorer = new ScoringSystem();
 
-        Assertions.assertEquals(7, scorer.calculateUnplacedLetters(hand));
+        Assertions.assertEquals(7, ScoreCalculator.calculateUnplacedLetters(hand));
+    }
+
+    @Test
+    public void initializePlayerHandScoreTest(){
+        Player p1 = new Player("Dan");
+        Cell c0 = new Cell("V", 1);
+        Cell c1 = new Cell("A", 1);
+        Cell c2 = new Cell("L", 1);
+        Cell c3 = new Cell("U", 1);
+        Cell c4 = new Cell("C", 1);
+        Cell c5 = new Cell("A", 1);
+        Cell c6 = new Cell("R", 1);
+
+        p1.setHand(new Cell[]{c0, c1, c2, c3, c4, c5, c6});
+        ScoringSystem scorer = new ScoringSystem();
+        scorer.initializeHandScore(p1.getHand(), p1);
+        int[] scores = {4, 1, 1, 1, 3, 1, 1}; // the scores the letters should have
+        for (int i=0; i < 7; i++){
+            // checking if each letter has the correct score assigned
+            Assertions.assertEquals(scores[i], BoardManager.boardManagerGetCellScore(p1.getHand()[i]));
+        }
+
     }
 }
