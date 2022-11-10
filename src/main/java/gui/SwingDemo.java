@@ -1,31 +1,26 @@
 package gui;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.text.JTextComponent;
+import java.awt.event.*;
 
-public class SwingDemo extends JFrame{
+public class SwingDemo extends JTextComponent implements SwingConstants {
     JFrame f;
-    private JPanel panelMain;
-    private JTextField player1Name;
-    private JTextField player2Name;
-    private JButton startGameButton;
 
     public SwingDemo() {
-//        JLabel label1 = new JLabel("Welcome to Scrabble!");
-//        add(label1);
-        player1Name = new JTextField();
-        player1Name.setBounds(50,50,150,20);
 
-        JButton b = new JButton("Play Game"); // create a button to start the game
-        b.setBounds(50,100,95,30);
+        JFrame f = new JFrame("Scrabble");
+        JTextField t1, t2;
+        t1 = new JTextField("Player 1 Name");
+        t1.setBounds(50,50,150,20);
 
-        add(b);
-        add(player1Name);
+        t2 = new JTextField("Player 2 Name");
+        t2.setBounds(50,150,150,20);
+        f.add(t1); f.add(t2);
 
-        setTitle("Scrabble");
-        setSize(400   , 500);
-        setVisible(true);
+        f.setSize(400,400);
+        f.setLayout(null);
+        f.setVisible(true);
     }
 
     public static void main(String[] args){
