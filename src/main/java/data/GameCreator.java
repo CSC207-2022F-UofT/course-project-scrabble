@@ -9,7 +9,6 @@ public class GameCreator extends GameLoader{
         Player player1 = new Player(name1);
         Player player2 = new Player(name2);
         LetterBag letterBag = new LetterBag();
-        Object[] objects = {board, player1 ,player2, letterBag};
-        return objects;
+        return new Object[]{board, player1 ,player2, letterBag};
     }
 }

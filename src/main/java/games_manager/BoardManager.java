@@ -44,18 +44,38 @@ public class BoardManager implements BoardManagement{
         moves.clear();
     }
 
-    public Cell BoardManagerGetCell(int row, int column, GameBoard board) {
+    public static Cell boardManagerGetCell(int row, int column, GameBoard board) {
         return board.getBoard()[row][column];
     }
-    public String BoardManagerGetCellValue(int row, int column, GameBoard board) {
+    public static String boardManagerGetCellValue(int row, int column, GameBoard board) {
         return board.getBoard()[row][column].getValue();
     }
-    public Cell[][] BoardManagerGetBoard(GameBoard board) {
+    public static String boardManagerGetCellValue(Cell letter) {
+        return letter.getValue();
+    }
+    public static int boardManagerGetCellScore(int row, int column, GameBoard board) {
+        return board.getBoard()[row][column].getScore();
+    }
+    public static int boardManagerGetCellScore(Cell cell) {
+        return cell.getScore();
+    }
+    public static int boardManagerGetCellMultiplier(int row, int column, GameBoard board) {
+        return board.getBoard()[row][column].getMultiplier();
+    }
+    public static int boardManagerGetCellMultiplier(Cell cell) {
+        return cell.getMultiplier();
+    }
+
+    public static Cell[][] boardManagerGetBoard(GameBoard board) {
         return board.getBoard();
     }
-    public void BoardManagerSetCell(int row, int column, Cell letter, GameBoard board){
+    public static void boardManagerSetBoardCell(int row, int column, Cell letter, GameBoard board){
         int multiplier = board.getBoard()[row][column].getMultiplier();
         letter.setMultiplier(multiplier); // The letter cell takes on the multiplier value of the board space
         board.getBoard()[row][column] = letter; // Set the space on the board to the letter cell
+    }
+
+    public static void boardManagerSetCellScore(Cell letter, int score) {
+        letter.setScore(score);
     }
 }
