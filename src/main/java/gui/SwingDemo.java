@@ -2,7 +2,6 @@ package gui;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
-import java.awt.event.*;
 
 public class SwingDemo extends JTextComponent implements SwingConstants {
     JFrame f;
@@ -21,6 +20,7 @@ public class SwingDemo extends JTextComponent implements SwingConstants {
         f.setSize(400,400);
         f.setLayout(null);
         f.setVisible(true);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public static void main(String[] args){
