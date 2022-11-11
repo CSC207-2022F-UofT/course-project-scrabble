@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.util.Objects;
 
 public class StartupPage implements ActionListener {
@@ -52,7 +53,11 @@ public class StartupPage implements ActionListener {
         else if (e.getActionCommand().equals("Rules")){
             System.out.println("Rules button pressed");
             RulesPage rules = new RulesPage();
-            rules.createRulesPage();
+            try {
+                rules.createRulesPage();
+            } catch (FileNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 }
