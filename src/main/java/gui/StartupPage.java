@@ -1,5 +1,7 @@
 package gui;
 
+import org.junit.Rule;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -49,6 +51,8 @@ public class StartupPage implements ActionListener {
         }
         else if (e.getActionCommand().equals("Rules")){
             System.out.println("Rules button pressed");
+            RulesPage rules = new RulesPage();
+            rules.createRulesPage();
         }
     }
 }
