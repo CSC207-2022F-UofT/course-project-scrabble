@@ -6,7 +6,7 @@ import java.awt.*;
 public class StartupPage {
     DialogueBox dialogueBox;
     Label welcomeTitle, contributors;
-    Button gameButton;
+    Button gameButton, rulesButton;
     final int WIDTH = 1000;
     final int HEIGHT = 600;
     public static void main(String[] args) {
@@ -30,7 +30,10 @@ public class StartupPage {
         contributors.setCentreAlignment();
 
         gameButton = new Button();
-        gameButton.createButton(dialogueBox.f, "Start Game", WIDTH/3, HEIGHT/3, 200,100, null);
+        gameButton.createButton(dialogueBox.f, "Start Game", WIDTH/3, HEIGHT/3, 200,50, null);
+
+        rulesButton = new Button();
+        rulesButton.createButton(dialogueBox.f, "Rules", WIDTH/3, HEIGHT/2, 200,50, null);
     }
 }
 
