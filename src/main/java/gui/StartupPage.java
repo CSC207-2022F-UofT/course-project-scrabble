@@ -3,32 +3,37 @@ package gui;
 import javax.swing.*;
 import java.awt.*;
 
-public class StartGame {
-    JFrame f;
+public class StartupPage {
+    DialogueBox dialogueBox;
+    Label welcomeTitle, contributers;
     final int WIDTH = 1000;
     final int HEIGHT = 600;
-    public StartGame(){
-        f = new JFrame("Scrabble Game");
-        JLabel label = new JLabel("Welcome to Scrabble");
-        label.setBounds(WIDTH / 3,0,500,200);
-        label.setFont(new Font("serif", Font.PLAIN, 40));
-        JLabel contributors = new JLabel("Created by: Victor, Jazli, Umair, Claire, Francisco, Davit, and Clark", SwingConstants.CENTER);
-        contributors.setBounds(WIDTH/4, HEIGHT/4, 500,30);
-        contributors.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        StartGameButton sgb = new StartGameButton();
-        sgb.gameButton.setBounds(WIDTH/2, HEIGHT/2, 100,100);
-        f.add(sgb.gameButton);
-        f.add(sgb.tf);
-
-        f.add(contributors); f.add(label);
-        f.setSize(WIDTH,HEIGHT);
-        f.setLayout(null);
-        f.setVisible(true);
-        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    public static void main(String[] args) {
+        new StartupPage();
     }
 
-    public static void main(String[] args) {
-        new StartGame();
+    public void createStartupPage() {
+        dialogueBox = new DialogueBox();
+        dialogueBox.createDialogueBox("Scrabble Game", WIDTH, HEIGHT);
+        dialogueBox.f.setVisible(true);
+        dialogueBox.f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        dialogueBox.f.setResizable(false);
+        Color col = new Color(20,255,255);
+        dialogueBox.f.getContentPane().setBackground(col);
+
+        welcomeTitle = new Label();
+        welcomeTitle.createLabel(30,WIDTH / 3,0,500,200, dialogueBox.f, "Welcome to Scrabble", Color.BLACK);
+
+        contributers = new Label();
+        contributers.createLabel(12,WIDTH/3, HEIGHT/4, 500,30, dialogueBox.f, "Created by: Victor, Jazli, Umair, Claire, Francisco, Davit, and Clark", Color.BLACK);
+        contributers.setCentreAlignment();
+
+//        StartGameButton sgb = new StartGameButton();
+//        sgb.gameButton.setBounds(WIDTH/2, HEIGHT/2, 100,100);
+
+//        dialogueBox.f.add(sgb.gameButton);
+//        dialogueBox.f.add(sgb.tf);
     }
 }
+
+

@@ -36,7 +36,7 @@ public class DialogueBox {
      * @param width the width of the dialogue box
      * @param height the height of the dialogue box
      */
-    public void DialogueBox(String boxTitle, int width, int height) {
+    public void createDialogueBox(String boxTitle, int width, int height) {
         f = new JFrame("Scrabble Project");
         Color c = new Color(20, 255, 255);
         // Setting background color for JFrame
