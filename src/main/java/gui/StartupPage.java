@@ -2,8 +2,11 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Objects;
 
-public class StartupPage {
+public class StartupPage implements ActionListener {
     DialogueBox dialogueBox;
     Label welcomeTitle, contributors;
     Button gameButton, rulesButton;
@@ -31,9 +34,22 @@ public class StartupPage {
 
         gameButton = new Button();
         gameButton.createButton(dialogueBox.f, "Start Game", WIDTH/3, HEIGHT/3, 200,50, null);
+        gameButton.getButton().addActionListener(this);
 
         rulesButton = new Button();
         rulesButton.createButton(dialogueBox.f, "Rules", WIDTH/3, HEIGHT/2, 200,50, null);
+        rulesButton.getButton().addActionListener(this);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        System.out.println((e.getActionCommand()));
+        if (e.getActionCommand().equals("Start Game")){
+            System.out.println("Start game button pressed");
+        }
+        else if (e.getActionCommand().equals("Rules")){
+            System.out.println("Rules button pressed");
+        }
     }
 }
 
