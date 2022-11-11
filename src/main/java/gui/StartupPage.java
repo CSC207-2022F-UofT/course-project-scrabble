@@ -5,7 +5,8 @@ import java.awt.*;
 
 public class StartupPage {
     DialogueBox dialogueBox;
-    Label welcomeTitle, contributers;
+    Label welcomeTitle, contributors;
+    Button gameButton;
     final int WIDTH = 1000;
     final int HEIGHT = 600;
     public static void main(String[] args) {
@@ -24,15 +25,12 @@ public class StartupPage {
         welcomeTitle = new Label();
         welcomeTitle.createLabel(30,WIDTH / 3,0,500,200, dialogueBox.f, "Welcome to Scrabble", Color.BLACK);
 
-        contributers = new Label();
-        contributers.createLabel(12,WIDTH/3, HEIGHT/4, 500,30, dialogueBox.f, "Created by: Victor, Jazli, Umair, Claire, Francisco, Davit, and Clark", Color.BLACK);
-        contributers.setCentreAlignment();
+        contributors = new Label();
+        contributors.createLabel(12,WIDTH/3, HEIGHT/4, 500,30, dialogueBox.f, "Created by: Victor, Jazli, Umair, Claire, Francisco, Davit, and Clark", Color.BLACK);
+        contributors.setCentreAlignment();
 
-//        StartGameButton sgb = new StartGameButton();
-//        sgb.gameButton.setBounds(WIDTH/2, HEIGHT/2, 100,100);
-
-//        dialogueBox.f.add(sgb.gameButton);
-//        dialogueBox.f.add(sgb.tf);
+        gameButton = new Button();
+        gameButton.createButton(dialogueBox.f, "Start Game", WIDTH/3, HEIGHT/3, 200,100, null);
     }
 }
 
