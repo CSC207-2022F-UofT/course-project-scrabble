@@ -21,6 +21,7 @@ public class Label {
      */
     public void createLabel(int size, int boundX, int boundY, int boundWidth, int boundHeight, JFrame dialogueBox, String labelText, Color foregroundColor) {
         label = new JLabel(labelText);
+//        label.setText(convertToMultiline(labelText));
         label.setBounds(boundX, boundY, boundWidth, boundHeight);
         label.setFont(new Font("serif", Font.PLAIN, size));
         label.setForeground(foregroundColor);
@@ -28,6 +29,20 @@ public class Label {
             dialogueBox.add(label);
         }
     }
+    public void createMultiLineLabel(int size, int boundX, int boundY, int boundWidth, int boundHeight, JFrame dialogueBox, String labelText, Color foregroundColor) {
+        label = new JLabel();
+        label.setText(convertToMultiline(labelText));
+        label.setBounds(boundX, boundY, boundWidth, boundHeight);
+        label.setFont(new Font("serif", Font.PLAIN, size));
+        label.setForeground(foregroundColor);
+        if (dialogueBox != null) {
+            dialogueBox.add(label);
+        }
+    }
+    public static String convertToMultiline(String orig){
+        return("<html>" + orig.replaceAll("\n", "<br>"));
+    }
+
     public void setCentreAlignment(){
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
     }

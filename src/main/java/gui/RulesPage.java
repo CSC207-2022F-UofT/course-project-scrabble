@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class RulesPage {
     DialogueBox dialogueBox;
-    Label rulesTitle, rulesHeader;
+    Label rulesTitleLabel, rulesHeaderLabel, rulesTextLabel;
     final int WIDTH = 500;
     final int HEIGHT = 1000;
     public static void main(String[] args) {
@@ -27,19 +27,26 @@ public class RulesPage {
 
         dialogueBox.f.getContentPane().setBackground(col);
 
-        rulesTitle = new Label();
-        rulesTitle.createLabel(30,0, 40,500,200, dialogueBox.f, "Revised Rules of Scrabble", Color.BLACK);
+        rulesTitleLabel = new Label();
+        rulesTitleLabel.createLabel(30,50, 40,WIDTH-100,200, dialogueBox.f, "Revised Rules of Scrabble", Color.BLACK);
+        rulesTitleLabel.setCentreAlignment();
 
-        rulesHeader = new Label();
-        rulesHeader.createLabel(12,0, 100, 500,30, dialogueBox.f, "These rules were revised from the official Hasbro Rules of Scrabble", Color.BLACK);
-        rulesHeader.setCentreAlignment();
+        rulesHeaderLabel = new Label();
+        rulesHeaderLabel.createLabel(16,50, 100, WIDTH-100,30, dialogueBox.f, "These rules were revised from the official Hasbro Rules of Scrabble", Color.BLACK);
+        rulesHeaderLabel.setCentreAlignment();
 
         File rules = new File("src/main/java/gui/resources/revised_rules_of_scrabble.md");
         Scanner reader = new Scanner(rules);
+        String finalString = "";
+
         while(reader.hasNextLine()){
             String data = reader.nextLine();
             System.out.println(data);
+            finalString = finalString + data + "\n";
         }
+
+        rulesTextLabel = new Label();
+        rulesTextLabel.createMultiLineLabel(12,30, 200, WIDTH-100,500, dialogueBox.f, finalString, Color.BLACK);
     }
 }
 
