@@ -1,29 +1,34 @@
 package gui;
 
 import javax.swing.*;
+import java.awt.*;
 
-public class StartupPage {
+public class StartGame {
     JFrame f;
+    final int WIDTH = 1000;
+    final int HEIGHT = 600;
+    public StartGame(){
+        f = new JFrame("Scrabble Game");
+        JLabel label = new JLabel("Welcome to Scrabble");
+        label.setBounds(WIDTH / 3,0,500,200);
+        label.setFont(new Font("serif", Font.PLAIN, 40));
+        JLabel contributors = new JLabel("Created by: Victor, Jazli, Umair, Claire, Francisco, Davit, and Clark", SwingConstants.CENTER);
+        contributors.setBounds(WIDTH/4, HEIGHT/4, 500,30);
+        contributors.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-    public StartupPage() {
+        StartGameButton sgb = new StartGameButton();
+        sgb.gameButton.setBounds(WIDTH/2, HEIGHT/2, 100,100);
+        f.add(sgb.gameButton);
+        f.add(sgb.tf);
 
-        JFrame f = new JFrame("Scrabble");
-        JTextField t1, t2;
-        t1 = new JTextField("Player 1 Name");
-        t1.setBounds(50,50,150,20);
-
-        t2 = new JTextField("Player 2 Name");
-        t2.setBounds(50,150,150,20);
-        f.add(t1); f.add(t2);
-
-        f.setSize(400,400);
+        f.add(contributors); f.add(label);
+        f.setSize(WIDTH,HEIGHT);
         f.setLayout(null);
         f.setVisible(true);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
-    public static void main(String[] args){
-        new SwingDemo();
+    public static void main(String[] args) {
+        new StartGame();
     }
-
 }
