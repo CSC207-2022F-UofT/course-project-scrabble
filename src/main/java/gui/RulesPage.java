@@ -11,8 +11,8 @@ import java.util.Scanner;
 public class RulesPage {
     DialogueBox dialogueBox;
     Label rulesTitleLabel, rulesHeaderLabel, rulesTextLabel;
-    final int WIDTH = 1200;
-    final int HEIGHT = 800;
+    final int WIDTH = 1100;
+    final int HEIGHT = 750;
     public static void main(String[] args) {
         new StartupPage();
     }
@@ -29,7 +29,7 @@ public class RulesPage {
 
         // add title label for rules box
         rulesTitleLabel = new Label();
-        rulesTitleLabel.createLabel(30,50, 40,WIDTH-100,200, dialogueBox.f, "Revised Rules of Scrabble", Color.BLACK);
+        rulesTitleLabel.createLabel(30,50, 40,WIDTH-100,30, dialogueBox.f, "Revised Rules of Scrabble", Color.BLACK);
         rulesTitleLabel.setCentreAlignment();
 
         // add header label for rules box
@@ -38,7 +38,6 @@ public class RulesPage {
         rulesHeaderLabel.setCentreAlignment();
 
         // add rules to the rules page from the revised rules of scrabble
-        // TODO: go through and format this correctly or use another file that isn't in markdown
         File rules = new File("src/main/java/gui/resources/revised_rules_of_scrabble.txt");
         Scanner reader = new Scanner(rules);
         StringBuilder finalString = new StringBuilder();
@@ -51,7 +50,7 @@ public class RulesPage {
 
         // set rules text
         rulesTextLabel = new Label();
-        rulesTextLabel.createMultiLineLabel(12,30, 100, WIDTH-100,HEIGHT-100, dialogueBox.f, finalString.toString(), Color.BLACK);
+        rulesTextLabel.createMultiLineLabel(12,30, 60, WIDTH-50,HEIGHT-50, dialogueBox.f, finalString.toString(), Color.BLACK);
     }
 }
 
