@@ -61,7 +61,7 @@ public class GamePage implements ActionListener {
             // DisplayGraphics graphics = new DisplayGraphics();
             // dialogueBox.f.add(graphics);
             Panel panel = new Panel();
-            panel.createPanel(100, 200, WIDTH/2,200, dialogueBox.f);
+            panel.createPanel(100, 250, 300,300, dialogueBox.f);
 
             // after changes, the dialogue box has to be updated.
             dialogueBox.f.setVisible(true);
