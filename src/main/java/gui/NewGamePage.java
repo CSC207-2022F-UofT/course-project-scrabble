@@ -56,7 +56,12 @@ public class NewGamePage implements ActionListener {
     public void actionPerformed(ActionEvent e){
         String s = e.getActionCommand();
         if(s.equals("Start Game")){
-            System.out.println("start game button pressed");
+            System.out.println("new start game button pressed");
+            // get text field information
+            String s1 = t1.textField.getText();
+            String s2 = t2.textField.getText();
+            System.out.println(s1); //prints into console the name of player 1
+            System.out.println(s2); //prints into console the name of player 2
             // TODO: game is now created
             dialogueBox.f.dispose(); // close dialogue box permanently
         }
