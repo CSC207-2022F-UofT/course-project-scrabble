@@ -11,8 +11,8 @@ import java.util.Scanner;
 public class RulesPage {
     DialogueBox dialogueBox;
     Label rulesTitleLabel, rulesHeaderLabel, rulesTextLabel;
-    final int WIDTH = 500;
-    final int HEIGHT = 1000;
+    final int WIDTH = 1200;
+    final int HEIGHT = 800;
     public static void main(String[] args) {
         new StartupPage();
     }
@@ -39,19 +39,19 @@ public class RulesPage {
 
         // add rules to the rules page from the revised rules of scrabble
         // TODO: go through and format this correctly or use another file that isn't in markdown
-        File rules = new File("src/main/java/gui/resources/revised_rules_of_scrabble.md");
+        File rules = new File("src/main/java/gui/resources/revised_rules_of_scrabble.txt");
         Scanner reader = new Scanner(rules);
-        String finalString = "";
+        StringBuilder finalString = new StringBuilder();
 
         while(reader.hasNextLine()){
             String data = reader.nextLine();
             System.out.println(data);
-            finalString = finalString + data + "\n";
+            finalString.append(data).append("\n");
         }
 
         // set rules text
         rulesTextLabel = new Label();
-        rulesTextLabel.createMultiLineLabel(12,30, 200, WIDTH-100,500, dialogueBox.f, finalString, Color.BLACK);
+        rulesTextLabel.createMultiLineLabel(12,30, 100, WIDTH-100,HEIGHT-100, dialogueBox.f, finalString.toString(), Color.BLACK);
     }
 }
 
