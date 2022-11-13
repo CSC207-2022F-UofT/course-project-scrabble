@@ -38,7 +38,7 @@ public class DialogueBox {
      */
     public void createDialogueBox(String boxTitle, int width, int height, boolean exitCond) {
         f = new JFrame("Scrabble Project");
-        Color c = new Color(20, 255, 255);
+        Color c = new Color(240, 255, 255);
         // Setting background color for JFrame
         f.getContentPane().setBackground(c);
         f.setLayout(null);

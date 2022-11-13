@@ -54,6 +54,8 @@ public class StartupPage implements ActionListener {
         System.out.println((e.getActionCommand()));
         if (e.getActionCommand().equals("Start Game")){
             System.out.println("Start game button pressed");
+            NewGamePage newGamePage = new NewGamePage();
+            newGamePage.createGamePage();
         }
         else if (e.getActionCommand().equals("Rules")){
             System.out.println("Rules button pressed");
