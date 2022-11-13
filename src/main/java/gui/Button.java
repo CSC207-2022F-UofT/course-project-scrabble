@@ -34,4 +34,18 @@ public class Button {
         button.setBounds(boundX,boundY,boundWidth,boundHeight);
         dialogueBox.add(button);
     }
+
+    public void createButtonWithID(JFrame dialogueBox, String buttonText, int boundX,
+                             int boundY, int boundWidth, int boundHeight, ImageIcon icon, String id) {
+
+        if(icon == null){
+            button = new JButton(buttonText);
+        }else{
+            button = new JButton(buttonText, icon);
+        }
+        button.setBounds(boundX,boundY,boundWidth,boundHeight);
+//        button.putClientProperty("id", id);
+        button.setName(id);
+        dialogueBox.add(button);
+    }
 }

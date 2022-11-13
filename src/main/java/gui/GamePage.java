@@ -65,6 +65,7 @@ public class GamePage implements ActionListener {
             Panel panel = new Panel();
             panel.createPanel(100, 250, dialogueBox.f);
             panel.createDemoBoard(100,250, dialogueBox.f);
+            dialogueBox.f.revalidate();
 
             // after changes, the dialogue box has to be updated.
             dialogueBox.f.setVisible(true);
