@@ -21,11 +21,11 @@ public class Panel {
      * @param boundX      bounds of the x coords
      * @param boundY      bounds of the y coords
      */
-    public void createPanel(int boundX, int boundY, JFrame dialogueBox) {
+    public void createPanel(int boundX, int boundY, int width, int height, JFrame dialogueBox) {
         panel = new JPanel();
         System.out.println("creating new panel");
 //        label.setText(convertToMultiline(labelText));
-        panel.setBounds(boundX, boundY, BOARD_DIM, BOARD_DIM);
+        panel.setBounds(boundX, boundY, width, height);
         panel.setBackground(Color.lightGray);
         if (dialogueBox != null) {
             dialogueBox.add(panel);
