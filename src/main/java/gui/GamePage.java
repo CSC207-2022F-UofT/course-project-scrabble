@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class GamePage implements ActionListener {
     DialogueBox dialogueBox;
@@ -15,6 +19,10 @@ public class GamePage implements ActionListener {
     final int BOARD_ROWS = 15; // same as columns
     final int WIDTH = 1000; // width of the frame
     final int HEIGHT = 700; // height of the frame
+
+    public ArrayList<String> letters;
+    public ArrayList<int[]> coordinates;
+
     public void createGame() {
         dialogueBox = new DialogueBox();
         dialogueBox.createDialogueBox("Scrabble Game Page", WIDTH, HEIGHT, false);
@@ -85,6 +93,27 @@ public class GamePage implements ActionListener {
         }
     }
 
+    // helper method to update the game when a letter has been played by a player
+    public void playLetter(String value, int[] coord, JButton button){
+        // convert value to the path
+        String path = "src/main/java/gui/resources/letters/" + value + ".jpg"; // indicates which image to select from
+        System.out.println("path: " + path);
+        // create an ImageIcon to display as the button image
+        ImageIcon icon = new ImageIcon(path);
+        Image image = icon.getImage(); // scale image to fit the board size
+        // make sure that the image is the same size as the button
+        Image newImg = image.getScaledInstance(BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, Image.SCALE_SMOOTH);
+        // replace old imageIcon with the new one
+        icon = new ImageIcon(newImg);
+        button.setIcon(icon);
+
+//        letters.add(value);
+//        coordinates.add(coord);
+
+        dialogueBox.f.setVisible(true);
+        dialogueBox.f.setResizable(false);
+    }
+
     public void actionPerformed(ActionEvent e){
         String s = e.getActionCommand();
 
@@ -123,6 +152,13 @@ public class GamePage implements ActionListener {
             int yLoc = Integer.parseInt(yxLoc[0]); // determine the y location
             int xLoc = Integer.parseInt(yxLoc[1]); // determine the x location
             System.out.println("" + yLoc + " " + xLoc); // print out location
+
+            String s1 = letterPlayed.textField.getText(); // get the letter value
+
+            // create an array consisting of yLoc and xLoc
+            int[] coord = new int[]{yLoc, xLoc};
+            playLetter(s1, coord, source);
+//            System.out.println("letters: " + Arrays.toString(letters));
         }
     }
 }
