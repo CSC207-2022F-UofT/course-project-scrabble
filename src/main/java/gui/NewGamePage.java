@@ -1,5 +1,7 @@
 package gui;
 
+import games_manager.Game;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -63,6 +65,10 @@ public class NewGamePage implements ActionListener {
             System.out.println(s1); //prints into console the name of player 1
             System.out.println(s2); //prints into console the name of player 2
             // TODO: game is now created
+
+            GamePage game = new GamePage();
+            game.createGame();
+
             dialogueBox.f.dispose(); // close dialogue box permanently
         }
     }
