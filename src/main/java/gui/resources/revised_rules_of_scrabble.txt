@@ -1,0 +1,27 @@
+Set up:
+1. You should have a game board, 100 letter tiles, a letter bag.
+2. The dictionary will be decided beforehand by the game machine. We use the Collins Scrabble Dictionary
+3. The first player plays first. The first player is decided by youngest age.
+
+Game Play Rules:
+1. The first player combines two or more of his or her letters to form a word and places it on the board to read either across or down with one letter on the center square. Diagonal words are not allowed.
+2. Scores will be calculated by the machine
+3. Play rotates between players 1 and players 2
+4.New words may be formed by:(1) Adding one or more letters to a word or letters already on the board. (2) Placing a word at right angles to a word already on the board. The new word must use one of the letters already on the board or must add a letter to it. (3) Placing a complete word parallel to a word already played so that adjacent letters also form complete words. (See Turn 5 in the Scoring Examples section below.)
+5.No tile may be shifted or replaced after it has been played and scored.
+6.There are no blanks in the game. The blanks are replaced by extra k and extra z.
+7.You can only exchange your entire hand of words. This ends your turn
+8. No words can be challenge - the game is decided by the computer.
+9. The game ends when all letters have been drawn and one player uses his or her last letter; or when both players agree to end the game.
+
+Scoring System:
+1. Use a score pad or piece of paper to keep a tally of each player's score, entering it after each turn. The score value of each letter is indicated by a number at the bottom of the tile. The score value of a blank is zero.
+2. The score for each turn is the sum of the letter values in each word(s) formed or modified on that turn, plus the additional points obtained from placing letters on Premium Squares.
+3. Premium Letter Squares: A light blue square doubles the score of a letter placed on it; a dark blue square triples the letter score.
+4. No premium word squares
+5. Letter and word premiums count only on the turn in which they are played. On later turns, letters already played on premium squares count at face value.
+6. No blank tiles
+7. There are no word bonuses.
+8. BINGO! If you play seven tiles on a turn, it's a Bingo. You score a premium of 50 points after totaling your score for the turn.
+9. Unplayed Letters: When the game ends, each player's score is reduced by the sum of his or her unplayed letters. In addition, if a player has used all of his or her letters, the sum of the other players' unplayed letters is added to that player's score.
+10. The player with the highest final score wins the game. In case of a tie, the player with the highest score before adding or deducting unplayed letters wins.

@@ -26,7 +26,7 @@ public class Button {
     public void createButton(JFrame dialogueBox, String buttonText, int boundX,
                                      int boundY, int boundWidth, int boundHeight, ImageIcon icon) {
 
-        if(icon != null){
+        if(icon == null){
             button = new JButton(buttonText);
         }else{
             button = new JButton(buttonText, icon);
