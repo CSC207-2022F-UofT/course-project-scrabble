@@ -36,7 +36,7 @@ public class DialogueBox {
      * @param width the width of the dialogue box
      * @param height the height of the dialogue box
      */
-    public void createDialogueBox(String boxTitle, int width, int height) {
+    public void createDialogueBox(String boxTitle, int width, int height, boolean exitCond) {
         f = new JFrame("Scrabble Project");
         Color c = new Color(20, 255, 255);
         // Setting background color for JFrame
@@ -45,7 +45,12 @@ public class DialogueBox {
         f.setTitle(boxTitle);
         f.setSize(width, height);
         f.setVisible(true);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // allows us to set whether we want to close an application or not
+        if (exitCond) {
+            f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        } else {
+            f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        }
     }
     public static void main(String[] args){
 //        new SwingDemo();

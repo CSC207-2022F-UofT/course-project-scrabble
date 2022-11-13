@@ -19,9 +19,10 @@ public class RulesPage {
 
     public void createRulesPage() throws FileNotFoundException {
         dialogueBox = new DialogueBox();
-        dialogueBox.createDialogueBox("Scrabble Games Rules", WIDTH, HEIGHT);
+        dialogueBox.createDialogueBox("Scrabble Games Rules", WIDTH, HEIGHT, false);
         dialogueBox.f.setVisible(true);
-        dialogueBox.f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // we may want to ignore the exit when we close only the rules page
+        // dialogueBox.f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         dialogueBox.f.setResizable(false);
         Color col = new Color(255,240,240);
 
