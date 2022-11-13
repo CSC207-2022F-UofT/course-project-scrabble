@@ -90,7 +90,6 @@ public class TileChecker implements PlacementChecker {
     public ArrayList<String> wordList(ArrayList<List<Integer>> newword, GameBoard board){
         //a word parser function that returns a list of words that need to be checked
         ArrayList<String> words = new ArrayList<String>();
-
         // check for vertical words
         for (List<Integer> tile : newword) {
             StringBuilder wordstring = new StringBuilder();
