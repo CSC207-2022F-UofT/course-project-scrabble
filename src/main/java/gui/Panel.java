@@ -60,17 +60,14 @@ public class Panel implements ActionListener {
 //        letter.createButton(dialogueBox, "",boundX,boundY,BOARD_DIM/BOARD_ROWS, BOARD_DIM/BOARD_ROWS, icon);
     }
     public void actionPerformed(ActionEvent e){
-        System.out.println(e.getActionCommand()); // useless
         System.out.println(e.getSource()); // interestingly, this gives us the location. y followed by x coordinate
-        System.out.println(e.getID()); // useless
+        JButton source = (JButton) e.getSource(); // cast button to a button
 
-//        if(s.equals("")){
-//            System.out.println("tile pressed");
-//            System.out.println();
-            // get text field information
-//            String s1 = t1.textField.getText();
-//            String s2 = t2.textField.getText();
-//            System.out.println(s1); //prints into console the name of player 1
-//            System.out.println(s2); //prints into console the name of player 2
+        String location = source.getName();
+        System.out.println(location); // print out location of button
+        String[] yxLoc = location.split(" ");
+        int yLoc = Integer.parseInt(yxLoc[0]); // determine the y location
+        int xLoc = Integer.parseInt(yxLoc[1]); // determine the x location
+        System.out.println("" + yLoc + " " + xLoc); // print out location
         }
 }
