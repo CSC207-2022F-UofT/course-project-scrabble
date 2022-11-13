@@ -9,10 +9,10 @@ import java.util.List;
 public class TileChecker implements PlacementChecker {
     
     public boolean validateMove(ArrayList<List<Integer>> move, GameBoard board) { //call to other functions that will validate move
-        if (!isConsecutive) { //if tiles aren't consecutive, return false
+        if (!isConsecutive(move, board)) { //if tiles aren't consecutive, return false
             return false;
         }
-        if (!isTouching) { //if tiles aren't touching already played tiles, return false
+        if (!isTouching(move, board)) { //if tiles aren't touching already played tiles, return false
             return false;
         }
     // TODO: insert call to wordchecker function after it is written
