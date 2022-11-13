@@ -1,5 +1,6 @@
 package gui;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,10 +11,10 @@ public class GamePage implements ActionListener {
     TextField letterPlayed, coordinate;
 
     Button createGameButton, endGameButton;
-
-    final int WIDTH = 600;
-    final int HEIGHT = 700;
-
+    final int BOARD_DIM = 450; // dimension of the board (can be changed)
+    final int BOARD_ROWS = 15; // same as columns
+    final int WIDTH = 1000; // width of the frame
+    final int HEIGHT = 700; // height of the frame
     public void createGame() {
         dialogueBox = new DialogueBox();
         dialogueBox.createDialogueBox("Scrabble Game Page", WIDTH, HEIGHT, false);
@@ -25,21 +26,21 @@ public class GamePage implements ActionListener {
 
         // add title label for rules box
         gamePageTitle = new Label();
-        gamePageTitle.createLabel(30,50, 40,WIDTH-100,40, dialogueBox.f, "Play Scrabble", Color.BLACK);
+        gamePageTitle.createLabel(30,10, 40,WIDTH-100,40, dialogueBox.f, "Play Scrabble", Color.BLACK);
         gamePageTitle.setCentreAlignment();
 
         // add title label for rules box
         gamePageLabel = new Label();
-        gamePageLabel.createLabel(16,50, 100,WIDTH/4,20, dialogueBox.f, "Drag and drop moves onto the board: ", Color.BLACK);
+        gamePageLabel.createLabel(16,10, 100,WIDTH/4,20, dialogueBox.f, "Indicate where you want to play a tile: ", Color.BLACK);
         gamePageLabel.setCentreAlignment();
 
         letterPlayed = new TextField();
-        letterPlayed.createTextField(200, 100, WIDTH/4,20, dialogueBox.f, "Letter played");
+        letterPlayed.createTextField(10, 120, WIDTH/4,20, dialogueBox.f, "letter");
         coordinate = new TextField();
-        coordinate.createTextField(200, 140, WIDTH/4,20, dialogueBox.f, "Coordinate");
+        coordinate.createTextField(10, 140, WIDTH/4,20, dialogueBox.f, "coordinate in x, y");
 
         createGameButton = new Button();
-        createGameButton.createButton(dialogueBox.f, "Play Move", 200, 180, WIDTH/4,30, null);
+        createGameButton.createButton(dialogueBox.f, "Play Move", 10, 180, 100,30, null);
         createGameButton.getButton().addActionListener(this);
 
         endGameButton = new Button();
@@ -47,35 +48,81 @@ public class GamePage implements ActionListener {
         endGameButton.getButton().addActionListener(this);
     }
 
+    /**
+     * Creates an initial board on the frame
+     * @param boundX bounds of the x coords
+     * @param boundY bounds of the y coords
+     */
+    public void createInitialBoard(int boundX, int boundY) {
+        Button letter = new Button();
+
+        // determine whether the path is set correctly
+        String path = "src/main/java/gui/resources/letters/wood.jpg";
+        java.net.URL imgURL = getClass().getResource(path);
+        if (imgURL != null) {
+            System.out.println("successful path");
+        } else {
+            System.out.println("unsuccessful path");
+        }
+
+        // create an ImageIcon to display as the button image
+        ImageIcon icon = new ImageIcon(path);
+        Image image = icon.getImage(); // scale image to fit the board size
+        // make sure that the image is the same size as the button
+        Image newImg = image.getScaledInstance(BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, Image.SCALE_SMOOTH);
+        // replace old imageIcon with the new one
+        icon = new ImageIcon(newImg);
+
+        // make entire board full of buttons 15x15 buttons
+        for (int i = 0; i < BOARD_ROWS; i++) { // start with the buttons on the y axis
+            int yBound = boundY + BOARD_DIM / BOARD_ROWS * i;
+            for (int j = 0; j < BOARD_ROWS; j++) {
+                int xBound = boundX + BOARD_DIM / BOARD_ROWS * j; // buttons on the x axis
+                // System.out.println("" + xBound + " " + yBound); // debugging code to allow for printing values
+                letter.createButtonWithID(dialogueBox.f, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "" + i + " " + j);
+                letter.getButton().addActionListener(this); // add listener to the button to see when it gets pressed
+            }
+        }
+    }
+
     public void actionPerformed(ActionEvent e){
         String s = e.getActionCommand();
+
+        // check if button has been pressed
+        Object actionSource = e.getSource();
+
+        // check if we need to start a new game
         if(s.equals("Play Move")){
             System.out.println("new start game button pressed");
             // get text field information
             String s1 = letterPlayed.textField.getText();
             String s2 = coordinate.textField.getText();
-            System.out.println(s1); //prints into console the name of player 1
-            System.out.println(s2); //prints into console the name of player 2
-            // TODO: game board updates
-            // using graphics hasn't worked yet
-//            DisplayGraphics graphics = new DisplayGraphics();
-//            dialogueBox.f.add(graphics);
-//            dialogueBox.f.setVisible(true);
+            System.out.println(s1); //prints into console the letter played
+            System.out.println(s2); //prints into console the text played
 
-            Panel panel = new Panel();
-            panel.createPanel(100, 250, dialogueBox.f);
-            panel.createInitialBoard(100,250, dialogueBox.f);
-            dialogueBox.f.revalidate();
+            createInitialBoard(300,100); // create the starting board
 
-            // after changes, the dialogue box has to be updated.
+            // refresh the page to allow the board to be visible
             dialogueBox.f.setVisible(true);
             dialogueBox.f.setResizable(false);
+
         }
-        if(s.equals("End Game")){
+        else if(s.equals("End Game")){
             // end game
             // TODO: add action after ending game
             System.out.println("end game button pressed");
             dialogueBox.f.dispose(); // close dialogue box permanently
+        }
+        // if it is neither starting or ending, check to see if it's a move played
+        else if(actionSource instanceof JButton) {
+            JButton source = (JButton) e.getSource(); // cast button to a button
+
+            String location = source.getName();
+            // System.out.println(location); // print out location of button
+            String[] yxLoc = location.split(" ");
+            int yLoc = Integer.parseInt(yxLoc[0]); // determine the y location
+            int xLoc = Integer.parseInt(yxLoc[1]); // determine the x location
+            System.out.println("" + yLoc + " " + xLoc); // print out location
         }
     }
 }
