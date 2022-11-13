@@ -57,8 +57,15 @@ public class GamePage implements ActionListener {
             System.out.println(s1); //prints into console the name of player 1
             System.out.println(s2); //prints into console the name of player 2
             // TODO: game board updates
-            DisplayGraphics graphics = new DisplayGraphics();
-            dialogueBox.f.add(graphics);
+            // using graphics hasn't worked yet
+            // DisplayGraphics graphics = new DisplayGraphics();
+            // dialogueBox.f.add(graphics);
+            Panel panel = new Panel();
+            panel.createPanel(100, 200, WIDTH/2,200, dialogueBox.f);
+
+            // after changes, the dialogue box has to be updated.
+            dialogueBox.f.setVisible(true);
+            dialogueBox.f.setResizable(false);
         }
         if(s.equals("End Game")){
             // end game
