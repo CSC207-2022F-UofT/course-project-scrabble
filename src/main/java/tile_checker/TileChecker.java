@@ -1,7 +1,6 @@
 package tile_checker;
 
 import entities.GameBoard;
-import games_manager.Game;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -70,78 +69,28 @@ public class TileChecker implements PlacementChecker {
         }
     }
 
-    private boolean adjacentTileLeft(int row, int column, GameBoard board){
-        // checks for a horizontally adjacent tile
-        return !Objects.equals(board.getBoardCellValue(row + 1, column), "-");
-    }
-    private boolean adjacentTileRight(int row, int column, GameBoard board){
-        // checks for a horizontally adjacent tile
-        return !Objects.equals(board.getBoardCellValue(row + 1, column), "-");
-    }
-    private boolean adjacentTileTop(int row, int column, GameBoard board){
-        // checks for a vertically adjacent tile
-        return !Objects.equals(board.getBoardCellValue(row, column + 1), "-");
-    }
-    private boolean adjacentTileBottom(int row, int column, GameBoard board){
-        // checks for a vertically adjacent tile
-        return !Objects.equals(board.getBoardCellValue(row, column + 1), "-");
-    }
-    
-    public ArrayList<String> wordList(ArrayList<List<Integer>> newword, GameBoard board){
-        //a word parser function that returns a list of words that need to be checked
-        ArrayList<String> words = new ArrayList<String>();
-
-        // check for vertical words
-        for (List<Integer> tile : newword) {
-            StringBuilder wordstring = new StringBuilder();
-            int row = tile.get(0);
-            int column = tile.get(1);
-            while (adjacentTileTop(row, column, board) & (column == tile.get(1))) {
-                if (!Objects.equals(board.getBoardCellValue(row + 1, column), "-")) { // checks for a top vertically adjacent tile
-                    wordstring.insert(0, board.getBoardCellValue(row + 1, column));
-                    row += 1;
-                }
-            }
-            int row1 = tile.get(0);
-            int column1 = tile.get(1);
-            while (adjacentTileBottom(row1, column, board) & (column1 == tile.get(1))) {
-                if (!Objects.equals(board.getBoardCellValue(row1 + 1, column1), "-")) { // checks for a vertically adjacent tile
-                    wordstring.append(board.getBoardCellValue(row1 - 1, column1));
-                    row -= 1;
-                }
-            }
-            if (!words.contains(wordstring.toString()) & !wordstring.isEmpty()) {
-                words.add(wordstring.toString());
-            }
-        }
-        // checks for horizontal words
-        for (List<Integer> tile : newword) {
-            StringBuilder wordstring = new StringBuilder();
-            int row = tile.get(0);
-            int column = tile.get(1);
-            while (adjacentTileLeft(row, column, board) & (row == tile.get(0))) {
-                if (!Objects.equals(board.getBoardCellValue(row, column + 1), "-")) { // checks horizontal adjacent tile
-                    wordstring.append(board.getBoardCellValue(row, column + 1));
-                    column += 1;
-                }
-            }
-            int row1 = tile.get(0);
-            int column1 = tile.get(1);
-            while (adjacentTileRight(row1, column, board) & (row1 == tile.get(1))) {
-                if (!Objects.equals(board.getBoardCellValue(row1, column1 - 1), "-")) { // checks horizontal adjacent tile
-                    wordstring.insert(0, board.getBoardCellValue(row1, column1 - 1));
-                    column -= 1;
-                }
-            }
-            if (!words.contains(wordstring.toString()) & !wordstring.isEmpty()) {
-                words.add(wordstring.toString());
-            }
-        }
-        return words;
-    }
-
+//    public ArrayList<String> wordList(){
+//        //a word parser function that returns a list of words that need to be checked
+//        ArrayList<String> words = new ArrayList<String>();
+//
+//        for (// list of tiles that the players has played){
+//            wordstring = ""
+//            row = // tile.row
+//            column = // tile.colum
+//            while (adjacentTile(int row, int column, GameBoard board)){
+//                if (board.getBoardCellValue(row + 1, column) != "-") { // checks for a horizontally adjacent tile
+//                    wordstring += board.getBoardCellValue(row + 1, column);
+//                } else if (board.getBoardCellValue(row - 1, column) != "-") { // checks horizontally adjacent tile
+//                    wordstring = board.getBoardCellValue(row - 1, column) + wordstring;
+//                } else if (board.getBoardCellValue(row, column + 1) != "-") { // checks vertically adjacent tile
+//                    wordstring += board.getBoardCellValue(row, column + 1);
+//                } else if (board.getBoardCellValue(row, column - 1) != "-") { // checks vertically adjacent tile
+//                    wordstring = board.getBoardCellValue(row, column - 1) + wordstring;
+//                } ;
+//            }
+//
+//                }
+//
+//
+//    //TODO: Write the final TileChecker function that calls all of these functions to return true or false.
 }
-
-
-    //TODO: Write the final TileChecker function that calls all of these functions to return true or false.
-
