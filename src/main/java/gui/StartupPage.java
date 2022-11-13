@@ -37,7 +37,7 @@ public class StartupPage implements ActionListener {
 
         int buttonOffset = 75;
         gameButton = new Button();
-        gameButton.createButton(dialogueBox.f, "Start Game", WIDTH/3 + buttonOffset, HEIGHT/3, 200,50, null);
+        gameButton.createButton(dialogueBox.f, "Start Old Game", WIDTH/3 + buttonOffset, HEIGHT/3, 200,50, null);
         gameButton.getButton().addActionListener(this);
 
         rulesButton = new Button();
@@ -52,8 +52,8 @@ public class StartupPage implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println((e.getActionCommand()));
-        if (e.getActionCommand().equals("Start Game")){
-            System.out.println("Start game button pressed");
+        if (e.getActionCommand().equals("Create Game")){
+            System.out.println("Create game button pressed");
             NewGamePage newGamePage = new NewGamePage();
             newGamePage.createGamePage();
         }
@@ -65,6 +65,9 @@ public class StartupPage implements ActionListener {
             } catch (FileNotFoundException ex) {
                 throw new RuntimeException(ex);
             }
+        }
+        else if (e.getActionCommand().equals("Start Old Game")){
+            System.out.println("Start old game button pressed");
         }
     }
 }
