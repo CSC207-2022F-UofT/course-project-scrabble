@@ -31,4 +31,8 @@ public class ScoringSystem implements ScoreCalculator{
         }
 
     }
+
+    public static void intializeCellScore(Cell letter, Player player){ //TODO
+
+    }
 }

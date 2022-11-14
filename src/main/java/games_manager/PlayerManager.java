@@ -27,7 +27,7 @@ public class PlayerManager {
             i++;
         }
         player.getHand()[i] = letter; // assign the null space the value of the new hand
-        ScoringSystem.initializeHandScore(player.getHand(), player);
+        // TODO intialize score
     }
 
     public static void swapHand(Player player, LetterBag bag){
