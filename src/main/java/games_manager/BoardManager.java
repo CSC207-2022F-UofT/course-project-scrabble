@@ -22,26 +22,15 @@ public class BoardManager implements BoardManagement{
         TileChecker validate_move = new TileChecker();
         if (first_move) {
             previous_board = savePreviousBoardState(board);
-            if (validate_move.isValid(coordinates[0], coordinates[1], board)){
-                MoveInfo move = new MoveInfo(coordinates, letter);
-                moves.add(move);
-                updateBoardState(board);
-                return true;
-            }
-            else {
-                return false;
-            }
+        }
+        if (validate_move.isValid(coordinates[0], coordinates[1], board)){
+            MoveInfo move = new MoveInfo(coordinates, letter);
+            moves.add(move);
+            updateBoardState(board);
+            return true;
         }
         else {
-            if (validate_move.isValid(coordinates[0], coordinates[1], board)){
-                MoveInfo move = new MoveInfo(coordinates, letter);
-                moves.add(move);
-                updateBoardState(board);
-                return true;
-            }
-            else {
-                return false;
-            }
+            return false;
         }
     }
     // function checks if word is valid english word
@@ -72,15 +61,11 @@ public class BoardManager implements BoardManagement{
         }
         moves.clear();
     }
-
-
+    @Override
     public GameBoard savePreviousBoardState(GameBoard board){
         Cell[][] all_cells = board.getBoard();
         return new GameBoard(all_cells);
     }
-
-
-
 
     public static Cell boardManagerGetCell(int row, int column, GameBoard board) {
         return board.getBoard()[row][column];
