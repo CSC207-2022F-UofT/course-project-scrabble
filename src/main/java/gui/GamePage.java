@@ -12,7 +12,7 @@ import java.util.List;
 public class GamePage implements ActionListener {
     DialogueBox dialogueBox;
     Label gamePageLabel, gamePageTitle;
-    TextField letterPlayed, coordinate;
+    TextField letterPlayed;
 
     Button createGameButton, endGameButton;
     final int BOARD_DIM = 450; // dimension of the board (can be changed)
@@ -20,8 +20,8 @@ public class GamePage implements ActionListener {
     final int WIDTH = 1000; // width of the frame
     final int HEIGHT = 700; // height of the frame
 
-    public ArrayList<String> letters;
-    public ArrayList<int[]> coordinates;
+    public ArrayList<String> letters = new ArrayList<String>();
+    public ArrayList<int[]> coordinates = new ArrayList<int[]>();
 
     public void createGame() {
         dialogueBox = new DialogueBox();
@@ -39,21 +39,26 @@ public class GamePage implements ActionListener {
 
         // add title label for rules box
         gamePageLabel = new Label();
-        gamePageLabel.createLabel(16,10, 100,WIDTH/4,20, dialogueBox.f, "Indicate where you want to play a tile: ", Color.BLACK);
+        gamePageLabel.createLabel(16,10, 100,WIDTH/4,20, dialogueBox.f, "Indicate which letter you want to play and its location: ", Color.BLACK);
         gamePageLabel.setCentreAlignment();
 
         letterPlayed = new TextField();
-        letterPlayed.createTextField(10, 120, WIDTH/4,20, dialogueBox.f, "letter");
-        coordinate = new TextField();
-        coordinate.createTextField(10, 140, WIDTH/4,20, dialogueBox.f, "coordinate in x, y");
+        letterPlayed.createTextField(10, 120, WIDTH/4,20, dialogueBox.f, "A");
 
         createGameButton = new Button();
-        createGameButton.createButton(dialogueBox.f, "Play Move", 10, 180, 100,30, null);
+        createGameButton.createButton(dialogueBox.f, "Play Move", WIDTH-300, HEIGHT-100, 100,30, null);
         createGameButton.getButton().addActionListener(this);
 
         endGameButton = new Button();
         endGameButton.createButton(dialogueBox.f, "End Game", WIDTH-150, HEIGHT-100, 100,30, null);
         endGameButton.getButton().addActionListener(this);
+
+        createInitialBoard(300,100); // create the starting board
+
+        // refresh the page to allow the board to be visible
+        dialogueBox.f.setVisible(true);
+        dialogueBox.f.setResizable(false);
+
     }
 
     /**
@@ -93,6 +98,11 @@ public class GamePage implements ActionListener {
         }
     }
 
+    /**
+     * Plays the specified move and updates the button
+     * @param value the letter that we want played
+     * @param coord the [y, x] coords of the letter
+     */
     // helper method to update the game when a letter has been played by a player
     public void playLetter(String value, int[] coord, JButton button){
         // convert value to the path
@@ -107,11 +117,20 @@ public class GamePage implements ActionListener {
         icon = new ImageIcon(newImg);
         button.setIcon(icon);
 
-//        letters.add(value);
-//        coordinates.add(coord);
+        letters.add(value);
+        coordinates.add(coord);
 
         dialogueBox.f.setVisible(true);
         dialogueBox.f.setResizable(false);
+    }
+
+    /**
+     * Prints the letter and its coordinates
+     */
+    public void printLettersAndCoordinates(){
+        for (int i = 0; i < letters.size(); i++){
+            System.out.println("Letter "  + letters.get(i) + " played at coordinate: " + Arrays.toString(coordinates.get(i)));
+        }
     }
 
     public void actionPerformed(ActionEvent e){
@@ -122,19 +141,8 @@ public class GamePage implements ActionListener {
 
         // check if we need to start a new game
         if(s.equals("Play Move")){
-            System.out.println("new start game button pressed");
-            // get text field information
-            String s1 = letterPlayed.textField.getText();
-            String s2 = coordinate.textField.getText();
-            System.out.println(s1); //prints into console the letter played
-            System.out.println(s2); //prints into console the text played
-
-            createInitialBoard(300,100); // create the starting board
-
-            // refresh the page to allow the board to be visible
-            dialogueBox.f.setVisible(true);
-            dialogueBox.f.setResizable(false);
-
+            System.out.println("play move button pressed");
+            // TODO: what to do after play move is submitted
         }
         else if(s.equals("End Game")){
             // end game
@@ -158,7 +166,8 @@ public class GamePage implements ActionListener {
             // create an array consisting of yLoc and xLoc
             int[] coord = new int[]{yLoc, xLoc};
             playLetter(s1, coord, source);
-//            System.out.println("letters: " + Arrays.toString(letters));
+
+            printLettersAndCoordinates(); // print out the moves that were played
         }
     }
 }
