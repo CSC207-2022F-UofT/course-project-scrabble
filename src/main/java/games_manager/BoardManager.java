@@ -2,46 +2,78 @@ package games_manager;
 
 import entities.Cell;
 import entities.GameBoard;
+import tile_checker.TileChecker;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BoardManager implements BoardManagement{
-    // list of coordinates and letters
-    private ArrayList<MoveInfo> moves;
-
+    private ArrayList<MoveInfo> moves; // list of coordinates and letters
+    private GameBoard previous_board; // saved previous board state
     public BoardManager(){
         moves = new ArrayList<>();
+        previous_board = new GameBoard();
     }
-    // function checks if individual letter placement is valid
-    // returns boolean value
     @Override
-    public boolean checkLetter(int[] coordinates, String letter, GameBoard board){
-        // access tile check method to check if the move is valid
-        // if the move is valid
-        MoveInfo move = new MoveInfo(coordinates, letter);
-        // update board state
-        moves.add(move);
-        return true;
-        // else
-        // return false
+    public boolean checkLetter(int[] coordinates, String letter, GameBoard board, boolean first_move){
+        /*
+        This function return true if each individual letter placement by the player is valid and
+        updates the board state. Otherwise, this function returns false and does not update board state.
+         */
+        TileChecker validate_move = new TileChecker();
+        if (first_move) {
+            previous_board = savePreviousBoardState(board); // save the previous board state if first move
+        }
+        if (validate_move.isValid(coordinates[0], coordinates[1], board)){
+            MoveInfo move = new MoveInfo(coordinates, letter);
+            moves.add(move); // adds player's move to list of moves
+            updateBoardState(board); //updates board with new moves
+            return true;
+        }
+        else {
+            return false;
+        }
     }
-    // function checks if word is valid english word
-    // returns boolean value
     @Override
     public boolean checkWord(ArrayList<MoveInfo> moves, GameBoard board){
-        // call word and tile check functions to verify the new word
-        // if true update board state and
-        return true;
-        // else
-        // return false
+        /*
+        This function return true if the player's word is a valid english word. Otherwise, this function
+        returns false and returns board state to the previous state.
+         */
+        ArrayList<List<Integer>> move_list = new ArrayList<List<Integer>>();
+        for (MoveInfo move : moves) { // iterating through moves and placing the coordinates in arraylists.
+            ArrayList<Integer> coordinates = new ArrayList<>();
+            coordinates.add(move.getY());
+            coordinates.add(move.getX());
+            move_list.add(new ArrayList<Integer>(coordinates));
+        }
+        TileChecker validate_word = new TileChecker();
+        if (validate_word.validateMove(move_list, board)){
+            moves.clear(); // clear moves for new turn
+            return true; // return true if word is valid english word.
+        }
+        else {
+            board.setBoard(previous_board.getBoard()); // change board back to previous state.
+            moves.clear(); // clear moves to try again
+            return false;
+        }
     }
-    // update the board with the new moves from moves arraylist
     @Override
     public void updateBoardState(GameBoard board){
+        /*
+        This function updates the board with the new moves from moves arraylist
+         */
         for (MoveInfo move : moves) {
             board.getBoard()[move.getY()][move.getX()].setValue(move.getLetter());
         }
-        moves.clear();
+    }
+    private GameBoard savePreviousBoardState(GameBoard board){
+        /*
+        This function saves the previous board state before a new move is played.
+        Returns new GameBoard with the cells from board parameter.
+         */
+        Cell[][] all_cells = board.getBoard();
+        return new GameBoard(all_cells);
     }
 
     public static Cell boardManagerGetCell(int row, int column, GameBoard board) {
