@@ -14,8 +14,14 @@ public class GamePage implements ActionListener {
     Label gamePageLabel, gamePageTitle;
     TextField letterPlayed;
     final static String[] STARTING_LETTERS = new String[]{"A", "C", "H", "I", "E", "V", "E"};
+    private String[] currentLetters;
+    int boundX, boundY;
 
-    Button createGameButton, endGameButton;
+    Button[] holderButtons = new Button[7];
+    Button[] oldHolderButtons = new Button[7]; // save the older copy of the holder buttons
+    private String clickedValue;
+
+    Button createGameButton, endGameButton, swapHands, recallTiles, holderButton;
     final int BOARD_DIM = 450; // dimension of the board (can be changed)
     final int BOARD_ROWS = 15; // same as columns
     final int WIDTH = 1000; // width of the frame
@@ -50,11 +56,19 @@ public class GamePage implements ActionListener {
         createGameButton.createButton(dialogueBox.f, "Play Move", WIDTH - 300, HEIGHT - 100, 100, 30, null);
         createGameButton.getButton().addActionListener(this);
 
+        recallTiles = new Button();
+        recallTiles.createButton(dialogueBox.f, "Recall Tiles", WIDTH - 450, HEIGHT - 100, 100, 30, null);
+        recallTiles.getButton().addActionListener(this);
+
         endGameButton = new Button();
         endGameButton.createButton(dialogueBox.f, "End Game", WIDTH - 150, HEIGHT - 100, 100, 30, null);
         endGameButton.getButton().addActionListener(this);
 
-        createInitialBoard(300, 50); // create the starting board
+        currentLetters = STARTING_LETTERS; // assign the current letters to the starting letters at the start
+
+        boundX = 300; // set the x and y bounds at the start for the scrabble board
+        boundY = 50;
+        createInitialBoard(); // create the starting board
 
         // refresh the page to allow the board to be visible
         dialogueBox.f.setVisible(true);
@@ -72,9 +86,9 @@ public class GamePage implements ActionListener {
         String path = "src/main/java/gui/resources/letters/" + filename;
         java.net.URL imgURL = getClass().getResource(path);
         if (imgURL != null) {
-            System.out.println("successful path");
+            System.out.println("successful path: " + path);
         } else {
-            System.out.println("unsuccessful path");
+            System.out.println("unsuccessful path: " + path);
         }
 
         // create an ImageIcon to display as the button image
@@ -90,10 +104,8 @@ public class GamePage implements ActionListener {
     /**
      * Creates an initial board on the frame
      *
-     * @param boundX bounds of the x coords
-     * @param boundY bounds of the y coords
      */
-    public void createInitialBoard(int boundX, int boundY) {
+    public void createInitialBoard() {
         Button letter = new Button();
 
         ImageIcon icon = createImageIcon("wood.jpg");
@@ -109,15 +121,47 @@ public class GamePage implements ActionListener {
             }
         }
 
+        Button holderButton = new Button();
+        // create holders for buttons
         int yBound = boundY + BOARD_DIM + 50;
         // create a holder for the tiles to start
         for(int i = 0; i < 7; i++){
             int xBound = boundX + BOARD_DIM/4 + BOARD_DIM/BOARD_ROWS * i;
-            icon = createImageIcon(STARTING_LETTERS[i] + ".jpg");
-            letter.createButtonWithID(dialogueBox.f, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "holder" + i);
-            letter.getButton().addActionListener(this);
+            icon = createImageIcon(currentLetters[i] + ".jpg");
+            holderButton.createButtonWithID(dialogueBox.f, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "holder " + i + " " + currentLetters[i]);
+            holderButtons[i] = holderButton;
+            holderButton.getButton().addActionListener(this);
         }
     }
+
+    /**
+     * Resets the tiles to the original state
+     *
+     */
+    public void resetHolder(){
+        int count = 0;
+        for(Button b: holderButtons){
+            ImageIcon icon = createImageIcon(currentLetters[count] + ".jpg");
+            b.button.setIcon(icon);
+            count += 1;
+        }
+        dialogueBox.f.setVisible(true);
+        dialogueBox.f.setResizable(false);
+//        Button letter = new Button();
+//
+//        int yBound = boundY + BOARD_DIM + 50;
+//        // create a holder for the tiles to start
+//        for(int i = 0; i < 7; i++){
+//            int xBound = boundX + BOARD_DIM/4 + BOARD_DIM/BOARD_ROWS * i;
+//            ImageIcon icon = createImageIcon(currentLetters[i] + ".jpg");
+//            letter.createButtonWithID(dialogueBox.f, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "holder " + i + " " + currentLetters[i]);
+//            letter.getButton().addActionListener(this);
+//        }
+//        // refresh the page to allow the board to be visible
+//        dialogueBox.f.setVisible(true);
+//        dialogueBox.f.setResizable(false);
+    }
+
 
     /**
      * Plays the specified move and updates the button
@@ -171,29 +215,44 @@ public class GamePage implements ActionListener {
             System.out.println("end game button pressed");
             dialogueBox.f.dispose(); // close dialogue box permanently
         }
+        else if (s.equals("Recall Tiles")){
+            System.out.println("recall tiles button pressed");
+            resetHolder();
+        }
         // if it is neither starting or ending, check to see if it's a move played
         else if (actionSource instanceof JButton) {
             JButton source = (JButton) e.getSource(); // cast button to a button
 
             String buttonClick = source.getName();
 
-            if(buttonClick.startsWith("holder")){
+            // if the button was not clicked and it starts with holder
+            if(buttonClick.startsWith("holder") && clickedValue == null){
                 System.out.println("holder pressed");
+                String[] holderLetter = buttonClick.split(" ");
+                clickedValue = holderLetter[2];
+                source.setIcon(createImageIcon("wood.jpg"));
+                source.setName("empty"); // we set the button name to empty to prevent additional presses
             }
             else {
-                // System.out.println(location); // print out location of button
-                String[] yxLoc = buttonClick.split(" ");
-                int yLoc = Integer.parseInt(yxLoc[0]); // determine the y location
-                int xLoc = Integer.parseInt(yxLoc[1]); // determine the x location
-                System.out.println("" + yLoc + " " + xLoc); // print out location
+                // if the button was not clicked and it doesn't start with holder
+                if(clickedValue != null && !buttonClick.startsWith("holder")){
+                    if (!source.getName().equals("empty")){
+                        // System.out.println(location); // print out location of button
+                        String[] yxLoc = buttonClick.split(" ");
+                        int yLoc = Integer.parseInt(yxLoc[0]); // determine the y location
+                        int xLoc = Integer.parseInt(yxLoc[1]); // determine the x location
+                        System.out.println("" + yLoc + " " + xLoc); // print out location
 
-                String s1 = letterPlayed.textField.getText(); // get the letter value
+                        // String s1 = letterPlayed.textField.getText(); // get the letter value
 
-                // create an array consisting of yLoc and xLoc
-                int[] coord = new int[]{yLoc, xLoc};
-                playLetter(s1, coord, source);
+                        // create an array consisting of yLoc and xLoc
+                        int[] coord = new int[]{yLoc, xLoc};
+                        playLetter(clickedValue, coord, source);
 
-                printLettersAndCoordinates(); // print out the moves that were played
+                        printLettersAndCoordinates(); // print out the moves that were played
+                        clickedValue = null;
+                    }
+                }
             }
         }
     }
