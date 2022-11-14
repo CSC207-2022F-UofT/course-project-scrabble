@@ -74,10 +74,8 @@ public class BoardManager implements BoardManagement{
         letter.setMultiplier(multiplier); // The letter cell takes on the multiplier value of the board space
         board.getBoard()[row][column] = letter; // Set the space on the board to the letter cell
     }
-
-    public static void boardManagerSetCellValue(Cell letter, String value){letter.setValue(value);}
-
     public static void boardManagerSetCellScore(Cell letter, int score) {
         letter.setScore(score);
     }
+    public static void boardManagerSetCellValue(Cell letter, String value){ letter.setValue(value);}
 }
