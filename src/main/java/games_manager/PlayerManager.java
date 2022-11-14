@@ -26,12 +26,13 @@ public class PlayerManager {
         while (player.getHand()[i] != null) { // loop to find index of hand that is null
             i++;
         }
+        ScoringSystem.initializeCellScore(letter); // assigns the correct score to the cell
         player.getHand()[i] = letter; // assign the null space the value of the new hand
-        ScoringSystem.initializeHandScore(player.getHand(), player);
     }
-
     public static void swapHand(Player player, LetterBag bag){
-        // returns all tiles in players hand back to the bag and draws 7 new tiles
+        // Precondition: players hand is full i.e. has no null within it
+        // Returns all tiles in players hand back to the bag and draws 7 new tiles from the bag
+
         // add all tiles in hand back to bag
         for (Cell tile: player.getHand()){
             bag.putTile(BoardManager.boardManagerGetCellValue(tile));
@@ -39,7 +40,14 @@ public class PlayerManager {
         // clear player hand
         Cell[] null_array = new Cell[7];
         player.setHand(null_array);
+
         // draw new tiles
+        PlayerManager.drawHand(player, bag);
+    }
+
+    public static void drawHand(Player player, LetterBag bag){
+        // Precondition: Player's hand is empty i.e. is filled with null
+        // Gives the player 7 new tiles
         for (int i=0; i<7; i++) {
             PlayerManager.drawTile(player, bag);
         }
