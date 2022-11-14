@@ -5,7 +5,7 @@ import entities.*;
 
 public class PlayerManager {
 
-    public void drawTile(Player player, LetterBag bag) {
+    public static void drawTile(Player player, LetterBag bag) {
         /* Precondition: Player has less than 7 tiles in hand
            Draws a tile to the players hand
          */
@@ -28,6 +28,20 @@ public class PlayerManager {
         }
         player.getHand()[i] = letter; // assign the null space the value of the new hand
         ScoringSystem.initializeHandScore(player.getHand(), player);
+    }
+
+    public static void swapHand(Player player, LetterBag bag){
+        // add all tiles in hand back to bag
+        for (Cell tile: player.getHand()){
+            bag.putTile(BoardManager.boardManagerGetCellValue(tile));
+        }
+        // clear player hand
+        Cell[] null_array = new Cell[7];
+        player.setHand(null_array);
+        // draw new tiles
+        for (int i=0; i<7; i++) {
+            PlayerManager.drawTile(player, bag);
+        }
     }
 
     public static void setName(Player player, String new_name) {
