@@ -53,13 +53,29 @@ public class GamePage implements ActionListener {
         endGameButton.createButton(dialogueBox.f, "End Game", WIDTH - 150, HEIGHT - 100, 100, 30, null);
         endGameButton.getButton().addActionListener(this);
 
-        createInitialBoard(300, 100); // create the starting board
+        createInitialBoard(300, 50); // create the starting board
 
         // refresh the page to allow the board to be visible
         dialogueBox.f.setVisible(true);
         dialogueBox.f.setResizable(false);
 
     }
+    /**
+     * Creates an initial board on the frame
+     *
+     */
+    public void createHolder(int boundX, int boundY) {
+        // determine whether the path is set correctly
+        String path = "src/main/java/gui/resources/letters/wood.jpg";
+        java.net.URL imgURL = getClass().getResource(path);
+        if (imgURL != null) {
+            System.out.println("successful path");
+        } else {
+            System.out.println("unsuccessful path");
+        }
+
+    }
+
 
     /**
      * Creates an initial board on the frame
@@ -96,6 +112,14 @@ public class GamePage implements ActionListener {
                 letter.createButtonWithID(dialogueBox.f, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "" + i + " " + j);
                 letter.getButton().addActionListener(this); // add listener to the button to see when it gets pressed
             }
+        }
+
+        int yBound = boundY + BOARD_DIM + 50;
+        // create a holder for the tiles to start
+        for(int i = 0; i < 7; i++){
+            int xBound = boundX + BOARD_DIM/4 + BOARD_DIM/BOARD_ROWS * i;
+            letter.createButtonWithID(dialogueBox.f, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "holder" + i);
+            letter.getButton().addActionListener(this);
         }
     }
 
@@ -155,20 +179,26 @@ public class GamePage implements ActionListener {
         else if (actionSource instanceof JButton) {
             JButton source = (JButton) e.getSource(); // cast button to a button
 
-            String location = source.getName();
-            // System.out.println(location); // print out location of button
-            String[] yxLoc = location.split(" ");
-            int yLoc = Integer.parseInt(yxLoc[0]); // determine the y location
-            int xLoc = Integer.parseInt(yxLoc[1]); // determine the x location
-            System.out.println("" + yLoc + " " + xLoc); // print out location
+            String buttonClick = source.getName();
 
-            String s1 = letterPlayed.textField.getText(); // get the letter value
+            if(buttonClick.startsWith("holder")){
+                System.out.println("holder pressed");
+            }
+            else {
+                // System.out.println(location); // print out location of button
+                String[] yxLoc = buttonClick.split(" ");
+                int yLoc = Integer.parseInt(yxLoc[0]); // determine the y location
+                int xLoc = Integer.parseInt(yxLoc[1]); // determine the x location
+                System.out.println("" + yLoc + " " + xLoc); // print out location
 
-            // create an array consisting of yLoc and xLoc
-            int[] coord = new int[]{yLoc, xLoc};
-            playLetter(s1, coord, source);
+                String s1 = letterPlayed.textField.getText(); // get the letter value
 
-            printLettersAndCoordinates(); // print out the moves that were played
+                // create an array consisting of yLoc and xLoc
+                int[] coord = new int[]{yLoc, xLoc};
+                playLetter(s1, coord, source);
+
+                printLettersAndCoordinates(); // print out the moves that were played
+            }
         }
     }
 }
