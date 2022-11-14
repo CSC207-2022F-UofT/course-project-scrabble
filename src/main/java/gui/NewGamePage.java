@@ -16,6 +16,7 @@ public class NewGamePage implements ActionListener {
 
     final int WIDTH = 500;
     final int HEIGHT = 400;
+
     public static void main(String[] args) {
         new StartupPage();
     }
@@ -27,45 +28,45 @@ public class NewGamePage implements ActionListener {
         // we may want to ignore the exit when we close only the rules page
         // dialogueBox.f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         dialogueBox.f.setResizable(false);
-        Color col = new Color(255,255,240);
+        Color col = new Color(255, 255, 240);
         dialogueBox.f.getContentPane().setBackground(col);
 
         // add title label for rules box
         newGamePageTitle = new Label();
-        newGamePageTitle.createLabel(30,50, 40,WIDTH-100,40, dialogueBox.f, "Create a new Game", Color.BLACK);
+        newGamePageTitle.createLabel(30, 50, 40, WIDTH - 100, 40, dialogueBox.f, "Create a new Game", Color.BLACK);
         newGamePageTitle.setCentreAlignment();
 
         // add title label for rules box
         playerLabel1 = new Label();
-        playerLabel1.createLabel(16,50, 100,WIDTH/4,20, dialogueBox.f, "Player 1 Name: ", Color.BLACK);
+        playerLabel1.createLabel(16, 50, 100, WIDTH / 4, 20, dialogueBox.f, "Player 1 Name: ", Color.BLACK);
         playerLabel1.setCentreAlignment();
 
         // add header label for rules box
         playerLabel2 = new Label();
-        playerLabel2.createLabel(16,50, 140, WIDTH/4,30, dialogueBox.f, "Player 2 Name: ", Color.BLACK);
+        playerLabel2.createLabel(16, 50, 140, WIDTH / 4, 30, dialogueBox.f, "Player 2 Name: ", Color.BLACK);
         playerLabel2.setCentreAlignment();
 
         t1 = new TextField();
-        t1.createTextField(200, 100, WIDTH/4,20, dialogueBox.f, "Player 1");
+        t1.createTextField(200, 100, WIDTH / 4, 20, dialogueBox.f, "Player 1");
         t2 = new TextField();
-        t2.createTextField(200, 140, WIDTH/4,20, dialogueBox.f, "Player 2");
+        t2.createTextField(200, 140, WIDTH / 4, 20, dialogueBox.f, "Player 2");
 
         createGameButton = new Button();
-        createGameButton.createButton(dialogueBox.f, "Start Game", 200, 180, WIDTH/4,30, null);
+        createGameButton.createButton(dialogueBox.f, "Start Game", 200, 180, WIDTH / 4, 30, null);
         createGameButton.getButton().addActionListener(this);
     }
 
-    public void actionPerformed(ActionEvent e){
+    public void actionPerformed(ActionEvent e) {
         String s = e.getActionCommand();
-        if(s.equals("Start Game")){
+        if (s.equals("Start Game")) {
             System.out.println("new start game button pressed");
             // get text field information
             String s1 = t1.textField.getText();
             String s2 = t2.textField.getText();
             System.out.println(s1); //prints into console the name of player 1
             System.out.println(s2); //prints into console the name of player 2
-            // TODO: game is now created
 
+            // create game page using the players information
             GamePage game = new GamePage();
             game.createGame();
 

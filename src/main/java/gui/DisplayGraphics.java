@@ -3,6 +3,8 @@ package gui;
 import javax.swing.*;
 import java.awt.*;
 
+// not currently in use, but may be used in the future
+
 public class DisplayGraphics extends Canvas {
     Graphics graphics;
 
@@ -11,8 +13,8 @@ public class DisplayGraphics extends Canvas {
         return graphics;
     }
 
-    public void paint(Graphics g){
-        g.fillRect(130,30,100,80);
-        g.drawOval(30,130,50,40);
+    public void paint(Graphics g) {
+        g.fillRect(130, 30, 100, 80);
+        g.drawOval(30, 130, 50, 40);
     }
 }
