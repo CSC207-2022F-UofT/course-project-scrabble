@@ -67,8 +67,7 @@ public class BoardManager implements BoardManagement{
             board.getBoard()[move.getY()][move.getX()].setValue(move.getLetter());
         }
     }
-    @Override
-    public GameBoard savePreviousBoardState(GameBoard board){
+    private GameBoard savePreviousBoardState(GameBoard board){
         /*
         This function saves the previous board state before a new move is played.
         Returns new GameBoard with the cells from board parameter.
