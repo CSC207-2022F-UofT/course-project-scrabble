@@ -13,6 +13,7 @@ public class GamePage implements ActionListener {
     DialogueBox dialogueBox;
     Label gamePageLabel, gamePageTitle;
     TextField letterPlayed;
+    final static String[] STARTING_LETTERS = new String[]{"A", "C", "H", "I", "E", "V", "E"};
 
     Button createGameButton, endGameButton;
     final int BOARD_DIM = 450; // dimension of the board (can be changed)
@@ -60,34 +61,15 @@ public class GamePage implements ActionListener {
         dialogueBox.f.setResizable(false);
 
     }
-    /**
-     * Creates an initial board on the frame
-     *
-     */
-    public void createHolder(int boundX, int boundY) {
-        // determine whether the path is set correctly
-        String path = "src/main/java/gui/resources/letters/wood.jpg";
-        java.net.URL imgURL = getClass().getResource(path);
-        if (imgURL != null) {
-            System.out.println("successful path");
-        } else {
-            System.out.println("unsuccessful path");
-        }
-
-    }
-
 
     /**
-     * Creates an initial board on the frame
+     * Creates an imageIcon based on the file name
      *
-     * @param boundX bounds of the x coords
-     * @param boundY bounds of the y coords
+     * @param filename the file name that we want to create
      */
-    public void createInitialBoard(int boundX, int boundY) {
-        Button letter = new Button();
-
+    public ImageIcon createImageIcon(String filename){
         // determine whether the path is set correctly
-        String path = "src/main/java/gui/resources/letters/wood.jpg";
+        String path = "src/main/java/gui/resources/letters/" + filename;
         java.net.URL imgURL = getClass().getResource(path);
         if (imgURL != null) {
             System.out.println("successful path");
@@ -102,6 +84,19 @@ public class GamePage implements ActionListener {
         Image newImg = image.getScaledInstance(BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, Image.SCALE_SMOOTH);
         // replace old imageIcon with the new one
         icon = new ImageIcon(newImg);
+        return icon;
+    }
+
+    /**
+     * Creates an initial board on the frame
+     *
+     * @param boundX bounds of the x coords
+     * @param boundY bounds of the y coords
+     */
+    public void createInitialBoard(int boundX, int boundY) {
+        Button letter = new Button();
+
+        ImageIcon icon = createImageIcon("wood.jpg");
 
         // make entire board full of buttons 15x15 buttons
         for (int i = 0; i < BOARD_ROWS; i++) { // start with the buttons on the y axis
@@ -118,6 +113,7 @@ public class GamePage implements ActionListener {
         // create a holder for the tiles to start
         for(int i = 0; i < 7; i++){
             int xBound = boundX + BOARD_DIM/4 + BOARD_DIM/BOARD_ROWS * i;
+            icon = createImageIcon(STARTING_LETTERS[i] + ".jpg");
             letter.createButtonWithID(dialogueBox.f, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "holder" + i);
             letter.getButton().addActionListener(this);
         }
