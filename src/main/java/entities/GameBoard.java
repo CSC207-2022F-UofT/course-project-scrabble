@@ -39,8 +39,7 @@ public class GameBoard implements Serializable {
         board = loaded_cells;
     }
     
-    
-    
+
     
     
     public Cell getBoardCell(int row, int column) {
@@ -52,6 +51,15 @@ public class GameBoard implements Serializable {
     public Cell[][] getBoard() {
         return board;
     }
+
+    public void setBoard(Cell[][] board){ // set board with a given array of cells
+        for (int i=0; i < DEFAULT_SIZE; i++) {
+            for (int j=0; j < DEFAULT_SIZE; j++) {
+                this.board[i][j].setValue(board[i][j].getValue());
+            }
+        }
+    }
+
     public void setBoardCell(int row, int column, Cell letter){
         int multiplier = this.board[row][column].getMultiplier();
         letter.setMultiplier(multiplier); // The letter cell takes on the multiplier value of the board space
