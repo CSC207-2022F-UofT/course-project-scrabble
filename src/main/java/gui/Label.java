@@ -15,8 +15,9 @@ public class Label {
 
     /**
      * Creates a label and (optionally) adds it to an existing Dialog Box.
-     * @param dialogueBox indicates which
-     * @param labelText the input text that we want displayed
+     *
+     * @param dialogueBox     indicates which
+     * @param labelText       the input text that we want displayed
      * @param foregroundColor the colour on the foreground that we want on the label.
      */
     public void createLabel(int size, int boundX, int boundY, int boundWidth, int boundHeight, JFrame dialogueBox, String labelText, Color foregroundColor) {
@@ -29,6 +30,7 @@ public class Label {
             dialogueBox.add(label);
         }
     }
+
     public void createMultiLineLabel(int size, int boundX, int boundY, int boundWidth, int boundHeight, JFrame dialogueBox, String labelText, Color foregroundColor) {
         label = new JLabel();
         label.setText(convertToMultiline(labelText));
@@ -39,11 +41,12 @@ public class Label {
             dialogueBox.add(label);
         }
     }
-    public static String convertToMultiline(String orig){
-        return("<html>" + orig.replaceAll("\n", "<br>"));
+
+    public static String convertToMultiline(String orig) {
+        return ("<html>" + orig.replaceAll("\n", "<br>"));
     }
 
-    public void setCentreAlignment(){
+    public void setCentreAlignment() {
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
     }
 }

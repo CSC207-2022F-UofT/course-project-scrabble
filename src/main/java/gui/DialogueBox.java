@@ -8,6 +8,7 @@ public class DialogueBox {
 
     /**
      * Returns class variable jframe
+     *
      * @return
      */
     public JFrame getJframe() {
@@ -30,11 +31,13 @@ public class DialogueBox {
 //        f.setVisible(true);
 //        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //    }
+
     /**
      * Creates a JFrame UI component as per the specs provided
+     *
      * @param boxTitle the title of the dialogue box
-     * @param width the width of the dialogue box
-     * @param height the height of the dialogue box
+     * @param width    the width of the dialogue box
+     * @param height   the height of the dialogue box
      */
     public void createDialogueBox(String boxTitle, int width, int height, boolean exitCond) {
         f = new JFrame("Scrabble Project");
@@ -52,7 +55,8 @@ public class DialogueBox {
             f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
     }
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
 //        new SwingDemo();
     }
 

@@ -29,31 +29,31 @@ public class GamePage implements ActionListener {
         dialogueBox.f.setVisible(true);
         // we want to ignore the exit when we close only the rules page
         dialogueBox.f.setResizable(false);
-        Color col = new Color(255,230,230);
+        Color col = new Color(255, 230, 230);
         dialogueBox.f.getContentPane().setBackground(col);
 
         // add title label for rules box
         gamePageTitle = new Label();
-        gamePageTitle.createLabel(30,10, 40,WIDTH-100,40, dialogueBox.f, "Play Scrabble", Color.BLACK);
+        gamePageTitle.createLabel(30, 10, 40, WIDTH - 100, 40, dialogueBox.f, "Play Scrabble", Color.BLACK);
         gamePageTitle.setCentreAlignment();
 
         // add title label for rules box
         gamePageLabel = new Label();
-        gamePageLabel.createLabel(16,10, 100,WIDTH/4,20, dialogueBox.f, "Indicate which letter you want to play and its location: ", Color.BLACK);
+        gamePageLabel.createLabel(16, 10, 100, WIDTH / 4, 20, dialogueBox.f, "Indicate which letter you want to play and its location: ", Color.BLACK);
         gamePageLabel.setCentreAlignment();
 
         letterPlayed = new TextField();
-        letterPlayed.createTextField(10, 120, WIDTH/4,20, dialogueBox.f, "A");
+        letterPlayed.createTextField(10, 120, WIDTH / 4, 20, dialogueBox.f, "A");
 
         createGameButton = new Button();
-        createGameButton.createButton(dialogueBox.f, "Play Move", WIDTH-300, HEIGHT-100, 100,30, null);
+        createGameButton.createButton(dialogueBox.f, "Play Move", WIDTH - 300, HEIGHT - 100, 100, 30, null);
         createGameButton.getButton().addActionListener(this);
 
         endGameButton = new Button();
-        endGameButton.createButton(dialogueBox.f, "End Game", WIDTH-150, HEIGHT-100, 100,30, null);
+        endGameButton.createButton(dialogueBox.f, "End Game", WIDTH - 150, HEIGHT - 100, 100, 30, null);
         endGameButton.getButton().addActionListener(this);
 
-        createInitialBoard(300,100); // create the starting board
+        createInitialBoard(300, 100); // create the starting board
 
         // refresh the page to allow the board to be visible
         dialogueBox.f.setVisible(true);
@@ -63,6 +63,7 @@ public class GamePage implements ActionListener {
 
     /**
      * Creates an initial board on the frame
+     *
      * @param boundX bounds of the x coords
      * @param boundY bounds of the y coords
      */
@@ -100,11 +101,12 @@ public class GamePage implements ActionListener {
 
     /**
      * Plays the specified move and updates the button
+     *
      * @param value the letter that we want played
      * @param coord the [y, x] coords of the letter
      */
     // helper method to update the game when a letter has been played by a player
-    public void playLetter(String value, int[] coord, JButton button){
+    public void playLetter(String value, int[] coord, JButton button) {
         // convert value to the path
         String path = "src/main/java/gui/resources/letters/" + value + ".jpg"; // indicates which image to select from
         System.out.println("path: " + path);
@@ -127,31 +129,30 @@ public class GamePage implements ActionListener {
     /**
      * Prints the letter and its coordinates
      */
-    public void printLettersAndCoordinates(){
-        for (int i = 0; i < letters.size(); i++){
-            System.out.println("Letter "  + letters.get(i) + " played at coordinate: " + Arrays.toString(coordinates.get(i)));
+    public void printLettersAndCoordinates() {
+        for (int i = 0; i < letters.size(); i++) {
+            System.out.println("Letter " + letters.get(i) + " played at coordinate: " + Arrays.toString(coordinates.get(i)));
         }
     }
 
-    public void actionPerformed(ActionEvent e){
+    public void actionPerformed(ActionEvent e) {
         String s = e.getActionCommand();
 
         // check if button has been pressed
         Object actionSource = e.getSource();
 
         // check if we need to start a new game
-        if(s.equals("Play Move")){
+        if (s.equals("Play Move")) {
             System.out.println("play move button pressed");
             // TODO: what to do after play move is submitted
-        }
-        else if(s.equals("End Game")){
+        } else if (s.equals("End Game")) {
             // end game
             // TODO: add action after ending game
             System.out.println("end game button pressed");
             dialogueBox.f.dispose(); // close dialogue box permanently
         }
         // if it is neither starting or ending, check to see if it's a move played
-        else if(actionSource instanceof JButton) {
+        else if (actionSource instanceof JButton) {
             JButton source = (JButton) e.getSource(); // cast button to a button
 
             String location = source.getName();

@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 public class Panel {
     JPanel panel;
+
     /**
      * @return returns a Java Swing panel
      */

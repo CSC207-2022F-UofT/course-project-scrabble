@@ -11,8 +11,7 @@ public class ConsoleSimulator {
     private String[][] gameBoard;
 
     public ConsoleSimulator()
-    throws IOException
-    {
+            throws IOException {
         int DEFAULT_SIZE = 15;
         this.gameBoard = initializeGameBoard(DEFAULT_SIZE, DEFAULT_SIZE); // initialize board to default size
 
@@ -27,7 +26,7 @@ public class ConsoleSimulator {
         System.out.println("Game Between: " + name1 + " & " + name2);
     }
 
-    private static String[][] initializeGameBoard(int rows, int columns){
+    private static String[][] initializeGameBoard(int rows, int columns) {
         /** Returns an initial grid of the state
          * @return
          * @param columns
@@ -36,23 +35,23 @@ public class ConsoleSimulator {
 
         String[][] outputDisplay = new String[rows][columns];
         // ArrayList<ArrayList<String>> outputDisplay = new ArrayList<ArrayList<String>>();
-        for(int i=0; i<rows; i++){
-            for(int j=0; j<rows; j++){
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < rows; j++) {
                 outputDisplay[i][j] = "-";
             }
         }
-        return(outputDisplay);
+        return (outputDisplay);
     }
 
-    public static void printGameBoard(String[][] gameBoard){
+    public static void printGameBoard(String[][] gameBoard) {
         /**
          * @param gameBoard state to be printed
          */
 
         // ArrayList<ArrayList<String>> outputDisplay = new ArrayList<ArrayList<String>>();
-        for(int i=0; i<gameBoard.length; i++){
+        for (int i = 0; i < gameBoard.length; i++) {
             String rowPrint = "";
-            for(int j=0; j<gameBoard[i].length; j++){
+            for (int j = 0; j < gameBoard[i].length; j++) {
                 rowPrint += gameBoard[i][j] + " ";
             }
             System.out.println(rowPrint);
@@ -60,7 +59,7 @@ public class ConsoleSimulator {
         System.out.println("\n");
     }
 
-    public void playMove(String letter, int[] coordinate){
+    public void playMove(String letter, int[] coordinate) {
         /**
          * @param letter is the letter we want to add
          * @param coordinate is the coordainte of the x and y location of the new placed cell
@@ -70,11 +69,10 @@ public class ConsoleSimulator {
     }
 
     public static void main(String[] args)
-    throws IOException
-    {
+            throws IOException {
         ConsoleSimulator game = new ConsoleSimulator();
         printGameBoard(game.gameBoard);
-        int[] coord = {2,2};
+        int[] coord = {2, 2};
         game.playMove("A", coord);
         printGameBoard(game.gameBoard);
 

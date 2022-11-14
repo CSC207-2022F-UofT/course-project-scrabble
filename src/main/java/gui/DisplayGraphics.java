@@ -11,8 +11,8 @@ public class DisplayGraphics extends Canvas {
         return graphics;
     }
 
-    public void paint(Graphics g){
-        g.fillRect(130,30,100,80);
-        g.drawOval(30,130,50,40);
+    public void paint(Graphics g) {
+        g.fillRect(130, 30, 100, 80);
+        g.drawOval(30, 130, 50, 40);
     }
 }

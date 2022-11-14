@@ -3,11 +3,11 @@ package gui;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class StartGameButton{
+public class StartGameButton {
     JButton gameButton;
     JTextField tf;
 
-    public StartGameButton(){
+    public StartGameButton() {
         this.tf = new JTextField();
         this.gameButton = new JButton("Start Game");
         this.gameButton.addActionListener(new ActionListener() {

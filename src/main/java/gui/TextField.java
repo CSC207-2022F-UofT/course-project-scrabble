@@ -15,7 +15,8 @@ public class TextField {
 
     /**
      * Creates a label and (optionally) adds it to an existing Dialog Box.
-     * @param dialogueBox indicates which place to add the text field
+     *
+     * @param dialogueBox   indicates which place to add the text field
      * @param textFieldText the input text that we want displayed
      */
     public void createTextField(int boundX, int boundY, int boundWidth, int boundHeight, JFrame dialogueBox, String textFieldText) {
