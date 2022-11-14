@@ -3,6 +3,8 @@ package gui;
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 
+// testing file for testing Java Swing features
+
 public class SwingDemo extends JTextComponent implements SwingConstants {
     JFrame f;
 

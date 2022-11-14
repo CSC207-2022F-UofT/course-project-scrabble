@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// not currently in use, but may be used in the future
+
 public class Panel {
     JPanel panel;
 

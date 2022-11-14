@@ -2,6 +2,8 @@ package gui;
 
 import javax.swing.*;
 
+// testing file for testing Java Text Field example
+
 public class TestFieldExample {
     TestFieldExample() {
         JFrame f = new JFrame("Scrabble Game");

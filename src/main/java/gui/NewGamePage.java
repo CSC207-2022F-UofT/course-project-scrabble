@@ -65,8 +65,8 @@ public class NewGamePage implements ActionListener {
             String s2 = t2.textField.getText();
             System.out.println(s1); //prints into console the name of player 1
             System.out.println(s2); //prints into console the name of player 2
-            // TODO: game is now created
 
+            // create game page using the players information
             GamePage game = new GamePage();
             game.createGame();
 

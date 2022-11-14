@@ -3,6 +3,8 @@ package gui;
 import javax.swing.*;
 import java.awt.*;
 
+// not currently in use, but may be used in the future
+
 public class DisplayGraphics extends Canvas {
     Graphics graphics;
 
