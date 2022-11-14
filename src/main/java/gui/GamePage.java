@@ -10,6 +10,26 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GamePage implements ActionListener {
+    private final String player1Name;
+    private final String player2Name;
+    public int player1Score;
+    public int player2Score;
+    public GamePage(String player1Name, String player2Name, boolean newGame){
+        this.player1Name = player1Name;
+        this.player2Name = player2Name;
+        if(newGame){
+            initializeScore();
+        }
+    }
+    public void initializeScore(){
+        this.player1Score = 0;
+        this.player2Score = 0;
+    }
+    public void setScore(int player1Score, int player2Score){
+        this.player1Score = player1Score;
+        this.player2Score = player2Score;
+    }
+
     DialogueBox dialogueBox;
     Label gamePageLabel, gamePageTitle, player1Label, player2Label;
     TextField letterPlayed;
@@ -21,18 +41,21 @@ public class GamePage implements ActionListener {
 //    Button[] oldHolderButtons = new Button[7]; // save the older copy of the holder buttons
     private String clickedValue;
 
-    Button createGameButton, endGameButton, swapHands, recallTiles, holderButton;
+    Button createGameButton, endGameButton, swapHands, recallTiles;
     final int BOARD_DIM = 450; // dimension of the board (can be changed)
     final int BOARD_ROWS = 15; // same as columns
     final int WIDTH = 1000; // width of the frame
     final int HEIGHT = 700; // height of the frame
 
-    public ArrayList<String> letters = new ArrayList<String>();
-    public ArrayList<int[]> coordinates = new ArrayList<int[]>();
+    private ArrayList<String> letters = new ArrayList<String>();
+    private ArrayList<int[]> coordinates = new ArrayList<int[]>();
 
-    String player1Name = "Player 1", player2Name = "Player 2";
-    public int player1Score = 0;
-    public int player2Score = 0;
+    public ArrayList<int[]> getCoordinates(){
+        return coordinates;
+    }
+    public ArrayList<String> getLetters(){
+        return letters;
+    }
 
     public void createGame() {
         dialogueBox = new DialogueBox();
@@ -92,7 +115,6 @@ public class GamePage implements ActionListener {
         // refresh the page to allow the board to be visible
         dialogueBox.f.setVisible(true);
         dialogueBox.f.setResizable(false);
-
     }
 
     /**
@@ -157,28 +179,8 @@ public class GamePage implements ActionListener {
      * Resets the tiles to the original state
      *
      */
-    public void resetHolder(){
-        int count = 0;
-        for(Button b: holderButtons){
-            ImageIcon icon = createImageIcon(currentLetters[count] + ".jpg");
-            b.button.setIcon(icon);
-            count += 1;
-        }
-        dialogueBox.f.setVisible(true);
-        dialogueBox.f.setResizable(false);
-//        Button letter = new Button();
-//
-//        int yBound = boundY + BOARD_DIM + 50;
-//        // create a holder for the tiles to start
-//        for(int i = 0; i < 7; i++){
-//            int xBound = boundX + BOARD_DIM/4 + BOARD_DIM/BOARD_ROWS * i;
-//            ImageIcon icon = createImageIcon(currentLetters[i] + ".jpg");
-//            letter.createButtonWithID(dialogueBox.f, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "holder " + i + " " + currentLetters[i]);
-//            letter.getButton().addActionListener(this);
-//        }
-//        // refresh the page to allow the board to be visible
-//        dialogueBox.f.setVisible(true);
-//        dialogueBox.f.setResizable(false);
+    public void resetHolder() {
+
     }
 
 
@@ -252,8 +254,9 @@ public class GamePage implements ActionListener {
                 System.out.println("holder pressed");
                 String[] holderLetter = buttonClick.split(" ");
                 clickedValue = holderLetter[2];
-                source.setIcon(createImageIcon("wood.jpg"));
-                source.setName("empty"); // we set the button name to empty to prevent additional presses
+                // source.setIcon(createImageIcon("wood.jpg"));
+                // source.setName("empty"); // we set the button name to empty to prevent additional presses
+                source.setVisible(false);
             }
             else {
                 // if the button was not clicked and it doesn't start with holder
