@@ -31,6 +31,7 @@ public class PlayerManager {
     }
 
     public static void swapHand(Player player, LetterBag bag){
+        // returns all tiles in players hand back to the bag and draws 7 new tiles
         // add all tiles in hand back to bag
         for (Cell tile: player.getHand()){
             bag.putTile(BoardManager.boardManagerGetCellValue(tile));
