@@ -11,14 +11,14 @@ import java.util.List;
 
 public class GamePage implements ActionListener {
     DialogueBox dialogueBox;
-    Label gamePageLabel, gamePageTitle;
+    Label gamePageLabel, gamePageTitle, player1Label, player2Label;
     TextField letterPlayed;
     final static String[] STARTING_LETTERS = new String[]{"A", "C", "H", "I", "E", "V", "E"};
     private String[] currentLetters;
     int boundX, boundY;
 
     Button[] holderButtons = new Button[7];
-    Button[] oldHolderButtons = new Button[7]; // save the older copy of the holder buttons
+//    Button[] oldHolderButtons = new Button[7]; // save the older copy of the holder buttons
     private String clickedValue;
 
     Button createGameButton, endGameButton, swapHands, recallTiles, holderButton;
@@ -29,6 +29,10 @@ public class GamePage implements ActionListener {
 
     public ArrayList<String> letters = new ArrayList<String>();
     public ArrayList<int[]> coordinates = new ArrayList<int[]>();
+
+    String player1Name = "Player 1", player2Name = "Player 2";
+    public int player1Score = 0;
+    public int player2Score = 0;
 
     public void createGame() {
         dialogueBox = new DialogueBox();
@@ -49,6 +53,17 @@ public class GamePage implements ActionListener {
         gamePageLabel.createLabel(16, 10, 100, WIDTH / 4, 20, dialogueBox.f, "Indicate which letter you want to play and its location: ", Color.BLACK);
         gamePageLabel.setCentreAlignment();
 
+        // add label for player 1
+        player1Label = new Label();
+        player1Label.createLabel(16, 10, 160, WIDTH / 4, 20, dialogueBox.f, player1Name + "\'s Score: " + player1Score, Color.BLACK);
+        player1Label.setCentreAlignment();
+
+        // add label for player 1
+        player2Label = new Label();
+        player2Label.createLabel(16, 10, 200, WIDTH / 4, 20, dialogueBox.f, player2Name + "\'s Score: " + player2Score, Color.BLACK);
+        player2Label.setCentreAlignment();
+
+
         letterPlayed = new TextField();
         letterPlayed.createTextField(10, 120, WIDTH / 4, 20, dialogueBox.f, "A");
 
@@ -63,6 +78,10 @@ public class GamePage implements ActionListener {
         endGameButton = new Button();
         endGameButton.createButton(dialogueBox.f, "End Game", WIDTH - 150, HEIGHT - 100, 100, 30, null);
         endGameButton.getButton().addActionListener(this);
+
+        swapHands = new Button();
+        swapHands.createButton(dialogueBox.f, "Swap Hands", WIDTH - 625, HEIGHT - 100, 120, 30, null);
+        swapHands.getButton().addActionListener(this);
 
         currentLetters = STARTING_LETTERS; // assign the current letters to the starting letters at the start
 
@@ -218,6 +237,9 @@ public class GamePage implements ActionListener {
         else if (s.equals("Recall Tiles")){
             System.out.println("recall tiles button pressed");
             resetHolder();
+        }
+        else if (s.equals("Swap Hands")) {
+            System.out.println("swap hands button pressed");
         }
         // if it is neither starting or ending, check to see if it's a move played
         else if (actionSource instanceof JButton) {
