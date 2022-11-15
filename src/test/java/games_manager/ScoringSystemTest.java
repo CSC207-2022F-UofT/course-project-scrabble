@@ -249,13 +249,20 @@ public class ScoringSystemTest {
         Cell c6 = new Cell("R", 1);
 
         p1.setHand(new Cell[]{c0, c1, c2, c3, c4, c5, c6});
-        ScoringSystem scorer = new ScoringSystem();
-        scorer.initializeHandScore(p1.getHand(), p1);
+        ScoringSystem.initializeHandScore(p1.getHand());
         int[] scores = {4, 1, 1, 1, 3, 1, 1}; // the scores the letters should have
         for (int i=0; i < 7; i++){
             // checking if each letter has the correct score assigned
             Assertions.assertEquals(scores[i], BoardManager.boardManagerGetCellScore(p1.getHand()[i]));
         }
+
+    }
+
+    @Test
+    public void initializeCellScoreTest(){
+        Cell c0 = new Cell("V", 1);
+        ScoringSystem.initializeCellScore(c0);
+        Assertions.assertEquals(4, BoardManager.boardManagerGetCellScore(c0));
 
     }
 }
