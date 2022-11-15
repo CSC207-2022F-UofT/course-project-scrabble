@@ -18,7 +18,7 @@ public class PlayerManager {
         do {
             int_random = rand.nextInt(26); // get a random number from 0-25
             character = alphabet[int_random]; // use that number to get the associated letter
-        } while (bag.getValue(character) != 0); // check if that letter still has tiles in the bag
+        } while (bag.getValue(character) == 0); // check if that letter still has tiles in the bag
 
         bag.removeTile(character); // remove that tile from the bag
         BoardManager.boardManagerSetCellValue(letter, character); // update the cell to have the random value

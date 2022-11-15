@@ -57,19 +57,24 @@ public class PlayerManagerTest {
 
     @Test
     public void swapHandTest(){
+        String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
         Player player = new Player("Jeff");
         LetterBag bag = new LetterBag();
-        LetterBag bag1 = new LetterBag();
+        int bag_size_before = 0 ;
+        int bag_size_after = 0 ;
         PlayerManager.drawHand(player, bag);
-        String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
-        int bag_size = 0 ;
-        int bag1_size = 0;
         for (int i=0; i<26; i++){
-            // getting the size of both bags
-            bag_size += bag.getNumTile(alphabet[i]);
-            bag1_size += bag1.getNumTile(alphabet[i]);
+            // getting the size of bag after swap
+            bag_size_before += bag.getNumTile(alphabet[i]);
         }
-        Assertions.assertEquals(bag1_size, bag_size); // bag should not change size when shuffled
+
+        PlayerManager.swapHand(player, bag);
+
+        for (int i=0; i<26; i++){
+            // getting the size of bag after swap
+            bag_size_after += bag.getNumTile(alphabet[i]);
+        }
+        Assertions.assertEquals(bag_size_before, bag_size_after); // bag should not change size when shuffled
     }
 
 }
