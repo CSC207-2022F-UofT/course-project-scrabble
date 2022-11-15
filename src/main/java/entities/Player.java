@@ -15,15 +15,15 @@ import java.io.*;
 public class Player implements Serializable {
     private int score;
     private String name;
-    private Cell[] hand;
+    private String[] hand;
     
     public Player(String name) {
         this.score = 0;
         this.name = name;
-        this.hand = new Cell[7];
+        this.hand = new String[7];
     }
     
-    public Player(String loaded_name, int loaded_score, Cell[] loaded_hand) {
+    public Player(String loaded_name, int loaded_score, String[] loaded_hand) {
         this.name = loaded_name;
         this.score = loaded_score;
         this.hand = loaded_hand;
@@ -47,12 +47,12 @@ public class Player implements Serializable {
         return this.score;
     }
     
-    public void setHand(Cell[] new_hand) {
+    public void setHand(String[] new_hand) {
         this.hand = new_hand;
         
     }
     
-    public Cell[] getHand() {
+    public String[] getHand() {
         return this.hand;
     }
 }
