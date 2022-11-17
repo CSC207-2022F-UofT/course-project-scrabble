@@ -86,7 +86,7 @@ public class TileChecker implements PlacementChecker {
         // checks for a vertically adjacent tile
         return !Objects.equals(board.getBoardCellValue(row, column + 1), "-");
     }
-    
+
     public ArrayList<String> wordList(ArrayList<List<Integer>> newword, GameBoard board){
         //a word parser function that returns a list of words that need to be checked
         ArrayList<String> words = new ArrayList<String>();
