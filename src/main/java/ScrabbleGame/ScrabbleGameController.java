@@ -51,4 +51,9 @@ public class ScrabbleGameController{
         
     }
     
+    public Game updateView() {
+        return game;
+    }
+    
+    
 }

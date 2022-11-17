@@ -1,5 +1,7 @@
 package gui;
 
+import gui.pages.StartupPage;
+
 public class ScrabbleApp {
 
     /**

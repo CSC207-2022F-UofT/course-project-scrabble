@@ -1,10 +1,10 @@
-package gui;
+package gui.components;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class TextField {
-    JTextField textField;
+    public JTextField textField;
 
     /**
      * @return returns a Java Swing textField

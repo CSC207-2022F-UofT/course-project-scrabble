@@ -1,5 +1,10 @@
-package gui;
+package gui.pages;
 
+import gui.pages.RulesPage;
+import gui.pages.NewGamePage;
+import gui.components.DialogueBox;
+import gui.components.Label;
+import gui.components.Button;
 import org.junit.Rule;
 
 import javax.swing.*;
@@ -24,30 +29,30 @@ public class StartupPage implements ActionListener {
     public void createStartupPage() {
         dialogueBox = new DialogueBox(); // create dialogue box (the background)
         dialogueBox.createDialogueBox("Scrabble Game", WIDTH, HEIGHT, true); // name of the box
-        dialogueBox.f.setVisible(true); // make it visible
-        dialogueBox.f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // close when someone hits the red x button
-        dialogueBox.f.setResizable(false); // remove ability to resize frame
+        dialogueBox.frame.setVisible(true); // make it visible
+        dialogueBox.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // close when someone hits the red x button
+        dialogueBox.frame.setResizable(false); // remove ability to resize frame
         Color col = new Color(200, 255, 255); // set colour
-        dialogueBox.f.getContentPane().setBackground(col);
+        dialogueBox.frame.getContentPane().setBackground(col);
 
         welcomeTitle = new Label(); // create welcome title label
-        welcomeTitle.createLabel(30, WIDTH / 2 - 130, 50, 500, 50, dialogueBox.f, "Welcome to Scrabble", Color.BLACK);
+        welcomeTitle.createLabel(30, WIDTH / 2 - 130, 50, 500, 50, dialogueBox.frame, "Welcome to Scrabble", Color.BLACK);
 
         contributors = new Label(); // create contributors label
-        contributors.createLabel(12, WIDTH / 2 - 150, HEIGHT / 4 - 20, 350, 20, dialogueBox.f, "Created by: Victor, Jazli, Umair, Claire, Francisco, Davit, and Clark", Color.BLACK);
+        contributors.createLabel(12, WIDTH / 2 - 150, HEIGHT / 4 - 20, 350, 20, dialogueBox.frame, "Created by: Victor, Jazli, Umair, Claire, Francisco, Davit, and Clark", Color.BLACK);
         contributors.setCentreAlignment();
 
         int buttonOffset = 75; // offset used for all 3 buttons to align in the centre
         gameButton = new Button(); // button for loading a game that we had already on file
-        gameButton.createButton(dialogueBox.f, "Start Old Game", WIDTH / 3 + buttonOffset, HEIGHT / 3, 200, 50, null);
+        gameButton.createButton(dialogueBox.frame, "Start Old Game", WIDTH / 3 + buttonOffset, HEIGHT / 3, 200, 50, null);
         gameButton.getButton().addActionListener(this);
 
         rulesButton = new Button(); // button for checking the rules of our game (they are different than the regular scrabble game)
-        rulesButton.createButton(dialogueBox.f, "Rules", WIDTH / 3 + buttonOffset, HEIGHT / 2, 200, 50, null);
+        rulesButton.createButton(dialogueBox.frame, "Rules", WIDTH / 3 + buttonOffset, HEIGHT / 2, 200, 50, null);
         rulesButton.getButton().addActionListener(this);
 
         createButton = new Button(); // button for creating a new game
-        createButton.createButton(dialogueBox.f, "Create Game", WIDTH / 3 + buttonOffset, HEIGHT - 200, 200, 50, null);
+        createButton.createButton(dialogueBox.frame, "Create Game", WIDTH / 3 + buttonOffset, HEIGHT - 200, 200, 50, null);
         createButton.getButton().addActionListener(this);
     }
 
