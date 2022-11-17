@@ -38,7 +38,7 @@ public class PlayerManager {
             bag.putTile(BoardManager.boardManagerGetCellValue(tile));
         }
         // clear player hand
-        Cell[] null_array = new Cell[7];
+        Cell[] null_array = new Cell[player.getHand().length];
         player.setHand(null_array);
 
         // draw new tiles
@@ -48,7 +48,7 @@ public class PlayerManager {
     public static void drawHand(Player player, LetterBag bag){
         // Precondition: Player's hand is empty i.e. is filled with null
         // Gives the player 7 new tiles
-        for (int i=0; i<7; i++) {
+        for (int i=0; i<player.getHand().length; i++) {
             PlayerManager.drawTile(player, bag);
         }
     }
