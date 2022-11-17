@@ -11,6 +11,7 @@ import java.util.List;
 
 public class ScoringSystemTest {
 
+    // following tests are for word scores
     @Test
     public void noMultipliers (){
         // creating letter cells
@@ -217,6 +218,7 @@ public class ScoringSystemTest {
         Assertions.assertEquals(23, scorer.multiScore(board, pos));
     }
 
+    // following tests are for hand scores
     @Test
     public void calculateEmptyHandUnplacedLetters(){
         Cell[] hand = {};
