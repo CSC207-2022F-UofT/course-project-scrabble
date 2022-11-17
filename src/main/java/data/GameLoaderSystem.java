@@ -4,9 +4,10 @@ import entities.*;
 
 import java.io.*;
 
-public class GameLoader {
-    final static File filename = new File("src/main/java/data/data.ser");
-    public static Object[] loadGame(){
+public class GameLoaderSystem implements GameLoad{
+//    final static File filename = new File("src/main/java/data/data.ser");
+    @Override
+    public Object[] loadGame(){
         // Method to load objects required to play game by reading data.ser to load objects
         // Deserialization
         try

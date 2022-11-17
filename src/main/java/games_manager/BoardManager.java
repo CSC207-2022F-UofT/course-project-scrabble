@@ -59,8 +59,7 @@ public class BoardManager implements BoardManagement{
             return false;
         }
     }
-    @Override
-    public void updateBoardState(GameBoard board){
+    private void updateBoardState(GameBoard board){
         /*
         This function updates the board with the new moves from moves arraylist
          */

@@ -12,6 +12,7 @@ public class GameSaverAndLoaderTest {
     @Test
     public void saveData(){ // run this test before load test
         // creating objects to be saved
+        GameSaverSystem game_saver = new GameSaverSystem();
         GameBoard board = new GameBoard();
         Player p1 = new Player("Steve");
         Player p2 = new Player("Bob");
@@ -25,13 +26,14 @@ public class GameSaverAndLoaderTest {
 
 
         // saving all objects into data.ser
-        GameSaver.saveGame(board, p1, p2, bag);
+        game_saver.saveGame(board, p1, p2, bag);
     }
 
     @Test
     public void loadData(){ // checks if the objects are loaded correctly
         // loading objects from data.ser into array
-        Object[] objects = GameLoader.loadGame();
+        GameLoaderSystem game_loader = new GameLoaderSystem();
+        Object[] objects = game_loader.loadGame();
 
         // loaded objects returned in the following order: GameBoard, Player1, Player2, LetterBag
         assert objects != null;
