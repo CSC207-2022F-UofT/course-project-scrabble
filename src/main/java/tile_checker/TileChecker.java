@@ -1,5 +1,6 @@
 package tile_checker;
 
+import UsecaseInterfaces.PlacementChecker;
 import entities.GameBoard;
 
 import java.util.ArrayList;

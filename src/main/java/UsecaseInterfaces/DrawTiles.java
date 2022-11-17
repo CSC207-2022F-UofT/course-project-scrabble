@@ -1,4 +1,4 @@
-package games_manager;
+package UsecaseInterfaces;
 
 import entities.LetterBag;
 import entities.Player;

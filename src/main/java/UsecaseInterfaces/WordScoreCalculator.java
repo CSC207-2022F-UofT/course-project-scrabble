@@ -1,4 +1,4 @@
-package games_manager;
+package UsecaseInterfaces;
 
 import entities.Cell;
 import entities.GameBoard;

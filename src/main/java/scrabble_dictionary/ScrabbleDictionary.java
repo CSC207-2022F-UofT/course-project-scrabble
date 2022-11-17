@@ -48,7 +48,7 @@ public class ScrabbleDictionary {
                 return false; //returns false if the word is not in the list
             }
         }
-        return true;} //after looping through the entire list of words, returns true
-
+        return true;
+        } //after looping through the entire list of words, returns true
     }
 

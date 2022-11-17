@@ -1,6 +1,7 @@
-package games_manager;
+package UsecaseInterfaces;
 
 import entities.GameBoard;
+import games_manager.MoveInfo;
 
 import java.util.ArrayList;
 

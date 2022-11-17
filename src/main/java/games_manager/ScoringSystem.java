@@ -1,4 +1,6 @@
 package games_manager;
+import UsecaseInterfaces.WordScoreCalculator;
+import UsecaseInterfaces.HandScoreCalculator;
 import entities.*;
 
 import java.util.HashMap;

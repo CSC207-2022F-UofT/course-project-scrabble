@@ -1,9 +1,11 @@
 package games_manager;
+import UsecaseInterfaces.DrawTiles;
+import UsecaseInterfaces.UpdateScoreUsecase;
 import java.util.Random;
 
 import entities.*;
 
-public class PlayerManager implements DrawTiles{
+public class PlayerManager implements DrawTiles, UpdateScoreUsecase{
 
     @Override
     public void drawTile(Player player, LetterBag bag) {
@@ -76,7 +78,11 @@ public class PlayerManager implements DrawTiles{
 
     public static Cell[] getHand(Player player) { return player.getHand(); }
 
-
+    @Override
+    public void updateScoreForCurrentPlayer(int newScore, Game game) {
+        game.getCurrentPlayer().setScore(newScore);
+    }
+    
 
 
 }

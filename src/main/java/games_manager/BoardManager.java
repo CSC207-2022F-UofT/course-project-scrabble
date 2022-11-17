@@ -1,5 +1,6 @@
 package games_manager;
 
+import UsecaseInterfaces.BoardManagement;
 import entities.Cell;
 import entities.GameBoard;
 import tile_checker.TileChecker;

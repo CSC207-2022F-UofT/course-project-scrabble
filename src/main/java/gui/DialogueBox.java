@@ -22,6 +22,7 @@ public class DialogueBox {
      */
     public void createDialogueBox(String boxTitle, int width, int height, boolean exitCond) {
         f = new JFrame(); // create the frame
+        
         Color c = new Color(255, 255, 255); // set the frame to a white colour
         // Setting background color for JFrame
         f.getContentPane().setBackground(c);

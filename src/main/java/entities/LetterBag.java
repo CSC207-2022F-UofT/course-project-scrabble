@@ -45,7 +45,7 @@ public class LetterBag implements Serializable {
     }
     
     public String getRandomTile() { // not finished
-        return "";
+        return "t";
     }
     public int getValue(String letter){
         // return the value of the given letter in bag
