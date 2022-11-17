@@ -121,7 +121,7 @@ public class TileChecker implements PlacementChecker {
                     row -= 1;
                 }
             }
-            if (!words.contains(wordstring.toString()) && !wordstring.isEmpty()) {
+            if (!words.contains(wordstring.toString())) {
                 words.add(wordstring.toString());
             }
         }
@@ -144,7 +144,7 @@ public class TileChecker implements PlacementChecker {
                     column -= 1;
                 }
             }
-            if (!words.contains(wordstring.toString()) && !wordstring.isEmpty()) {
+            if (!words.contains(wordstring.toString())) {
                 words.add(wordstring.toString());
             }
         }
