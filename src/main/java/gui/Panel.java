@@ -2,12 +2,14 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+// not currently in use, but may be used in the future
 
 public class Panel {
     JPanel panel;
-    Button letter;
-    final int BOARD_DIM = 400;
-    final int BOARD_ROWS = 15; // same as columns
+
     /**
      * @return returns a Java Swing panel
      */
@@ -15,30 +17,22 @@ public class Panel {
         return panel;
     }
 
-    public void createPanel(int boundX, int boundY, JFrame dialogueBox) {
+    /**
+     * Creates a Panel using the JPanel Java Swing
+     *
+     * @param dialogueBox the dialogue box we want to add this to
+     * @param boundX      bounds of the x coords
+     * @param boundY      bounds of the y coords
+     */
+    public void createPanel(int boundX, int boundY, int width, int height, JFrame dialogueBox) {
         panel = new JPanel();
         System.out.println("creating new panel");
 //        label.setText(convertToMultiline(labelText));
-        panel.setBounds(boundX, boundY, BOARD_DIM, BOARD_DIM);
+        panel.setBounds(boundX, boundY, width, height);
         panel.setBackground(Color.lightGray);
         if (dialogueBox != null) {
             dialogueBox.add(panel);
         }
     }
 
-    public void createDemoBoard(int boundX, int boundY, JFrame dialogueBox){
-        Button letter = new Button();
-
-        String path = "src/main/java/gui/resources/letters/A.jpg";
-        java.net.URL imgURL = getClass().getResource(path);
-        if(imgURL != null){
-            System.out.println("successful path");
-        }
-        else{
-            System.out.println("unsuccessful path");
-        }
-
-        ImageIcon icon = new ImageIcon(path);
-        letter.createButton(dialogueBox, "",boundX,boundY,BOARD_DIM/BOARD_ROWS, BOARD_DIM/BOARD_ROWS, icon);
-    }
 }
