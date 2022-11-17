@@ -11,5 +11,5 @@ import entities.*;
  * @author jingw
  */
 public interface UpdateScoreUsecase {
-    public void updateScoreForCurrentPlayer(int newScore);
+    public void updateScoreForCurrentPlayer(int newScore, Game game);
 }

@@ -3,21 +3,51 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package ScrabbleGame;
-
+import entities.Game;
+import entities.Player;
+import UsecaseInterfaces.*;
+import games_manager.*;
 /**
  *
  * @author jingw
  */
-public class ScrabbleGame implements Runnable {
+public class ScrabbleGame{
     
-    public ScrabbleGame() {
+    private BoardManager boardManager;
+    private PlayerManager playerManager;
+    private Game game;
+    
+    
+    public ScrabbleGame(String[] names) {
+        boardManager = new BoardManager();
+        playerManager = new PlayerManager();
+        game = new Game();
+        for(String str: names) {
+            game.addPlayer(new Player(str));
+        }
+    }
+    
+    public void placeTile() {
         
     }
     
-    @Override
-    public void run() {
+    public void playMove() {
         
+    }   
+    
+    public void createGame() {
         
+    }
+    
+    public void startGame() {
+        
+    }
+    
+    public void saveGame() {
+        
+    }
+    
+    public void endGame() {
         
     }
     

@@ -1,9 +1,10 @@
 package games_manager;
+import UsecaseInterfaces.UpdateScoreUsecase;
 import java.util.Random;
 
 import entities.*;
 
-public class PlayerManager {
+public class PlayerManager implements UpdateScoreUsecase{
 
     public static void drawTile(Player player, LetterBag bag) {
         /* Precondition: Player has less than 7 tiles in hand
@@ -71,7 +72,11 @@ public class PlayerManager {
 
     public static Cell[] getHand(Player player) { return player.getHand(); }
 
-
+    @Override
+    public void updateScoreForCurrentPlayer(int newScore, Game game) {
+        game.getCurrentPlayer().setScore(newScore);
+    }
+    
 
 
 }

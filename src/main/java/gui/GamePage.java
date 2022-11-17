@@ -27,14 +27,23 @@ public class GamePage implements ActionListener {
     final int WIDTH = 1000; // width of the frame
     final int HEIGHT = 700; // height of the frame
 
-    public ArrayList<String> letters = new ArrayList<String>();
-    public ArrayList<int[]> coordinates = new ArrayList<int[]>();
+    public ArrayList<String> letters = new ArrayList<>();
+    public ArrayList<int[]> coordinates = new ArrayList<>();
 
     String player1Name = "Player 1", player2Name = "Player 2";
     public int player1Score = 0;
     public int player2Score = 0;
 
     public void createGame() {
+        //create the new game object
+        
+        
+        
+        
+        
+        
+        
+        //create the new game page
         dialogueBox = new DialogueBox();
         dialogueBox.createDialogueBox("Scrabble Game Page", WIDTH, HEIGHT, false);
         dialogueBox.f.setVisible(true);
@@ -217,7 +226,8 @@ public class GamePage implements ActionListener {
             System.out.println("Letter " + letters.get(i) + " played at coordinate: " + Arrays.toString(coordinates.get(i)));
         }
     }
-
+    
+    @Override
     public void actionPerformed(ActionEvent e) {
         String s = e.getActionCommand();
 
@@ -255,6 +265,8 @@ public class GamePage implements ActionListener {
                 source.setIcon(createImageIcon("wood.jpg"));
                 source.setName("empty"); // we set the button name to empty to prevent additional presses
             }
+            
+            
             else {
                 // if the button was not clicked and it doesn't start with holder
                 if(clickedValue != null && !buttonClick.startsWith("holder")){

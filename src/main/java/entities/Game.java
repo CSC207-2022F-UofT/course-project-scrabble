@@ -10,21 +10,12 @@ Holds all the instances of entitis and remembers gamestate.
 
 public class Game { //there is only one game object at a time (use singleton)
     
-    private static Game instance;
-    
-    public static Game getInstance() {
-        if(Game.instance == null) {
-            instance = new Game();
-        }
-        return instance;
-    }
-    
     private GameBoard gameBoard;
     private List<Player> players;
     private int turn;
     private LetterBag letterBag;
     
-    private Game() {
+    public Game() {
         gameBoard = new GameBoard();
         players = new ArrayList<>();
         turn = 0;

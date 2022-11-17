@@ -55,23 +55,28 @@ public class StartupPage implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println((e.getActionCommand()));
-        if (e.getActionCommand().equals("Create Game")) { // when the create game button has been pressed
-            System.out.println("Create game button pressed");
-            NewGamePage newGamePage = new NewGamePage(); // create a new game through the NewGamePage frame
-            newGamePage.createGamePage();
-
-        } else if (e.getActionCommand().equals("Rules")) { // when the rules button has been pressed
-            System.out.println("Rules button pressed");
-            RulesPage rules = new RulesPage(); // create a rules page to allow people to review the rules of the game
-            try {
-                rules.createRulesPage();
-            } catch (FileNotFoundException ex) { // we want to try to read the file, and catch any errors
-                throw new RuntimeException(ex);
-            }
-
-        } else if (e.getActionCommand().equals("Start Old Game")) {
-            System.out.println("Start old game button pressed");
-            // TODO: determine what we can do to read from file a previous game
+        switch (e.getActionCommand()) {
+            case "Create Game":
+                // when the create game button has been pressed
+                System.out.println("Create game button pressed");
+                NewGamePage newGamePage = new NewGamePage(); // create a new game through the NewGamePage frame
+                newGamePage.createGamePage();
+                break;
+            case "Rules":
+                // when the rules button has been pressed
+                System.out.println("Rules button pressed");
+                RulesPage rules = new RulesPage(); // create a rules page to allow people to review the rules of the game
+                try {
+                    rules.createRulesPage();
+                } catch (FileNotFoundException ex) { // we want to try to read the file, and catch any errors
+                    throw new RuntimeException(ex);
+                }   break;
+            case "Start Old Game":
+                System.out.println("Start old game button pressed");
+                // TODO: determine what we can do to read from file a previous game
+                break;
+            default:
+                break;
         }
     }
 }

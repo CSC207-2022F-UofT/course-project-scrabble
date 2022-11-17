@@ -2,6 +2,7 @@ package games_manager;
 
 import entities.Cell;
 import entities.GameBoard;
+import games_manager.BoardManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
