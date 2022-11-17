@@ -83,19 +83,19 @@ public class TileChecker implements PlacementChecker {
 
     private boolean adjacentTileLeft(int row, int column, GameBoard board){
         // checks for a horizontally adjacent tile
-        return !Objects.equals(board.getBoardCellValue(row + 1, column), "-");
+        return !Objects.equals(board.getBoardCellValue(row, column - 1), "-");
     }
     private boolean adjacentTileRight(int row, int column, GameBoard board){
         // checks for a horizontally adjacent tile
-        return !Objects.equals(board.getBoardCellValue(row + 1, column), "-");
+        return !Objects.equals(board.getBoardCellValue(row, column + 1), "-");
     }
     private boolean adjacentTileTop(int row, int column, GameBoard board){
         // checks for a vertically adjacent tile
-        return !Objects.equals(board.getBoardCellValue(row, column + 1), "-");
+        return !Objects.equals(board.getBoardCellValue(row - 1, column), "-");
     }
     private boolean adjacentTileBottom(int row, int column, GameBoard board){
         // checks for a vertically adjacent tile
-        return !Objects.equals(board.getBoardCellValue(row, column + 1), "-");
+        return !Objects.equals(board.getBoardCellValue(row + 1, column), "-");
     }
 
     public ArrayList<String> wordList(ArrayList<List<Integer>> newword, GameBoard board){
@@ -108,17 +108,17 @@ public class TileChecker implements PlacementChecker {
             int row = tile.get(0);
             int column = tile.get(1);
             while (adjacentTileTop(row, column, board) && (column == tile.get(1))) {
-                if (!Objects.equals(board.getBoardCellValue(row + 1, column), "-")) { // checks for a top vertically adjacent tile
-                    wordstring.insert(0, board.getBoardCellValue(row + 1, column));
-                    row += 1;
+                if (!Objects.equals(board.getBoardCellValue(row - 1, column), "-")) { // checks for a top vertically adjacent tile
+                    wordstring.insert(0, board.getBoardCellValue(row - 1, column));
+                    row -= 1;
                 }
             }
             int row1 = tile.get(0);
             int column1 = tile.get(1);
             while (adjacentTileBottom(row1, column, board) && (column1 == tile.get(1))) {
                 if (!Objects.equals(board.getBoardCellValue(row1 + 1, column1), "-")) { // checks for a vertically adjacent tile
-                    wordstring.append(board.getBoardCellValue(row1 - 1, column1));
-                    row -= 1;
+                    wordstring.append(board.getBoardCellValue(row1 + 1, column1));
+                    row += 1;
                 }
             }
             if (!words.contains(wordstring.toString())) {
@@ -131,17 +131,17 @@ public class TileChecker implements PlacementChecker {
             int row = tile.get(0);
             int column = tile.get(1);
             while (adjacentTileLeft(row, column, board) && (row == tile.get(0))) {
-                if (!Objects.equals(board.getBoardCellValue(row, column + 1), "-")) { // checks horizontal adjacent tile
-                    wordstring.append(board.getBoardCellValue(row, column + 1));
-                    column += 1;
+                if (!Objects.equals(board.getBoardCellValue(row, column - 1), "-")) { // checks horizontal adjacent tile
+                    wordstring.append(board.getBoardCellValue(row, column - 1));
+                    column -= 1;
                 }
             }
             int row1 = tile.get(0);
             int column1 = tile.get(1);
             while (adjacentTileRight(row1, column, board) && (row1 == tile.get(1))) {
-                if (!Objects.equals(board.getBoardCellValue(row1, column1 - 1), "-")) { // checks horizontal adjacent tile
-                    wordstring.insert(0, board.getBoardCellValue(row1, column1 - 1));
-                    column -= 1;
+                if (!Objects.equals(board.getBoardCellValue(row1, column1 + 1), "-")) { // checks horizontal adjacent tile
+                    wordstring.insert(0, board.getBoardCellValue(row1, column1 + 1));
+                    column += 1;
                 }
             }
             if (!words.contains(wordstring.toString())) {
