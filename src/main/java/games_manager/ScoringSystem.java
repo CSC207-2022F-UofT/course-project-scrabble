@@ -17,7 +17,7 @@ public class ScoringSystem implements WordScoreCalculator, HandScoreCalculator {
     }
 
     @Override
-    public int score(GameBoard board, List<List<Integer>> word) // returns score of word
+    public int calculateWordScore(GameBoard board, List<List<Integer>> word) // returns score of word
     {
         /* returns the score of the move given the new word's coordinates and current board state
          * word formatted as: [[2, 3], [4, 1], ...]
@@ -57,7 +57,7 @@ public class ScoringSystem implements WordScoreCalculator, HandScoreCalculator {
         BoardManager.boardManagerSetCellScore(letter, score); // changes the cell's score to that of the letter it represents
     }
 
-    public int multiScore(GameBoard board, List<List<List<Integer>>> words) // returns score of multiple words
+    public int calculateMultiWordScore(GameBoard board, List<List<List<Integer>>> words) // returns score of multiple words
     {
         /* Calculates the score of multiple words given the board state
          * words are inputted as a list of words, where each word contains a
@@ -65,7 +65,7 @@ public class ScoringSystem implements WordScoreCalculator, HandScoreCalculator {
          */
         int points = 0;
         for (List<List<Integer>> word: words){
-            points += score(board, word);
+            points += calculateWordScore(board, word);
         }
         return points;
     }

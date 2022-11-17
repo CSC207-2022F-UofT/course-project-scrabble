@@ -41,7 +41,7 @@ public class ScoringSystemTest {
         pos.add(pos2);
         pos.add(pos3);
         ScoringSystem scorer = new ScoringSystem();
-        Assertions.assertEquals(5, scorer.score(board, pos));
+        Assertions.assertEquals(5, scorer.calculateWordScore(board, pos));
     }
 
     @Test
@@ -86,7 +86,7 @@ public class ScoringSystemTest {
         pos.add(pos3);
         pos.add(pos4);
         pos.add(pos5);
-        Assertions.assertEquals(17, scorer.score(board, pos));
+        Assertions.assertEquals(17, scorer.calculateWordScore(board, pos));
     }
 
     @Test
@@ -143,7 +143,7 @@ public class ScoringSystemTest {
         pos.add(pos6);
         pos.add(pos7);
 
-        Assertions.assertEquals(99, scorer.score(board, pos));
+        Assertions.assertEquals(99, scorer.calculateWordScore(board, pos));
     }
     @Test
     public void multiScoreTest(){
@@ -215,7 +215,7 @@ public class ScoringSystemTest {
         pos.add(word1);
         pos.add(word2);
 
-        Assertions.assertEquals(23, scorer.multiScore(board, pos));
+        Assertions.assertEquals(23, scorer.calculateMultiWordScore(board, pos));
     }
 
     // following tests are for hand scores
