@@ -39,7 +39,8 @@ public class ScoringSystemTest {
         pos.add(pos1); // combining the coordinates arraylists into the pos arraylist
         pos.add(pos2);
         pos.add(pos3);
-        Assertions.assertEquals(5, ScoreCalculator.score(board, pos));
+        ScoringSystem scorer = new ScoringSystem();
+        Assertions.assertEquals(5, scorer.score(board, pos));
     }
 
     @Test
@@ -84,8 +85,7 @@ public class ScoringSystemTest {
         pos.add(pos3);
         pos.add(pos4);
         pos.add(pos5);
-
-        Assertions.assertEquals(17, ScoreCalculator.score(board, pos));
+        Assertions.assertEquals(17, scorer.score(board, pos));
     }
 
     @Test
@@ -142,7 +142,7 @@ public class ScoringSystemTest {
         pos.add(pos6);
         pos.add(pos7);
 
-        Assertions.assertEquals(99, ScoreCalculator.score(board, pos));
+        Assertions.assertEquals(99, scorer.score(board, pos));
     }
     @Test
     public void multiScoreTest(){
@@ -214,7 +214,7 @@ public class ScoringSystemTest {
         pos.add(word1);
         pos.add(word2);
 
-        Assertions.assertEquals(23, ScoreCalculator.multiScore(board, pos));
+        Assertions.assertEquals(23, scorer.multiScore(board, pos));
     }
 
     @Test
@@ -222,7 +222,7 @@ public class ScoringSystemTest {
         Cell[] hand = {};
         ScoringSystem scorer = new ScoringSystem();
 
-        Assertions.assertEquals(0, ScoreCalculator.calculateUnplacedLetters(hand));
+        Assertions.assertEquals(0, scorer.calculateUnplacedLetters(hand));
     }
 
     @Test
@@ -233,35 +233,16 @@ public class ScoringSystemTest {
         Cell c2 = new Cell("L", 1, 1);
         Cell c3 = new Cell("U", 1, 1);
         Cell[] hand = {c0, c1, c2, c3};
+        ScoringSystem scorer = new ScoringSystem();
 
-        Assertions.assertEquals(7, ScoreCalculator.calculateUnplacedLetters(hand));
-    }
-
-    @Test
-    public void initializePlayerHandScoreTest(){
-        Player p1 = new Player("Dan");
-        Cell c0 = new Cell("V", 1);
-        Cell c1 = new Cell("A", 1);
-        Cell c2 = new Cell("L", 1);
-        Cell c3 = new Cell("U", 1);
-        Cell c4 = new Cell("C", 1);
-        Cell c5 = new Cell("A", 1);
-        Cell c6 = new Cell("R", 1);
-
-        p1.setHand(new Cell[]{c0, c1, c2, c3, c4, c5, c6});
-        ScoringSystem.initializeHandScore(p1.getHand());
-        int[] scores = {4, 1, 1, 1, 3, 1, 1}; // the scores the letters should have
-        for (int i=0; i < 7; i++){
-            // checking if each letter has the correct score assigned
-            Assertions.assertEquals(scores[i], BoardManager.boardManagerGetCellScore(p1.getHand()[i]));
-        }
-
+        Assertions.assertEquals(7, scorer.calculateUnplacedLetters(hand));
     }
 
     @Test
     public void initializeCellScoreTest(){
         Cell c0 = new Cell("V", 1);
-        ScoringSystem.initializeCellScore(c0);
+        ScoringSystem scorer = new ScoringSystem();
+        scorer.initializeCellScore(c0);
         Assertions.assertEquals(4, BoardManager.boardManagerGetCellScore(c0));
 
     }
