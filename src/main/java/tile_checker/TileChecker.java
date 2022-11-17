@@ -81,7 +81,6 @@ public class TileChecker implements PlacementChecker {
         }
     }
 
-<<<<<<< HEAD
     private boolean adjacentTileLeft(int row, int column, GameBoard board){
         // checks for a horizontally adjacent tile
         return !Objects.equals(board.getBoardCellValue(row + 1, column), "-");
@@ -151,31 +150,4 @@ public class TileChecker implements PlacementChecker {
         }
         return words;
     }
-
-=======
-//    public ArrayList<String> wordList(){
-//        //a word parser function that returns a list of words that need to be checked
-//        ArrayList<String> words = new ArrayList<String>();
-//
-//        for (// list of tiles that the players has played){
-//            wordstring = ""
-//            row = // tile.row
-//            column = // tile.colum
-//            while (adjacentTile(int row, int column, GameBoard board)){
-//                if (board.getBoardCellValue(row + 1, column) != "-") { // checks for a horizontally adjacent tile
-//                    wordstring += board.getBoardCellValue(row + 1, column);
-//                } else if (board.getBoardCellValue(row - 1, column) != "-") { // checks horizontally adjacent tile
-//                    wordstring = board.getBoardCellValue(row - 1, column) + wordstring;
-//                } else if (board.getBoardCellValue(row, column + 1) != "-") { // checks vertically adjacent tile
-//                    wordstring += board.getBoardCellValue(row, column + 1);
-//                } else if (board.getBoardCellValue(row, column - 1) != "-") { // checks vertically adjacent tile
-//                    wordstring = board.getBoardCellValue(row, column - 1) + wordstring;
-//                } ;
-//            }
-//
-//                }
-//
-//
-//    //TODO: Write the final TileChecker function that calls all of these functions to return true or false.
->>>>>>> b5661fd40fc39a7cea366a428b64795f8b0467e1
 }
