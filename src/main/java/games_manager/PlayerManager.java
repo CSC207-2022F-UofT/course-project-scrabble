@@ -3,12 +3,14 @@ import java.util.Random;
 
 import entities.*;
 
-public class PlayerManager {
+public class PlayerManager implements DrawTiles{
 
-    public static void drawTile(Player player, LetterBag bag) {
+    @Override
+    public void drawTile(Player player, LetterBag bag) {
         /* Precondition: Player has less than 7 tiles in hand
            Draws a tile to the players hand
          */
+        ScoringSystem scorer = new ScoringSystem();
         Random rand = new Random();
         Cell letter = new Cell();
         String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
@@ -26,10 +28,12 @@ public class PlayerManager {
         while (player.getHand()[i] != null) { // loop to find index of hand that is null
             i++;
         }
-        ScoringSystem.initializeCellScore(letter); // assigns the correct score to the cell
+        scorer.initializeCellScore(letter); // assigns the correct score to the cell
         player.getHand()[i] = letter; // assign the null space the value of the new hand
     }
-    public static void swapHand(Player player, LetterBag bag){
+
+    @Override
+    public void swapHand(Player player, LetterBag bag){
         // Precondition: players hand is full i.e. has no null within it
         // Returns all tiles in players hand back to the bag and draws 7 new tiles from the bag
 
@@ -42,14 +46,15 @@ public class PlayerManager {
         player.setHand(null_array);
 
         // draw new tiles
-        PlayerManager.drawHand(player, bag);
+        this.drawHand(player, bag);
     }
 
-    public static void drawHand(Player player, LetterBag bag){
+    @Override
+    public void drawHand(Player player, LetterBag bag){
         // Precondition: Player's hand is empty i.e. is filled with null
         // Gives the player 7 new tiles
         for (int i=0; i<player.getHand().length; i++) {
-            PlayerManager.drawTile(player, bag);
+            this.drawTile(player, bag);
         }
     }
 
