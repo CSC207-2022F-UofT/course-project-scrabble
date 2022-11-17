@@ -2,8 +2,9 @@ package games_manager;
 import java.util.Random;
 
 import entities.*;
+import use_cases.DrawTiles;
 
-public class PlayerManager implements DrawTiles{
+public class PlayerManager implements DrawTiles {
 
     @Override
     public void drawTile(Player player, LetterBag bag) {
