@@ -11,14 +11,14 @@ import games_manager.*;
  *
  * @author jingw
  */
-public class ScrabbleGame{
+public class ScrabbleGameController{
     
     private BoardManager boardManager;
     private PlayerManager playerManager;
     private Game game;
     
     
-    public ScrabbleGame(String[] names) {
+    public ScrabbleGameController(String[] names) {
         boardManager = new BoardManager();
         playerManager = new PlayerManager();
         game = new Game();
