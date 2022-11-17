@@ -1,4 +1,5 @@
 package games_manager;
+import UsecaseInterfaces.DrawTiles;
 import UsecaseInterfaces.UpdateScoreUsecase;
 import java.util.Random;
 
