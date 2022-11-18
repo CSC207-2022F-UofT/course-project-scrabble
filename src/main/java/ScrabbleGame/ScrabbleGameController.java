@@ -28,31 +28,41 @@ public class ScrabbleGameController{
         gameSaver = new GameSaverSystem();
     }
     
+    public void resetWord() {
+        
+    }
+    
+    public void swapTiles() {
+        
+    }
+    
     public void placeTile(int[] coords, String letter) {
         ((BoardManagement) boardManager).checkLetter(coords, letter, game.getGameBoard(), true);
+        // place tile usecase 
         // need to fix the first_move parameter
     }
     
     public void playMove() {
         
+        // place word usecase 
     }   
     
     public void createGameFromFile() {
-        game = ((GameLoad)gameLoader).loadGame();
+        game = ((GameLoad)gameLoader).loadGame(); // loadgame usecase
     }
     
     public void saveGameToFile() { // make sure this is not called before a game is created
-        ((GameSave)gameSaver).saveGame(game);
+        ((GameSave)gameSaver).saveGame(game);// savegame usecase
     }
     
     public void startGame(String[] names) {
-        game = new Game();
+        game = new Game(); // create game 
         for(String str: names) {
             game.addPlayer(new Player(str));
         }
     }
     
-    public void endGame() {
+    public void endGame() { // get score
         
     }
     

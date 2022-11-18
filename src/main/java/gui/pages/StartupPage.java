@@ -1,18 +1,14 @@
 package gui.pages;
 
-import gui.pages.RulesPage;
-import gui.pages.NewGamePage;
 import gui.components.DialogueBox;
 import gui.components.Label;
 import gui.components.Button;
-import org.junit.Rule;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
-import java.util.Objects;
 
 public class StartupPage implements ActionListener {
     DialogueBox dialogueBox;
@@ -55,8 +51,8 @@ public class StartupPage implements ActionListener {
         createButton.createButton(dialogueBox.frame, "Create Game", WIDTH / 3 + buttonOffset, HEIGHT - 200, 200, 50, null);
         createButton.getButton().addActionListener(this);
 
-        dialogueBox.f.setVisible(true); // update contents of the frame
-        dialogueBox.f.setResizable(false);
+        dialogueBox.frame.setVisible(true); // update contents of the frame
+        dialogueBox.frame.setResizable(false);
     }
 
     // actionPeformed allows us to check when a button has been pressed
