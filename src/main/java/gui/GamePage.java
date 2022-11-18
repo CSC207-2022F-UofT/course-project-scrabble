@@ -310,6 +310,7 @@ public class GamePage implements ActionListener {
         // check if we need to start a new game
         if (s.equals("Play Move")) {
             System.out.println("play move button pressed");
+            printLettersAndCoordinates();
             // TODO: what to do after play move is submitted
         } else if (s.equals("End Game")) {
             // end game
@@ -356,11 +357,25 @@ public class GamePage implements ActionListener {
 
                     // create an array consisting of yLoc and xLoc
                     int[] coord = new int[]{yLoc, xLoc};
-                    playLetter(clickedValue, coord, source);
 
-                    printLettersAndCoordinates(); // print out the moves that were played
-                    clickedValue = null;
+                    // boolean for determining whether this is a valid tile placement
+                    boolean playLetter = true;
 
+                    // check if letter is being played on an already played tile
+                    for(int[] coordinate : coordinates){
+                        System.out.println(Arrays.toString(coordinate));
+                        if(Arrays.equals(coordinate, coord)){ // check if array is equivalent
+                            System.out.println("board square already occupied");
+                            playLetter = false;
+                        }
+                    }
+                    // play letter only if it is valid
+                    if (playLetter){
+                        // call play letter function
+                        playLetter(clickedValue, coord, source);
+                        clickedValue = null; // set the button to be ready for next turn
+                        printLettersAndCoordinates(); // print out the moves that were played
+                    }
                 }
             }
         }
