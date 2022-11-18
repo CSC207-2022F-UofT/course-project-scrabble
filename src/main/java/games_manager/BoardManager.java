@@ -2,6 +2,7 @@ package games_manager;
 
 import UsecaseInterfaces.PlaceTile;
 import UsecaseInterfaces.PlaceWord;
+import UsecaseInterfaces.ResetMove;
 import entities.Cell;
 import entities.Game;
 import entities.GameBoard;
@@ -10,7 +11,7 @@ import ScrabbleGame.tile_checker.TileChecker;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BoardManager implements PlaceTile, PlaceWord {
+public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
     private ArrayList<MoveInfo> moves; // list of coordinates and letters
     private GameBoard previous_board; // saved previous board state
     public BoardManager(){
@@ -18,13 +19,13 @@ public class BoardManager implements PlaceTile, PlaceWord {
         previous_board = new GameBoard();
     }
     @Override
-    public boolean checkLetter(int[] coordinates, String letter, Game game, boolean first_move){
+    public boolean checkLetter(int[] coordinates, String letter, Game game){
         /*
         This function return true if each individual letter placement by the player is valid and
         updates the board state. Otherwise, this function returns false and does not update board state.
          */
         TileChecker validate_move = new TileChecker();
-        if (first_move) {
+        if (moves.size() == 0) {
             previous_board = savePreviousBoardState(game.getGameBoard()); // save the previous board state if first move
         }
         if (validate_move.isValid(coordinates[0], coordinates[1], game.getGameBoard())){
@@ -56,10 +57,17 @@ public class BoardManager implements PlaceTile, PlaceWord {
             return true; // return true if word is valid english word.
         }
         else {
-            game.getGameBoard().setBoard(previous_board.getBoard()); // change board back to previous state.
+            resetMoves(game); // change board back to previous state.
             moves.clear(); // clear moves to try again
             return false;
         }
+    }
+    @Override
+    public void resetMoves(Game game){
+        /*
+        This function resets the moves on the board if played changes their mind.
+         */
+        game.getGameBoard().setBoard(previous_board.getBoard()); // change board back to previous state.
     }
     private void updateBoardState(GameBoard board){
         /*
