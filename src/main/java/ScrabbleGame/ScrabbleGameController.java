@@ -18,6 +18,7 @@ public class ScrabbleGameController{
     private PlayerManager playerManager;
     private GameLoaderSystem  gameLoader;
     private GameSaverSystem gameSaver;
+    private ScoringSystem gameScorer;
     private Game game;
     
     
@@ -65,10 +66,7 @@ public class ScrabbleGameController{
     }
     
     public void startGame(String[] names) {
-        game = new Game(); // create game 
-        for(String str: names) {
-            game.addPlayer(new Player(str));
-        }
+        
     }
     
     public void endGame() { // get score
