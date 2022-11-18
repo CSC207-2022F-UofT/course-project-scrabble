@@ -1,5 +1,9 @@
-package gui;
+package gui.pages;
 
+import gui.components.TextField;
+import gui.components.DialogueBox;
+import gui.components.Label;
+import gui.components.Button;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -33,7 +37,6 @@ public class GamePage implements ActionListener {
 
     DialogueBox dialogueBox;
     Label gamePageLabel, gamePageTitle, player1Label, player2Label;
-    TextField letterPlayed;
     final static String[] STARTING_LETTERS = new String[]{"A", "C", "H", "I", "E", "V", "E"};
     private String[] currentLetters;
     int boundX, boundY;
@@ -66,50 +69,53 @@ public class GamePage implements ActionListener {
         //create the new game page
         dialogueBox = new DialogueBox();
         dialogueBox.createDialogueBox("Scrabble Game Page", WIDTH, HEIGHT, false);
-        dialogueBox.f.setVisible(true);
+        dialogueBox.frame.setVisible(true);
         // we want to ignore the exit when we close only the rules page
-        dialogueBox.f.setResizable(false);
+        dialogueBox.frame.setResizable(false);
         Color col = new Color(255, 230, 230);
-        dialogueBox.f.getContentPane().setBackground(col);
+        dialogueBox.frame.getContentPane().setBackground(col);
 
         // add title label for rules box
         gamePageTitle = new Label();
-        gamePageTitle.createLabel(30, 10, 40, WIDTH - 100, 40, dialogueBox.f, "Play Scrabble", Color.BLACK);
+        gamePageTitle.createLabel(30, 10, 40, WIDTH - 100, 40, dialogueBox.frame, "Play Scrabble", Color.BLACK);
         gamePageTitle.setCentreAlignment();
 
         // add title label for rules box
         gamePageLabel = new Label();
-        gamePageLabel.createLabel(16, 10, 100, WIDTH / 4, 20, dialogueBox.f, "Welcome to scrabble!", Color.BLACK);
+
+        gamePageLabel.createLabel(16, 10, 100, WIDTH / 4, 20, dialogueBox.frame, "Welcome to scrabble!", Color.BLACK);
+		
         gamePageLabel.setCentreAlignment();
 
         // add label for player 1
         player1Label = new Label();
-        player1Label.createLabel(16, 10, 160, WIDTH / 4, 20, dialogueBox.f, player1Name + "\'s Score: " + player1Score, Color.BLACK);
+        player1Label.createLabel(16, 10, 160, WIDTH / 4, 20, dialogueBox.frame, player1Name + "\'s Score: " + player1Score, Color.BLACK);
         player1Label.setCentreAlignment();
 
         // add label for player 2
         player2Label = new Label();
-        player2Label.createLabel(16, 10, 200, WIDTH / 4, 20, dialogueBox.f, player2Name + "\'s Score: " + player2Score, Color.BLACK);
+        player2Label.createLabel(16, 10, 200, WIDTH / 4, 20, dialogueBox.frame, player2Name + "\'s Score: " + player2Score, Color.BLACK);
         player2Label.setCentreAlignment();
 
+
         createGameButton = new Button();
-        createGameButton.createButton(dialogueBox.f, "Play Move", WIDTH - 300, HEIGHT - 100, 100, 30, null);
+        createGameButton.createButton(dialogueBox.frame, "Play Move", WIDTH - 300, HEIGHT - 100, 100, 30, null);
         createGameButton.getButton().addActionListener(this);
 
         recallTiles = new Button();
-        recallTiles.createButton(dialogueBox.f, "Recall Tiles", WIDTH - 450, HEIGHT - 100, 100, 30, null);
+        recallTiles.createButton(dialogueBox.frame, "Recall Tiles", WIDTH - 450, HEIGHT - 100, 100, 30, null);
         recallTiles.getButton().addActionListener(this);
 
         endGameButton = new Button();
-        endGameButton.createButton(dialogueBox.f, "End Game", WIDTH - 150, HEIGHT - 100, 100, 30, null);
+        endGameButton.createButton(dialogueBox.frame, "End Game", WIDTH - 150, HEIGHT - 100, 100, 30, null);
         endGameButton.getButton().addActionListener(this);
 
         swapHands = new Button();
-        swapHands.createButton(dialogueBox.f, "Swap Hands", WIDTH - 625, HEIGHT - 100, 120, 30, null);
+        swapHands.createButton(dialogueBox.frame, "Swap Hands", WIDTH - 625, HEIGHT - 100, 120, 30, null);
         swapHands.getButton().addActionListener(this);
 
         shuffleHand = new Button();
-        shuffleHand.createButton(dialogueBox.f, "Shuffle Hand", WIDTH - 800, HEIGHT - 100, 120, 30, null);
+        shuffleHand.createButton(dialogueBox.frame, "Shuffle Hand", WIDTH - 800, HEIGHT - 100, 120, 30, null);
         shuffleHand.getButton().addActionListener(this);
 
         currentLetters = STARTING_LETTERS; // assign the current letters to the starting letters at the start
@@ -120,8 +126,8 @@ public class GamePage implements ActionListener {
         createLetterHolder(); // create the initial letter holder at the bottom of the board
 
         // refresh the page to allow the board to be visible
-        dialogueBox.f.setVisible(true);
-        dialogueBox.f.setResizable(false);
+        dialogueBox.frame.setVisible(true);
+        dialogueBox.frame.setResizable(false);
     }
 
     /**
@@ -174,7 +180,7 @@ public class GamePage implements ActionListener {
                 }
                 int xBound = boundX + BOARD_DIM / BOARD_ROWS * j; // buttons on the x axis
                 // System.out.println("" + xBound + " " + yBound); // debugging code to allow for printing values
-                letter.createButtonWithID(dialogueBox.f, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "" + i + " " + j);
+                letter.createButtonWithID(dialogueBox.frame, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "" + i + " " + j);
                 letter.getButton().addActionListener(this); // add listener to the button to see when it gets pressed
             }
         }
@@ -196,7 +202,7 @@ public class GamePage implements ActionListener {
             for (int j = 0; j < BOARD_ROWS; j++) {
                 int xBound = boundX + BOARD_DIM / BOARD_ROWS * j; // buttons on the x axis
                 // System.out.println("" + xBound + " " + yBound); // debugging code to allow for printing values
-                letter.createButtonWithID(dialogueBox.f, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "" + i + " " + j);
+                letter.createButtonWithID(dialogueBox.frame, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "" + i + " " + j);
                 letter.getButton().addActionListener(this); // add listener to the button to see when it gets pressed
             }
         }
@@ -208,14 +214,15 @@ public class GamePage implements ActionListener {
         Button holderButton = new Button();
         // create holders for buttons
         int yBound = boundY + BOARD_DIM + 50;
-        ImageIcon icon = createImageIcon("wood.jpg");
+        ImageIcon icon;
 
         // create a holder for the tiles to start
         for(int i = 0; i < 7; i++){
             int xBound = boundX + BOARD_DIM/4 + BOARD_DIM/BOARD_ROWS * i;
             icon = createImageIcon(currentLetters[i] + ".jpg");
-            // currently set to the currentLetters as the holders.
-            holderButton.createButtonWithID(dialogueBox.f, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "holder " + i + " " + currentLetters[i]);
+
+            holderButton.createButtonWithID(dialogueBox.frame, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "holder " + i + " " + currentLetters[i]);
+
             holderButton.getButton().addActionListener(this);
             holderButtons.add(holderButton.button);
         }
@@ -227,7 +234,7 @@ public class GamePage implements ActionListener {
      */
     public void resetHolder() {
         // collect the components from the dialogue box's content pane
-        Component[] components = dialogueBox.f.getContentPane().getComponents();
+        Component[] components = dialogueBox.frame.getContentPane().getComponents();
         System.out.println("num of components: " + components.length);
         for (Component component : components){ // iterate through each component in the frame
             // check if the component is a button, whether it has a name, and whether it starts with holder
@@ -246,6 +253,7 @@ public class GamePage implements ActionListener {
                 playedButtons.remove(b);
             }
         }
+
         // remove the letters and coordinates from the list of words
         letters.removeAll(letters); // remove the current move on the docket.
         coordinates.removeAll(coordinates); // remove all current coordinates on the docket
@@ -253,8 +261,8 @@ public class GamePage implements ActionListener {
         // reset current moves played
         printLettersAndCoordinates(); // check if updated
 
-        dialogueBox.f.setVisible(true);
-        dialogueBox.f.setResizable(false);
+        dialogueBox.frame.setVisible(true);
+        dialogueBox.frame.setResizable(false);
     }
     /**
      * Scuffles the current hand
@@ -273,7 +281,7 @@ public class GamePage implements ActionListener {
         // initialize a counter to change the index to find the button
         int holderIndex = 0;
         // get the components and update the icons and names
-        Component[] components = dialogueBox.f.getContentPane().getComponents();
+        Component[] components = dialogueBox.frame.getContentPane().getComponents();
         for (Component component : components){ // iterate through each component in the frame
             // check if the component is a button, whether it has a name, and whether it starts with holder
             if(holderButtons.contains(component)){
@@ -287,8 +295,8 @@ public class GamePage implements ActionListener {
             }
         }
 
-        dialogueBox.f.setVisible(true);
-        dialogueBox.f.setResizable(false);
+        dialogueBox.frame.setVisible(true);
+        dialogueBox.frame.setResizable(false);
     }
 
     /**
@@ -306,8 +314,8 @@ public class GamePage implements ActionListener {
         letters.add(value);
         coordinates.add(coord);
 
-        dialogueBox.f.setVisible(true);
-        dialogueBox.f.setResizable(false);
+        dialogueBox.frame.setVisible(true);
+        dialogueBox.frame.setResizable(false);
     }
 
     /**
@@ -332,7 +340,7 @@ public class GamePage implements ActionListener {
      * Prints the letter and its coordinates
      */
     public void printLettersAndCoordinates() {
-        if (letters.size() == 0){
+        if (letters.isEmpty()){
             System.out.println("No letters");
         }
         for (int i = 0; i < letters.size(); i++) {
@@ -356,7 +364,7 @@ public class GamePage implements ActionListener {
             // end game
             // TODO: add action after ending game
             System.out.println("end game button pressed");
-            dialogueBox.f.dispose(); // close dialogue box permanently
+            dialogueBox.frame.dispose(); // close dialogue box permanently
         }
         else if (s.equals("Shuffle Hand")) {
             System.out.println("shuffle hand button pressed");

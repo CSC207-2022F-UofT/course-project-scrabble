@@ -18,7 +18,7 @@ public class GameSaverSystem implements GameSave {
             ObjectOutputStream out = new ObjectOutputStream(file); // used to write objects to file
 
             // Method for serialization of objects
-            out.writeObject(game); // write objects to output stream
+            out.writeObject(game); // write game object to output stream
 
             out.close(); // closes stream
             file.close();
@@ -27,7 +27,6 @@ public class GameSaverSystem implements GameSave {
 
         } catch (IOException ex) {
             System.out.println("IOException is caught");
-            ex.printStackTrace();
         }
 
     }

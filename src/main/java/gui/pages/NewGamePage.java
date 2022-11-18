@@ -1,5 +1,10 @@
-package gui;
+package gui.pages;
 
+import gui.pages.GamePage;
+import gui.components.TextField;
+import gui.components.DialogueBox;
+import gui.components.Label;
+import gui.components.Button;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -22,35 +27,35 @@ public class NewGamePage implements ActionListener {
     public void createGamePage() {
         dialogueBox = new DialogueBox();
         dialogueBox.createDialogueBox("Create A New Game!", WIDTH, HEIGHT, false);
-        dialogueBox.f.setVisible(true);
+        dialogueBox.frame.setVisible(true);
         // we may want to ignore the exit when we close only the rules page
         // dialogueBox.f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        dialogueBox.f.setResizable(false);
+        dialogueBox.frame.setResizable(false);
         Color col = new Color(255, 255, 240);
-        dialogueBox.f.getContentPane().setBackground(col);
+        dialogueBox.frame.getContentPane().setBackground(col);
 
         // add title label for rules box
         newGamePageTitle = new Label();
-        newGamePageTitle.createLabel(30, 50, 40, WIDTH - 100, 40, dialogueBox.f, "Create a new Game", Color.BLACK);
+        newGamePageTitle.createLabel(30, 50, 40, WIDTH - 100, 40, dialogueBox.frame, "Create a new Game", Color.BLACK);
         newGamePageTitle.setCentreAlignment();
 
         // add title label for rules box
         playerLabel1 = new Label();
-        playerLabel1.createLabel(16, 50, 100, WIDTH / 4, 20, dialogueBox.f, "Player 1 Name: ", Color.BLACK);
+        playerLabel1.createLabel(16, 50, 100, WIDTH / 4, 20, dialogueBox.frame, "Player 1 Name: ", Color.BLACK);
         playerLabel1.setCentreAlignment();
 
         // add header label for rules box
         playerLabel2 = new Label();
-        playerLabel2.createLabel(16, 50, 140, WIDTH / 4, 30, dialogueBox.f, "Player 2 Name: ", Color.BLACK);
+        playerLabel2.createLabel(16, 50, 140, WIDTH / 4, 30, dialogueBox.frame, "Player 2 Name: ", Color.BLACK);
         playerLabel2.setCentreAlignment();
 
         t1 = new TextField();
-        t1.createTextField(200, 100, WIDTH / 4, 20, dialogueBox.f, "Player 1");
+        t1.createTextField(200, 100, WIDTH / 4, 20, dialogueBox.frame, "Player 1");
         t2 = new TextField();
-        t2.createTextField(200, 140, WIDTH / 4, 20, dialogueBox.f, "Player 2");
+        t2.createTextField(200, 140, WIDTH / 4, 20, dialogueBox.frame, "Player 2");
 
         createGameButton = new Button();
-        createGameButton.createButton(dialogueBox.f, "Start Game", 200, 180, WIDTH / 4, 30, null);
+        createGameButton.createButton(dialogueBox.frame, "Start Game", 200, 180, WIDTH / 4, 30, null);
         createGameButton.getButton().addActionListener(this);
     }
 
@@ -69,7 +74,7 @@ public class NewGamePage implements ActionListener {
             GamePage game = new GamePage(s1, s2, true);
             game.createGame();
 
-            dialogueBox.f.dispose(); // close dialogue box permanently
+            dialogueBox.frame.dispose(); // close dialogue box permanently
         }
     }
 }

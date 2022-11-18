@@ -1,9 +1,9 @@
-package gui;
+package gui.components;
 
 import javax.swing.*;
 
 public class Button {
-    JButton button;
+    public JButton button;
 
     /**
      * Returns class variable button

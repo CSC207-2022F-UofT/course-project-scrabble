@@ -1,7 +1,7 @@
 package UsecaseInterfaces;
 
 import java.io.File;
-import entities.*;
+import entities.Game;
 
 public interface GameLoad {
     final static File filename = new File("src/main/java/data/data.ser");

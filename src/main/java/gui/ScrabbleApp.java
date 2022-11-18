@@ -1,5 +1,7 @@
 package gui;
 
+import gui.pages.StartupPage;
+
 public class ScrabbleApp {
 
     /**
@@ -9,7 +11,10 @@ public class ScrabbleApp {
         StartupPage startupPage = new StartupPage();
         startupPage.createStartupPage();
     }
-
+    
+    
+    
+    
     /**
      * Run this to test and run the code
      */

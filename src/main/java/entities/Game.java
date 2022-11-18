@@ -10,8 +10,8 @@ Calls GameCreator if neeeded
 Holds all the instances of entitis and remembers gamestate.
 */
 
-public class Game implements Serializable { //there is only one game object at a time (use singleton)
-    
+public class Game implements Serializable { 
+
     private GameBoard gameBoard;
     private List<Player> players;
     private int turn;

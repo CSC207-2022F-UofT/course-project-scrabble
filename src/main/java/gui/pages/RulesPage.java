@@ -1,5 +1,7 @@
-package gui;
+package gui.pages;
 
+import gui.components.DialogueBox;
+import gui.components.Label;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -22,19 +24,19 @@ public class RulesPage {
         // create a dialogue box for the entire page
         dialogueBox = new DialogueBox();
         dialogueBox.createDialogueBox("Scrabble Games Rules", WIDTH, HEIGHT, false);
-        dialogueBox.f.setVisible(true);
-        dialogueBox.f.setResizable(false);
+        dialogueBox.frame.setVisible(true);
+        dialogueBox.frame.setResizable(false);
         Color col = new Color(255, 240, 240);
-        dialogueBox.f.getContentPane().setBackground(col);
+        dialogueBox.frame.getContentPane().setBackground(col);
 
         // add title label for rules box
         rulesTitleLabel = new Label();
-        rulesTitleLabel.createLabel(30, 50, 40, WIDTH - 100, 30, dialogueBox.f, "Revised Rules of Scrabble", Color.BLACK);
+        rulesTitleLabel.createLabel(30, 50, 40, WIDTH - 100, 30, dialogueBox.frame, "Revised Rules of Scrabble", Color.BLACK);
         rulesTitleLabel.setCentreAlignment();
 
         // add header label for rules box
         rulesHeaderLabel = new Label();
-        rulesHeaderLabel.createLabel(16, 50, 100, WIDTH - 100, 30, dialogueBox.f, "These rules were revised from the official Hasbro Rules of Scrabble", Color.BLACK);
+        rulesHeaderLabel.createLabel(16, 50, 100, WIDTH - 100, 30, dialogueBox.frame, "These rules were revised from the official Hasbro Rules of Scrabble", Color.BLACK);
         rulesHeaderLabel.setCentreAlignment();
 
         // add rules to the rules page from the revised rules of scrabble page we made
@@ -52,7 +54,7 @@ public class RulesPage {
         // set rules text
         rulesTextLabel = new Label();
         // create a label that is multiline and shows all the rules
-        rulesTextLabel.createMultiLineLabel(12, 30, 60, WIDTH - 50, HEIGHT - 50, dialogueBox.f, finalString.toString(), Color.BLACK);
+        rulesTextLabel.createMultiLineLabel(12, 30, 60, WIDTH - 50, HEIGHT - 50, dialogueBox.frame, finalString.toString(), Color.BLACK);
     }
 }
 
