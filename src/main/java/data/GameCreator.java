@@ -7,7 +7,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 public class GameCreator implements GameLoad, CreateGame{
-    public Game newGame(String name1, String name2){
+    public GameCreator(){
+
+    }
+    public Game createNewGame(String name1, String name2){
         // method to initialize all variables needed to play a new game and returned as an array of objects
 
         Game game = new Game();
