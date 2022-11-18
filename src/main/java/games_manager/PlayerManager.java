@@ -1,13 +1,12 @@
 package games_manager;
-import UsecaseInterfaces.DrawTiles;
-import UsecaseInterfaces.UpdateScoreUsecase;
+import UsecaseInterfaces.*;
+
 import java.util.Random;
 
 import entities.*;
 
-public class PlayerManager implements DrawTiles, UpdateScoreUsecase{
+public class PlayerManager implements FillHand, DrawHand, SwapHand, RemoveTile, UpdateScoreUsecase{
 
-    @Override
     public void drawTile(Game game) {
         /* Precondition: Player has less than 7 tiles in hand
            Draws a tile to the players hand
@@ -38,6 +37,17 @@ public class PlayerManager implements DrawTiles, UpdateScoreUsecase{
     }
 
     @Override
+    public void fillHand(Game game){
+        // Fill hand with tiles
+        Player player = game.getCurrentPlayer();
+        for (Cell letter: player.getHand()){
+            if (letter == null) {
+                this.drawTile(game);
+            }
+        }
+    }
+
+    @Override
     public void swapHand(Game game){
         // Precondition: players hand is full i.e. has no null within it
         // Returns all tiles in players hand back to the bag and draws 7 new tiles from the bag
@@ -64,6 +74,20 @@ public class PlayerManager implements DrawTiles, UpdateScoreUsecase{
         Player player = game.getCurrentPlayer();
         for (int i=0; i<player.getHand().length; i++) {
             this.drawTile(game);
+        }
+    }
+    @Override
+    public void removeTile(Game game, String letter){
+        // removes tile from current player's hand given the letter they placed
+        Player player = game.getCurrentPlayer();
+        for (int i=0; i<PlayerManager.getHand(player).length; i++){
+            Cell cell = PlayerManager.getHand(player)[i];
+            if (cell != null) {
+                if (letter.equals(BoardManager.boardManagerGetCellValue(cell))) {
+                    PlayerManager.getHand(player)[i] = null;
+                    return;
+                }
+            }
         }
     }
 
