@@ -117,6 +117,7 @@ public class GamePage implements ActionListener {
         boundX = 300; // set the x and y bounds at the start for the scrabble board
         boundY = 50;
         createInitialBoard(); // create the starting board
+        createLetterHolder(); // create the initial letter holder at the bottom of the board
 
         // refresh the page to allow the board to be visible
         dialogueBox.f.setVisible(true);
@@ -149,6 +150,38 @@ public class GamePage implements ActionListener {
     }
 
     /**
+     * TODO: test this method
+     * Creates a board based on the inputted coordinates and their letters
+     * @param letters each letter that corresponds to a value in the coordinates
+     * @param xVals the corresponding x coordinate for each letter
+     * @param yVals the corresponding x coordinate for each letter
+     */
+    public void initializeSavedBoard(String[] letters, int[] xVals, int[] yVals){
+        Button letter = new Button();
+        int letterIndex = 0;
+        ImageIcon icon;
+        for(int i = 0; i<BOARD_ROWS; i++){
+            int yBound = boundY + BOARD_DIM / BOARD_ROWS * i;
+
+            // iterate through each letter index, add the letters back based on [j,i] coordinates
+            for(int j = 0; j<BOARD_ROWS; j++) {
+                if((j == yVals[letterIndex]) && (i == xVals[letterIndex])){
+                    icon = createImageIcon(letters[letterIndex] + ".jpg");
+                    letterIndex += 1;
+                }
+                else{
+                    icon = createImageIcon("wood.jpg");
+                }
+                int xBound = boundX + BOARD_DIM / BOARD_ROWS * j; // buttons on the x axis
+                // System.out.println("" + xBound + " " + yBound); // debugging code to allow for printing values
+                letter.createButtonWithID(dialogueBox.f, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "" + i + " " + j);
+                letter.getButton().addActionListener(this); // add listener to the button to see when it gets pressed
+            }
+        }
+        createLetterHolder();
+    }
+
+    /**
      * Creates an initial board on the frame
      *
      */
@@ -167,14 +200,21 @@ public class GamePage implements ActionListener {
                 letter.getButton().addActionListener(this); // add listener to the button to see when it gets pressed
             }
         }
-
+    }
+    /**
+     * Creates a letter holder at the bottom of the board with all regular tiles
+     */
+    public void createLetterHolder(){
         Button holderButton = new Button();
         // create holders for buttons
         int yBound = boundY + BOARD_DIM + 50;
+        ImageIcon icon = createImageIcon("wood.jpg");
+
         // create a holder for the tiles to start
         for(int i = 0; i < 7; i++){
             int xBound = boundX + BOARD_DIM/4 + BOARD_DIM/BOARD_ROWS * i;
             icon = createImageIcon(currentLetters[i] + ".jpg");
+            // currently set to the currentLetters as the holders.
             holderButton.createButtonWithID(dialogueBox.f, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "holder " + i + " " + currentLetters[i]);
             holderButton.getButton().addActionListener(this);
             holderButtons.add(holderButton.button);
