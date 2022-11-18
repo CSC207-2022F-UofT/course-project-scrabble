@@ -47,8 +47,10 @@ public class GamePage implements ActionListener {
     final int WIDTH = 1000; // width of the frame
     final int HEIGHT = 700; // height of the frame
 
-    private ArrayList<String> letters = new ArrayList<String>();
-    private ArrayList<int[]> coordinates = new ArrayList<int[]>();
+//    private ArrayList<String> letters = new ArrayList<String>();
+//    private ArrayList<int[]> coordinates = new ArrayList<int[]>();
+    public ArrayList<String> letters = new ArrayList<>();
+    public ArrayList<int[]> coordinates = new ArrayList<>();
 
     public ArrayList<int[]> getCoordinates(){
         return coordinates;
@@ -58,6 +60,8 @@ public class GamePage implements ActionListener {
     }
 
     public void createGame() {
+        //create the new game object
+        //create the new game page
         dialogueBox = new DialogueBox();
         dialogueBox.createDialogueBox("Scrabble Game Page", WIDTH, HEIGHT, false);
         dialogueBox.f.setVisible(true);
@@ -179,8 +183,13 @@ public class GamePage implements ActionListener {
      * Resets the tiles to the original state
      *
      */
-    public void resetHolder() {
-
+    public void resetHolder(Container c) {
+        Component[] components = dialogueBox.f.getContentPane().getComponents();
+        System.out.println("num of components: " + components.length);
+        for (Component component : components){
+            System.out.println("type: " + component.getClass());
+            System.out.println(component.getName());
+        }
     }
 
 
@@ -219,7 +228,8 @@ public class GamePage implements ActionListener {
             System.out.println("Letter " + letters.get(i) + " played at coordinate: " + Arrays.toString(coordinates.get(i)));
         }
     }
-
+    
+    @Override
     public void actionPerformed(ActionEvent e) {
         String s = e.getActionCommand();
 
@@ -238,7 +248,7 @@ public class GamePage implements ActionListener {
         }
         else if (s.equals("Recall Tiles")){
             System.out.println("recall tiles button pressed");
-            resetHolder();
+            resetHolder(dialogueBox.f);
         }
         else if (s.equals("Swap Hands")) {
             System.out.println("swap hands button pressed");
@@ -258,6 +268,7 @@ public class GamePage implements ActionListener {
                 // source.setName("empty"); // we set the button name to empty to prevent additional presses
                 source.setVisible(false);
             }
+
             else {
                 // if the button was not clicked and it doesn't start with holder
                 if(clickedValue != null && !buttonClick.startsWith("holder")){

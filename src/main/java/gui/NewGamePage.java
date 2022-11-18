@@ -1,7 +1,5 @@
 package gui;
 
-import games_manager.Game;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,7 +16,7 @@ public class NewGamePage implements ActionListener {
     final int HEIGHT = 400;
 
     public static void main(String[] args) {
-        new StartupPage();
+        new StartupPage().createStartupPage();
     }
 
     public void createGamePage() {
@@ -56,6 +54,7 @@ public class NewGamePage implements ActionListener {
         createGameButton.getButton().addActionListener(this);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         String s = e.getActionCommand();
         if (s.equals("Start Game")) {

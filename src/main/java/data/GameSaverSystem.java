@@ -4,9 +4,10 @@ import entities.*;
 
 import java.io.*;
 
-public class GameSaver {
-    final static File filename = new File("src/main/java/data/data.ser");
-    public static void saveGame(GameBoard board, Player p1, Player p2, LetterBag bag) { // TODO add turn to parameters once type is known
+public class GameSaverSystem implements GameSave {
+    // final static File filename = new File("src/main/java/data/data.ser");
+    @Override
+    public void saveGame(GameBoard board, Player p1, Player p2, LetterBag bag) { // TODO add turn to parameters once type is known
         // Method to save objects to data.ser file
 
         // Serialization
