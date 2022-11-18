@@ -5,7 +5,7 @@ import entities.*;
 
 import java.io.*;
 
-public class GameLoaderSystem implements GameLoad{
+public class GameLoaderSystem implements GameLoad {
 //    final static File filename = new File("src/main/java/data/data.ser");
     @Override
     public Game loadGame(){
@@ -21,13 +21,12 @@ public class GameLoaderSystem implements GameLoad{
 
             // Method for deserialization of object
             Game game = (Game) in.readObject(); // Read GameBoard
-            
-            
+
             in.close();
             file.close();
             // Close the files/object and stream
 
-            return game;
+            return game; // Returns the loaded Game object
         }
 
         catch(IOException ex)

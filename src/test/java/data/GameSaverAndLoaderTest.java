@@ -1,11 +1,11 @@
 package data;
 
-import entities.Cell;
-import entities.Player;
-import entities.GameBoard;
-import entities.LetterBag;
+import entities.*;
+import games_manager.BoardManager;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+
+import java.util.List;
 
 public class GameSaverAndLoaderTest {
 
@@ -13,39 +13,42 @@ public class GameSaverAndLoaderTest {
     public void saveData(){ // run this test before load test
         // creating objects to be saved
         GameSaverSystem game_saver = new GameSaverSystem();
-        GameBoard board = new GameBoard();
-        Player p1 = new Player("Steve");
-        Player p2 = new Player("Bob");
-        LetterBag bag = new LetterBag();
+        GameCreator gameCreator = new GameCreator();
+        Game game = gameCreator.createNewGame("Billy", "Mario");
+
+        Player p1 = game.getPlayers().get(0);
+        Player p2 = game.getPlayers().get(1);
+        GameBoard board = game.getGameBoard();
+        LetterBag bag = game.getLetterBag();
 
         // editing some objects
-        board.getBoard()[0][0] = new Cell("V", 4, 2);
+        BoardManager.boardManagerSetBoardCell(0, 0, new Cell("V", 4, 2), board);
         p2.setScore(25);
         bag.putTile("A");
         bag.removeTile("C");
 
 
         // saving all objects into data.ser
-        game_saver.saveGame(board, p1, p2, bag);
+        game_saver.saveGame(game);
     }
 
     @Test
     public void loadData(){ // checks if the objects are loaded correctly
         // loading objects from data.ser into array
         GameLoaderSystem game_loader = new GameLoaderSystem();
-        Object[] objects = game_loader.loadGame();
+        Game game = game_loader.loadGame();
 
         // loaded objects returned in the following order: GameBoard, Player1, Player2, LetterBag
-        assert objects != null;
+        assert game != null;
         // assigning objects the loaded values
-        GameBoard board = (GameBoard) objects[0];
-        Player p1 = (Player) objects[1];
-        Player p2 = (Player) objects[2];
-        LetterBag bag = (LetterBag) objects[3];
+        GameBoard board = game.getGameBoard();
+        Player p1 = game.getPlayers().get(0);
+        Player p2 = game.getPlayers().get(1);
+        LetterBag bag = game.getLetterBag();
 
         // assertions checking if the updated data that was saved in the previous test
         // is within the new objects
-        Assertions.assertEquals(2, board.getBoard()[0][0].getMultiplier());
+        Assertions.assertEquals(3, board.getBoard()[0][0].getMultiplier());
         Assertions.assertEquals(0, p1.getScore());
         Assertions.assertEquals(25, p2.getScore());
         Assertions.assertEquals(10, bag.getNumTile("A"));

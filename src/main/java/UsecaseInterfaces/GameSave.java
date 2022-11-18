@@ -1,8 +1,6 @@
 package UsecaseInterfaces;
 
 import entities.Game;
-
-
 import java.io.File;
 
 public interface GameSave {

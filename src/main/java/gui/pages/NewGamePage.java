@@ -71,7 +71,7 @@ public class NewGamePage implements ActionListener {
             System.out.println(s2); //prints into console the name of player 2
 
             // create game page using the players information
-            GamePage game = new GamePage();
+            GamePage game = new GamePage(s1, s2, true);
             game.createGame();
 
             dialogueBox.frame.dispose(); // close dialogue box permanently

@@ -1,10 +1,9 @@
 package UsecaseInterfaces;
 
-import entities.LetterBag;
-import entities.Player;
+import entities.Game;
 
 public interface DrawTiles { // interface for the draw tile use case
-    public void drawTile(Player player, LetterBag bag);
-    public void swapHand(Player player, LetterBag bag);
-    public void drawHand(Player player, LetterBag bag);
+    public void drawTile(Game game);
+    public void swapHand(Game game);
+    public void drawHand(Game game);
 }

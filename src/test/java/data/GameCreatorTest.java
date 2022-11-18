@@ -1,18 +1,19 @@
 package data;
 
-import entities.Cell;
-import entities.Player;
-import entities.GameBoard;
-import entities.LetterBag;
+import entities.*;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+
+import java.util.List;
+
 public class GameCreatorTest {
     @Test
     public void bagAndBoardTest(){
         // test to check whether all values are default for bag and board
-        Object[] objects = GameCreator.newGame("Rachel", "Charlie");
-        GameBoard board = (GameBoard) objects[0];
-        LetterBag bag = (LetterBag) objects[3];
+        GameCreator gameCreator = new GameCreator();
+        Game game = gameCreator.createNewGame("Rachel", "Charlie");
+        GameBoard board = game.getGameBoard();
+        LetterBag bag = game.getLetterBag();
 
         Assertions.assertEquals(0, board.getBoard()[4][6].getScore());
         for (int i=0; i<15; i++){
@@ -31,19 +32,24 @@ public class GameCreatorTest {
 
     @Test
     public void playerTest(){
-        Object[] objects = GameCreator.newGame("Rachel", "Charlie");
-        Player player1 = (Player) objects[1];
-        Player player2 = (Player) objects[2];
+//        Object[] objects = ("Rachel", "Charlie");
+//        Player player1 = (Player) objects[1];
+//        Player player2 = (Player) objects[2];
+        GameCreator gameCreator = new GameCreator();
+        Game game = gameCreator.createNewGame("Rachel", "Charlie");
+        List<Player> playerList = game.getPlayers();
+        Player p1 = playerList.get(0);
+        Player p2 = playerList.get(1);
 
-        Assertions.assertEquals("Rachel", player1.getName());
-        Assertions.assertEquals(0, player1.getScore());
+        Assertions.assertEquals("Rachel", p1.getName());
+        Assertions.assertEquals(0, p1.getScore());
 
-        Assertions.assertEquals("Charlie", player2.getName());
-        Assertions.assertEquals(0, player2.getScore());
+        Assertions.assertEquals("Charlie", p2.getName());
+        Assertions.assertEquals(0, p2.getScore());
 
         for (int i=0; i<7; i++){
-            Assertions.assertNull(player1.getHand()[i]); // checks if hand is null
-            Assertions.assertNull(player2.getHand()[i]);
+            Assertions.assertNull(p1.getHand()[i]); // checks if hand is null
+            Assertions.assertNull(p2.getHand()[i]);
         }
     }
 }

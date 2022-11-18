@@ -54,6 +54,9 @@ public class StartupPage implements ActionListener {
         createButton = new Button(); // button for creating a new game
         createButton.createButton(dialogueBox.frame, "Create Game", WIDTH / 3 + buttonOffset, HEIGHT - 200, 200, 50, null);
         createButton.getButton().addActionListener(this);
+
+        dialogueBox.f.setVisible(true); // update contents of the frame
+        dialogueBox.f.setResizable(false);
     }
 
     // actionPeformed allows us to check when a button has been pressed
