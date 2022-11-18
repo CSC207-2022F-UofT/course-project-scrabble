@@ -1,5 +1,6 @@
 package data;
 
+import UsecaseInterfaces.GameSave;
 import entities.*;
 
 import java.io.*;

@@ -1,4 +1,4 @@
-package data;
+package UsecaseInterfaces;
 
 import java.io.File;
 import entities.*;

@@ -1,12 +1,14 @@
 package data;
 
+import UsecaseInterfaces.CreateGame;
+import UsecaseInterfaces.GameLoad;
 import entities.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
-public class GameCreator implements GameLoad, CreateGame{
+public class GameCreator implements GameLoad, CreateGame {
     public GameCreator(){
 
     }

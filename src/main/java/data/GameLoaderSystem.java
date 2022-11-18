@@ -1,10 +1,11 @@
 package data;
 
+import UsecaseInterfaces.GameLoad;
 import entities.*;
 
 import java.io.*;
 
-public class GameLoaderSystem implements GameLoad{
+public class GameLoaderSystem implements GameLoad {
 //    final static File filename = new File("src/main/java/data/data.ser");
     @Override
     public Game loadGame(){
