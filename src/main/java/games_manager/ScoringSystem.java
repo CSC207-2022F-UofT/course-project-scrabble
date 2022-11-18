@@ -19,11 +19,12 @@ public class ScoringSystem implements WordScoreCalculator, HandScoreCalculator {
     }
 
     @Override
-    public int calculateWordScore(GameBoard board, List<List<Integer>> word) // returns score of word
+    public int calculateWordScore(Game game, List<List<Integer>> word) // returns score of word
     {
         /* returns the score of the move given the new word's coordinates and current board state
          * word formatted as: [[2, 3], [4, 1], ...]
          */
+        GameBoard board = game.getGameBoard();
         int points_so_far = 0; // variable to store points of word
         for (List<Integer> coordinates: word){ // loops over coordinates
             Cell letter = BoardManager.boardManagerGetCell(coordinates.get(0), coordinates.get(1), board); // saves the cell representing the letter in letter
@@ -37,14 +38,18 @@ public class ScoringSystem implements WordScoreCalculator, HandScoreCalculator {
     }
 
     @Override
-    public int calculateUnplacedLetters(Cell[] letters) // returns score of unplaced letter in hand
+    public int calculateUnplacedLetters(Game game) // returns score of unplaced letter in hand
     {
         /* Returns the score of the unplaced letters
          * given the players hand
          */
+        Player p = game.getCurrentPlayer();
+        Cell[] letters = PlayerManager.getHand(p);
         int points_so_far = 0;
         for (Cell letter: letters){
-            points_so_far += BoardManager.boardManagerGetCellScore(letter);
+            if (letter != null) {
+                points_so_far += BoardManager.boardManagerGetCellScore(letter);
+            }
         }
         return points_so_far;
     }
@@ -59,7 +64,7 @@ public class ScoringSystem implements WordScoreCalculator, HandScoreCalculator {
         BoardManager.boardManagerSetCellScore(letter, score); // changes the cell's score to that of the letter it represents
     }
 
-    public int calculateMultiWordScore(GameBoard board, List<List<List<Integer>>> words) // returns score of multiple words
+    public int calculateMultiWordScore(Game game, List<List<List<Integer>>> words) // returns score of multiple words
     {
         /* Calculates the score of multiple words given the board state
          * words are inputted as a list of words, where each word contains a
@@ -67,7 +72,7 @@ public class ScoringSystem implements WordScoreCalculator, HandScoreCalculator {
          */
         int points = 0;
         for (List<List<Integer>> word: words){
-            points += calculateWordScore(board, word);
+            points += calculateWordScore(game, word);
         }
         return points;
     }

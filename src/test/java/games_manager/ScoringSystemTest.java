@@ -1,6 +1,7 @@
 package games_manager;
 
 import entities.Cell;
+import entities.Game;
 import entities.GameBoard;
 import entities.Player;
 import org.junit.Test;
@@ -14,13 +15,14 @@ public class ScoringSystemTest {
     // following tests are for word scores
     @Test
     public void noMultipliers (){
+        Game game = new Game();
         // creating letter cells
         Cell c0 = new Cell("C", 3, 1);
         Cell c1 = new Cell("A", 1, 1);
         Cell c2 = new Cell("R", 1, 1);
 
         // initializing board state and adding letters
-        GameBoard board = new GameBoard();
+        GameBoard board = game.getGameBoard();
         BoardManager.boardManagerSetBoardCell(0, 4, c0, board);
         BoardManager.boardManagerSetBoardCell(0, 5, c1, board);
         BoardManager.boardManagerSetBoardCell(0, 6, c2, board);
@@ -41,11 +43,12 @@ public class ScoringSystemTest {
         pos.add(pos2);
         pos.add(pos3);
         ScoringSystem scorer = new ScoringSystem();
-        Assertions.assertEquals(5, scorer.calculateWordScore(board, pos));
+        Assertions.assertEquals(5, scorer.calculateWordScore(game, pos));
     }
 
     @Test
     public void withMultipliers (){
+        Game game = new Game();
         // creating letter cells
         Cell c0 = new Cell("V", 4, 3);
         Cell c1 = new Cell("A", 1, 1);
@@ -54,7 +57,7 @@ public class ScoringSystemTest {
         Cell c4 = new Cell("E", 1, 2);
 
         // initializing board state and adding letters
-        GameBoard board = new GameBoard();
+        GameBoard board = game.getGameBoard();
         BoardManager.boardManagerSetBoardCell(0, 0, c0, board);
         BoardManager.boardManagerSetBoardCell(0, 1, c1, board);
         BoardManager.boardManagerSetBoardCell(0, 2, c2, board);
@@ -86,11 +89,12 @@ public class ScoringSystemTest {
         pos.add(pos3);
         pos.add(pos4);
         pos.add(pos5);
-        Assertions.assertEquals(17, scorer.calculateWordScore(board, pos));
+        Assertions.assertEquals(17, scorer.calculateWordScore(game, pos));
     }
 
     @Test
     public void checkBingo(){
+        Game game = new Game();
         Cell c0 = new Cell("Z", 10, 1);
         Cell c1 = new Cell("O", 1, 1);
         Cell c2 = new Cell("M", 3, 1);
@@ -100,7 +104,7 @@ public class ScoringSystemTest {
         Cell c6 = new Cell("Y", 4, 1);
 
         // initializing board state and adding letters
-        GameBoard board = new GameBoard();
+        GameBoard board = game.getGameBoard();
 
         BoardManager.boardManagerSetBoardCell(0, 0, c0, board);
         BoardManager.boardManagerSetBoardCell(0, 1, c1, board);
@@ -143,10 +147,11 @@ public class ScoringSystemTest {
         pos.add(pos6);
         pos.add(pos7);
 
-        Assertions.assertEquals(99, scorer.calculateWordScore(board, pos));
+        Assertions.assertEquals(99, scorer.calculateWordScore(game, pos));
     }
     @Test
     public void multiScoreTest(){
+        Game game = new Game();
         // creating letter cells
         Cell c0 = new Cell("V", 4, 1);
         Cell c1 = new Cell("A", 1, 1);
@@ -159,7 +164,7 @@ public class ScoringSystemTest {
         Cell w3 = new Cell("E", 1, 1);
 
         // initializing board state and adding letters
-        GameBoard board = new GameBoard();
+        GameBoard board = game.getGameBoard();
 
         BoardManager.boardManagerSetBoardCell(0, 0, c0, board);
         BoardManager.boardManagerSetBoardCell(0, 1, c1, board);
@@ -215,29 +220,35 @@ public class ScoringSystemTest {
         pos.add(word1);
         pos.add(word2);
 
-        Assertions.assertEquals(23, scorer.calculateMultiWordScore(board, pos));
+        Assertions.assertEquals(23, scorer.calculateMultiWordScore(game, pos));
     }
 
     // following tests are for hand scores
     @Test
     public void calculateEmptyHandUnplacedLetters(){
-        Cell[] hand = {};
+        Game game = new Game();
+        Player p = new Player("Jeff");
+        game.addPlayer(p);
         ScoringSystem scorer = new ScoringSystem();
 
-        Assertions.assertEquals(0, scorer.calculateUnplacedLetters(hand));
+        Assertions.assertEquals(0, scorer.calculateUnplacedLetters(game));
     }
 
     @Test
     public void calculateUnplacedLettersTest(){
+        Game game = new Game();
+        Player p = new Player("Jeff");
+        game.addPlayer(p);
         // creating letter cells
         Cell c0 = new Cell("V", 4, 1);
         Cell c1 = new Cell("A", 1, 1);
         Cell c2 = new Cell("L", 1, 1);
         Cell c3 = new Cell("U", 1, 1);
         Cell[] hand = {c0, c1, c2, c3};
+        PlayerManager.setHand(hand, p);
         ScoringSystem scorer = new ScoringSystem();
 
-        Assertions.assertEquals(7, scorer.calculateUnplacedLetters(hand));
+        Assertions.assertEquals(7, scorer.calculateUnplacedLetters(game));
     }
 
     @Test
