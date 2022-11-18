@@ -43,7 +43,7 @@ public class Game { //there is only one game object at a time (use singleton)
     }
     
     public Player getCurrentPlayer() {
-        return players.get(players.size()%turn);
+        return players.get(turn%players.size());
     }
     
     public void incrementTurn() {
