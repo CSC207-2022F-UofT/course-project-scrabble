@@ -37,7 +37,7 @@ public class GamePage implements ActionListener {
     private String[] currentLetters;
     int boundX, boundY;
 
-    Button[] holderButtons = new Button[7];
+    ArrayList<JButton> holderButtons = new ArrayList<>();
 //    Button[] oldHolderButtons = new Button[7]; // save the older copy of the holder buttons
     private String clickedValue;
 
@@ -77,7 +77,7 @@ public class GamePage implements ActionListener {
 
         // add title label for rules box
         gamePageLabel = new Label();
-        gamePageLabel.createLabel(16, 10, 100, WIDTH / 4, 20, dialogueBox.f, "Indicate which letter you want to play and its location: ", Color.BLACK);
+        gamePageLabel.createLabel(16, 10, 100, WIDTH / 4, 20, dialogueBox.f, "Welcome to scrabble!", Color.BLACK);
         gamePageLabel.setCentreAlignment();
 
         // add label for player 1
@@ -91,8 +91,8 @@ public class GamePage implements ActionListener {
         player2Label.setCentreAlignment();
 
 
-        letterPlayed = new TextField();
-        letterPlayed.createTextField(10, 120, WIDTH / 4, 20, dialogueBox.f, "A");
+        // letterPlayed = new TextField();
+        // letterPlayed.createTextField(10, 120, WIDTH / 4, 20, dialogueBox.f, "A");
 
         createGameButton = new Button();
         createGameButton.createButton(dialogueBox.f, "Play Move", WIDTH - 300, HEIGHT - 100, 100, 30, null);
@@ -174,7 +174,6 @@ public class GamePage implements ActionListener {
             int xBound = boundX + BOARD_DIM/4 + BOARD_DIM/BOARD_ROWS * i;
             icon = createImageIcon(currentLetters[i] + ".jpg");
             holderButton.createButtonWithID(dialogueBox.f, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "holder " + i + " " + currentLetters[i]);
-            holderButtons[i] = holderButton;
             holderButton.getButton().addActionListener(this);
         }
     }
@@ -183,15 +182,37 @@ public class GamePage implements ActionListener {
      * Resets the tiles to the original state
      *
      */
-    public void resetHolder(Container c) {
+    public void resetHolder() {
+        // collect the components from the dialogue box's content pane
         Component[] components = dialogueBox.f.getContentPane().getComponents();
         System.out.println("num of components: " + components.length);
-        for (Component component : components){
-            System.out.println("type: " + component.getClass());
-            System.out.println(component.getName());
+        for (Component component : components){ // iterate through each component in the frame
+            // check if the component is a button, whether it has a name, and whether it starts with holder
+            if(component instanceof JButton && component.getName()!= null && component.getName().startsWith("holder")){
+                System.out.println(component.getName());
+                // we want to make the button back visible for the user
+                component.setVisible(true);
+            }
+            // checks if the holderButtons arraylist contains the button. We want to reset it by reverting the button to  the original state
+            if(holderButtons.contains(component)){
+                System.out.println("NEED TO REVERT");
+                System.out.println(component.getName());
+                JButton b = (JButton) component; // cast the button to a JButton.
+                b.setIcon(createIcon("wood")); // set the icon back to the original empty state
+                b.setVisible(true); // set the visibility back to true for viewing
+                holderButtons.remove(b);
+            }
         }
-    }
+        // remove the letters and coordinates from the list of words
+        letters.removeAll(letters); // remove the current move on the docket.
+        coordinates.removeAll(coordinates); // remove all current coordinates on the docket
 
+        // reset current moves played
+        printLettersAndCoordinates(); // check if updated
+
+        dialogueBox.f.setVisible(true);
+        dialogueBox.f.setResizable(false);
+    }
 
     /**
      * Plays the specified move and updates the button
@@ -201,6 +222,22 @@ public class GamePage implements ActionListener {
      */
     // helper method to update the game when a letter has been played by a player
     public void playLetter(String value, int[] coord, JButton button) {
+        holderButtons.add(button);
+
+        button.setIcon(createIcon(value)); // set the button to the letter's icon
+
+        letters.add(value);
+        coordinates.add(coord);
+
+        dialogueBox.f.setVisible(true);
+        dialogueBox.f.setResizable(false);
+    }
+
+    /**
+     * @return an ImageIcon file and returns the resized icon version.
+     * @param value is the name of the file
+     */
+    public ImageIcon createIcon(String value){
         // convert value to the path
         String path = "src/main/java/gui/resources/letters/" + value + ".jpg"; // indicates which image to select from
         System.out.println("path: " + path);
@@ -211,19 +248,16 @@ public class GamePage implements ActionListener {
         Image newImg = image.getScaledInstance(BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, Image.SCALE_SMOOTH);
         // replace old imageIcon with the new one
         icon = new ImageIcon(newImg);
-        button.setIcon(icon);
-
-        letters.add(value);
-        coordinates.add(coord);
-
-        dialogueBox.f.setVisible(true);
-        dialogueBox.f.setResizable(false);
+        return icon; // return the icon
     }
 
     /**
      * Prints the letter and its coordinates
      */
     public void printLettersAndCoordinates() {
+        if (letters.size() == 0){
+            System.out.println("No letters");
+        }
         for (int i = 0; i < letters.size(); i++) {
             System.out.println("Letter " + letters.get(i) + " played at coordinate: " + Arrays.toString(coordinates.get(i)));
         }
@@ -248,7 +282,7 @@ public class GamePage implements ActionListener {
         }
         else if (s.equals("Recall Tiles")){
             System.out.println("recall tiles button pressed");
-            resetHolder(dialogueBox.f);
+            resetHolder();
         }
         else if (s.equals("Swap Hands")) {
             System.out.println("swap hands button pressed");
@@ -272,22 +306,20 @@ public class GamePage implements ActionListener {
             else {
                 // if the button was not clicked and it doesn't start with holder
                 if(clickedValue != null && !buttonClick.startsWith("holder")){
-                    if (!source.getName().equals("empty")){
+//                    if (!source.getName().equals("empty")){
                         // System.out.println(location); // print out location of button
-                        String[] yxLoc = buttonClick.split(" ");
-                        int yLoc = Integer.parseInt(yxLoc[0]); // determine the y location
-                        int xLoc = Integer.parseInt(yxLoc[1]); // determine the x location
-                        System.out.println("" + yLoc + " " + xLoc); // print out location
+                    String[] yxLoc = buttonClick.split(" ");
+                    int yLoc = Integer.parseInt(yxLoc[0]); // determine the y location
+                    int xLoc = Integer.parseInt(yxLoc[1]); // determine the x location
+                    System.out.println("" + yLoc + " " + xLoc); // print out location
 
-                        // String s1 = letterPlayed.textField.getText(); // get the letter value
+                    // create an array consisting of yLoc and xLoc
+                    int[] coord = new int[]{yLoc, xLoc};
+                    playLetter(clickedValue, coord, source);
 
-                        // create an array consisting of yLoc and xLoc
-                        int[] coord = new int[]{yLoc, xLoc};
-                        playLetter(clickedValue, coord, source);
+                    printLettersAndCoordinates(); // print out the moves that were played
+                    clickedValue = null;
 
-                        printLettersAndCoordinates(); // print out the moves that were played
-                        clickedValue = null;
-                    }
                 }
             }
         }
