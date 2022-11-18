@@ -8,10 +8,13 @@ import entities.*;
 public class PlayerManager implements DrawTiles, UpdateScoreUsecase{
 
     @Override
-    public void drawTile(Player player, LetterBag bag) {
+    public void drawTile(Game game) {
         /* Precondition: Player has less than 7 tiles in hand
            Draws a tile to the players hand
          */
+
+        LetterBag bag = game.getLetterBag();
+        Player player = game.getCurrentPlayer();
         ScoringSystem scorer = new ScoringSystem();
         Random rand = new Random();
         Cell letter = new Cell();
@@ -35,11 +38,13 @@ public class PlayerManager implements DrawTiles, UpdateScoreUsecase{
     }
 
     @Override
-    public void swapHand(Player player, LetterBag bag){
+    public void swapHand(Game game){
         // Precondition: players hand is full i.e. has no null within it
         // Returns all tiles in players hand back to the bag and draws 7 new tiles from the bag
 
         // add all tiles in hand back to bag
+        LetterBag bag = game.getLetterBag();
+        Player player = game.getCurrentPlayer();
         for (Cell tile: player.getHand()){
             bag.putTile(BoardManager.boardManagerGetCellValue(tile));
         }
@@ -48,15 +53,17 @@ public class PlayerManager implements DrawTiles, UpdateScoreUsecase{
         player.setHand(null_array);
 
         // draw new tiles
-        this.drawHand(player, bag);
+        this.drawHand(game);
     }
 
     @Override
-    public void drawHand(Player player, LetterBag bag){
+    public void drawHand(Game game){
         // Precondition: Player's hand is empty i.e. is filled with null
         // Gives the player 7 new tiles
+        LetterBag bag = game.getLetterBag();
+        Player player = game.getCurrentPlayer();
         for (int i=0; i<player.getHand().length; i++) {
-            this.drawTile(player, bag);
+            this.drawTile(game);
         }
     }
 
