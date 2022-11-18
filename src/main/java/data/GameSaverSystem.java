@@ -1,5 +1,6 @@
 package data;
 
+import UsecaseInterfaces.GameSave;
 import entities.*;
 
 import java.io.*;
@@ -7,7 +8,7 @@ import java.io.*;
 public class GameSaverSystem implements GameSave {
     // final static File filename = new File("src/main/java/data/data.ser");
     @Override
-    public void saveGame(GameBoard board, Player p1, Player p2, LetterBag bag) { // TODO add turn to parameters once type is known
+    public void saveGame(Game game) { // TODO add turn to parameters once type is known
         // Method to save objects to data.ser file
 
         // Serialization
@@ -17,10 +18,7 @@ public class GameSaverSystem implements GameSave {
             ObjectOutputStream out = new ObjectOutputStream(file); // used to write objects to file
 
             // Method for serialization of objects
-            out.writeObject(board); // write objects to output stream
-            out.writeObject(p1);
-            out.writeObject(p2);
-            out.writeObject(bag);
+            out.writeObject(game); // write game object to output stream
 
             out.close(); // closes stream
             file.close();
@@ -29,7 +27,6 @@ public class GameSaverSystem implements GameSave {
 
         } catch (IOException ex) {
             System.out.println("IOException is caught");
-            ex.printStackTrace();
         }
 
     }

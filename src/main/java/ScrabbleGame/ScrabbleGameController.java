@@ -5,6 +5,7 @@
 package ScrabbleGame;
 import entities.Game;
 import entities.Player;
+import data.*;
 import UsecaseInterfaces.*;
 import games_manager.*;
 /**
@@ -15,43 +16,47 @@ public class ScrabbleGameController{
     
     private BoardManager boardManager;
     private PlayerManager playerManager;
+    private GameLoaderSystem  gameLoader;
+    private GameSaverSystem gameSaver;
     private Game game;
     
     
-    public ScrabbleGameController(String[] names) {
-        boardManager = new BoardManager();
-        playerManager = new PlayerManager();
-        game = new Game();
-        for(String str: names) {
-            game.addPlayer(new Player(str));
-        }
+    public ScrabbleGameController() {
+        boardManager = new BoardManager(); // this class implements checkword checktile
+        playerManager = new PlayerManager();// this class implements updatescore, drawtiles
+        gameLoader = new GameLoaderSystem();
+        gameSaver = new GameSaverSystem();
     }
     
-    public void placeTile() {
-        
+    public void placeTile(int[] coords, String letter) {
+        ((BoardManagement) boardManager).checkLetter(coords, letter, game.getGameBoard(), true);
+        // need to fix the first_move parameter
     }
     
     public void playMove() {
         
     }   
     
-    public void createGame() {
-        
+    public void createGameFromFile() {
+        game = ((GameLoad)gameLoader).loadGame();
     }
     
-    public void startGame() {
-        
+    public void saveGameToFile() { // make sure this is not called before a game is created
+        ((GameSave)gameSaver).saveGame(game);
     }
     
-    public void saveGame() {
-        
+    public void startGame(String[] names) {
+        game = new Game();
+        for(String str: names) {
+            game.addPlayer(new Player(str));
+        }
     }
     
     public void endGame() {
         
     }
     
-    public Game updateView() {
+    public Game getData() {
         return game;
     }
     

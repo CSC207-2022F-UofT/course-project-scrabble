@@ -8,7 +8,7 @@ Calls GameCreator if neeeded
 Holds all the instances of entitis and remembers gamestate.
 */
 
-public class Game { //there is only one game object at a time (use singleton)
+public class Game {
     
     private GameBoard gameBoard;
     private List<Player> players;

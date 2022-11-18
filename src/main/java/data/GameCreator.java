@@ -1,5 +1,6 @@
 package data;
 
+import UsecaseInterfaces.GameLoad;
 import entities.*;
 
 import java.io.FileInputStream;
@@ -16,7 +17,7 @@ public class GameCreator implements GameLoad{
         return new Object[]{board, player1 ,player2, letterBag};
     }
     @Override
-    public Object[] loadGame(){
+    public Game loadGame(){
         // Method to load objects required to play game by reading data.ser to load objects
         // Deserialization
         try
@@ -38,7 +39,9 @@ public class GameCreator implements GameLoad{
             file.close();
             // Close the files/object and stream
 
-            return new Object[]{gameboard, p1, p2, lb}; // Returns an array of the GameBoard, Player1, Player2, LetterBag
+            return new Game(); // Returns an array of the GameBoard, Player1, Player2, LetterBag
+            //This needs to be fixed
+            
         }
 
         catch(IOException ex)
