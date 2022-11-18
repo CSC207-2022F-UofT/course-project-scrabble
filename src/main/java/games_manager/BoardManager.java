@@ -1,14 +1,15 @@
 package games_manager;
 
-import UsecaseInterfaces.BoardManagement;
+import UsecaseInterfaces.PlaceTile;
+import UsecaseInterfaces.PlaceWord;
 import entities.Cell;
 import entities.GameBoard;
-import tile_checker.TileChecker;
+import ScrabbleGame.tile_checker.TileChecker;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BoardManager implements BoardManagement{
+public class BoardManager implements PlaceTile, PlaceWord {
     private ArrayList<MoveInfo> moves; // list of coordinates and letters
     private GameBoard previous_board; // saved previous board state
     public BoardManager(){

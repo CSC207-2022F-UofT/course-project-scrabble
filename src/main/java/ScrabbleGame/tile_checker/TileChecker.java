@@ -1,4 +1,4 @@
-package tile_checker;
+package ScrabbleGame.tile_checker;
 
 import UsecaseInterfaces.PlacementChecker;
 import entities.GameBoard;
