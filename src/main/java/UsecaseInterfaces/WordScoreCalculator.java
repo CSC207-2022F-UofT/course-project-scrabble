@@ -1,5 +1,7 @@
 package UsecaseInterfaces;
 
+import entities.Cell;
+import entities.Game;
 import entities.GameBoard;
 
 import java.util.List;
