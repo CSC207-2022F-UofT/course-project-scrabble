@@ -1,14 +1,17 @@
 package games_manager;
 
-import UsecaseInterfaces.BoardManagement;
+import UsecaseInterfaces.PlaceTile;
+import UsecaseInterfaces.PlaceWord;
+import UsecaseInterfaces.ResetMove;
 import entities.Cell;
+import entities.Game;
 import entities.GameBoard;
-import tile_checker.TileChecker;
+import ScrabbleGame.tile_checker.TileChecker;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BoardManager implements BoardManagement{
+public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
     private ArrayList<MoveInfo> moves; // list of coordinates and letters
     private GameBoard previous_board; // saved previous board state
     public BoardManager(){
@@ -16,19 +19,19 @@ public class BoardManager implements BoardManagement{
         previous_board = new GameBoard();
     }
     @Override
-    public boolean checkLetter(int[] coordinates, String letter, GameBoard board, boolean first_move){
+    public boolean checkLetter(int[] coordinates, String letter, Game game){
         /*
         This function return true if each individual letter placement by the player is valid and
         updates the board state. Otherwise, this function returns false and does not update board state.
          */
         TileChecker validate_move = new TileChecker();
-        if (first_move) {
-            previous_board = savePreviousBoardState(board); // save the previous board state if first move
+        if (moves.size() == 0) {
+            previous_board = savePreviousBoardState(game.getGameBoard()); // save the previous board state if first move
         }
-        if (validate_move.isValid(coordinates[0], coordinates[1], board)){
+        if (validate_move.isValid(coordinates[0], coordinates[1], game.getGameBoard())){
             MoveInfo move = new MoveInfo(coordinates, letter);
             moves.add(move); // adds player's move to list of moves
-            updateBoardState(board); //updates board with new moves
+            updateBoardState(game.getGameBoard()); //updates board with new moves
             return true;
         }
         else {
@@ -36,7 +39,7 @@ public class BoardManager implements BoardManagement{
         }
     }
     @Override
-    public boolean checkWord(ArrayList<MoveInfo> moves, GameBoard board){
+    public boolean checkWord(Game game){
         /*
         This function return true if the player's word is a valid english word. Otherwise, this function
         returns false and returns board state to the previous state.
@@ -49,15 +52,22 @@ public class BoardManager implements BoardManagement{
             move_list.add(new ArrayList<Integer>(coordinates));
         }
         TileChecker validate_word = new TileChecker();
-        if (validate_word.validateMove(move_list, board)){
+        if (validate_word.validateMove(move_list, game.getGameBoard())){
             moves.clear(); // clear moves for new turn
             return true; // return true if word is valid english word.
         }
         else {
-            board.setBoard(previous_board.getBoard()); // change board back to previous state.
+            resetMoves(game); // change board back to previous state.
             moves.clear(); // clear moves to try again
             return false;
         }
+    }
+    @Override
+    public void resetMoves(Game game){
+        /*
+        This function resets the moves on the board if played changes their mind.
+         */
+        game.getGameBoard().setBoard(previous_board.getBoard()); // change board back to previous state.
     }
     private void updateBoardState(GameBoard board){
         /*
