@@ -37,12 +37,21 @@ public class ScrabbleGameController{
     }
     
     public void placeTile(int[] coords, String letter) {
-        ((BoardManagement) boardManager).checkLetter(coords, letter, game.getGameBoard(), true);
+        ((PlaceTile) boardManager).checkLetter(coords, letter, game);
+        // call boardmanager checkLetter 
+        
+        // call playermanager removeTile
+        
         // place tile usecase 
         // need to fix the first_move parameter
     }
     
     public void playMove() {
+        
+        //boardmanager checkword returns list of list of coordinates and list of letters used by the player
+        
+        // ScoringSystem 
+        
         
         // place word usecase 
     }   
