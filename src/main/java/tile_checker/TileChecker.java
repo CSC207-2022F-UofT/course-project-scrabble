@@ -2,9 +2,7 @@ package tile_checker;
 
 import entities.GameBoard;
 
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.List;
+import java.util.*;
 
 public class TileChecker implements PlacementChecker {
     
@@ -15,10 +13,7 @@ public class TileChecker implements PlacementChecker {
         if (!isTouching(move, board)) { //if tiles aren't touching already played tiles, return false
             return false;
         }
-    // TODO: insert call to wordchecker function after it is written
-        else { //if everything is valid, return true
-            return true;
-        }
+        else return !wordList(move, board).isEmpty();
     }
     @Override
     public boolean isValid(int row, int column, GameBoard board) {
@@ -45,7 +40,7 @@ public class TileChecker implements PlacementChecker {
         }
     }
     private boolean isLine (int refNum, ArrayList<Integer> movelist, GameBoard board) { // determines whether or not there are any gaps
-        // TODO: sort the moveList
+        Collections.sort(movelist);
         for (int i = 0; i < movelist.toArray().length - 1; i++) {
             if (movelist.get(i + 1) != movelist.get(i) + 1) { // checks for non-sequential numbers
                 if (board.getBoardCellValue(refNum, i + 1) == "-") { // checks whether the skipped tiles are occupied
@@ -67,35 +62,50 @@ public class TileChecker implements PlacementChecker {
     }
 
     private boolean adjacentTile(int row, int column, GameBoard board) { // determines the adjacency for single tiles
-        // TODO: somehow determine whether tile is on the edge of the board
-        if (board.getBoardCellValue(row + 1, column) != "-") { // checks for a horizontally adjacent tile
+        if (adjacentTileLeft(row, column, board)) { // checks for a horizontally adjacent tile
             return true;
-        } else if (board.getBoardCellValue(row - 1, column) != "-") { // checks horizontally adjacent tile
+        } else if (adjacentTileRight(row, column, board)) { // checks horizontally adjacent tile
             return true;
-        } else if (board.getBoardCellValue(row, column + 1) != "-") { // checks vertically adjacent tile
+        } else if (adjacentTileTop(row, column, board)) { // checks vertically adjacent tile
             return true;
-        } else if (board.getBoardCellValue(row, column - 1) != "-") { // checks vertically adjacent tile
+        } else if (adjacentTileBottom(row, column, board)) { // checks vertically adjacent tile
             return true;
         } else { // if no tiles are adjacent
             return false;
         }
     }
 
-    private boolean adjacentTileLeft(int row, int column, GameBoard board){
+    private boolean adjacentTileLeft(int row, int column, GameBoard board) {
         // checks for a horizontally adjacent tile
-        return !Objects.equals(board.getBoardCellValue(row, column - 1), "-");
+        if (column - 1 >= 0) {
+            return !Objects.equals(board.getBoardCellValue(row, column - 1), "-");
+        } else {
+            return false;
+        }
     }
-    private boolean adjacentTileRight(int row, int column, GameBoard board){
+    private boolean adjacentTileRight(int row, int column, GameBoard board) {
         // checks for a horizontally adjacent tile
-        return !Objects.equals(board.getBoardCellValue(row, column + 1), "-");
+        if (column + 1 <= 14) {
+            return !Objects.equals(board.getBoardCellValue(row, column + 1), "-");
+        } else {
+            return false;
+        }
     }
-    private boolean adjacentTileTop(int row, int column, GameBoard board){
+    private boolean adjacentTileTop(int row, int column, GameBoard board) {
         // checks for a vertically adjacent tile
-        return !Objects.equals(board.getBoardCellValue(row - 1, column), "-");
+        if (row - 1 >= 0) {
+            return !Objects.equals(board.getBoardCellValue(row - 1, column), "-");
+        } else {
+            return false;
+        }
     }
-    private boolean adjacentTileBottom(int row, int column, GameBoard board){
+    private boolean adjacentTileBottom(int row, int column, GameBoard board) {
         // checks for a vertically adjacent tile
-        return !Objects.equals(board.getBoardCellValue(row + 1, column), "-");
+        if (row + 1 <= 14) {
+            return !Objects.equals(board.getBoardCellValue(row + 1, column), "-");
+        } else {
+            return false;
+        }
     }
 
     public ArrayList<String> wordList(ArrayList<List<Integer>> newword, GameBoard board){
