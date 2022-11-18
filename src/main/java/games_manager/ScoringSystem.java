@@ -18,7 +18,6 @@ public class ScoringSystem implements WordScoreCalculator, HandScoreCalculator {
             letter_to_score.put(LETTERS[i], LETTER_SCORE[i]);
     }
 
-    @Override
     public int calculateWordScore(Game game, List<List<Integer>> word) // returns score of word
     {
         /* returns the score of the move given the new word's coordinates and current board state
@@ -64,6 +63,7 @@ public class ScoringSystem implements WordScoreCalculator, HandScoreCalculator {
         BoardManager.boardManagerSetCellScore(letter, score); // changes the cell's score to that of the letter it represents
     }
 
+    @Override
     public int calculateMultiWordScore(Game game, List<List<List<Integer>>> words) // returns score of multiple words
     {
         /* Calculates the score of multiple words given the board state
