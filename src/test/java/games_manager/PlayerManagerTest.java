@@ -1,8 +1,11 @@
 package games_manager;
 
+import data.GameCreator;
 import entities.*;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+
+import java.util.ArrayList;
 
 public class PlayerManagerTest {
     @Test
@@ -157,5 +160,24 @@ public class PlayerManagerTest {
         Assertions.assertEquals("A", hand[4].getValue());
         Assertions.assertEquals("A", hand[5].getValue());
     }
+
+    @Test
+    public void endGameTest(){
+        GameCreator gm = new GameCreator();
+        String[] playerInputs = {"Tyler", "Creator"};
+
+        Game game = gm.createNewGame(playerInputs);
+        PlayerManager pm = new PlayerManager();
+        String p1 = "Tyler";
+        Player playerReturn = null;
+        for (Player player : game.getPlayers()){
+            if (p1.equals(player.getName())){
+                playerReturn = player;
+            }
+        };          // loop to find player in list of players
+        pm.updateScoreForCurrentPlayer(20, game);
+        Assertions.assertEquals(playerReturn, pm.endGame(game));
+    }
+
 
 }

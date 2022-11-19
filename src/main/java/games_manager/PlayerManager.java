@@ -1,11 +1,12 @@
 package games_manager;
 import UsecaseInterfaces.*;
 
+import java.util.List;
 import java.util.Random;
 
 import entities.*;
 
-public class PlayerManager implements FillHand, DrawHand, SwapHand, RemoveTile, UpdateScoreUsecase{
+public class PlayerManager implements FillHand, DrawHand, SwapHand, RemoveTile, UpdateScoreUsecase, EndGame{
 
     public void drawTile(Game game) {
         /* Precondition: Player has less than 7 tiles in hand
@@ -113,7 +114,20 @@ public class PlayerManager implements FillHand, DrawHand, SwapHand, RemoveTile, 
     public void updateScoreForCurrentPlayer(int newScore, Game game) {
         game.getCurrentPlayer().setScore(newScore);
     }
-    
+
+
+    @Override
+    public Player endGame(Game game){
+        int ind_max_so_far = 0;
+        List<Player> listOfPlayers = game.getPlayers();
+        for (int i = 0; i < (listOfPlayers.size()); i++) {
+            Player player = listOfPlayers.get(i);
+            if(player.getScore() > listOfPlayers.get(ind_max_so_far).getScore()) {
+                ind_max_so_far = i;
+            }
+        }
+        return game.getPlayers().get(ind_max_so_far);
+    }
 
 
 }
