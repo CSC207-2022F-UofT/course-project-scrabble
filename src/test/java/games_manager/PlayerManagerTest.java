@@ -208,6 +208,34 @@ public class PlayerManagerTest {
         Assertions.assertArrayEquals(pm.endGame(game), playerArray);        // assert equivalency
     }
 
+    @Test
+    public void endGameTestOneWinnerWithMultipleScores(){
+        GameCreator gm = new GameCreator();
+        String[] playerInputs = {"Tyler", "The", "Creator"};
+        ArrayList<String> validPlayers =  new ArrayList<>(List.of("Creator"));
+
+        Game game = gm.createNewGame(playerInputs);
+        PlayerManager pm = new PlayerManager();
+        List<Player> playerArrayList = new ArrayList<>();
+        for (int i = 0; i < game.getPlayers().size(); i++){        // manual loop to find valid Players
+            if (validPlayers.contains(game.getPlayers().get(i).getName())){
+                playerArrayList.add(game.getPlayers().get(i));
+            }
+        }
+        Player[] playerArray = new Player[playerArrayList.size()];
+        for (int i = 0; i < playerArrayList.size(); i++) {     // convert arraylist to array
+            playerArray[i] = playerArrayList.get(i);
+        }
+
+        pm.updateScoreForCurrentPlayer(20, game);       // add score to "Tyler" Player
+        game.incrementTurn();
+        game.incrementTurn();
+        pm.updateScoreForCurrentPlayer(20, game);       // add score to "Creator" Player
+        pm.updateScoreForCurrentPlayer(30, game);       // add additional score to "Creator" player
+
+        Assertions.assertArrayEquals(pm.endGame(game), playerArray);        // assert equivalency
+    }
+
 
 
 }
