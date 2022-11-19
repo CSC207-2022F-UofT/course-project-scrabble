@@ -5,10 +5,17 @@ import entities.*;
 
 import java.io.*;
 
+/**
+ * This class is responsible for saving the current Game entity present in the game to a file named "data.ser".
+ */
+
 public class GameSaverSystem implements GameSave {
-    // final static File filename = new File("src/main/java/data/data.ser");
+    /**
+     * This function is responsible for saving the Game entity to a file named "data.ser" which acts as the database.
+     * @param game This is the Game entity that will be saved to the "data.ser" file.
+     */
     @Override
-    public void saveGame(Game game) { // TODO add turn to parameters once type is known
+    public void saveGame(Game game) {
         // Method to save objects to data.ser file
 
         // Serialization
