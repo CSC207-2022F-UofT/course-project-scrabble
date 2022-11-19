@@ -231,7 +231,7 @@ public class PlayerManagerTest {
         game.incrementTurn();
         game.incrementTurn();
         pm.updateScoreForCurrentPlayer(20, game);       // add score to "Creator" Player
-        pm.updateScoreForCurrentPlayer(30, game);       // add additional score to "Creator" player
+        pm.updateScoreForCurrentPlayer(40, game);       // add additional score to "Creator" player
 
         Assertions.assertArrayEquals(pm.endGame(game), playerArray);        // assert equivalency
     }
