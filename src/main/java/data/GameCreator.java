@@ -12,14 +12,13 @@ public class GameCreator implements GameLoad, CreateGame {
     public GameCreator(){
 
     }
-    public Game createNewGame(String name1, String name2){
+    public Game createNewGame(String[] names){
         // method to initialize all variables needed to play a new game and returned as an array of objects
 
         Game game = new Game();
-        Player p1 = new Player(name1);
-        Player p2 = new Player(name2);
-        game.addPlayer(p1);
-        game.addPlayer(p2);
+        for (String name: names) {
+            game.addPlayer(new Player(name));
+        }
 
         return game;
     }
