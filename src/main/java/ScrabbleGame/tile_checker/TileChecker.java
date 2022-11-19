@@ -7,19 +7,22 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.List;
 
+import static scrabble_dictionary.ScrabbleDictionary.inDictionary;
+
 public class TileChecker implements PlacementChecker {
     
-    public boolean validateMove(ArrayList<List<Integer>> move, GameBoard board) { //call to other functions that will validate move
+    public ArrayList<List<List<Integer>>> validateMove(ArrayList<List<Integer>> move, GameBoard board) { //call to other functions that will validate move
+        ArrayList<List<List<Integer>>> falseResult = new ArrayList<List<List<Integer>>>();
         if (!isConsecutive(move, board)) { //if tiles aren't consecutive, return false
-            return false;
+            return falseResult;
         }
         if (!isTouching(move, board)) { //if tiles aren't touching already played tiles, return false
-            return false;
+            return falseResult;
         }
-    // TODO: insert call to wordchecker function after it is written
-        else { //if everything is valid, return true
-            return true;
-        }
+        //else { //wordList must be changed to implement this
+            //return wordList(move, board);
+        //}
+        return falseResult; //temporary, once wordlist is changed we can change this
     }
     @Override
     public boolean isValid(int row, int column, GameBoard board) {
