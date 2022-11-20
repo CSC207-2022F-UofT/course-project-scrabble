@@ -10,6 +10,7 @@ import java.io.ObjectInputStream;
 
 /**
  * This class is responsible for creating a new Game instance or loading a previous Game instance from file.
+ * @author Jazli
  */
 
 public class GameCreator implements GameLoad, CreateGame {

@@ -7,6 +7,7 @@ import java.io.*;
 
 /**
  * This class is responsible for saving the current Game entity present in the game to a file named "data.ser".
+ * @author Jazli & Umair
  */
 
 public class GameSaverSystem implements GameSave {

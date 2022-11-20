@@ -7,6 +7,7 @@ import java.io.*;
 
 /**
  * This class is responsible for loading an instance of a Game from a file that stored the object called "data.ser" file.
+ * @author Jazli & Umair
  */
 public class GameLoaderSystem implements GameLoad {
     /**
