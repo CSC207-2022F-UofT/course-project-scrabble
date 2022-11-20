@@ -40,10 +40,10 @@ public class GameCreatorTest {
         Player p1 = playerList.get(0);
         Player p2 = playerList.get(1);
 
-        Assertions.assertEquals("Rachel", p1.getName());
+        Assertions.assertEquals("First", p1.getName());
         Assertions.assertEquals(0, p1.getScore());
 
-        Assertions.assertEquals("Charlie", p2.getName());
+        Assertions.assertEquals("Second", p2.getName());
         Assertions.assertEquals(0, p2.getScore());
 
         for (int i=0; i<7; i++){
