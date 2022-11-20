@@ -117,12 +117,12 @@ public class GamePage implements ActionListener, View {
         shuffleHand.createButton(dialogueBox.frame, "Shuffle Hand", WIDTH - 800, HEIGHT - 100, 120, 30, null);
         shuffleHand.getButton().addActionListener(this);
 
-        currentLetters = STARTING_LETTERS; // assign the current letters to the starting letters at the start
+        //currentLetters = STARTING_LETTERS; // assign the current letters to the starting letters at the start
 
         boundX = 300; // set the x and y bounds at the start for the scrabble board
         boundY = 50;
-        createInitialBoard(); // create the starting board
-        createLetterHolder(); // create the initial letter holder at the bottom of the board
+        //createInitialBoard(); // create the starting board
+        //createLetterHolder(); // create the initial letter holder at the bottom of the board
 
         // refresh the page to allow the board to be visible
         dialogueBox.frame.setVisible(true);

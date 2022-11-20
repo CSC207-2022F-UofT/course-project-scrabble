@@ -25,7 +25,7 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
         updates the board state. Otherwise, this function returns false and does not update board state.
          */
         TileChecker validate_move = new TileChecker();
-        if (moves.size() == 0) {
+        if (moves.isEmpty()) {
             previous_board = savePreviousBoardState(game.getGameBoard()); // save the previous board state if first move
         }
         if (validate_move.isValid(coordinates[0], coordinates[1], game.getGameBoard())){
@@ -45,11 +45,11 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
         returns false and returns board state to the previous state.
          */
         if (checkFirstTurnCondition(game)){ // checks if first turn is valid
-            ArrayList<List<Integer>> move_list = new ArrayList<List<Integer>>();
+            ArrayList<List<Integer>> move_list = new ArrayList<>();
             createListOfCoordinates(move_list);
             TileChecker validate_word = new TileChecker();
             ArrayList<List<List<Integer>>> word_list = validate_word.validateMove(move_list, game.getGameBoard());
-            if (word_list.size() == 0) {
+            if (word_list.isEmpty()) {
                 resetMoves(game); // change board back to previous state.
             }
             moves.clear(); // clear moves for new turn
@@ -65,6 +65,8 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
         This function resets the moves on the board if player changes their mind.
          */
         game.getGameBoard().setBoard(previous_board.getBoard()); // change board back to previous state.
+        
+        game.getGameBoard().printBoard();
     }
     private void updateBoardState(GameBoard board){
         /*

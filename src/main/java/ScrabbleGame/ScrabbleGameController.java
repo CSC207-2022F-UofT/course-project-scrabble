@@ -40,10 +40,12 @@ public class ScrabbleGameController{
     
     public void resetMove() {
         ((ResetMove) boardManager).resetMoves(game);
+        view.updateView(game);
     }
     
     public void swapTiles() {
         ((SwapHand) playerManager).swapHand(game);
+        view.updateView(game);
     }
     
     public void placeTile(int[] coords, String letter) {
@@ -51,6 +53,7 @@ public class ScrabbleGameController{
         // call boardmanager checkLetter 
         
         // place tile usecase 
+        view.updateView(game);
     }
     
     public void playMove() {
