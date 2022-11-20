@@ -5,6 +5,7 @@ import gui.components.DialogueBox;
 import gui.components.Label;
 import gui.components.Button;
 import entities.Game;
+import entities.Player;
 import gui.View;
 import javax.swing.*;
 import java.awt.*;
@@ -358,7 +359,7 @@ public class GamePage implements ActionListener, View{
     }
     
     @Override
-    public void updateVictoryScreen() { // to be implemented 
+    public void updateVictoryScreen(Player[] winners) { // to be implemented 
         
     }
     

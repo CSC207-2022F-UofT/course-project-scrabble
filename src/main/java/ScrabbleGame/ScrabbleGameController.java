@@ -4,11 +4,11 @@
  */
 package ScrabbleGame;
 import entities.Game;
+import entities.Player;
 import data.*;
 import UsecaseInterfaces.*;
 import games_manager.*;
 import java.util.List;
-import java.util.ArrayList;
 import gui.View;
 /**
  *
@@ -88,7 +88,8 @@ public class ScrabbleGameController{
     }
     
     public void endGame() { // get score
-        ((EndGame) playerManager).endGame(game);
+        Player[] winners = ((EndGame) playerManager).endGame(game);
+        view.updateVictoryScreen(winners);
     }
     
     public Game getData() {

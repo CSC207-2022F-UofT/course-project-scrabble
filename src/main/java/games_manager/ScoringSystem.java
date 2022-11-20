@@ -85,7 +85,7 @@ public class ScoringSystem implements WordScoreCalculator, HandScoreCalculator {
      * @param words A triple nested list with coordinates of each word. Given in (y, x) format.
      * @return the combined score of all the words inputted into the method
      */
-	@Override
+    @Override
     public int calculateMultiWordScore(Game game, List<List<List<Integer>>> words) // returns score of multiple words
     {
         /* Calculates the score of multiple words given the board state
