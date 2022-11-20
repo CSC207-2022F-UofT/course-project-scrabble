@@ -1,10 +1,13 @@
 package gui.pages;
 
-import UsecaseInterfaces.EndGame;
+import entities.Game;
+import entities.Player;
+
 import gui.components.TextField;
 import gui.components.DialogueBox;
 import gui.components.Label;
 import gui.components.Button;
+import gui.View;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,26 +16,26 @@ import java.sql.Array;
 import java.util.*;
 import java.util.List;
 
-/**
- * The GamePage implements the ActionListener class to create an interactive game page. It is the page that the user
- * interacts with and plays tiles and ultimately the game.
- * @author Victor Zheng
- * @version 1.0
- * @since 2022-11-19
- */
+import ScrabbleGame.ScrabbleGameController;
 
+import UsecaseInterfaces.EndGame;
 
-public class GamePage implements ActionListener {
+public class GamePage implements ActionListener, View {
     private final String player1Name;
     private final String player2Name;
     public int player1Score;
     public int player2Score;
+    
+    private ScrabbleGameController controller;
+    
     public GamePage(String player1Name, String player2Name, boolean newGame){
         this.player1Name = player1Name;
         this.player2Name = player2Name;
         if(newGame){
-            initializeScore();
+            this.player1Score = 0;
+            this.player2Score = 0;
         }
+        controller = new ScrabbleGameController(this);
     }
     public void initializeScore(){
         this.player1Score = 0;
@@ -370,6 +373,29 @@ public class GamePage implements ActionListener {
     }
     
     @Override
+    public void updateView(Game game) { // to be implemented
+        
+    }
+    
+    @Override
+    public void updateVictoryScreen(Player[] winners) { // to be implemented 
+        dialogueBox.frame.dispose(); // close dialogue box permanently
+        // for now, we display the end game page
+        String winner;
+        if(player1Score > player2Score){
+            winner = player1Name;
+        }
+        else if(player1Score==player2Score){
+            winner = "Tie";
+        }
+        else{
+            winner = player2Name;
+        }
+        EndGamePage endGamePage = new EndGamePage(player1Score, player2Score, player1Name,player2Name, winner);
+        endGamePage.createEndGamePage();
+    }
+    
+    @Override
     public void actionPerformed(ActionEvent e) {
         String s = e.getActionCommand();
 
@@ -380,23 +406,15 @@ public class GamePage implements ActionListener {
         if (s.equals("Play Move")) {
             System.out.println("play move button pressed");
             printLettersAndCoordinates();
+            
+            controller.playMove();
             // TODO: what to do after play move is submitted
-        } else if (s.equals("End Game")) {
+        } 
+        else if (s.equals("End Game")) {
+
             System.out.println("end game button pressed");
-            dialogueBox.frame.dispose(); // close dialogue box permanently
-            // for now, we display the end game page
-            String winner;
-            if(player1Score > player2Score){
-                winner = player1Name;
-            }
-            else if(player1Score==player2Score){
-                winner = "Tie";
-            }
-            else{
-                winner = player2Name;
-            }
-            EndGamePage endGamePage = new EndGamePage(player1Score, player2Score, player1Name,player2Name, winner);
-            endGamePage.createEndGamePage();
+            controller.endGame();
+            
         }
         else if (s.equals("Shuffle Hand")) {
             System.out.println("shuffle hand button pressed");
@@ -404,10 +422,11 @@ public class GamePage implements ActionListener {
         }
         else if (s.equals("Recall Tiles")){
             System.out.println("recall tiles button pressed");
-            resetHolder();
+            controller.resetMove();
         }
         else if (s.equals("Swap Hands")) {
             System.out.println("swap hands button pressed");
+            controller.swapTiles();
         }
         // if it is neither starting or ending, check to see if it's a move played
         else if (actionSource instanceof JButton) {
@@ -424,12 +443,11 @@ public class GamePage implements ActionListener {
                 // source.setName("empty"); // we set the button name to empty to prevent additional presses
                 source.setVisible(false);
             }
-
             else {
                 // if the button was not clicked and it doesn't start with holder
                 if(clickedValue != null && !buttonClick.startsWith("holder")){
-//                    if (!source.getName().equals("empty")){
-                        // System.out.println(location); // print out location of button
+                    //if (!source.getName().equals("empty")){
+                    // System.out.println(location); // print out location of button
                     String[] yxLoc = buttonClick.split(" ");
                     int yLoc = Integer.parseInt(yxLoc[0]); // determine the y location
                     int xLoc = Integer.parseInt(yxLoc[1]); // determine the x location

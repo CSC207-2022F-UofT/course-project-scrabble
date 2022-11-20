@@ -39,7 +39,7 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
         }
     }
     @Override
-    public ArrayList<List<List<Integer>>> checkWord(Game game){
+    public List<List<List<Integer>>> checkWord(Game game){
         /*
         This function return true if the player's word is a valid english word. Otherwise, this function
         returns false and returns board state to the previous state.
