@@ -9,6 +9,7 @@ import UsecaseInterfaces.*;
 import games_manager.*;
 import java.util.List;
 import java.util.ArrayList;
+import gui.View;
 /**
  *
  * @author jingw
@@ -25,13 +26,16 @@ public class ScrabbleGameController{
     private Game game;
     
     
-    public ScrabbleGameController() {
+    private View view; 
+    
+    public ScrabbleGameController(View v) {
         boardManager = new BoardManager(); // this class implements checkword checktile
         playerManager = new PlayerManager();// this class implements updatescore, drawtiles
         gameLoader = new GameLoaderSystem();
         gameSaver = new GameSaverSystem();
         gameCreator = new GameCreator();
         turnManager = new TurnManager();
+        view = v;
     }
     
     public void resetMove() {
@@ -55,16 +59,19 @@ public class ScrabbleGameController{
         //= ((PlaceWord) boardManager).checkWord(game); // wait for fix
         
         //boardmanager checkword returns list of list of coordinates and list of letters used by the player
-        
-        // ScoringSystem 
-        int score = ((WordScoreCalculator) gameScorer).calculateMultiWordScore(game, words);
-        // calculate the total score of all the words found
-        
-        
-        ((UpdateScoreUsecase) playerManager).updateScoreForCurrentPlayer(game.getCurrentPlayer().getScore() + score, game);
-        // place word usecase 
-        
-        ((IncrementTurnUsecase) turnManager).incrementTurn(game);
+        if(!words.isEmpty())
+        {
+            // ScoringSystem 
+            int score = ((WordScoreCalculator) gameScorer).calculateMultiWordScore(game, words);
+            // calculate the total score of all the words found
+
+
+            ((UpdateScoreUsecase) playerManager).updateScoreForCurrentPlayer(game.getCurrentPlayer().getScore() + score, game);
+            // place word usecase 
+
+            ((IncrementTurnUsecase) turnManager).incrementTurn(game);
+        }
+        view.updateView(game);
     }   
     
     

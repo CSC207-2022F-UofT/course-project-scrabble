@@ -4,6 +4,8 @@ import gui.components.TextField;
 import gui.components.DialogueBox;
 import gui.components.Label;
 import gui.components.Button;
+import entities.Game;
+import gui.View;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,16 +16,18 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class GamePage implements ActionListener {
+public class GamePage implements ActionListener, View{
     private final String player1Name;
     private final String player2Name;
     public int player1Score;
     public int player2Score;
+    
     public GamePage(String player1Name, String player2Name, boolean newGame){
         this.player1Name = player1Name;
         this.player2Name = player2Name;
         if(newGame){
-            initializeScore();
+            this.player1Score = 0;
+            this.player2Score = 0;
         }
     }
     public void initializeScore(){
@@ -349,6 +353,16 @@ public class GamePage implements ActionListener {
     }
     
     @Override
+    public void updateView(Game game) { // to be implemented
+        
+    }
+    
+    @Override
+    public void updateVictoryScreen() { // to be implemented 
+        
+    }
+    
+    @Override
     public void actionPerformed(ActionEvent e) {
         String s = e.getActionCommand();
 
@@ -360,7 +374,8 @@ public class GamePage implements ActionListener {
             System.out.println("play move button pressed");
             printLettersAndCoordinates();
             // TODO: what to do after play move is submitted
-        } else if (s.equals("End Game")) {
+        } 
+        else if (s.equals("End Game")) {
             // end game
             // TODO: add action after ending game
             System.out.println("end game button pressed");
@@ -392,12 +407,11 @@ public class GamePage implements ActionListener {
                 // source.setName("empty"); // we set the button name to empty to prevent additional presses
                 source.setVisible(false);
             }
-
             else {
                 // if the button was not clicked and it doesn't start with holder
                 if(clickedValue != null && !buttonClick.startsWith("holder")){
-//                    if (!source.getName().equals("empty")){
-                        // System.out.println(location); // print out location of button
+                    //if (!source.getName().equals("empty")){
+                    // System.out.println(location); // print out location of button
                     String[] yxLoc = buttonClick.split(" ");
                     int yLoc = Integer.parseInt(yxLoc[0]); // determine the y location
                     int xLoc = Integer.parseInt(yxLoc[1]); // determine the x location

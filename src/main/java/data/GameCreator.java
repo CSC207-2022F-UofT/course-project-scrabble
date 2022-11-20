@@ -25,6 +25,7 @@ public class GameCreator implements GameLoad, CreateGame {
      * @param names This is the only parameter that is an array of strings holding names
      * @return Game This returns an instance of Game holding Players with each name from array names
      */
+    @Override
     public Game createNewGame(String[] names){
 
 

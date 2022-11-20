@@ -28,7 +28,6 @@ public class ScoringSystem implements WordScoreCalculator, HandScoreCalculator {
      * @param word A nested list with coordinates of the word. Given in (y, x) format
      * @return the score of the placed word
      */
-    @Override
     public int calculateWordScore(Game game, List<List<Integer>> word) {
         GameBoard board = game.getGameBoard();
         int points_so_far = 0; // variable to store points of word
