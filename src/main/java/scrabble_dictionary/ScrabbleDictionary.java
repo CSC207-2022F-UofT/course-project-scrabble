@@ -19,7 +19,7 @@ public class ScrabbleDictionary {
     public ScrabbleDictionary() {
         this.dictionary = new HashMap<String, ArrayList<String>>();
         try { //if the file can be found, this happens
-            File wordlist = new File("src/main/java/ScrabbleDictionary/CollinsScrabbleWords(2019).txt");
+            File wordlist = new File("src/main/java/scrabble_dictionary/CollinsScrabbleWords(2019).txt");
             Scanner fileReader = new Scanner(wordlist);
             char currkey = 'A'; // initial character to serve as first key
             ArrayList<String> currlist = new ArrayList<String>(); // empty array to be filled with words
