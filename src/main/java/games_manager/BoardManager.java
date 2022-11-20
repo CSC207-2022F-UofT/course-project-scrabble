@@ -39,33 +39,30 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
         }
     }
     @Override
-    public boolean checkWord(Game game){
+    public ArrayList<List<List<Integer>>> checkWord(Game game){
         /*
         This function return true if the player's word is a valid english word. Otherwise, this function
         returns false and returns board state to the previous state.
          */
-        ArrayList<List<Integer>> move_list = new ArrayList<List<Integer>>();
-        for (MoveInfo move : moves) { // iterating through moves and placing the coordinates in arraylists.
-            ArrayList<Integer> coordinates = new ArrayList<>();
-            coordinates.add(move.getY());
-            coordinates.add(move.getX());
-            move_list.add(new ArrayList<Integer>(coordinates));
-        }
-        TileChecker validate_word = new TileChecker();
-        if (validate_word.validateMove(move_list, game.getGameBoard())){
+        if (checkFirstTurnCondition(game)){ // checks if first turn is valid
+            ArrayList<List<Integer>> move_list = new ArrayList<List<Integer>>();
+            createListOfCoordinates(move_list);
+            TileChecker validate_word = new TileChecker();
+            ArrayList<List<List<Integer>>> word_list = validate_word.validateMove(move_list, game.getGameBoard());
+            if (word_list.size() == 0) {
+                resetMoves(game); // change board back to previous state.
+            }
             moves.clear(); // clear moves for new turn
-            return true; // return true if word is valid english word.
+            return word_list; // return true if word is valid english word.
         }
         else {
-            resetMoves(game); // change board back to previous state.
-            moves.clear(); // clear moves to try again
-            return false;
+            return new ArrayList<>();
         }
     }
     @Override
     public void resetMoves(Game game){
         /*
-        This function resets the moves on the board if played changes their mind.
+        This function resets the moves on the board if player changes their mind.
          */
         game.getGameBoard().setBoard(previous_board.getBoard()); // change board back to previous state.
     }
@@ -84,6 +81,39 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
          */
         Cell[][] all_cells = board.getBoard();
         return new GameBoard(all_cells);
+    }
+    private boolean checkFirstTurnCondition(Game game){
+        /*
+        This function returns a boolean value of true if the ArrayList of moves contains the coordinate [7,7]
+        and it returns false if t does not.
+         */
+        // turn counter shows it's the first turn then check if the word is on center.
+        if (game.getTurn() == 0){
+            ArrayList<Boolean> verifier_array = new ArrayList<Boolean>();
+            for (MoveInfo move : moves) {
+                if (move.getX() == 7 & move.getY() == 7){
+                    verifier_array.add(true);
+                }
+                else {
+                    verifier_array.add(false);
+                }
+            }
+            return verifier_array.contains(true);
+        }
+        else {
+            return true;
+        }
+    }
+    private void createListOfCoordinates(ArrayList<List<Integer>> move_list){
+        /*
+        This function iterates through moves and adds the coordinates to the arraylist input.
+         */
+        for (MoveInfo move : moves) {
+            ArrayList<Integer> coordinates = new ArrayList<>();
+            coordinates.add(move.getY());
+            coordinates.add(move.getX());
+            move_list.add(new ArrayList<Integer>(coordinates));
+        }
     }
 
     public static Cell boardManagerGetCell(int row, int column, GameBoard board) {

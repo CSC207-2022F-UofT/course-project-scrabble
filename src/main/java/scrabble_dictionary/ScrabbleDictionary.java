@@ -1,4 +1,6 @@
 package scrabble_dictionary;
+import entities.GameBoard;
+
 import java.io.File; //the File class
 import java.io.FileNotFoundException; //handle errors in File class
 import java.util.ArrayList; //the ArrayList class
@@ -10,7 +12,7 @@ import java.util.Scanner; //to read the files
 public class ScrabbleDictionary {
     private static HashMap<String, ArrayList<String>> dictionary; //made static so that static methods can access
 
-    public static void main(String [] args) { //apparently I needed this to test it
+    public static void main(String[] args) { //apparently I needed this to test it
         new ScrabbleDictionary();
     }
 
@@ -40,8 +42,10 @@ public class ScrabbleDictionary {
         }
 
     }
-    public static boolean inDictionary(List<String> wordlist) { //searches for words in the dictionary
-        for (String word: wordlist) {
+
+    public static boolean inDictionary(ArrayList<List<List<Integer>>> move, GameBoard board) { //searches for words in the dictionary
+        List<String> wordlist = wordParser(move, board); //calls wordParser to return a list of words
+        for (String word : wordlist) {
             String key = String.valueOf(word.charAt(0)); //takes the first letter of the word as the key
             ArrayList<String> dict = dictionary.get(key); //an ArrayList of all the words starting with that letter
             if (!dict.contains(word)) {
@@ -49,6 +53,19 @@ public class ScrabbleDictionary {
             }
         }
         return true;
-        } //after looping through the entire list of words, returns true
+    } //after looping through the entire list of words, returns true
+
+    private static List<String> wordParser(ArrayList<List<List<Integer>>> move, GameBoard board) { //determines words from tile coordinates
+        List<String> wordlist = new ArrayList<String>(); //the list of all words made from a move
+        for (List<List<Integer>> word : move) { //for each separate word in the list
+            StringBuilder newword = new StringBuilder();
+            for (List<Integer> letter: word) { //for each letter in the word
+                newword.append(board.getBoardCellValue(letter.get(0), letter.get(1))); //appends the letter to the current string
+            }
+            wordlist.add(newword.toString()); //adds the string to the wordlist
+        }
+        return wordlist;
     }
 
+
+}

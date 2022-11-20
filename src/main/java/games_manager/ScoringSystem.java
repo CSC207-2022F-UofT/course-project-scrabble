@@ -5,6 +5,10 @@ import entities.*;
 
 import java.util.HashMap;
 import java.util.List;
+/**
+ * This class is responsible for scoring words and tiles
+ * @author Umair
+ */
 
 
 public class ScoringSystem implements WordScoreCalculator, HandScoreCalculator {
@@ -18,11 +22,14 @@ public class ScoringSystem implements WordScoreCalculator, HandScoreCalculator {
             letter_to_score.put(LETTERS[i], LETTER_SCORE[i]);
     }
 
-    public int calculateWordScore(Game game, List<List<Integer>> word) // returns score of word
-    {
-        /* returns the score of the move given the new word's coordinates and current board state
-         * word formatted as: [[2, 3], [4, 1], ...]
-         */
+    /**
+     * This method is responsible for scoring a word on the game board
+     * @param game The game with the move on its board.
+     * @param word A nested list with coordinates of the word. Given in (y, x) format
+     * @return the score of the placed word
+     */
+    @Override
+    public int calculateWordScore(Game game, List<List<Integer>> word) {
         GameBoard board = game.getGameBoard();
         int points_so_far = 0; // variable to store points of word
         for (List<Integer> coordinates: word){ // loops over coordinates
@@ -36,6 +43,11 @@ public class ScoringSystem implements WordScoreCalculator, HandScoreCalculator {
         return points_so_far;
     }
 
+    /**
+     * This method is responsible for scoring a player's hand
+     * @param game The game with the current player's hand to be scored
+     * @return the score of the unplaced letters in the current player's hand
+     */
     @Override
     public int calculateUnplacedLetters(Game game) // returns score of unplaced letter in hand
     {
@@ -53,6 +65,11 @@ public class ScoringSystem implements WordScoreCalculator, HandScoreCalculator {
         return points_so_far;
     }
 
+    /**
+     * This method is responsible for assigning the correct score to the given Cell
+     * @param letter The Cell to be initialized
+     * letter's value must be a capital letter from A-Z
+     */
     @Override
     public void initializeCellScore(Cell letter){
         // Precondition: The cell's value is a capital letter from A-Z
@@ -63,7 +80,13 @@ public class ScoringSystem implements WordScoreCalculator, HandScoreCalculator {
         BoardManager.boardManagerSetCellScore(letter, score); // changes the cell's score to that of the letter it represents
     }
 
-    @Override
+    /**
+     * This method is responsible for scoring word(s) on the gameboard
+     * @param game The game with the move on its board.
+     * @param words A triple nested list with coordinates of each word. Given in (y, x) format.
+     * @return the combined score of all the words inputted into the method
+     */
+	@Override
     public int calculateMultiWordScore(Game game, List<List<List<Integer>>> words) // returns score of multiple words
     {
         /* Calculates the score of multiple words given the board state

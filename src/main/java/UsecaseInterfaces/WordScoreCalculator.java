@@ -1,11 +1,11 @@
 package UsecaseInterfaces;
-
-import entities.Cell;
 import entities.Game;
-import entities.GameBoard;
-
 import java.util.List;
 
+/**
+ * This interface is responsible for calculating scores of words
+ * @author Umair
+ */
 public interface WordScoreCalculator { // interface for word score
 
     public int calculateMultiWordScore(Game game, List<List<List<Integer>>> words);

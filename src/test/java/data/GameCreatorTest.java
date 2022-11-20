@@ -33,9 +33,6 @@ public class GameCreatorTest {
 
     @Test
     public void playerTest(){
-//        Object[] objects = ("Rachel", "Charlie");
-//        Player player1 = (Player) objects[1];
-//        Player player2 = (Player) objects[2];
         GameCreator gameCreator = new GameCreator();
         String[] names = {"First", "Second"};
         Game game = gameCreator.createNewGame(names);
