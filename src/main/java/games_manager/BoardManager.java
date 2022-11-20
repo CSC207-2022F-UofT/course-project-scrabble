@@ -33,8 +33,12 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
     @Override
     public boolean checkLetter(int[] coordinates, String letter, Game game){
         TileChecker validate_move = new TileChecker();
+        System.out.println("CHECK LETTER METHOD");
+        System.out.println(moves);
         if (moves.isEmpty()) {
             previous_board = savePreviousBoardState(game.getGameBoard()); // save the previous board state if first move
+            previous_board.printBoard();
+            System.out.println("I GOT UPDATED");
         }
         if (validate_move.isValid(coordinates[0], coordinates[1], game.getGameBoard())){ // check if move is valid
             MoveInfo move = new MoveInfo(coordinates, letter);
@@ -87,8 +91,12 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
     @Override
     public void resetMoves(Game game){
         game.getGameBoard().setBoard(previous_board.getBoard()); // change board back to previous state.
-        
+
         game.getGameBoard().printBoard();
+    }
+
+    public void clearMoves(Game game){
+        moves.clear();
     }
 
     /**
@@ -107,8 +115,14 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
      * @return a board object with all the cells of the board parameter.
      */
     private GameBoard savePreviousBoardState(GameBoard board){
-        Cell[][] all_cells = board.getBoard();
-        return new GameBoard(all_cells); // return new board with cells from board input.
+        GameBoard newBoard = new GameBoard();
+        for (int i=0; i < board.getBoard().length; i++) {
+            for (int j=0; j < board.getBoard().length; j++) {
+                newBoard.getBoard()[i][j].setValue(board.getBoardCellValue(i, j));
+            }
+        }
+
+        return newBoard; // return new board with cells from board input.
     }
 
     /**
@@ -177,4 +191,8 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
         letter.setScore(score);
     }
     public static void boardManagerSetCellValue(Cell letter, String value){ letter.setValue(value);}
+
+    public ArrayList<MoveInfo> getMoves(){
+        return this.moves;
+    }
 }

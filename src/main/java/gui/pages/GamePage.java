@@ -288,7 +288,12 @@ public class GamePage implements ActionListener, View {
             // check if the component is a button, whether it has a name, and whether it starts with holder
             if(holderButtons.contains(component)){
                 JButton b = (JButton) component; // cast the button to a JButton.
-                b.setIcon(createImageIcon(currentLetters[holderIndex] + ".jpg")); // set the icon back to the original empty state
+                if(currentLetters[holderIndex] == "-"){
+                    b.setIcon(createImageIcon("wood.jpg")); // set the icon back to the original empty state
+                }
+                else{
+                    b.setIcon(createImageIcon(currentLetters[holderIndex] + ".jpg")); // set the icon back to the original empty state
+                }
                 String currentName = b.getName(); // get the current name of the button
                 b.setName(currentName.substring(0,currentName.length() - 1) + currentLetters[holderIndex]); // set new name
                 holderIndex += 1; // increase the holder index by 1
@@ -463,6 +468,7 @@ public class GamePage implements ActionListener, View {
     
     @Override
     public void actionPerformed(ActionEvent e) {
+        System.out.println("--------------------------------------------------------------- ACTION ------------------");
         String s = e.getActionCommand();
 
         // check if button has been pressed

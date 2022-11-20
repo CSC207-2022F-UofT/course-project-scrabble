@@ -206,6 +206,18 @@ public class PlayerManager implements FillHand, DrawHand, SwapHand, RemoveTile, 
 
     }
 
+    public void addTile(Game game, String letter){
+        Player player = game.getCurrentPlayer();
+        for (int i=0; i<PlayerManager.getHand(player).length; i++){
+            Cell cell = PlayerManager.getHand(player)[i];
+            if (cell == null) {
+                PlayerManager.getHand(player)[i] = new Cell(letter, 0); // removes tile
+                return;
+
+            }
+        }
+
+    }
 
 }
 
