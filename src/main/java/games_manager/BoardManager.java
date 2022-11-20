@@ -91,8 +91,12 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
     @Override
     public void resetMoves(Game game){
         game.getGameBoard().setBoard(previous_board.getBoard()); // change board back to previous state.
-        previous_board.printBoard();
+
         game.getGameBoard().printBoard();
+    }
+
+    public void clearMoves(Game game){
+        moves.clear();
     }
 
     /**

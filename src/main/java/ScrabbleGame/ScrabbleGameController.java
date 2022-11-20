@@ -51,6 +51,7 @@ public class ScrabbleGameController{
             System.out.println("Letters");
             System.out.println(move.getLetter());
         }
+        boardManager.clearMoves(game);
         view.updateView(game);
     }
     
