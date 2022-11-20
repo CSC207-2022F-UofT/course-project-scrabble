@@ -6,13 +6,18 @@ import java.util.List;
 import java.util.Random;
 
 import entities.*;
-
+/**
+ * This class is responsible for managing the Player entity
+ * @author Umair & Jazli
+ */
 public class PlayerManager implements FillHand, DrawHand, SwapHand, RemoveTile, UpdateScoreUsecase, EndGame{
 
+    /**
+     * This method is responsible for drawing a tile into the player's hand.
+     * @param game the game with the current player who wants to draw a tile.
+     * The current player must have less than 7 tiles in hand.
+     */
     public void drawTile(Game game) {
-        /* Precondition: Player has less than 7 tiles in hand
-           Draws a tile to the players hand
-         */
 
         LetterBag bag = game.getLetterBag();
         Player player = game.getCurrentPlayer();
@@ -38,21 +43,28 @@ public class PlayerManager implements FillHand, DrawHand, SwapHand, RemoveTile, 
         player.getHand()[i] = letter; // assign the null space the value of the new hand
     }
 
+    /**
+     * This method is responsible for drawing a tile into the player's hand until their hand is filled with tiles.
+     * @param game the game with the current player who wants to fill hand.
+     */
     @Override
     public void fillHand(Game game){
-        // Fill hand with tiles
         Player player = game.getCurrentPlayer();
-        for (Cell letter: player.getHand()){
+        for (Cell letter: player.getHand()){ // loop over player hand
             if (letter == null) {
-                this.drawTile(game);
+                this.drawTile(game); // if space in hand is empty draw tile
             }
         }
     }
 
+    /**
+     * This method is responsible for swapping a player's hand.
+     * This is done by returning all tiles in player's hand back to the letter bag and draw 7 new tiles.
+     * @param game the game with the current player who wants to swap hand.
+     * The current player's hand must be filled with tiles.
+     */
     @Override
     public void swapHand(Game game){
-        // Precondition: players hand is full i.e. has no null within it
-        // Returns all tiles in players hand back to the bag and draws 7 new tiles from the bag
 
         // add all tiles in hand back to bag
         LetterBag bag = game.getLetterBag();
@@ -68,25 +80,34 @@ public class PlayerManager implements FillHand, DrawHand, SwapHand, RemoveTile, 
         this.drawHand(game);
     }
 
+    /**
+     * This method is responsible for drawing 7 tiles to the player's hand.
+     * @param game the game with the current player who wants to draw hand.
+     * The current player's hand must be empty.
+     */
     @Override
     public void drawHand(Game game){
-        // Precondition: Player's hand is empty i.e. is filled with null
-        // Gives the player 7 new tiles
         LetterBag bag = game.getLetterBag();
         Player player = game.getCurrentPlayer();
         for (int i=0; i<player.getHand().length; i++) {
             this.drawTile(game);
         }
     }
+
+    /**
+     * This method is responsible for removing the first occurrence of a tile with value
+     * letter from the player's hand.
+     * @param game the game with the current player who wants to remove a tile hand.
+     * @param letter the Tile's value which needs to be removed from player's hand
+     */
     @Override
     public void removeTile(Game game, String letter){
-        // removes tile from current player's hand given the letter they placed
         Player player = game.getCurrentPlayer();
         for (int i=0; i<PlayerManager.getHand(player).length; i++){
             Cell cell = PlayerManager.getHand(player)[i];
             if (cell != null) {
-                if (letter.equals(BoardManager.boardManagerGetCellValue(cell))) {
-                    PlayerManager.getHand(player)[i] = null;
+                if (letter.equals(BoardManager.boardManagerGetCellValue(cell))) { // checks if cell's value is the same as letter
+                    PlayerManager.getHand(player)[i] = null; // removes tile
                     return;
                 }
             }
@@ -111,12 +132,21 @@ public class PlayerManager implements FillHand, DrawHand, SwapHand, RemoveTile, 
 
     public static Cell[] getHand(Player player) { return player.getHand(); }
 
+    /**
+     * This method is responsible for updating the score of the current player.
+     * @param newScore the score that needs to be updated to player's score.
+     * @param game the game with the current player whose score needs to be updated
+     */
     @Override
     public void updateScoreForCurrentPlayer(int newScore, Game game) {
         game.getCurrentPlayer().setScore(newScore);
     }
 
-
+    /**
+     * This method is responsible for returning an array of players that won at the end of the game.
+     * @param game the game with the players of the game.
+     * @return Player[] an array of all player's that won the game
+     */
     @Override
     public Player[] endGame(Game game){
         int ind_max_so_far = 0;                             // index of the highest score player
