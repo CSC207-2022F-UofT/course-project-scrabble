@@ -1,5 +1,6 @@
 package gui.pages;
 
+import UsecaseInterfaces.EndGame;
 import gui.components.TextField;
 import gui.components.DialogueBox;
 import gui.components.Label;
@@ -372,10 +373,21 @@ public class GamePage implements ActionListener {
             printLettersAndCoordinates();
             // TODO: what to do after play move is submitted
         } else if (s.equals("End Game")) {
-            // end game
-            // TODO: add action after ending game
             System.out.println("end game button pressed");
             dialogueBox.frame.dispose(); // close dialogue box permanently
+            // for now, we display the end game page
+            String winner;
+            if(player1Score > player2Score){
+                winner = player1Name;
+            }
+            else if(player1Score==player2Score){
+                winner = "Tie";
+            }
+            else{
+                winner = player2Name;
+            }
+            EndGamePage endGamePage = new EndGamePage(player1Score, player2Score, player1Name,player2Name, winner);
+            endGamePage.createEndGamePage();
         }
         else if (s.equals("Shuffle Hand")) {
             System.out.println("shuffle hand button pressed");
