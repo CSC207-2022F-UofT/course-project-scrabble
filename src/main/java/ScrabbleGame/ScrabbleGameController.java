@@ -55,17 +55,15 @@ public class ScrabbleGameController{
     
     public void playMove() {
         
-        List<List<List<Integer>>> words = new ArrayList<>();  
-        //= ((PlaceWord) boardManager).checkWord(game); // wait for fix
+        List<List<List<Integer>>> words = ((PlaceWord) boardManager).checkWord(game);
         
         //boardmanager checkword returns list of list of coordinates and list of letters used by the player
+        
         if(!words.isEmpty())
         {
             // ScoringSystem 
             int score = ((WordScoreCalculator) gameScorer).calculateMultiWordScore(game, words);
             // calculate the total score of all the words found
-
-
             ((UpdateScoreUsecase) playerManager).updateScoreForCurrentPlayer(game.getCurrentPlayer().getScore() + score, game);
             // place word usecase 
 
@@ -77,6 +75,7 @@ public class ScrabbleGameController{
     
     public void createGameFromFile() {
         game = ((GameLoad)gameLoader).loadGame(); // loadgame usecase
+        view.updateView(game);
     }
     
     public void saveGameToFile() { // make sure this is not called before a game is created
@@ -84,11 +83,12 @@ public class ScrabbleGameController{
     }
     
     public void startGame(String[] names) { // create game usecase
-        ((CreateGame)gameCreator).createNewGame(names);
+        game = ((CreateGame)gameCreator).createNewGame(names);
+        view.updateView(game);
     }
     
     public void endGame() { // get score
-        
+        ((EndGame) playerManager).endGame(game);
     }
     
     public Game getData() {
