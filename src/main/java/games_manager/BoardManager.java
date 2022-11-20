@@ -11,6 +11,10 @@ import ScrabbleGame.tile_checker.TileChecker;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is responsible for managing the GameBoard entity
+ * @author Davit
+ */
 public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
     private ArrayList<MoveInfo> moves; // list of coordinates and letters
     private GameBoard previous_board; // saved previous board state
@@ -18,99 +22,120 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
         moves = new ArrayList<>();
         previous_board = new GameBoard();
     }
+
+    /**
+     * This method is responsible for verifying a letter that has been placed on the board.
+     * @param coordinates the int array of coordinates for the new letter.
+     * @param letter the string value of the letter.
+     * @param game the game object with the board.
+     * @return true if letter can be placed and false if it can't.
+     */
     @Override
     public boolean checkLetter(int[] coordinates, String letter, Game game){
-        /*
-        This function return true if each individual letter placement by the player is valid and
-        updates the board state. Otherwise, this function returns false and does not update board state.
-         */
         TileChecker validate_move = new TileChecker();
         if (moves.isEmpty()) {
             previous_board = savePreviousBoardState(game.getGameBoard()); // save the previous board state if first move
         }
-        if (validate_move.isValid(coordinates[0], coordinates[1], game.getGameBoard())){
+        if (validate_move.isValid(coordinates[0], coordinates[1], game.getGameBoard())){ // check if move is valid
             MoveInfo move = new MoveInfo(coordinates, letter);
             moves.add(move); // adds player's move to list of moves
-            updateBoardState(game.getGameBoard()); //updates board with new moves
+            updateBoardState(game.getGameBoard()); // updates board with new moves
             return true;
         }
-        else {
+        else { // if invalid move return false
             return false;
         }
     }
+
+    /**
+     * This method is responsible for verifying a word that has been placed on the board.
+     * @param game The game object with the board.
+     * @return the list of valid words that could be made from the player's moves.
+     */
     @Override
     public List<List<List<Integer>>> checkWord(Game game){
-        /*
-        This function return true if the player's word is a valid english word. Otherwise, this function
-        returns false and returns board state to the previous state.
-         */
-        if (checkFirstTurnCondition(game)){ // checks if first turn is valid
-            ArrayList<List<Integer>> move_list = new ArrayList<>();
-            createListOfCoordinates(move_list);
-            TileChecker validate_word = new TileChecker();
-            ArrayList<List<List<Integer>>> word_list = validate_word.validateMove(move_list, game.getGameBoard());
-            if (word_list.isEmpty()) {
-                resetMoves(game); // change board back to previous state.
+        ArrayList<List<Integer>> move_list = new ArrayList<List<Integer>>();
+        createListOfCoordinates(move_list);
+        TileChecker validate_word = new TileChecker();
+        if (game.getTurn() == 0) { // check if it's first turn of thr game
+            if (checkFirstTurnCondition(game)) { // check if the word is on center of board
+                ArrayList<List<List<Integer>>> first_word_list = validate_word.validateMove(move_list, game.getGameBoard());
+                if (first_word_list.size() == 0) {
+                    resetMoves(game); // change board back to previous state if no valid words.
+                }
+                moves.clear();
+                return first_word_list; // return list of coordinates of new word on board
             }
-            moves.clear(); // clear moves for new turn
-            return word_list; // return true if word is valid english word.
+            else {
+                return new ArrayList<>(); // return empty ArrayList if word not on the center
+            }
         }
         else {
-            return new ArrayList<>();
+            ArrayList<List<List<Integer>>> word_list = validate_word.validateMove(move_list, game.getGameBoard());
+            if (word_list.size() == 0) {
+                resetMoves(game); // change board back to previous state if no valid words.
+            }
+            moves.clear(); // clear moves for new turn
+            return word_list; // return list of valid words that can be made from the moves
         }
     }
+
+    /**
+     * This method resets the moves placed on the board during the turn.
+     * @param game The game object with the board.
+     */
     @Override
     public void resetMoves(Game game){
-        /*
-        This function resets the moves on the board if player changes their mind.
-         */
         game.getGameBoard().setBoard(previous_board.getBoard()); // change board back to previous state.
         
         game.getGameBoard().printBoard();
     }
+
+    /**
+     * This helper method of BoardManager updates the board with the new moves.
+     * @param board The board object.
+     */
     private void updateBoardState(GameBoard board){
-        /*
-        This function updates the board with the new moves from moves arraylist
-         */
-        for (MoveInfo move : moves) {
+        for (MoveInfo move : moves) { // iterate through moves list and change the values on the board.
             board.getBoard()[move.getY()][move.getX()].setValue(move.getLetter());
         }
     }
+
+    /**
+     * This helper method of BoardManager saves the cells of the board in a new board object.
+     * @param board The board object.
+     * @return a board object with all the cells of the board parameter.
+     */
     private GameBoard savePreviousBoardState(GameBoard board){
-        /*
-        This function saves the previous board state before a new move is played.
-        Returns new GameBoard with the cells from board parameter.
-         */
         Cell[][] all_cells = board.getBoard();
-        return new GameBoard(all_cells);
+        return new GameBoard(all_cells); // return new board with cells from board input.
     }
+
+    /**
+     * This helper method of BoardManager verifies the first turn condition.
+     * @param game The game object with the board.
+     * @return true if it's the first move and word is on center cell, if not on center cell return false.
+     */
     private boolean checkFirstTurnCondition(Game game){
-        /*
-        This function returns a boolean value of true if the ArrayList of moves contains the coordinate [7,7]
-        and it returns false if t does not.
-         */
-        // turn counter shows it's the first turn then check if the word is on center.
-        if (game.getTurn() == 0){
-            ArrayList<Boolean> verifier_array = new ArrayList<Boolean>();
-            for (MoveInfo move : moves) {
-                if (move.getX() == 7 & move.getY() == 7){
-                    verifier_array.add(true);
-                }
-                else {
-                    verifier_array.add(false);
-                }
+        // if it's the first turn check if the word is on the center cell
+        ArrayList<Boolean> verifier_array = new ArrayList<Boolean>();
+        for (MoveInfo move : moves) { // iterate through new moves and check if one of the coordinates are in the center.
+            if (move.getX() == 7 & move.getY() == 7){
+                verifier_array.add(true); // add true to list if move is in the center
             }
-            return verifier_array.contains(true);
+            else {
+                verifier_array.add(false); // add false to list if move is not in the center
+            }
         }
-        else {
-            return true;
-        }
+        return verifier_array.contains(true); // return true if there is a true value in the list, otherwise false
     }
+
+    /**
+     * This helper method of BoardManager creates a two-dimensional ArrayList of the coordinates from the moves List.
+     * @param move_list a two-dimensional ArrayList of coordinates.
+     */
     private void createListOfCoordinates(ArrayList<List<Integer>> move_list){
-        /*
-        This function iterates through moves and adds the coordinates to the arraylist input.
-         */
-        for (MoveInfo move : moves) {
+        for (MoveInfo move : moves) { // iterate through moves objects and add coordinates to new list move_list
             ArrayList<Integer> coordinates = new ArrayList<>();
             coordinates.add(move.getY());
             coordinates.add(move.getX());
