@@ -1,6 +1,7 @@
 package gui.pages;
 
 import UsecaseInterfaces.EndGame;
+import entities.*;
 import gui.components.TextField;
 import gui.components.DialogueBox;
 import gui.components.Label;
@@ -23,8 +24,8 @@ import java.util.List;
 
 
 public class GamePage implements ActionListener {
-    private final String player1Name;
-    private final String player2Name;
+    private String player1Name;
+    private String player2Name;
     public int player1Score;
     public int player2Score;
     public GamePage(String player1Name, String player2Name, boolean newGame){
@@ -158,35 +159,56 @@ public class GamePage implements ActionListener {
     }
 
     /**
-     * TODO: test this method
-     * Creates a board based on the inputted coordinates and their letters
-     * @param letters each letter that corresponds to a value in the coordinates
-     * @param xVals the corresponding x coordinate for each letter
-     * @param yVals the corresponding x coordinate for each letter
+     * Creates a board based on the inputted board
+     * @param game is the entire game that is passed into the coordinates
      */
-    public void initializeSavedBoard(String[] letters, int[] xVals, int[] yVals){
+    public void updateView(Game game){
+        // update scores of players
+        List<Player> players = game.getPlayers();
+        // we're going to assume only 2 players for version 1. Will try to implement multiple players in the future
+        player1Name = players.get(0).getName();
+        player1Score = players.get(0).getScore();
+        player2Name = players.get(1).getName();
+        player2Score = players.get(1).getScore();
+
+        // get who's turn it is
+        Player currentPlayer = game.getCurrentPlayer();
+        // get the holder tiles
+        Cell[] hand = currentPlayer.getHand();
+
+        String[] letters = new String[]{"-", "-", "-", "-", "-", "-", "-"};
+        // update the entire hand with new letters
+        for(int i = 0; i<letters.length; i++){
+            letters[i] = hand[i].getValue();
+        }
+        currentLetters = letters;
+
+        // update cells
+        GameBoard gameBoard = game.getGameBoard();
+
         Button letter = new Button();
         int letterIndex = 0;
         ImageIcon icon;
+
+        // iterate through the board rows to set the board based on the cells
         for(int i = 0; i<BOARD_ROWS; i++){
             int yBound = boundY + BOARD_DIM / BOARD_ROWS * i;
-
             // iterate through each letter index, add the letters back based on [j,i] coordinates
             for(int j = 0; j<BOARD_ROWS; j++) {
-                if((j == yVals[letterIndex]) && (i == xVals[letterIndex])){
-                    icon = createImageIcon(letters[letterIndex] + ".jpg");
-                    letterIndex += 1;
-                }
-                else{
+                String val = gameBoard.getBoardCellValue(i, j);
+                if((Objects.equals(val, "-"))){
                     icon = createImageIcon("wood.jpg");
                 }
+                else{
+                    icon = createImageIcon(currentLetters[letterIndex] + ".jpg");
+                    letterIndex += 1;
+                }
                 int xBound = boundX + BOARD_DIM / BOARD_ROWS * j; // buttons on the x axis
-                // System.out.println("" + xBound + " " + yBound); // debugging code to allow for printing values
                 letter.createButtonWithID(dialogueBox.frame, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "" + i + " " + j);
                 letter.getButton().addActionListener(this); // add listener to the button to see when it gets pressed
             }
         }
-        createLetterHolder();
+        createLetterHolder(); // updates the letter holder
     }
 
     /**
@@ -227,7 +249,8 @@ public class GamePage implements ActionListener {
         ImageIcon icon;
 
         // create a holder for the tiles to start
-        for(int i = 0; i < 7; i++){
+        for(int i = 0; i < currentLetters.length; i++){
+            // create initial starting position
             int xBound = boundX + BOARD_DIM/4 + BOARD_DIM/BOARD_ROWS * i;
             icon = createImageIcon(currentLetters[i] + ".jpg");
 
