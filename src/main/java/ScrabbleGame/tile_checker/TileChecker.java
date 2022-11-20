@@ -2,6 +2,7 @@ package ScrabbleGame.tile_checker;
 
 import UsecaseInterfaces.PlacementChecker;
 import entities.GameBoard;
+import scrabble_dictionary.ScrabbleDictionary;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,6 +15,8 @@ public class TileChecker implements PlacementChecker {
 
     public ArrayList<List<List<Integer>>> validateMove(ArrayList<List<Integer>> move, GameBoard board) { //call to other functions that will validate move
         ArrayList<List<List<Integer>>> falseResult = new ArrayList<List<List<Integer>>>();
+        ScrabbleDictionary newdict = new ScrabbleDictionary();
+
         if (!isConsecutive(move, board)) { //if tiles aren't consecutive, return false
             return falseResult;
         }
@@ -23,7 +26,7 @@ public class TileChecker implements PlacementChecker {
         if (!inDictionary((wordList(move, board)), board)) {
             return falseResult;
         }
-        return wordList(move, board); //temporary, once wordlist is changed we can change this
+        return wordList(move, board);
     }
     @Override
     public boolean isValid(int row, int column, GameBoard board) {
@@ -159,10 +162,10 @@ public class TileChecker implements PlacementChecker {
             List<List<Integer>> wordstring1 = new ArrayList<List<Integer>>();
             int row2 = tile.get(0);
             int column2 = tile.get(1);
-            List<Integer> cur = new ArrayList<>();
-            cur.add(row2);
-            cur.add(column2);
-            wordstring1.add(cur);
+            List<Integer> cur1 = new ArrayList<>();
+            cur1.add(row2);
+            cur1.add(column2);
+            wordstring1.add(cur1);
             while (adjacentTileLeft(row2, column2, board) && (row2 == tile.get(0))) {
                 if (!Objects.equals(board.getBoardCellValue(row2, column2 - 1), "-")) { // checks horizontal adjacent tile
                     List<Integer> cord = new ArrayList<Integer>();
