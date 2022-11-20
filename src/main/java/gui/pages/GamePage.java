@@ -14,6 +14,15 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * The GamePage implements the ActionListener class to create an interactive game page. It is the page that the user
+ * interacts with and plays tiles and ultimately the game.
+ * @author Victor Zheng
+ * @version 1.0
+ * @since 2022-11-19
+ */
+
+
 public class GamePage implements ActionListener {
     private final String player1Name;
     private final String player2Name;

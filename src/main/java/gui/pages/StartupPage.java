@@ -10,6 +10,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 
+/**
+ * The StartupPage is the page that is started up when we start the game. There are a few buttons that allow the user
+ * to select which type of game they want to play.
+ * @author Victor Zheng
+ * @version 1.0
+ * @since 2022-11-19
+ */
+
 public class StartupPage implements ActionListener {
     DialogueBox dialogueBox;
     Label welcomeTitle, contributors;
