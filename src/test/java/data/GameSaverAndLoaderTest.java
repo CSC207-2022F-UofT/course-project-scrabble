@@ -16,9 +16,6 @@ public class GameSaverAndLoaderTest {
         String[] playerInputNames = new String[]{"Billy", "Mario", "Harry"};
         Game game = gameCreator.createNewGame(playerInputNames);
 
-        String[] names = {"First", "Second"};
-        Game game = gameCreator.createNewGame(names);
-
         Player p1 = game.getPlayers().get(0);
         Player p2 = game.getPlayers().get(1);
         Player p3 = game.getPlayers().get(2);
