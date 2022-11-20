@@ -126,6 +126,10 @@ public class TileChecker implements PlacementChecker {
             List<List<Integer>> wordstring = new ArrayList<List<Integer>>();
             int row = tile.get(0);
             int column = tile.get(1);
+            List<Integer> cur = new ArrayList<>();
+            cur.add(row);
+            cur.add(column);
+            wordstring.add(cur);
             while (adjacentTileTop(row, column, board) && (column == tile.get(1))) {
                 if (!Objects.equals(board.getBoardCellValue(row - 1, column), "-")) { // checks for a top vertically adjacent tile
                     List<Integer> cord = new ArrayList<Integer>();
@@ -137,46 +141,50 @@ public class TileChecker implements PlacementChecker {
             }
             int row1 = tile.get(0);
             int column1 = tile.get(1);
-            while (adjacentTileBottom(row1, column, board) && (column1 == tile.get(1))) {
+            while (adjacentTileBottom(row1, column1, board) && (column1 == tile.get(1))) {
                 if (!Objects.equals(board.getBoardCellValue(row1 + 1, column1), "-")) { // checks for a vertically adjacent tile
                     List<Integer> cord = new ArrayList<Integer>();
-                    cord.add(row + 1);
-                    cord.add(column);
+                    cord.add(row1 + 1);
+                    cord.add(column1);
                     wordstring.add(cord);
-                    row += 1;
+                    row1 += 1;
                 }
             }
-            if (!words.contains(wordstring)) {
+            if (!words.contains(wordstring) && wordstring.size() > 1) {
                 words.add(wordstring);
             }
         }
         // checks for horizontal words
         for (List<Integer> tile : newword) {
-            List<List<Integer>> wordstring = new ArrayList<List<Integer>>();
-            int row = tile.get(0);
-            int column = tile.get(1);
-            while (adjacentTileLeft(row, column, board) && (row == tile.get(0))) {
-                if (!Objects.equals(board.getBoardCellValue(row, column - 1), "-")) { // checks horizontal adjacent tile
+            List<List<Integer>> wordstring1 = new ArrayList<List<Integer>>();
+            int row2 = tile.get(0);
+            int column2 = tile.get(1);
+            List<Integer> cur = new ArrayList<>();
+            cur.add(row2);
+            cur.add(column2);
+            wordstring1.add(cur);
+            while (adjacentTileLeft(row2, column2, board) && (row2 == tile.get(0))) {
+                if (!Objects.equals(board.getBoardCellValue(row2, column2 - 1), "-")) { // checks horizontal adjacent tile
                     List<Integer> cord = new ArrayList<Integer>();
-                    cord.add(row);
-                    cord.add(column - 1);
-                    wordstring.add(cord);
-                    column -= 1;
+                    cord.add(row2);
+                    cord.add(column2 - 1);
+                    wordstring1.add(0, cord);
+                    column2 -= 1;
                 }
             }
-            int row1 = tile.get(0);
-            int column1 = tile.get(1);
-            while (adjacentTileRight(row1, column, board) && (row1 == tile.get(1))) {
-                if (!Objects.equals(board.getBoardCellValue(row1, column1 + 1), "-")) { // checks horizontal adjacent tile
+            int row3 = tile.get(0);
+            int column3 = tile.get(1);
+            while (adjacentTileRight(row3, column3, board) && (row3 == tile.get(0))) {
+                if (!Objects.equals(board.getBoardCellValue(row3, column3 + 1), "-")) { // checks horizontal adjacent tile
                     List<Integer> cord = new ArrayList<Integer>();
-                    cord.add(row);
-                    cord.add(column + 1);
-                    wordstring.add(cord);
-                    column += 1;
+                    cord.add(row3);
+                    cord.add(column3 + 1);
+                    wordstring1.add(cord);
+                    column3 += 1;
                 }
             }
-            if (!words.contains(wordstring)) {
-                words.add(wordstring);
+            if (!words.contains(wordstring1) && wordstring1.size() > 1) {
+                words.add(wordstring1);
             }
         }
         return words;

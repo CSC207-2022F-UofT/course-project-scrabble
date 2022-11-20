@@ -65,8 +65,9 @@ public class BoardManagerTest {
         b_manager.checkLetter(coordinates5, letter5, game);
         ArrayList<List<List<Integer>>> list_of_words = new ArrayList<List<List<Integer>>>();
         list_of_words.add(List.of(new ArrayList[]{coordinatesA, coordinatesB, coordinatesC, coordinatesD, coordinatesE}));
-        //Assertions.assertEquals(b_manager.checkWord(game), list_of_words);
+        Assertions.assertEquals(b_manager.checkWord(game), list_of_words);
     }
+
     @Test
     public void resetMovesTest(){
         Game game = new Game();
