@@ -2,7 +2,11 @@ package UsecaseInterfaces;
 
 import entities.Game;
 
-public interface PlaceTile { //interface that verifies and updates moves on the board
+/**
+ * This interface verifies and updates new moves on the board.
+ * @author Davit
+ */
+public interface PlaceTile {
     //returns true if letter is valid, updates the board
     public boolean checkLetter(int[] coordinates, String letter, Game game);
 }
