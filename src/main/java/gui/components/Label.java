@@ -2,7 +2,12 @@ package gui.components;
 
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ * The Label class creates a label based on the JLabel module of Java Swing.
+ * @author Victor Zheng
+ * @version 1.0
+ * @since 2022-11-19
+ */
 public class Label {
     JLabel label;
 

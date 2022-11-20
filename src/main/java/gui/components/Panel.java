@@ -5,7 +5,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-// not currently in use, but may be used in the future
+/**
+ * The Panel class creates a panel based on the JButton module of Java Swing.
+ * @author Victor Zheng
+ * @version 1.0
+ * @since 2022-11-19
+ */
 
 public class Panel {
     JPanel panel;

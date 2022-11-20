@@ -9,6 +9,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+/**
+ * The NewGamePage is the page that creates a new game based on the user's player names
+ * @author Victor Zheng
+ * @version 1.0
+ * @since 2022-11-19
+ */
 
 public class NewGamePage implements ActionListener {
     DialogueBox dialogueBox;

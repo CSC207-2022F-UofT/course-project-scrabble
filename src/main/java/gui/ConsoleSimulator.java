@@ -1,11 +1,15 @@
 package gui;
 
-import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+
+/**
+ * The ConsoleSimulator implements an application that displays the onto the console a 15x15 representation of the game.
+ * @author Victor Zheng
+ * @version 1.0
+ * @since 2022-11-19
+ */
 
 // class to simulate game in the console.
 public class ConsoleSimulator {
