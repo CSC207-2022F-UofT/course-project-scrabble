@@ -1,5 +1,6 @@
 package gui.pages;
 
+import UsecaseInterfaces.EndGame;
 import gui.components.TextField;
 import gui.components.DialogueBox;
 import gui.components.Label;
@@ -12,12 +13,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.*;
 import java.util.List;
 
-public class GamePage implements ActionListener, View{
+
+public class GamePage implements ActionListener, View {
     private final String player1Name;
     private final String player2Name;
     public int player1Score;
@@ -143,13 +143,6 @@ public class GamePage implements ActionListener, View{
     public ImageIcon createImageIcon(String filename){
         // determine whether the path is set correctly
         String path = "src/main/java/gui/resources/letters/" + filename;
-        java.net.URL imgURL = getClass().getResource(path);
-        if (imgURL != null) {
-            System.out.println("successful path: " + path);
-        } else {
-            System.out.println("unsuccessful path: " + path);
-        }
-
         // create an ImageIcon to display as the button image
         ImageIcon icon = new ImageIcon(path);
         Image image = icon.getImage(); // scale image to fit the board size
@@ -158,6 +151,7 @@ public class GamePage implements ActionListener, View{
         // replace old imageIcon with the new one
         icon = new ImageIcon(newImg);
         return icon;
+
     }
 
     /**
@@ -198,16 +192,24 @@ public class GamePage implements ActionListener, View{
      */
     public void createInitialBoard() {
         Button letter = new Button();
-
         ImageIcon icon = createImageIcon("wood.jpg");
-
+        // create a star in the middle of the board
+        int middleCoord = BOARD_ROWS/2;
+        System.out.println(middleCoord);
+        ImageIcon middleIcon = createImageIcon("StarDesign.png");
         // make entire board full of buttons 15x15 buttons
         for (int i = 0; i < BOARD_ROWS; i++) { // start with the buttons on the y axis
             int yBound = boundY + BOARD_DIM / BOARD_ROWS * i;
             for (int j = 0; j < BOARD_ROWS; j++) {
                 int xBound = boundX + BOARD_DIM / BOARD_ROWS * j; // buttons on the x axis
                 // System.out.println("" + xBound + " " + yBound); // debugging code to allow for printing values
-                letter.createButtonWithID(dialogueBox.frame, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "" + i + " " + j);
+                // if the middle coordinate is reached, we want to place a star there
+                if(j == middleCoord && i == middleCoord){
+                    letter.createButtonWithID(dialogueBox.frame, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, middleIcon, "" + i + " " + j);
+                }
+                else{
+                    letter.createButtonWithID(dialogueBox.frame, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "" + i + " " + j);
+                }
                 letter.getButton().addActionListener(this); // add listener to the button to see when it gets pressed
             }
         }
@@ -232,12 +234,17 @@ public class GamePage implements ActionListener, View{
             holderButtons.add(holderButton.button);
         }
     }
-
     /**
      * Resets the tiles to the original state
      *
      */
     public void resetHolder() {
+        // the middle tile when we want to reset it, we need to set it differently
+        String middleCoord = String.valueOf(BOARD_ROWS / 2);
+
+        // create the main wood icon once so we don't have to do it numerous times
+        ImageIcon icon = createImageIcon("wood.jpg");
+
         // collect the components from the dialogue box's content pane
         Component[] components = dialogueBox.frame.getContentPane().getComponents();
         System.out.println("num of components: " + components.length);
@@ -253,7 +260,13 @@ public class GamePage implements ActionListener, View{
                 System.out.println("NEED TO REVERT");
                 System.out.println(component.getName());
                 JButton b = (JButton) component; // cast the button to a JButton.
-                b.setIcon(createIcon("wood")); // set the icon back to the original empty state
+                // check if the component is equal to the middle component of the board. if so, then we put a star tile
+                if(Objects.equals(component.getName(), middleCoord + " " + middleCoord)){
+                    b.setIcon(createImageIcon("StarDesign.png")); // set the icon back to the original empty state
+                }
+                else{
+                    b.setIcon(icon); // set the icon back to the original empty state
+                }
                 b.setVisible(true); // set the visibility back to true for viewing
                 playedButtons.remove(b);
             }
@@ -291,7 +304,7 @@ public class GamePage implements ActionListener, View{
             // check if the component is a button, whether it has a name, and whether it starts with holder
             if(holderButtons.contains(component)){
                 JButton b = (JButton) component; // cast the button to a JButton.
-                b.setIcon(createIcon(currentLetters[holderIndex])); // set the icon back to the original empty state
+                b.setIcon(createImageIcon(currentLetters[holderIndex] + ".jpg")); // set the icon back to the original empty state
                 String currentName = b.getName(); // get the current name of the button
                 b.setName(currentName.substring(0,currentName.length() - 1) + currentLetters[holderIndex]); // set new name
                 holderIndex += 1; // increase the holder index by 1
@@ -314,7 +327,7 @@ public class GamePage implements ActionListener, View{
     public void playLetter(String value, int[] coord, JButton button) {
         playedButtons.add(button);
 
-        button.setIcon(createIcon(value)); // set the button to the letter's icon
+        button.setIcon(createImageIcon(value + ".jpg")); // set the button to the letter's icon
 
         letters.add(value);
         coordinates.add(coord);
@@ -323,23 +336,23 @@ public class GamePage implements ActionListener, View{
         dialogueBox.frame.setResizable(false);
     }
 
-    /**
-     * @return an ImageIcon file and returns the resized icon version.
-     * @param value is the name of the file
-     */
-    public ImageIcon createIcon(String value){
-        // convert value to the path
-        String path = "src/main/java/gui/resources/letters/" + value + ".jpg"; // indicates which image to select from
-        System.out.println("path: " + path);
-        // create an ImageIcon to display as the button image
-        ImageIcon icon = new ImageIcon(path);
-        Image image = icon.getImage(); // scale image to fit the board size
-        // make sure that the image is the same size as the button
-        Image newImg = image.getScaledInstance(BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, Image.SCALE_SMOOTH);
-        // replace old imageIcon with the new one
-        icon = new ImageIcon(newImg);
-        return icon; // return the icon
-    }
+//    /**
+//     * @return an ImageIcon file and returns the resized icon version.
+//     * @param value is the name of the file
+//     */
+//    public ImageIcon createIcon(String value){
+//        // convert value to the path
+//        String path = "src/main/java/gui/resources/letters/" + value + ".jpg"; // indicates which image to select from
+//        System.out.println("path: " + path);
+//        // create an ImageIcon to display as the button image
+//        ImageIcon icon = new ImageIcon(path);
+//        Image image = icon.getImage(); // scale image to fit the board size
+//        // make sure that the image is the same size as the button
+//        Image newImg = image.getScaledInstance(BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, Image.SCALE_SMOOTH);
+//        // replace old imageIcon with the new one
+//        icon = new ImageIcon(newImg);
+//        return icon; // return the icon
+//    }
 
     /**
      * Prints the letter and its coordinates
@@ -376,11 +389,23 @@ public class GamePage implements ActionListener, View{
             printLettersAndCoordinates();
             // TODO: what to do after play move is submitted
         } 
-        else if (s.equals("End Game")) {
-            // end game
-            // TODO: add action after ending game
+		else if (s.equals("End Game")) {
+
             System.out.println("end game button pressed");
             dialogueBox.frame.dispose(); // close dialogue box permanently
+            // for now, we display the end game page
+            String winner;
+            if(player1Score > player2Score){
+                winner = player1Name;
+            }
+            else if(player1Score==player2Score){
+                winner = "Tie";
+            }
+            else{
+                winner = player2Name;
+            }
+            EndGamePage endGamePage = new EndGamePage(player1Score, player2Score, player1Name,player2Name, winner);
+            endGamePage.createEndGamePage();
         }
         else if (s.equals("Shuffle Hand")) {
             System.out.println("shuffle hand button pressed");

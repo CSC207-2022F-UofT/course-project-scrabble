@@ -10,6 +10,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * The RulesPage is the UI page that displays the rules of our Scrabble Game. It is designed so that it reads and
+ * displays the rules of our game stored in a text file.
+ * @author Victor Zheng
+ * @version 1.0
+ * @since 2022-11-19
+ */
+
 public class RulesPage {
     DialogueBox dialogueBox;
     Label rulesTitleLabel, rulesHeaderLabel, rulesTextLabel;

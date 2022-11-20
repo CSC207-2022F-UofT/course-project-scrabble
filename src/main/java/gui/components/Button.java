@@ -2,6 +2,13 @@ package gui.components;
 
 import javax.swing.*;
 
+/**
+ * The Button class creates a button based on the JButton module of Java Swing.
+ * @author Victor Zheng
+ * @version 1.0
+ * @since 2022-11-19
+ */
+
 public class Button {
     public JButton button;
 
