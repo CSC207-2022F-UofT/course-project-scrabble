@@ -111,8 +111,14 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
      * @return a board object with all the cells of the board parameter.
      */
     private GameBoard savePreviousBoardState(GameBoard board){
-        Cell[][] all_cells = board.getBoard();
-        return new GameBoard(all_cells); // return new board with cells from board input.
+        GameBoard newBoard = new GameBoard();
+        for (int i=0; i < board.getBoard().length; i++) {
+            for (int j=0; j < board.getBoard().length; j++) {
+                newBoard.getBoard()[i][j].setValue(board.getBoardCellValue(i, j));
+            }
+        }
+
+        return newBoard; // return new board with cells from board input.
     }
 
     /**
