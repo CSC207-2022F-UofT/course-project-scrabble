@@ -386,6 +386,8 @@ public class GamePage implements ActionListener, View {
         // get the holder tiles
         Cell[] hand = currentPlayer.getHand();
 
+        turnLabel.getLabel().setText("It is " + currentPlayer.getName() + "'s turn!"); // set the name to the current player
+
         String[] letters = new String[]{"-", "-", "-", "-", "-", "-", "-"};
         // update the entire hand with new letters or nothing if it's a dash.
         System.out.println("Printing hand");

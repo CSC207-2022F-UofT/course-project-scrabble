@@ -38,6 +38,7 @@ public class ScrabbleGameController{
         gameSaver = new GameSaverSystem();
         gameCreator = new GameCreator();
         turnManager = new TurnManager();
+        gameScorer = new ScoringSystem();
         view = v;
     }
     
@@ -93,6 +94,7 @@ public class ScrabbleGameController{
             
             ((FillHand)playerManager).fillHand(game);// fill the next player's hand
         }
+        System.out.println("DONE PLAY MOVE");
         view.updateView(game);
     }   
     
