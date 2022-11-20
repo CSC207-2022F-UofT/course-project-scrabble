@@ -1,39 +1,48 @@
 # Scrabble
 
-This is a template repository for CSC 207 projects. 
-This repository contains starter code for a gradle project.
-It also contains workflow documents that give instructions on how to manage your Github repository and how to use Github Projects for efficient collaboration.
+Welcome to Scrabble, a game played and loved by millions around the world. Our team has decided to embark on a journey to rewrite 
+scrabble using CSC207 principles and course concepts! 
 
-## Checklist For Your Project
-- [ ] Verify the correct settings for your project repository
-- [ ] Set up Github Projects
-- [ ] Create the implementation plan using issues and Github Projects
-- [ ] Create deveopment branches for your features
-- [ ] Use pull requests to merge finished features into main branch
-- [ ] Conduct code reviews
+Team members: Victor, Clark, Umair, Jazli, Francisco, and Claire. 
 
-**If your team has trouble with any of these steps, please ask on Piazza. For example, with how GitHub Classroom works, your team *may* not have permissions to do some of the first few steps, in which case we'll post alternative instructions as needed.**
+## Rules of our game
+We have written up [revised rules for scrabble](https://github.com/CSC207-2022F-UofT/course-project-scrabble/blob/main/src/main/java/gui/resources/revised_rules_of_scrabble.md) for our game. 
+The rules of scrabble can also be visible through our UI pages. 
 
-## Workflow Documents
+## How to play our game
+To make it easy for everyone to use our game, we have created the following short tutorial on running and playing our scrabble game.
 
-* Github Workflow: Please refer to the workflow that was introduced in the first lab. You should follow this when working on your code. The following document provides additional details too.
+### First Step: Running the Game
+To run our game, a player can `Run ScrabbleApp.java` in their console or through Intellij. Immediately following the run, the following page should display.
+![image](/resources/WelcomePage.png)
 
-* [Project Planning and Development Guide](project_plan_dev.md): This document helps you to understand how to create and maintain a project plan for your class project. **This document helps you to complete the Implementation Plan Milestone.**
+### Second Step: Rules
+Clicking on the `Rules` button will result in the following page. This can be convenient whenever someone wants to review how the game works!
+![image](/resources/RulesPage.png)
 
-## Gradle Project
-Import this project into your Intellij editor. It should automatically recognise this as a gradle repository.
-The starter code was built using SDK version 11.0.1. Ensure that you are using this version for this project. (You can, of course, change the SDK version as per your requirement if your team has all agreed to use a different version)
+## Third Step: Create Game
+Clicking on the `Create Game` button will result in the following page. This button allows a user to start a new game from scratch with new player's names. The resulting page will pop up asking for the user to input their names.
 
-You have been provided with two starter files for demonstration: HelloWorld and HelloWorldTest.
+![image](/resources/CreateGamePage.png)
 
-You will find HelloWorld in `src/main/java/GamesManager` directory. Right click on the HelloWorld file and click on `Run HelloWorld.main()`.
-This should run the program and print on your console.
+## Fourth Step: Start Game
+Clicking on the `Start Game` button on this page will result in the game loading. The game will take a few seconds to load as it must generate a large number of buttons. The following page will be visible after this step. There will be a 15x15 board, along with 7 tiles lining the bottom of the board. The 7 tiles consist of the available letters to be played. There are also five buttons located at the bottom for functionalities that will be explained below. 
+![image](/resources/InitialBoardState.png)
 
-You will find HelloWorldTest in `src/test/java/GamesManager` directory. Right click on the HelloWorldTest file and click on `Run HelloWorldTest`.
-All tests should pass. Your team can remove this sample of how testing works once you start adding your project code to the repo.
+## Fifth Step: Playing a Letter
+If a user wants to play a letter, they must first click on the letter from the holder. They can click on any button on the holder. This will make the letter disappear, and the user will be only allowed to click on any tile in the 15x15 range to play their move. Following a click on any empty tile on the board, the letter will be immediately placed on the board. This continues until the user plays all of their moves. 
+![image](/resources/PlayingA.png)
 
-Moving forward, we expect you to maintain this project structure. You *should* use Gradle as the build environment, but it is fine if your team prefers to use something else -- just remove the gradle files and push your preferred project setup. Assuming you stick with Gradle, your source code should go into `src/main/java` (you can keep creating more subdirectories as per your project requirement). Every source class can auto-generate a test file for you. For example, open HelloWorld.java file and click on the `HelloWorld` variable as shown in the image below. You should see an option `Generate` and on clicking this your should see an option `Test`. Clicking on this will generate a JUnit test file for `HelloWorld` class. This was used to generate the `HelloWorldTest`.
+## Sixth Step: Playing a Word 
+If the user decides that their preferred candidate move to play, they can press the `Play Move` button. This button will send the result to the "brain" of our application, and will spit back a result. If the word is valid, then it will indicate that it is the next player's turn to play. If the move is invalid, it will indicate that the move is invalid and display "Invalid Move" on the screen.
+![image](/resources/PlayingAWord.png)
 
-![image](https://user-images.githubusercontent.com/5333020/196066655-d3c97bf4-fdbd-46b0-b6ae-aeb8dbcf351d.png)
+## Seventh Step: Recalling Tiles
+If the user finds that their moves don't make sense and would like to replace their letters in another order, they can do so by pressing the `Recall Tiles` button. This will recall the tiles in the previous ordering seen at the start of the move.
 
-You can create another simple class and try generating a test for this class.
+## Eighth Step: Shuffling Hands
+If the user finds that the hand is hard to read, and would like to move their tiles around, they can call the `Shuffle Hand` button, which moves the tiles on the holder around in a randomized order.
+![image](/resources/ShuffleHandButton.png)
+
+## Final Step: Ending Game
+If both players agree to end the game, then they can press the `End Game` button, which will calculate the scores of the game and display them back through our Exit page. Our application will also calculate if there are no tiles left to be played, which will also end the game according to our rules. The winner will then be displayed for everyone to see. 
