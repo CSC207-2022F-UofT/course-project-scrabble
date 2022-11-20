@@ -11,7 +11,7 @@ import java.util.List;
 import static scrabble_dictionary.ScrabbleDictionary.inDictionary;
 
 public class TileChecker implements PlacementChecker {
-    
+
     public ArrayList<List<List<Integer>>> validateMove(ArrayList<List<Integer>> move, GameBoard board) { //call to other functions that will validate move
         ArrayList<List<List<Integer>>> falseResult = new ArrayList<List<List<Integer>>>();
         if (!isConsecutive(move, board)) { //if tiles aren't consecutive, return false
@@ -77,13 +77,11 @@ public class TileChecker implements PlacementChecker {
             return true;
         } else if (adjacentTileRight(row, column, board)) { // checks horizontally adjacent tile
             return true;
-        } else if (adjacentTileTop(row, column, board)) { // checks vertically adjacent tile
-            return true;
-        } else if (adjacentTileBottom(row, column, board)) { // checks vertically adjacent tile
-            return true;
-        } else { // if no tiles are adjacent
-            return false;
-        }
+        } else // checks vertically adjacent tile
+            // if no tiles are adjacent
+            if (adjacentTileTop(row, column, board)) { // checks vertically adjacent tile
+                return true;
+            } else return adjacentTileBottom(row, column, board);
     }
 
     private boolean adjacentTileLeft(int row, int column, GameBoard board){
