@@ -10,7 +10,7 @@ import java.util.List;
  * This interface verifies and updates new words on the board.
  * @author Davit
  */
-public interface PlaceWord {
+public interface PlaceWord { //interface that verifies and updates new words on the board
     //returns list of valid words from player's moves and updates the board
-    public ArrayList<List<List<Integer>>> checkWord(Game game);
+    public List<List<List<Integer>>> checkWord(Game game);
 }

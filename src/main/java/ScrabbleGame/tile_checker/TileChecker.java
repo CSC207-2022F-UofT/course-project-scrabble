@@ -4,6 +4,7 @@ import UsecaseInterfaces.PlacementChecker;
 import entities.GameBoard;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Objects;
 import java.util.List;
 
@@ -19,10 +20,10 @@ public class TileChecker implements PlacementChecker {
         if (!isTouching(move, board)) { //if tiles aren't touching already played tiles, return false
             return falseResult;
         }
-        //else { //wordList must be changed to implement this
-            //return wordList(move, board);
-        //}
-        return falseResult; //temporary, once wordlist is changed we can change this
+        if (!inDictionary((wordList(move, board)), board)) {
+            return falseResult;
+        }
+        return wordList(move, board); //temporary, once wordlist is changed we can change this
     }
     @Override
     public boolean isValid(int row, int column, GameBoard board) {
@@ -49,7 +50,7 @@ public class TileChecker implements PlacementChecker {
         }
     }
     private boolean isLine (int refNum, ArrayList<Integer> movelist, GameBoard board) { // determines whether or not there are any gaps
-        // TODO: sort the moveList
+        Collections.sort(movelist);
         for (int i = 0; i < movelist.toArray().length - 1; i++) {
             if (movelist.get(i + 1) != movelist.get(i) + 1) { // checks for non-sequential numbers
                 if (board.getBoardCellValue(refNum, i + 1) == "-") { // checks whether the skipped tiles are occupied
@@ -61,7 +62,8 @@ public class TileChecker implements PlacementChecker {
     }
     @Override
     public boolean isTouching(ArrayList<List<Integer>> move, GameBoard board) { // determines whether the desired tiles touch already placed tiles
-        // TODO: add something here to tell whether or not it's the first move
+        // TODO: add something here to tell whether or not it's the first move // (francisco) first move shouldn't
+        //  matter since we get a list of moves, so the "first" coordinate is also touching.
         for (List<Integer> coordinates : move) {
             if (adjacentTile(coordinates.get(0), coordinates.get(1), board)) { // calls helper function
                 return true;
@@ -71,14 +73,13 @@ public class TileChecker implements PlacementChecker {
     }
 
     private boolean adjacentTile(int row, int column, GameBoard board) { // determines the adjacency for single tiles
-        // TODO: somehow determine whether tile is on the edge of the board
-        if (board.getBoardCellValue(row + 1, column) != "-") { // checks for a horizontally adjacent tile
+        if (adjacentTileLeft(row, column, board)) { // checks for a horizontally adjacent tile
             return true;
-        } else if (board.getBoardCellValue(row - 1, column) != "-") { // checks horizontally adjacent tile
+        } else if (adjacentTileRight(row, column, board)) { // checks horizontally adjacent tile
             return true;
-        } else if (board.getBoardCellValue(row, column + 1) != "-") { // checks vertically adjacent tile
+        } else if (adjacentTileTop(row, column, board)) { // checks vertically adjacent tile
             return true;
-        } else if (board.getBoardCellValue(row, column - 1) != "-") { // checks vertically adjacent tile
+        } else if (adjacentTileBottom(row, column, board)) { // checks vertically adjacent tile
             return true;
         } else { // if no tiles are adjacent
             return false;
@@ -87,33 +88,52 @@ public class TileChecker implements PlacementChecker {
 
     private boolean adjacentTileLeft(int row, int column, GameBoard board){
         // checks for a horizontally adjacent tile
-        return !Objects.equals(board.getBoardCellValue(row, column - 1), "-");
+        if (column - 1 >= 0) {
+            return !Objects.equals(board.getBoardCellValue(row, column - 1), "-");
+        } else {
+            return false;
+        }
     }
     private boolean adjacentTileRight(int row, int column, GameBoard board){
         // checks for a horizontally adjacent tile
-        return !Objects.equals(board.getBoardCellValue(row, column + 1), "-");
+        if (column + 1 <= 14) {
+            return !Objects.equals(board.getBoardCellValue(row, column + 1), "-");
+        } else {
+            return false;
+        }
     }
     private boolean adjacentTileTop(int row, int column, GameBoard board){
         // checks for a vertically adjacent tile
-        return !Objects.equals(board.getBoardCellValue(row - 1, column), "-");
+        if (row - 1 >= 0) {
+            return !Objects.equals(board.getBoardCellValue(row - 1, column), "-");
+        } else {
+            return false;
+        }
     }
     private boolean adjacentTileBottom(int row, int column, GameBoard board){
         // checks for a vertically adjacent tile
-        return !Objects.equals(board.getBoardCellValue(row + 1, column), "-");
+        if (row + 1 <= 14) {
+            return !Objects.equals(board.getBoardCellValue(row + 1, column), "-");
+        } else {
+            return false;
+        }
     }
 
-    public ArrayList<String> wordList(ArrayList<List<Integer>> newword, GameBoard board){
+    public ArrayList<List<List<Integer>>> wordList(ArrayList<List<Integer>> newword, GameBoard board){
         //a word parser function that returns a list of words that need to be checked
-        ArrayList<String> words = new ArrayList<String>();
+        ArrayList<List<List<Integer>>> words = new ArrayList<List<List<Integer>>>();
 
         // check for vertical words
         for (List<Integer> tile : newword) {
-            StringBuilder wordstring = new StringBuilder();
+            List<List<Integer>> wordstring = new ArrayList<List<Integer>>();
             int row = tile.get(0);
             int column = tile.get(1);
             while (adjacentTileTop(row, column, board) && (column == tile.get(1))) {
                 if (!Objects.equals(board.getBoardCellValue(row - 1, column), "-")) { // checks for a top vertically adjacent tile
-                    wordstring.insert(0, board.getBoardCellValue(row - 1, column));
+                    List<Integer> cord = new ArrayList<Integer>();
+                    cord.add(row - 1);
+                    cord.add(column);
+                    wordstring.add(0, cord);
                     row -= 1;
                 }
             }
@@ -121,22 +141,28 @@ public class TileChecker implements PlacementChecker {
             int column1 = tile.get(1);
             while (adjacentTileBottom(row1, column, board) && (column1 == tile.get(1))) {
                 if (!Objects.equals(board.getBoardCellValue(row1 + 1, column1), "-")) { // checks for a vertically adjacent tile
-                    wordstring.append(board.getBoardCellValue(row1 + 1, column1));
+                    List<Integer> cord = new ArrayList<Integer>();
+                    cord.add(row + 1);
+                    cord.add(column);
+                    wordstring.add(cord);
                     row += 1;
                 }
             }
-            if (!words.contains(wordstring.toString())) {
-                words.add(wordstring.toString());
+            if (!words.contains(wordstring)) {
+                words.add(wordstring);
             }
         }
         // checks for horizontal words
         for (List<Integer> tile : newword) {
-            StringBuilder wordstring = new StringBuilder();
+            List<List<Integer>> wordstring = new ArrayList<List<Integer>>();
             int row = tile.get(0);
             int column = tile.get(1);
             while (adjacentTileLeft(row, column, board) && (row == tile.get(0))) {
                 if (!Objects.equals(board.getBoardCellValue(row, column - 1), "-")) { // checks horizontal adjacent tile
-                    wordstring.append(board.getBoardCellValue(row, column - 1));
+                    List<Integer> cord = new ArrayList<Integer>();
+                    cord.add(row);
+                    cord.add(column - 1);
+                    wordstring.add(cord);
                     column -= 1;
                 }
             }
@@ -144,14 +170,19 @@ public class TileChecker implements PlacementChecker {
             int column1 = tile.get(1);
             while (adjacentTileRight(row1, column, board) && (row1 == tile.get(1))) {
                 if (!Objects.equals(board.getBoardCellValue(row1, column1 + 1), "-")) { // checks horizontal adjacent tile
-                    wordstring.insert(0, board.getBoardCellValue(row1, column1 + 1));
+                    List<Integer> cord = new ArrayList<Integer>();
+                    cord.add(row);
+                    cord.add(column + 1);
+                    wordstring.add(cord);
                     column += 1;
                 }
             }
-            if (!words.contains(wordstring.toString())) {
-                words.add(wordstring.toString());
+            if (!words.contains(wordstring)) {
+                words.add(wordstring);
             }
         }
         return words;
     }
+
+
 }

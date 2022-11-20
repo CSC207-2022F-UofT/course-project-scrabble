@@ -53,7 +53,7 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
      * @return the list of valid words that could be made from the player's moves.
      */
     @Override
-    public ArrayList<List<List<Integer>>> checkWord(Game game){
+    public List<List<List<Integer>>> checkWord(Game game){
         ArrayList<List<Integer>> move_list = new ArrayList<List<Integer>>();
         createListOfCoordinates(move_list);
         TileChecker validate_word = new TileChecker();

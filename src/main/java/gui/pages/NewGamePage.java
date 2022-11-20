@@ -1,4 +1,5 @@
 package gui.pages;
+import entities.*;
 
 import gui.pages.GamePage;
 import gui.components.TextField;

@@ -18,13 +18,14 @@ public class GameCreator implements GameLoad, CreateGame {
     public GameCreator(){
 
     }
-
+	
     /**
-     * This method is responsbile for creating a new Game instance that loads in all strings from an array "names"
+     * This method is responsible for creating a new Game instance that loads in all strings from an array "names"
      * which hold all the names of the future players to be added.
      * @param names This is the only parameter that is an array of strings holding names
      * @return Game This returns an instance of Game holding Players with each name from array names
      */
+    @Override
     public Game createNewGame(String[] names){
 
 
