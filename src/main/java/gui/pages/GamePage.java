@@ -31,9 +31,6 @@ public class GamePage implements ActionListener, View {
             this.player2Score = 0;
         }
         controller = new ScrabbleGameController(this);
-        // create the game
-        String[] names = new String[]{player1Name, player2Name};
-        controller.startGame(names);
     }
 
     DialogueBox dialogueBox;
@@ -66,6 +63,10 @@ public class GamePage implements ActionListener, View {
         //create the new game object
         //create the new game page
         dialogueBox = new DialogueBox();
+        
+        System.out.println("dialoguebox created");
+        
+        
         dialogueBox.createDialogueBox("Scrabble Game Page", WIDTH, HEIGHT, false);
         dialogueBox.frame.setVisible(true);
         // we want to ignore the exit when we close only the rules page
@@ -126,6 +127,12 @@ public class GamePage implements ActionListener, View {
         // refresh the page to allow the board to be visible
         dialogueBox.frame.setVisible(true);
         dialogueBox.frame.setResizable(false);
+        
+        
+        
+        // create the game
+        String[] names = new String[]{player1Name, player2Name};
+        controller.startGame(names);
     }
 
     /**
@@ -358,6 +365,7 @@ public class GamePage implements ActionListener, View {
                     letterIndex += 1;
                 }
                 int xBound = boundX + BOARD_DIM / BOARD_ROWS * j; // buttons on the x axis
+                
                 letter.createButtonWithID(dialogueBox.frame, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "" + i + " " + j);
                 letter.getButton().addActionListener(this); // add listener to the button to see when it gets pressed
             }
