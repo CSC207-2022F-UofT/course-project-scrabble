@@ -3,6 +3,13 @@ package gui.components;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The DialogueBox class creates a dialog box based on the JFrame module of Java Swing.
+ * @author Victor Zheng
+ * @version 1.0
+ * @since 2022-11-19
+ */
+
 public class DialogueBox {
     public JFrame frame;
 
