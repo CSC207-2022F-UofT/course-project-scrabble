@@ -11,8 +11,8 @@ public class GameCreatorTest {
     public void bagAndBoardTest(){
         // test to check whether all values are default for bag and board
         GameCreator gameCreator = new GameCreator();
-        String[] playerInputNames = new String[]{"Rachel", "Charlie"};
-        Game game = gameCreator.createNewGame(playerInputNames);
+        String[] names = {"First", "Second"};
+        Game game = gameCreator.createNewGame(names);
         GameBoard board = game.getGameBoard();
         LetterBag bag = game.getLetterBag();
 
@@ -34,16 +34,16 @@ public class GameCreatorTest {
     @Test
     public void playerTest(){
         GameCreator gameCreator = new GameCreator();
-        String[] playerInputNames = new String[]{"Rachel", "Charlie"};
-        Game game = gameCreator.createNewGame(playerInputNames);
+        String[] names = {"First", "Second"};
+        Game game = gameCreator.createNewGame(names);
         List<Player> playerList = game.getPlayers();
         Player p1 = playerList.get(0);
         Player p2 = playerList.get(1);
 
-        Assertions.assertEquals("Rachel", p1.getName());
+        Assertions.assertEquals("First", p1.getName());
         Assertions.assertEquals(0, p1.getScore());
 
-        Assertions.assertEquals("Charlie", p2.getName());
+        Assertions.assertEquals("Second", p2.getName());
         Assertions.assertEquals(0, p2.getScore());
 
         for (int i=0; i<7; i++){
