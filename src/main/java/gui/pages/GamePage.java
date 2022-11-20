@@ -31,6 +31,9 @@ public class GamePage implements ActionListener, View {
             this.player2Score = 0;
         }
         controller = new ScrabbleGameController(this);
+        // create the game
+        String[] names = new String[]{player1Name, player2Name};
+        controller.startGame(names);
     }
 
     DialogueBox dialogueBox;
@@ -325,6 +328,7 @@ public class GamePage implements ActionListener, View {
         Player currentPlayer = game.getCurrentPlayer();
         // get the holder tiles
         Cell[] hand = currentPlayer.getHand();
+        System.out.println(Arrays.toString(hand));
 
         String[] letters = new String[]{"-", "-", "-", "-", "-", "-", "-"};
         // update the entire hand with new letters
@@ -424,8 +428,6 @@ public class GamePage implements ActionListener, View {
                 System.out.println("holder pressed");
                 String[] holderLetter = buttonClick.split(" ");
                 clickedValue = holderLetter[2];
-                // source.setIcon(createImageIcon("wood.jpg"));
-                // source.setName("empty"); // we set the button name to empty to prevent additional presses
                 source.setVisible(false);
             }
             else {
