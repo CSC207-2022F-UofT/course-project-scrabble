@@ -10,13 +10,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Array;
 import java.util.*;
 import java.util.List;
 
 import ScrabbleGame.ScrabbleGameController;
-
-import UsecaseInterfaces.EndGame;
 
 public class GamePage implements ActionListener, View {
     private String player1Name;
@@ -35,14 +32,6 @@ public class GamePage implements ActionListener, View {
         }
         controller = new ScrabbleGameController(this);
     }
-    public void initializeScore(){
-        this.player1Score = 0;
-        this.player2Score = 0;
-    }
-    public void setScore(int player1Score, int player2Score){
-        this.player1Score = player1Score;
-        this.player2Score = player2Score;
-    }
 
     DialogueBox dialogueBox;
     Label gamePageLabel, gamePageTitle, player1Label, player2Label;
@@ -52,7 +41,6 @@ public class GamePage implements ActionListener, View {
 
     ArrayList<JButton> playedButtons = new ArrayList<>();
     ArrayList<JButton> holderButtons = new ArrayList<>();
-//    Button[] oldHolderButtons = new Button[7]; // save the older copy of the holder buttons
     private String clickedValue;
 
     Button createGameButton, endGameButton, swapHands, recallTiles, shuffleHand;
@@ -61,8 +49,6 @@ public class GamePage implements ActionListener, View {
     final int WIDTH = 1000; // width of the frame
     final int HEIGHT = 700; // height of the frame
 
-//    private ArrayList<String> letters = new ArrayList<String>();
-//    private ArrayList<int[]> coordinates = new ArrayList<int[]>();
     public ArrayList<String> letters = new ArrayList<>();
     public ArrayList<int[]> coordinates = new ArrayList<>();
 
@@ -309,24 +295,6 @@ public class GamePage implements ActionListener, View {
         dialogueBox.frame.setResizable(false);
     }
 
-//    /**
-//     * @return an ImageIcon file and returns the resized icon version.
-//     * @param value is the name of the file
-//     */
-//    public ImageIcon createIcon(String value){
-//        // convert value to the path
-//        String path = "src/main/java/gui/resources/letters/" + value + ".jpg"; // indicates which image to select from
-//        System.out.println("path: " + path);
-//        // create an ImageIcon to display as the button image
-//        ImageIcon icon = new ImageIcon(path);
-//        Image image = icon.getImage(); // scale image to fit the board size
-//        // make sure that the image is the same size as the button
-//        Image newImg = image.getScaledInstance(BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, Image.SCALE_SMOOTH);
-//        // replace old imageIcon with the new one
-//        icon = new ImageIcon(newImg);
-//        return icon; // return the icon
-//    }
-
     /**
      * Prints the letter and its coordinates
      */
@@ -338,7 +306,6 @@ public class GamePage implements ActionListener, View {
             System.out.println("Letter " + letters.get(i) + " played at coordinate: " + Arrays.toString(coordinates.get(i)));
         }
     }
-
 
     /**
      * Creates a board based on the inputted board
@@ -423,28 +390,29 @@ public class GamePage implements ActionListener, View {
         if (s.equals("Play Move")) {
             System.out.println("play move button pressed");
             printLettersAndCoordinates();
-            
             controller.playMove();
-            // TODO: what to do after play move is submitted
-        } 
-        else if (s.equals("End Game")) {
+        }
 
+        else if (s.equals("End Game")) {
             System.out.println("end game button pressed");
             controller.endGame();
-            
         }
+
         else if (s.equals("Shuffle Hand")) {
             System.out.println("shuffle hand button pressed");
             shuffleHand();
         }
+
         else if (s.equals("Recall Tiles")){
             System.out.println("recall tiles button pressed");
             controller.resetMove();
         }
+
         else if (s.equals("Swap Hands")) {
             System.out.println("swap hands button pressed");
             controller.swapTiles();
         }
+
         // if it is neither starting or ending, check to see if it's a move played
         else if (actionSource instanceof JButton) {
             JButton source = (JButton) e.getSource(); // cast button to a button
