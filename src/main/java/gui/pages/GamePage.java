@@ -218,54 +218,54 @@ public class GamePage implements ActionListener, View {
         dialogueBox.frame.setVisible(true);
         dialogueBox.frame.setResizable(false);
     }
-    /**
-     * Resets the tiles to the original state
-     *
-     */
-    public void resetHolder() {
-        // the middle tile when we want to reset it, we need to set it differently
-        String middleCoord = String.valueOf(BOARD_ROWS / 2);
-
-        // create the main wood icon once so we don't have to do it numerous times
-        ImageIcon icon = createImageIcon("wood.jpg");
-
-        // collect the components from the dialogue box's content pane
-        Component[] components = dialogueBox.frame.getContentPane().getComponents();
-        System.out.println("num of components: " + components.length);
-        for (Component component : components){ // iterate through each component in the frame
-            // check if the component is a button, whether it has a name, and whether it starts with holder
-            if(component instanceof JButton && component.getName()!= null && component.getName().startsWith("holder")){
-                System.out.println(component.getName());
-                // we want to make the button back visible for the user
-                component.setVisible(true);
-            }
-            // checks if the holderButtons arraylist contains the button. We want to reset it by reverting the button to  the original state
-            if(playedButtons.contains(component)){
-                System.out.println("NEED TO REVERT");
-                System.out.println(component.getName());
-                JButton b = (JButton) component; // cast the button to a JButton.
-                // check if the component is equal to the middle component of the board. if so, then we put a star tile
-                if(Objects.equals(component.getName(), middleCoord + " " + middleCoord)){
-                    b.setIcon(createImageIcon("StarDesign.png")); // set the icon back to the original empty state
-                }
-                else{
-                    b.setIcon(icon); // set the icon back to the original empty state
-                }
-                b.setVisible(true); // set the visibility back to true for viewing
-                playedButtons.remove(b);
-            }
-        }
-
-        // remove the letters and coordinates from the list of words
-        letters.removeAll(letters); // remove the current move on the docket.
-        coordinates.removeAll(coordinates); // remove all current coordinates on the docket
-
-        // reset current moves played
-        printLettersAndCoordinates(); // check if updated
-
-        dialogueBox.frame.setVisible(true);
-        dialogueBox.frame.setResizable(false);
-    }
+//    /**
+//     * Resets the tiles to the original state
+//     *
+//     */
+//    public void resetHolder() {
+//        // the middle tile when we want to reset it, we need to set it differently
+//        String middleCoord = String.valueOf(BOARD_ROWS / 2);
+//
+//        // create the main wood icon once so we don't have to do it numerous times
+//        ImageIcon icon = createImageIcon("wood.jpg");
+//
+//        // collect the components from the dialogue box's content pane
+//        Component[] components = dialogueBox.frame.getContentPane().getComponents();
+//        System.out.println("num of components: " + components.length);
+//        for (Component component : components){ // iterate through each component in the frame
+//            // check if the component is a button, whether it has a name, and whether it starts with holder
+//            if(component instanceof JButton && component.getName()!= null && component.getName().startsWith("holder")){
+//                System.out.println(component.getName());
+//                // we want to make the button back visible for the user
+//                component.setVisible(true);
+//            }
+//            // checks if the holderButtons arraylist contains the button. We want to reset it by reverting the button to  the original state
+//            if(playedButtons.contains(component)){
+//                System.out.println("NEED TO REVERT");
+//                System.out.println(component.getName());
+//                JButton b = (JButton) component; // cast the button to a JButton.
+//                // check if the component is equal to the middle component of the board. if so, then we put a star tile
+//                if(Objects.equals(component.getName(), middleCoord + " " + middleCoord)){
+//                    b.setIcon(createImageIcon("StarDesign.png")); // set the icon back to the original empty state
+//                }
+//                else{
+//                    b.setIcon(icon); // set the icon back to the original empty state
+//                }
+//                b.setVisible(true); // set the visibility back to true for viewing
+//                playedButtons.remove(b);
+//            }
+//        }
+//
+//        // remove the letters and coordinates from the list of words
+//        letters.removeAll(letters); // remove the current move on the docket.
+//        coordinates.removeAll(coordinates); // remove all current coordinates on the docket
+//
+//        // reset current moves played
+//        printLettersAndCoordinates(); // check if updated
+//
+//        dialogueBox.frame.setVisible(true);
+//        dialogueBox.frame.setResizable(false);
+//    }
     /**
      * Scuffles the current hand
      */
@@ -278,7 +278,7 @@ public class GamePage implements ActionListener, View {
         strList.toArray(this.currentLetters);
         System.out.println(Arrays.toString(currentLetters));
 
-        resetHolder(); // reset the holder in the view
+//        resetHolder(); // reset the holder in the view
 
         // initialize a counter to change the index to find the button
         int holderIndex = 0;
@@ -487,7 +487,7 @@ public class GamePage implements ActionListener, View {
 
         else if (s.equals("Recall Tiles")){
             System.out.println("recall tiles button pressed");
-            resetHolder();
+//            resetHolder();
             controller.resetMove();
         }
 
