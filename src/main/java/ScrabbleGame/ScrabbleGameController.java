@@ -68,6 +68,9 @@ public class ScrabbleGameController{
             // place word usecase 
 
             ((IncrementTurnUsecase) turnManager).incrementTurn(game);
+            
+            
+            ((FillHand)playerManager).fillHand(game);// fill the next player's hand
         }
         view.updateView(game);
     }   
@@ -84,6 +87,7 @@ public class ScrabbleGameController{
     
     public void startGame(String[] names) { // create game usecase
         game = ((CreateGame)gameCreator).createNewGame(names);
+        ((FillHand)playerManager).fillHand(game);
         view.updateView(game);
     }
     
