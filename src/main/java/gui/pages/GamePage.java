@@ -34,7 +34,7 @@ public class GamePage implements ActionListener, View {
     }
 
     DialogueBox dialogueBox;
-    Label gamePageLabel, gamePageTitle, player1Label, player2Label;
+    Label gamePageLabel, gamePageTitle, player1Label, player2Label, turnLabel;
     final static String[] STARTING_LETTERS = new String[]{"A", "C", "H", "I", "E", "V", "E"};
     private String[] currentLetters;
     int boundX, boundY;
@@ -96,6 +96,11 @@ public class GamePage implements ActionListener, View {
         player2Label.createLabel(16, 10, 200, WIDTH / 4, 20, dialogueBox.frame, player2Name + "\'s Score: " + player2Score, Color.BLACK);
         player2Label.setCentreAlignment();
 
+        // add label for who's turn it is
+        turnLabel = new Label();
+        // init with Player 1 Name
+        turnLabel.createLabel(16, 10, 240, WIDTH / 4, 20, dialogueBox.frame, "It is " + player1Name + "'s turn!", Color.BLACK);
+        turnLabel.setCentreAlignment();
 
         createGameButton = new Button();
         createGameButton.createButton(dialogueBox.frame, "Play Move", WIDTH - 300, HEIGHT - 100, 100, 30, null);
@@ -117,12 +122,12 @@ public class GamePage implements ActionListener, View {
         shuffleHand.createButton(dialogueBox.frame, "Shuffle Hand", WIDTH - 800, HEIGHT - 100, 120, 30, null);
         shuffleHand.getButton().addActionListener(this);
 
-        currentLetters = STARTING_LETTERS; // assign the current letters to the starting letters at the start
+        //currentLetters = STARTING_LETTERS; // assign the current letters to the starting letters at the start
 
         boundX = 300; // set the x and y bounds at the start for the scrabble board
         boundY = 50;
-        createInitialBoard(); // create the starting board
-        createLetterHolder(); // create the initial letter holder at the bottom of the board
+        //createInitialBoard(); // create the starting board
+        //createLetterHolder(); // create the initial letter holder at the bottom of the board
 
         // refresh the page to allow the board to be visible
         dialogueBox.frame.setVisible(true);
@@ -185,7 +190,7 @@ public class GamePage implements ActionListener, View {
     /**
      * Creates a letter holder at the bottom of the board with all regular tiles
      */
-    public void createLetterHolder(){
+    public void updateLetterHolder(){
         Button holderButton = new Button();
         // create holders for buttons
         int yBound = boundY + BOARD_DIM + 50;
@@ -193,64 +198,74 @@ public class GamePage implements ActionListener, View {
 
         // create a holder for the tiles to start
         for(int i = 0; i < currentLetters.length; i++){
-            // create initial starting position
-            int xBound = boundX + BOARD_DIM/4 + BOARD_DIM/BOARD_ROWS * i;
-            icon = createImageIcon(currentLetters[i] + ".jpg");
+            // create initial starting position with an increment for each tile
+            int xBound = boundX + BOARD_DIM / 4 + BOARD_DIM / BOARD_ROWS * i;
 
-            holderButton.createButtonWithID(dialogueBox.frame, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "holder " + i + " " + currentLetters[i]);
+            // for empty holders
+            if(currentLetters[i] == "-"){
+                icon = createImageIcon("wood.jpg");
+                holderButton.createButtonWithID(dialogueBox.frame, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "holder " + i + " -");
+            }
+            else {
+                icon = createImageIcon(currentLetters[i] + ".jpg");
+                holderButton.createButtonWithID(dialogueBox.frame, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "holder " + i + " " + currentLetters[i]);
+            }
+
 
             holderButton.getButton().addActionListener(this);
             holderButtons.add(holderButton.button);
         }
-    }
-    /**
-     * Resets the tiles to the original state
-     *
-     */
-    public void resetHolder() {
-        // the middle tile when we want to reset it, we need to set it differently
-        String middleCoord = String.valueOf(BOARD_ROWS / 2);
-
-        // create the main wood icon once so we don't have to do it numerous times
-        ImageIcon icon = createImageIcon("wood.jpg");
-
-        // collect the components from the dialogue box's content pane
-        Component[] components = dialogueBox.frame.getContentPane().getComponents();
-        System.out.println("num of components: " + components.length);
-        for (Component component : components){ // iterate through each component in the frame
-            // check if the component is a button, whether it has a name, and whether it starts with holder
-            if(component instanceof JButton && component.getName()!= null && component.getName().startsWith("holder")){
-                System.out.println(component.getName());
-                // we want to make the button back visible for the user
-                component.setVisible(true);
-            }
-            // checks if the holderButtons arraylist contains the button. We want to reset it by reverting the button to  the original state
-            if(playedButtons.contains(component)){
-                System.out.println("NEED TO REVERT");
-                System.out.println(component.getName());
-                JButton b = (JButton) component; // cast the button to a JButton.
-                // check if the component is equal to the middle component of the board. if so, then we put a star tile
-                if(Objects.equals(component.getName(), middleCoord + " " + middleCoord)){
-                    b.setIcon(createImageIcon("StarDesign.png")); // set the icon back to the original empty state
-                }
-                else{
-                    b.setIcon(icon); // set the icon back to the original empty state
-                }
-                b.setVisible(true); // set the visibility back to true for viewing
-                playedButtons.remove(b);
-            }
-        }
-
-        // remove the letters and coordinates from the list of words
-        letters.removeAll(letters); // remove the current move on the docket.
-        coordinates.removeAll(coordinates); // remove all current coordinates on the docket
-
-        // reset current moves played
-        printLettersAndCoordinates(); // check if updated
-
         dialogueBox.frame.setVisible(true);
         dialogueBox.frame.setResizable(false);
     }
+//    /**
+//     * Resets the tiles to the original state
+//     *
+//     */
+//    public void resetHolder() {
+//        // the middle tile when we want to reset it, we need to set it differently
+//        String middleCoord = String.valueOf(BOARD_ROWS / 2);
+//
+//        // create the main wood icon once so we don't have to do it numerous times
+//        ImageIcon icon = createImageIcon("wood.jpg");
+//
+//        // collect the components from the dialogue box's content pane
+//        Component[] components = dialogueBox.frame.getContentPane().getComponents();
+//        System.out.println("num of components: " + components.length);
+//        for (Component component : components){ // iterate through each component in the frame
+//            // check if the component is a button, whether it has a name, and whether it starts with holder
+//            if(component instanceof JButton && component.getName()!= null && component.getName().startsWith("holder")){
+//                System.out.println(component.getName());
+//                // we want to make the button back visible for the user
+//                component.setVisible(true);
+//            }
+//            // checks if the holderButtons arraylist contains the button. We want to reset it by reverting the button to  the original state
+//            if(playedButtons.contains(component)){
+//                System.out.println("NEED TO REVERT");
+//                System.out.println(component.getName());
+//                JButton b = (JButton) component; // cast the button to a JButton.
+//                // check if the component is equal to the middle component of the board. if so, then we put a star tile
+//                if(Objects.equals(component.getName(), middleCoord + " " + middleCoord)){
+//                    b.setIcon(createImageIcon("StarDesign.png")); // set the icon back to the original empty state
+//                }
+//                else{
+//                    b.setIcon(icon); // set the icon back to the original empty state
+//                }
+//                b.setVisible(true); // set the visibility back to true for viewing
+//                playedButtons.remove(b);
+//            }
+//        }
+//
+//        // remove the letters and coordinates from the list of words
+//        letters.removeAll(letters); // remove the current move on the docket.
+//        coordinates.removeAll(coordinates); // remove all current coordinates on the docket
+//
+//        // reset current moves played
+//        printLettersAndCoordinates(); // check if updated
+//
+//        dialogueBox.frame.setVisible(true);
+//        dialogueBox.frame.setResizable(false);
+//    }
     /**
      * Scuffles the current hand
      */
@@ -263,7 +278,7 @@ public class GamePage implements ActionListener, View {
         strList.toArray(this.currentLetters);
         System.out.println(Arrays.toString(currentLetters));
 
-        resetHolder(); // reset the holder in the view
+//        resetHolder(); // reset the holder in the view
 
         // initialize a counter to change the index to find the button
         int holderIndex = 0;
@@ -285,6 +300,29 @@ public class GamePage implements ActionListener, View {
         dialogueBox.frame.setVisible(true);
         dialogueBox.frame.setResizable(false);
     }
+    /**
+     * Deletes all the current buttons on the board and the holder
+     */
+    public void deleteBoard() {
+        Component[] components = dialogueBox.frame.getContentPane().getComponents();
+        for (Component component : components) { // iterate through each component in the frame
+            // check if the component is a button, whether it has a name, and whether it starts with holder
+            if (component instanceof JButton) {
+                String name = component.getName();
+                if (name != null){
+                    // delete button
+                    // length of a button index is less than 6
+//                    System.out.println("Button: " + name + " " + name.length());
+                    if(name.startsWith("holder") || name.length() < 6){
+                        dialogueBox.frame.remove(component);
+                    }
+                }
+//                ((JButton) component).removeAll();
+            }
+        }
+        dialogueBox.frame.setVisible(true);
+        dialogueBox.frame.setResizable(false);
+    }
 
     /**
      * Plays the specified move and updates the button
@@ -295,9 +333,10 @@ public class GamePage implements ActionListener, View {
     // helper method to update the game when a letter has been played by a player
     public void playLetter(String value, int[] coord, JButton button) {
         playedButtons.add(button);
+        // play the tile onto the board
+        controller.placeTile(coord, value);
 
         button.setIcon(createImageIcon(value + ".jpg")); // set the button to the letter's icon
-
         letters.add(value);
         coordinates.add(coord);
 
@@ -323,6 +362,10 @@ public class GamePage implements ActionListener, View {
      */
     @Override
     public void updateView(Game game){
+        // board deleted
+        deleteBoard();
+
+        System.out.println("----------Beginning of UpdateView--------------");
         // update scores of players
         List<Player> players = game.getPlayers();
         // we're going to assume only 2 players for version 1. Will try to implement multiple players in the future
@@ -330,26 +373,44 @@ public class GamePage implements ActionListener, View {
         player1Score = players.get(0).getScore();
         player2Name = players.get(1).getName();
         player2Score = players.get(1).getScore();
+        System.out.println(player1Name + ": " + player1Score);
+        System.out.println(player2Name + ": " +  player2Score);
 
         // get who's turn it is
         Player currentPlayer = game.getCurrentPlayer();
         // get the holder tiles
         Cell[] hand = currentPlayer.getHand();
-        System.out.println(Arrays.toString(hand));
 
         String[] letters = new String[]{"-", "-", "-", "-", "-", "-", "-"};
-        // update the entire hand with new letters
+        // update the entire hand with new letters or nothing if it's a dash.
+        System.out.println("Printing hand");
         for(int i = 0; i<letters.length; i++){
-            letters[i] = hand[i].getValue();
+            if(hand[i] == null){
+                letters[i] = "-";
+                System.out.println("null");
+            }
+            else{
+                letters[i] = hand[i].getValue();
+                System.out.println(hand[i].getValue());
+            }
         }
         currentLetters = letters;
+        System.out.println("current letters: " + Arrays.toString(currentLetters));
 
         // update cells
         GameBoard gameBoard = game.getGameBoard();
+        gameBoard.printBoard();
 
         Button letter = new Button();
         int letterIndex = 0;
         ImageIcon icon;
+
+        // calculate the middle coords
+        int middleCoord = BOARD_ROWS/2;
+        System.out.println(middleCoord);
+        // create the middle icon
+        ImageIcon middleIcon = createImageIcon("StarDesign.png");
+
 
         // iterate through the board rows to set the board based on the cells
         for(int i = 0; i<BOARD_ROWS; i++){
@@ -357,20 +418,29 @@ public class GamePage implements ActionListener, View {
             // iterate through each letter index, add the letters back based on [j,i] coordinates
             for(int j = 0; j<BOARD_ROWS; j++) {
                 String val = gameBoard.getBoardCellValue(i, j);
+
+                int xBound = boundX + BOARD_DIM / BOARD_ROWS * j; // buttons on the x axis
+
                 if((Objects.equals(val, "-"))){
                     icon = createImageIcon("wood.jpg");
+                    // if the tile is in the middle and is empty, then we set is as the star
+                    if(j == middleCoord && i == middleCoord){
+                        letter.createButtonWithID(dialogueBox.frame, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, middleIcon, "" + i + " " + j);
+                    }
+                    else{
+                        letter.createButtonWithID(dialogueBox.frame, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "" + i + " " + j);
+                    }
                 }
                 else{
-                    icon = createImageIcon(currentLetters[letterIndex] + ".jpg");
-                    letterIndex += 1;
+                    icon = createImageIcon(val + ".jpg");
+//                    letterIndex += 1;
+                    System.out.println("ADDED LETTER: " + val);
+                    letter.createButtonWithID(dialogueBox.frame, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "" + i + " " + j);
                 }
-                int xBound = boundX + BOARD_DIM / BOARD_ROWS * j; // buttons on the x axis
-                
-                letter.createButtonWithID(dialogueBox.frame, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "" + i + " " + j);
                 letter.getButton().addActionListener(this); // add listener to the button to see when it gets pressed
             }
         }
-        createLetterHolder(); // updates the letter holder
+        updateLetterHolder(); // updates the letter holder
     }
 
     @Override
@@ -417,6 +487,7 @@ public class GamePage implements ActionListener, View {
 
         else if (s.equals("Recall Tiles")){
             System.out.println("recall tiles button pressed");
+//            resetHolder();
             controller.resetMove();
         }
 
@@ -436,7 +507,10 @@ public class GamePage implements ActionListener, View {
                 System.out.println("holder pressed");
                 String[] holderLetter = buttonClick.split(" ");
                 clickedValue = holderLetter[2];
+                System.out.println(clickedValue);
                 source.setVisible(false);
+//                updateLetterHolder();
+                dialogueBox.frame.setVisible(true);
             }
             else {
                 // if the button was not clicked and it doesn't start with holder
@@ -452,23 +526,23 @@ public class GamePage implements ActionListener, View {
                     int[] coord = new int[]{yLoc, xLoc};
 
                     // boolean for determining whether this is a valid tile placement
-                    boolean playLetter = true;
+//                    boolean playLetter = true;
 
-                    // check if letter is being played on an already played tile
-                    for(int[] coordinate : coordinates){
-                        System.out.println(Arrays.toString(coordinate));
-                        if(Arrays.equals(coordinate, coord)){ // check if array is equivalent
-                            System.out.println("board square already occupied");
-                            playLetter = false;
-                        }
-                    }
-                    // play letter only if it is valid
-                    if (playLetter){
+//                    // check if letter is being played on an already played tile
+//                    for(int[] coordinate : coordinates){
+//                        System.out.println(Arrays.toString(coordinate));
+//                        if(Arrays.equals(coordinate, coord)){ // check if array is equivalent
+//                            System.out.println("board square already occupied");
+//                            playLetter = false;
+//                        }
+//                    }
+//                    // play letter only if it is valid
+//                    if (playLetter){
                         // call play letter function
-                        playLetter(clickedValue, coord, source);
-                        clickedValue = null; // set the button to be ready for next turn
-                        printLettersAndCoordinates(); // print out the moves that were played
-                    }
+                    playLetter(clickedValue, coord, source);
+                    clickedValue = null; // set the button to be ready for next turn
+                    printLettersAndCoordinates(); // print out the moves that were played
+//                    }
                 }
             }
         }

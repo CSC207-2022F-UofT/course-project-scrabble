@@ -40,17 +40,26 @@ public class ScrabbleGameController{
     
     public void resetMove() {
         ((ResetMove) boardManager).resetMoves(game);
+        view.updateView(game);
     }
     
     public void swapTiles() {
         ((SwapHand) playerManager).swapHand(game);
+        view.updateView(game);
     }
     
     public void placeTile(int[] coords, String letter) {
-        ((PlaceTile) boardManager).checkLetter(coords, letter, game);
+        boolean placeTileTrueness = ((PlaceTile) boardManager).checkLetter(coords, letter, game);
+        if(placeTileTrueness){
+            ((RemoveTile)playerManager).removeTile(game, letter); // remove the tile
+        }
+        else{
+            System.out.println("Invalid Move Played in placeTile");
+        }
         // call boardmanager checkLetter 
-        
+
         // place tile usecase 
+        view.updateView(game);
     }
     
     public void playMove() {

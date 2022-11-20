@@ -33,7 +33,7 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
     @Override
     public boolean checkLetter(int[] coordinates, String letter, Game game){
         TileChecker validate_move = new TileChecker();
-        if (moves.size() == 0) {
+        if (moves.isEmpty()) {
             previous_board = savePreviousBoardState(game.getGameBoard()); // save the previous board state if first move
         }
         if (validate_move.isValid(coordinates[0], coordinates[1], game.getGameBoard())){ // check if move is valid
@@ -87,6 +87,8 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
     @Override
     public void resetMoves(Game game){
         game.getGameBoard().setBoard(previous_board.getBoard()); // change board back to previous state.
+        
+        game.getGameBoard().printBoard();
     }
 
     /**
