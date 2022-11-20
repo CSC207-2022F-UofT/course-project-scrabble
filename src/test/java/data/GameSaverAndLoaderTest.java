@@ -14,7 +14,8 @@ public class GameSaverAndLoaderTest {
         // creating objects to be saved
         GameSaverSystem game_saver = new GameSaverSystem();
         GameCreator gameCreator = new GameCreator();
-        Game game = gameCreator.createNewGame("Billy", "Mario");
+        String[] names = {"First", "Second"};
+        Game game = gameCreator.createNewGame(names);
 
         Player p1 = game.getPlayers().get(0);
         Player p2 = game.getPlayers().get(1);

@@ -157,5 +157,14 @@ public class PlayerManagerTest {
         Assertions.assertEquals("A", hand[4].getValue());
         Assertions.assertEquals("A", hand[5].getValue());
     }
-
+    
+    @Test
+    public void updateCurrentPlayerScoreTest() {
+        Game game = new Game();
+        PlayerManager p_manager = new PlayerManager();
+        Player p1 = new Player("Jeff");
+        game.addPlayer(p1);
+        p_manager.updateScoreForCurrentPlayer(10, game);
+        Assertions.assertEquals(10, game.getPlayers().get(0).getScore());
+    }
 }
