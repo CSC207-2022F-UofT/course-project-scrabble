@@ -33,8 +33,12 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
     @Override
     public boolean checkLetter(int[] coordinates, String letter, Game game){
         TileChecker validate_move = new TileChecker();
+        System.out.println("CHECK LETTER METHOD");
+        System.out.println(moves);
         if (moves.isEmpty()) {
             previous_board = savePreviousBoardState(game.getGameBoard()); // save the previous board state if first move
+            previous_board.printBoard();
+            System.out.println("I GOT UPDATED");
         }
         if (validate_move.isValid(coordinates[0], coordinates[1], game.getGameBoard())){ // check if move is valid
             MoveInfo move = new MoveInfo(coordinates, letter);
@@ -87,7 +91,7 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
     @Override
     public void resetMoves(Game game){
         game.getGameBoard().setBoard(previous_board.getBoard()); // change board back to previous state.
-        
+        previous_board.printBoard();
         game.getGameBoard().printBoard();
     }
 
@@ -177,4 +181,8 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
         letter.setScore(score);
     }
     public static void boardManagerSetCellValue(Cell letter, String value){ letter.setValue(value);}
+
+    public ArrayList<MoveInfo> getMoves(){
+        return this.moves;
+    }
 }

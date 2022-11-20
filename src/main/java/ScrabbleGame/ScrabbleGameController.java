@@ -8,6 +8,9 @@ import entities.Player;
 import data.*;
 import UsecaseInterfaces.*;
 import games_manager.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import gui.View;
 /**
@@ -39,7 +42,15 @@ public class ScrabbleGameController{
     }
     
     public void resetMove() {
+        System.out.println("RESET MOVE");
         ((ResetMove) boardManager).resetMoves(game);
+        ArrayList<MoveInfo> moveInfos = boardManager.getMoves();
+
+        for(MoveInfo move : moveInfos){
+            playerManager.addTile(game, move.getLetter());
+            System.out.println("Letters");
+            System.out.println(move.getLetter());
+        }
         view.updateView(game);
     }
     

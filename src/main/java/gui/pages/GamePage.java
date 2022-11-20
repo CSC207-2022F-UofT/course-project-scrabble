@@ -468,6 +468,7 @@ public class GamePage implements ActionListener, View {
     
     @Override
     public void actionPerformed(ActionEvent e) {
+        System.out.println("--------------------------------------------------------------- ACTION ------------------");
         String s = e.getActionCommand();
 
         // check if button has been pressed
