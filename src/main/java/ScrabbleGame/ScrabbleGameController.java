@@ -79,7 +79,7 @@ public class ScrabbleGameController{
         
         List<List<List<Integer>>> words = ((PlaceWord) boardManager).checkWord(game);
         
-        //boardmanager checkword returns list of list of coordinates and list of letters used by the player
+        //boardmanager checkword returns list of coordinates and list of letters used by the player
         
         if(!words.isEmpty())
         {
@@ -87,7 +87,8 @@ public class ScrabbleGameController{
             int score = ((WordScoreCalculator) gameScorer).calculateMultiWordScore(game, words);
             // calculate the total score of all the words found
             ((UpdateScoreUsecase) playerManager).updateScoreForCurrentPlayer(game.getCurrentPlayer().getScore() + score, game);
-            // place word usecase 
+            // place word usecase
+            System.out.println(game.getCurrentPlayer().getScore());
 
             ((IncrementTurnUsecase) turnManager).incrementTurn(game);
             
