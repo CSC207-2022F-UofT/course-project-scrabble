@@ -95,8 +95,9 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
         game.getGameBoard().printBoard();
     }
 
-    public void clearMoves(Game game){
-        moves.clear();
+    @Override
+    public void clearMoves(){
+        moves.clear(); //clears moves in the moves list
     }
 
     /**
