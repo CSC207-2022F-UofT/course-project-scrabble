@@ -378,6 +378,10 @@ public class GamePage implements ActionListener, View {
         player1Score = players.get(0).getScore();
         player2Name = players.get(1).getName();
         player2Score = players.get(1).getScore();
+
+        player1Label.getLabel().setText(player1Name + "'s score is: "  + Integer.toString(player1Score)); // set the name to the current player
+        player2Label.getLabel().setText(player2Name + "'s score is: " + Integer.toString(player2Score)); // set the name to the current player
+
         System.out.println(player1Name + ": " + player1Score);
         System.out.println(player2Name + ": " +  player2Score);
 
