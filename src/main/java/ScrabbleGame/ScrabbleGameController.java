@@ -95,6 +95,7 @@ public class ScrabbleGameController{
             
             ((FillHand)playerManager).fillHand(game);// fill the next player's hand
         }
+        System.out.println("DONE PLAY MOVE");
         view.updateView(game);
     }   
     
