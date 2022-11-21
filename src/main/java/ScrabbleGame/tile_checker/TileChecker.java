@@ -53,7 +53,7 @@ public class TileChecker implements PlacementChecker {
         Collections.sort(movelist);
         for (int i = 0; i < movelist.toArray().length - 1; i++) {
             if (movelist.get(i + 1) != movelist.get(i) + 1) { // checks for non-sequential numbers
-                if (board.getBoardCellValue(refNum, i + 1) == "-") { // checks whether the skipped tiles are occupied
+                if (board.getBoardCellValue(refNum, movelist.get(i) + 1) == "-") { // checks whether the skipped tiles are occupied
                     return false; // if the skipped tiles are not occupied, the move is invalid
                 }
             }
