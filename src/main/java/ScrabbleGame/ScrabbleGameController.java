@@ -58,6 +58,9 @@ public class ScrabbleGameController{
     
     public void swapTiles() {
         ((SwapHand) playerManager).swapHand(game);
+        ((IncrementTurnUsecase) turnManager).incrementTurn(game);
+        ((FillHand)playerManager).fillHand(game);// fill the next player's hand
+
         view.updateView(game);
     }
     
@@ -96,8 +99,9 @@ public class ScrabbleGameController{
             ((FillHand)playerManager).fillHand(game);// fill the next player's hand
         }
         System.out.println("DONE PLAY MOVE");
+        saveGameToFile();
         view.updateView(game);
-    }   
+    }
     
     
     public void createGameFromFile() {
