@@ -9,21 +9,18 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.List;
 
-import static scrabble_dictionary.ScrabbleDictionary.inDictionary;
-
 public class TileChecker implements PlacementChecker {
 
-    public ArrayList<List<List<Integer>>> validateMove(ArrayList<List<Integer>> move, GameBoard board) { //call to other functions that will validate move
+    public ArrayList<List<List<Integer>>> validateMove(ArrayList<List<Integer>> move, GameBoard board,
+                                                       ScrabbleDictionary scrabbleDictionary) { //call to other functions that will validate move
         ArrayList<List<List<Integer>>> falseResult = new ArrayList<List<List<Integer>>>();
-        ScrabbleDictionary newdict = new ScrabbleDictionary();
-
         if (!isConsecutive(move, board)) { //if tiles aren't consecutive, return false
             return falseResult;
         }
         if (!isTouching(move, board)) { //if tiles aren't touching already played tiles, return false
             return falseResult;
         }
-        if (!inDictionary((wordList(move, board)), board)) {
+        if (!scrabbleDictionary.inDictionary((wordList(move, board)), board)) {
             return falseResult;
         }
         return wordList(move, board);
@@ -56,23 +53,12 @@ public class TileChecker implements PlacementChecker {
         Collections.sort(movelist);
         for (int i = 0; i < movelist.toArray().length - 1; i++) {
             if (movelist.get(i + 1) != movelist.get(i) + 1) { // checks for non-sequential numbers
-                if (board.getBoardCellValue(refNum, i + 1) == "-") { // checks whether the skipped tiles are occupied
-                    break; // if the skipped tiles are not occupied, the move is invalid
-                } else {
-                    return true;
+                if (board.getBoardCellValue(refNum, movelist.get(i) + 1) == "-") { // checks whether the skipped tiles are occupied
+                    return false; // if the skipped tiles are not occupied, the move is invalid
                 }
             }
         }
-        for (int i = 0; i < movelist.toArray().length - 1; i++) { //as above, but for a vertical word
-            if (movelist.get(i + 1) != movelist.get(i) + 1) {
-                if (board.getBoardCellValue(i + 1, refNum) == "-") {
-                    break;
-                } else {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return true;
     }
     @Override
     public boolean isTouching(ArrayList<List<Integer>> move, GameBoard board) { // determines whether the desired tiles touch already placed tiles
