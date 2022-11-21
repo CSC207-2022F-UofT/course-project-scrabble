@@ -91,10 +91,17 @@ public class ScrabbleGameController{
             System.out.println(game.getCurrentPlayer().getScore());
 
             ((IncrementTurnUsecase) turnManager).incrementTurn(game);
-            
-            
+
             ((FillHand)playerManager).fillHand(game);// fill the next player's hand
         }
+        else{
+            ArrayList<MoveInfo> moves = boardManager.getMoves();
+
+            for(MoveInfo move : moves){
+                playerManager.addTile(game, move.getLetter());
+            }
+        }
+        boardManager.clearMoves(game);// reset moves for next turn
         System.out.println("DONE PLAY MOVE");
         view.updateView(game);
     }   
