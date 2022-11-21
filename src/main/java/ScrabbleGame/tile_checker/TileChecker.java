@@ -42,18 +42,29 @@ public class TileChecker implements PlacementChecker {
             column.add(tiles.get(1)); // adds all the desired column coordinates to the list
         }
         if (row.stream().distinct().count() == 1) { // if the tiles are all to be placed all in the same row
-            return isLine(row.get(0), column, board);
+            return isRow(row.get(0), column, board);
         } else if (column.stream().distinct().count() == 1) { // if the tiles are all to be placed in the same column
-            return isLine(column.get(0), row, board);
+            return isCol(column.get(0), row, board);
         } else { // if the tiles aren't in a line at all
             return false;
         }
     }
-    private boolean isLine (int refNum, ArrayList<Integer> movelist, GameBoard board) { // determines whether or not there are any gaps
+    private boolean isRow (int refNum, ArrayList<Integer> movelist, GameBoard board) { // determines whether or not there are any gaps
         Collections.sort(movelist);
         for (int i = 0; i < movelist.toArray().length - 1; i++) {
             if (movelist.get(i + 1) != movelist.get(i) + 1) { // checks for non-sequential numbers
                 if (board.getBoardCellValue(refNum, movelist.get(i) + 1) == "-") { // checks whether the skipped tiles are occupied
+                    return false; // if the skipped tiles are not occupied, the move is invalid
+                }
+            }
+        }
+        return true;
+    }
+    private boolean isCol (int refNum, ArrayList<Integer> movelist, GameBoard board) { // determines whether or not there are any gaps
+        Collections.sort(movelist);
+        for (int i = 0; i < movelist.toArray().length - 1; i++) {
+            if (movelist.get(i + 1) != movelist.get(i) + 1) { // checks for non-sequential numbers
+                if (board.getBoardCellValue(movelist.get(i) + 1, refNum) == "-") { // checks whether the skipped tiles are occupied
                     return false; // if the skipped tiles are not occupied, the move is invalid
                 }
             }
