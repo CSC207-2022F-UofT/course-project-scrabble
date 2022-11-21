@@ -33,6 +33,7 @@ public class ScoringSystem implements WordScoreCalculator, HandScoreCalculator {
         int points_so_far = 0; // variable to store points of word
         for (List<Integer> coordinates: word){ // loops over coordinates
             Cell letter = BoardManager.boardManagerGetCell(coordinates.get(0), coordinates.get(1), board); // saves the cell representing the letter in letter
+            initializeCellScore(letter);
             points_so_far += BoardManager.boardManagerGetCellScore(letter)
                     *BoardManager.boardManagerGetCellMultiplier(letter); // multiplies the score of the cell by the multiplier
         }
