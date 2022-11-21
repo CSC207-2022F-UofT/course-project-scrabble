@@ -3,7 +3,7 @@
 Welcome to Scrabble, a game played and loved by millions around the world. Our team has decided to embark on a journey to rewrite 
 scrabble using CSC207 principles and course concepts! 
 
-Team members: Victor, Clark, Umair, Jazli, Francisco, and Claire. 
+Team members: Victor, Clark, Umair, Jazli, Francisco, Claire and Davit. 
 
 ## Rules of our game
 We have written up [revised rules for scrabble](https://github.com/CSC207-2022F-UofT/course-project-scrabble/blob/main/src/main/java/gui/resources/revised_rules_of_scrabble.md) for our game. 
