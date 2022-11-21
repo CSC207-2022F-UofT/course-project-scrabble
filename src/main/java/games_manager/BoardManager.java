@@ -7,6 +7,7 @@ import entities.Cell;
 import entities.Game;
 import entities.GameBoard;
 import ScrabbleGame.tile_checker.TileChecker;
+import scrabble_dictionary.ScrabbleDictionary;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,13 +58,13 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
      * @return the list of valid words that could be made from the player's moves.
      */
     @Override
-    public List<List<List<Integer>>> checkWord(Game game){
+    public List<List<List<Integer>>> checkWord(Game game, ScrabbleDictionary scrabbleDictionary){
         ArrayList<List<Integer>> move_list = new ArrayList<List<Integer>>();
         createListOfCoordinates(move_list);
         TileChecker validate_word = new TileChecker();
         if (game.getTurn() == 0) { // check if it's first turn of thr game
             if (checkFirstTurnCondition(game)) { // check if the word is on center of board
-                ArrayList<List<List<Integer>>> first_word_list = validate_word.validateMove(move_list, game.getGameBoard());
+                ArrayList<List<List<Integer>>> first_word_list = validate_word.validateMove(move_list, game.getGameBoard(), scrabbleDictionary);
                 if (first_word_list.size() == 0) {
                     resetMoves(game); // change board back to previous state if no valid words.
                 }
@@ -74,7 +75,7 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
             }
         }
         else {
-            ArrayList<List<List<Integer>>> word_list = validate_word.validateMove(move_list, game.getGameBoard());
+            ArrayList<List<List<Integer>>> word_list = validate_word.validateMove(move_list, game.getGameBoard(), scrabbleDictionary);
             if (word_list.size() == 0) {
                 resetMoves(game); // change board back to previous state if no valid words.
             }

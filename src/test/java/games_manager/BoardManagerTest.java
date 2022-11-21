@@ -3,6 +3,7 @@ package games_manager;
 import entities.Game;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import scrabble_dictionary.ScrabbleDictionary;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,7 +94,7 @@ public class BoardManagerTest {
 
         // check if the list of correct words returned by checkWord method is the same as the actual list of words
         // the only valid word should be "HELLO"
-        Assertions.assertEquals(b_manager.checkWord(game), list_of_words);
+        Assertions.assertEquals(b_manager.checkWord(game, new ScrabbleDictionary()), list_of_words);
     }
     @Test
     public void resetMovesTest(){

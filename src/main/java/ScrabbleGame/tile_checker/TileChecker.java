@@ -9,21 +9,18 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.List;
 
-import static scrabble_dictionary.ScrabbleDictionary.inDictionary;
-
 public class TileChecker implements PlacementChecker {
 
-    public ArrayList<List<List<Integer>>> validateMove(ArrayList<List<Integer>> move, GameBoard board) { //call to other functions that will validate move
+    public ArrayList<List<List<Integer>>> validateMove(ArrayList<List<Integer>> move, GameBoard board,
+                                                       ScrabbleDictionary scrabbleDictionary) { //call to other functions that will validate move
         ArrayList<List<List<Integer>>> falseResult = new ArrayList<List<List<Integer>>>();
-        ScrabbleDictionary newdict = new ScrabbleDictionary();
-
         if (!isConsecutive(move, board)) { //if tiles aren't consecutive, return false
             return falseResult;
         }
         if (!isTouching(move, board)) { //if tiles aren't touching already played tiles, return false
             return falseResult;
         }
-        if (!inDictionary((wordList(move, board)), board)) {
+        if (!scrabbleDictionary.inDictionary((wordList(move, board)), board)) {
             return falseResult;
         }
         return wordList(move, board);
