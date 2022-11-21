@@ -85,7 +85,9 @@ public class StartupPage implements ActionListener {
                 }   break;
             case "Start Old Game":
                 System.out.println("Start old game button pressed");
-                // TODO: determine what we can do to read from file a previous game
+                GamePage game = new GamePage("placeholder1", "placeholder2", true);
+                game.createGame(true);
+
                 break;
             default:
                 break;

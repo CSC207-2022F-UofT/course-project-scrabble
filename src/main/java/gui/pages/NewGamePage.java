@@ -79,7 +79,7 @@ public class NewGamePage implements ActionListener {
 
             // create game page using the players information
             GamePage game = new GamePage(s1, s2, true);
-            game.createGame();
+            game.createGame(false);
 
             dialogueBox.frame.dispose(); // close dialogue box permanently
         }

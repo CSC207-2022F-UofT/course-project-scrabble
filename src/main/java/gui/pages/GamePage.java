@@ -59,7 +59,7 @@ public class GamePage implements ActionListener, View {
         return letters;
     }
 
-    public void createGame() {
+    public void createGame(boolean fromFile) {
         //create the new game object
         //create the new game page
         dialogueBox = new DialogueBox();
@@ -133,11 +133,14 @@ public class GamePage implements ActionListener, View {
         dialogueBox.frame.setVisible(true);
         dialogueBox.frame.setResizable(false);
         
-        
-        
         // create the game
         String[] names = new String[]{player1Name, player2Name};
-        controller.startGame(names);
+        if(fromFile){
+            controller.createGameFromFile();
+        }
+        else{
+            controller.startGame(names);
+        }
     }
 
     /**
