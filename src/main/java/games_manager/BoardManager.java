@@ -67,7 +67,6 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
                 if (first_word_list.size() == 0) {
                     resetMoves(game); // change board back to previous state if no valid words.
                 }
-                moves.clear();
                 return first_word_list; // return list of coordinates of new word on board
             }
             else {
@@ -79,7 +78,6 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
             if (word_list.size() == 0) {
                 resetMoves(game); // change board back to previous state if no valid words.
             }
-            moves.clear(); // clear moves for new turn
             return word_list; // return list of valid words that can be made from the moves
         }
     }
