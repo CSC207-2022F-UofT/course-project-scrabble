@@ -20,7 +20,24 @@ public class GamePage implements ActionListener, View {
     private String player2Name;
     public int player1Score;
     public int player2Score;
-    
+
+    private static int[][] TILE_MULTIPLIERS = new int[][]
+            {{3,1,1,2,1,1,1,3,1,1,1,2,1,1,3},
+                    {1,2,1,1,1,3,1,1,1,3,1,1,1,2,1},
+                    {1,1,2,1,1,1,2,1,2,1,1,1,2,1,1},
+                    {2,1,1,2,1,1,1,2,1,1,1,2,1,1,2},
+                    {1,1,1,1,2,1,1,1,1,1,2,1,1,1,1},
+                    {1,3,1,1,1,3,1,1,1,3,1,1,1,3,1},
+                    {1,1,2,1,1,1,2,1,2,1,1,1,2,1,1},
+                    {3,1,1,2,1,1,1,1,1,1,1,2,1,1,3},
+                    {1,1,2,1,1,1,2,1,2,1,1,1,2,1,1},
+                    {1,3,1,1,1,3,1,1,1,3,1,1,1,3,1},
+                    {1,1,1,1,2,1,1,1,1,1,2,1,1,1,1},
+                    {2,1,1,2,1,1,1,2,1,1,1,2,1,1,2},
+                    {1,1,2,1,1,1,2,1,2,1,1,1,2,1,1},
+                    {1,2,1,1,1,3,1,1,1,3,1,1,1,2,1},
+                    {3,1,1,2,1,1,1,3,1,1,1,2,1,1,3}};
+
     private ScrabbleGameController controller;
     
     public GamePage(String player1Name, String player2Name, boolean newGame){
@@ -424,7 +441,8 @@ public class GamePage implements ActionListener, View {
         System.out.println(middleCoord);
         // create the middle icon
         ImageIcon middleIcon = createImageIcon("StarDesign.png");
-
+        ImageIcon doubleIcon = createImageIcon("double.png");
+        ImageIcon tripleIcon = createImageIcon("tripple.png");
 
         // iterate through the board rows to set the board based on the cells
         for(int i = 0; i<BOARD_ROWS; i++){
@@ -442,7 +460,15 @@ public class GamePage implements ActionListener, View {
                         letter.createButtonWithID(dialogueBox.frame, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, middleIcon, "" + i + " " + j);
                     }
                     else{
-                        letter.createButtonWithID(dialogueBox.frame, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "" + i + " " + j);
+                        if(TILE_MULTIPLIERS[i][j] == 1){
+                            letter.createButtonWithID(dialogueBox.frame, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "" + i + " " + j);
+                        }
+                        else if(TILE_MULTIPLIERS[i][j] == 2){
+                            letter.createButtonWithID(dialogueBox.frame, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, doubleIcon, "" + i + " " + j);
+                        }
+                        else if(TILE_MULTIPLIERS[i][j] == 3){
+                            letter.createButtonWithID(dialogueBox.frame, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, tripleIcon, "" + i + " " + j);
+                        }
                     }
                 }
                 else{
