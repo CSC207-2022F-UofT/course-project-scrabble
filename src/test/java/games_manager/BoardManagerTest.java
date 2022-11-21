@@ -1,12 +1,10 @@
 package games_manager;
 
 import entities.Game;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class BoardManagerTest {
@@ -18,7 +16,7 @@ public class BoardManagerTest {
 
         // create coordinates and letter for move
         int[] coordinates = new int[]{7,3};
-        String letter = new String("A");
+        String letter = "A";
 
         // add letter to board using checkLetter method
         b_manager.checkLetter(coordinates, letter, game);
@@ -34,10 +32,10 @@ public class BoardManagerTest {
 
         // create coordinates and letter for move
         int[] coordinates = new int[]{7,3};
-        String letter1 = new String("A");
+        String letter1 = "A";
 
         // create letter for another move using same coordinates
-        String letter2 = new String("B");
+        String letter2 = "B";
 
         // add letter to board using checkLetter method
         b_manager.checkLetter(coordinates, letter1, game);
@@ -59,28 +57,28 @@ public class BoardManagerTest {
         int[] coordinates5 = new int[]{7,9};
 
         // add same coordinates to arrayLists
-        ArrayList<Integer> coordinatesA = new ArrayList<Integer>();
+        ArrayList<Integer> coordinatesA = new ArrayList<>();
         coordinatesA.add(0,7);
         coordinatesA.add(1,5);
-        ArrayList<Integer> coordinatesB = new ArrayList<Integer>();
+        ArrayList<Integer> coordinatesB = new ArrayList<>();
         coordinatesB.add(0,7);
         coordinatesB.add(1,6);
-        ArrayList<Integer> coordinatesC = new ArrayList<Integer>();
+        ArrayList<Integer> coordinatesC = new ArrayList<>();
         coordinatesC.add(0,7);
         coordinatesC.add(1,7);
-        ArrayList<Integer> coordinatesD = new ArrayList<Integer>();
+        ArrayList<Integer> coordinatesD = new ArrayList<>();
         coordinatesD.add(0,7);
         coordinatesD.add(1,8);
-        ArrayList<Integer> coordinatesE = new ArrayList<Integer>();
+        ArrayList<Integer> coordinatesE = new ArrayList<>();
         coordinatesE.add(0,7);
         coordinatesE.add(1,9);
 
         // create letters for five moves forming the word "HELLO"
-        String letter1 = new String("H");
-        String letter2 = new String("E");
-        String letter3 = new String("L");
-        String letter4 = new String("L");
-        String letter5 = new String("O");
+        String letter1 = "H";
+        String letter2 = "E";
+        String letter3 = "L";
+        String letter4 = "L";
+        String letter5 = "O";
 
         // add five letters to board using checkLetter method
         b_manager.checkLetter(coordinates1, letter1, game);
@@ -90,7 +88,7 @@ public class BoardManagerTest {
         b_manager.checkLetter(coordinates5, letter5, game);
 
         // create list of words from the same coordinates
-        ArrayList<List<List<Integer>>> list_of_words = new ArrayList<List<List<Integer>>>();
+        ArrayList<List<List<Integer>>> list_of_words = new ArrayList<>();
         list_of_words.add(List.of(new ArrayList[]{coordinatesA, coordinatesB, coordinatesC, coordinatesD, coordinatesE}));
 
         // check if the list of correct words returned by checkWord method is the same as the actual list of words
@@ -111,11 +109,11 @@ public class BoardManagerTest {
         int[] coordinates5 = new int[]{7,9};
 
         // create letters for five moves forming the word "HELLO"
-        String letter1 = new String("H");
-        String letter2 = new String("E");
-        String letter3 = new String("L");
-        String letter4 = new String("L");
-        String letter5 = new String("O");
+        String letter1 = "H";
+        String letter2 = "E";
+        String letter3 = "L";
+        String letter4 = "L";
+        String letter5 = "O";
 
         // add five letters to board using checkLetter method
         b_manager.checkLetter(coordinates1, letter1, game);
