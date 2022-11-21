@@ -58,13 +58,14 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
      * @return the list of valid words that could be made from the player's moves.
      */
     @Override
-    public List<List<List<Integer>>> checkWord(Game game, ScrabbleDictionary scrabbleDictionary){
+    public List<List<List<Integer>>> checkWord(Game game, ScrabbleDictionary scrabbleDictionary, GameBoard prevBoard){
         ArrayList<List<Integer>> move_list = new ArrayList<List<Integer>>();
         createListOfCoordinates(move_list);
         TileChecker validate_word = new TileChecker();
+        GameBoard blankBoard = new GameBoard();
         if (game.getTurn() == 0) { // check if it's first turn of thr game
             if (checkFirstTurnCondition(game)) { // check if the word is on center of board
-                ArrayList<List<List<Integer>>> first_word_list = validate_word.validateMove(move_list, game.getGameBoard(), scrabbleDictionary);
+                ArrayList<List<List<Integer>>> first_word_list = validate_word.validateMove(move_list, game.getGameBoard(), scrabbleDictionary, prevBoard, game.getTurn());
                 if (first_word_list.size() == 0) {
                     resetMoves(game); // change board back to previous state if no valid words.
                 }
@@ -75,7 +76,7 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
             }
         }
         else {
-            ArrayList<List<List<Integer>>> word_list = validate_word.validateMove(move_list, game.getGameBoard(), scrabbleDictionary);
+            ArrayList<List<List<Integer>>> word_list = validate_word.validateMove(move_list, game.getGameBoard(), scrabbleDictionary, prevBoard, game.getTurn());
             if (word_list.size() == 0) {
                 resetMoves(game); // change board back to previous state if no valid words.
             }
@@ -107,6 +108,10 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
         for (MoveInfo move : moves) { // iterate through moves list and change the values on the board.
             board.getBoard()[move.getY()][move.getX()].setValue(move.getLetter());
         }
+    }
+
+    public GameBoard getPrevBoard(){
+        return this.previous_board;
     }
 
     /**
