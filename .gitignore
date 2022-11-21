@@ -122,3 +122,6 @@ replay_pid*
 gradlew
 *.bat
 gradle/
+
+# ignore .ser files for reading from our project
+*.ser
