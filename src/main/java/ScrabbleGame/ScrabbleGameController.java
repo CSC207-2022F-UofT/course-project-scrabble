@@ -104,7 +104,7 @@ public class ScrabbleGameController{
                 playerManager.addTile(game, move.getLetter());
             }
         }
-        boardManager.clearMoves(game);// reset moves for next turn
+        boardManager.clearMoves();// reset moves for next turn
         System.out.println("DONE PLAY MOVE");
         saveGameToFile();
         view.updateView(game);
