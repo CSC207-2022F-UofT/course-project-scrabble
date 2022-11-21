@@ -44,5 +44,9 @@ If the user finds that their moves don't make sense and would like to replace th
 If the user finds that the hand is hard to read, and would like to move their tiles around, they can call the `Shuffle Hand` button, which moves the tiles on the holder around in a randomized order.
 ![image](/resources/ShuffleHandButton.png)
 
+## Ninth Step: Game Play
+Continue playing words and scoring words correctly.
+![image](/resources/real-game.png)
+
 ## Final Step: Ending Game
 If both players agree to end the game, then they can press the `End Game` button, which will calculate the scores of the game and display them back through our Exit page. Our application will also calculate if there are no tiles left to be played, which will also end the game according to our rules. The winner will then be displayed for everyone to see. 
