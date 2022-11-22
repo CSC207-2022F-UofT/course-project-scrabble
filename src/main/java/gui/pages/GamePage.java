@@ -480,8 +480,8 @@ public class GamePage implements ActionListener, View {
                 dialogueBox.frame.setVisible(true);
             }
             else {
-                // if the button was not clicked and it doesn't start with holder
-                if(clickedValue != null && !buttonClick.startsWith("holder")){
+                // if the button was not clicked and it doesn't start with holder or an empty tile
+                if(clickedValue != null && !buttonClick.startsWith("holder") && !buttonClick.equals("-")){
                     //if (!source.getName().equals("empty")){
                     // System.out.println(location); // print out location of button
                     String[] yxLoc = buttonClick.split(" ");
