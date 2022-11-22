@@ -114,6 +114,16 @@ public class PlayerManager implements FillHand, DrawHand, SwapHand, RemoveTile, 
         }
     }
 
+    public boolean checkHand(Game game){
+        Cell[] hand = game.getCurrentPlayer().getHand();
+        for (Cell tile : hand){
+            if (tile == null){
+                return false;
+            }
+        }
+        return true;
+    }
+
     /**
      * This method is responsible for changing the name of a player.
      * @param player the player who wants there name changed.

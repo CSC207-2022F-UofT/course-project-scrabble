@@ -544,7 +544,7 @@ public class GamePage implements ActionListener, View {
             String buttonClick = source.getName();
 
             // if the button was not clicked and it starts with holder
-            if(buttonClick.startsWith("holder") && clickedValue == null){
+            if(buttonClick.startsWith("holder") && clickedValue == null && !buttonClick.endsWith("-")){
                 System.out.println("holder pressed");
                 String[] holderLetter = buttonClick.split(" ");
                 clickedValue = holderLetter[2];
@@ -554,8 +554,8 @@ public class GamePage implements ActionListener, View {
                 dialogueBox.frame.setVisible(true);
             }
             else {
-                // if the button was not clicked and it doesn't start with holder
-                if(clickedValue != null && !buttonClick.startsWith("holder")){
+                // if the button was not clicked and it doesn't start with holder or an empty tile
+                if(clickedValue != null && !buttonClick.startsWith("holder") && !buttonClick.endsWith("-")){
                     //if (!source.getName().equals("empty")){
                     // System.out.println(location); // print out location of button
                     String[] yxLoc = buttonClick.split(" ");
