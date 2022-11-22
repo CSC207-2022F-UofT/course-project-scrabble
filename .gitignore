@@ -125,3 +125,4 @@ gradle/
 
 # ignore .ser files for reading from our project
 *.ser
+src/main/java/data/data.ser
