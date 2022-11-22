@@ -62,7 +62,8 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
         ArrayList<List<Integer>> move_list = new ArrayList<List<Integer>>();
         createListOfCoordinates(move_list);
         TileChecker validate_word = new TileChecker();
-        if (prevBoard.isEmpty()) { // check if it's first turn of thr game
+        GameBoard blankBoard = new GameBoard();
+        if (game.getTurn() == 0) { // check if it's first turn of thr game
             if (checkFirstTurnCondition(game)) { // check if the word is on center of board
                 ArrayList<List<List<Integer>>> first_word_list = validate_word.validateMove(move_list, game.getGameBoard(), scrabbleDictionary, prevBoard, game.getTurn());
                 if (first_word_list.size() == 0) {
