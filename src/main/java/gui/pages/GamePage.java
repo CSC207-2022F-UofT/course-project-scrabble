@@ -529,7 +529,9 @@ public class GamePage implements ActionListener, View {
         else if (s.equals("Recall Tiles")){
             System.out.println("recall tiles button pressed");
 //            resetHolder();
-            controller.resetMove();
+            if (!controller.checkFullHand()){
+                controller.resetMove();
+            }
         }
 
         else if (s.equals("Swap Hands")) {

@@ -75,7 +75,20 @@ public class GameBoard implements Serializable {
             System.out.println();
         }
     }
-        
+
+    public boolean isEmpty() {
+        for (int i=0; i < DEFAULT_SIZE; i++) {
+            for (int j=0; j < DEFAULT_SIZE; j++) {
+                String value = this.board[i][j].getValue();
+                if (!value.equals("-")){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+
 }
     
     

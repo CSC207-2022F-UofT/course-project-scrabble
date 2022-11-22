@@ -103,7 +103,7 @@ public class ScrabbleGameController{
         }
         else{
             ArrayList<MoveInfo> moves = boardManager.getMoves();
-
+            resetMove();
             for(MoveInfo move : moves){
                 playerManager.addTile(game, move.getLetter());
             }
@@ -113,7 +113,10 @@ public class ScrabbleGameController{
         saveGameToFile();
         view.updateView(game);
     }
-    
+
+    public boolean checkFullHand(){
+        return playerManager.checkHand(game);
+    }
     
     public void createGameFromFile() {
         game = ((GameLoad)gameLoader).loadGame(); // loadgame usecase
