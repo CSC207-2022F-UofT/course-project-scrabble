@@ -94,7 +94,7 @@ public class BoardManagerTest {
 
         // check if the list of correct words returned by checkWord method is the same as the actual list of words
         // the only valid word should be "HELLO"
-        Assertions.assertEquals(b_manager.checkWord(game, new ScrabbleDictionary()), list_of_words);
+        Assertions.assertEquals(b_manager.checkWord(game, new ScrabbleDictionary(), b_manager.getPrevBoard()), list_of_words);
     }
     @Test
     public void resetMovesTest(){

@@ -3,8 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package ScrabbleGame;
-import entities.Game;
-import entities.Player;
+import entities.*;
 import data.*;
 import UsecaseInterfaces.*;
 import games_manager.*;
@@ -84,7 +83,8 @@ public class ScrabbleGameController{
     
     public void playMove() {
 
-        List<List<List<Integer>>> words = ((PlaceWord) boardManager).checkWord(game, scrabbleDictionary);
+        GameBoard prevBoard = boardManager.getPrevBoard();
+        List<List<List<Integer>>> words = ((PlaceWord) boardManager).checkWord(game, scrabbleDictionary, prevBoard);
         
         //boardmanager checkword returns list of coordinates and list of letters used by the player
         

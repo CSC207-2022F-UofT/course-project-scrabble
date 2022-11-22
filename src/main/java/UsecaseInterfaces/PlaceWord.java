@@ -1,6 +1,6 @@
 package UsecaseInterfaces;
 
-import entities.Game;
+import entities.*;
 import games_manager.MoveInfo;
 import scrabble_dictionary.ScrabbleDictionary;
 
@@ -13,5 +13,5 @@ import java.util.List;
  */
 public interface PlaceWord { //interface that verifies and updates new words on the board
     //returns list of valid words from player's moves and updates the board
-    public List<List<List<Integer>>> checkWord(Game game, ScrabbleDictionary scrabbleDictionary);
+    public List<List<List<Integer>>> checkWord(Game game, ScrabbleDictionary scrabbleDictionary, GameBoard prevBoard);
 }
