@@ -103,7 +103,7 @@ public class ScrabbleGameController{
         }
         else{
             ArrayList<MoveInfo> moves = boardManager.getMoves();
-
+            resetMove();
             for(MoveInfo move : moves){
                 playerManager.addTile(game, move.getLetter());
             }
