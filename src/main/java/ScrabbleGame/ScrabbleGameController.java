@@ -113,7 +113,10 @@ public class ScrabbleGameController{
         saveGameToFile();
         view.updateView(game);
     }
-    
+
+    public boolean checkFullHand(){
+        return playerManager.checkHand(game);
+    }
     
     public void createGameFromFile() {
         game = ((GameLoad)gameLoader).loadGame(); // loadgame usecase
