@@ -117,7 +117,7 @@ public class PlayerManager implements FillHand, DrawHand, SwapHand, RemoveTile, 
     public boolean checkHand(Game game){
         Cell[] hand = game.getCurrentPlayer().getHand();
         for (Cell tile : hand){
-            if (tile.getValue() == null){
+            if (tile == null){
                 return false;
             }
         }
