@@ -10,15 +10,14 @@ import java.util.Scanner; //to read the files
 
 
 public class ScrabbleDictionary {
-    private static HashMap<String, ArrayList<String>> dictionary; //made static so that static methods can access
-
+    private HashMap<String, ArrayList<String>> dictionary; //made static so that static methods can access
     public static void main(String[] args) { //apparently I needed this to test it
         new ScrabbleDictionary();
     }
 
     public ScrabbleDictionary() {
-        this.dictionary = new HashMap<String, ArrayList<String>>();
         try { //if the file can be found, this happens
+            this.dictionary = new HashMap<String, ArrayList<String>>();
             File wordlist = new File("src/main/java/scrabble_dictionary/CollinsScrabbleWords(2019).txt");
             Scanner fileReader = new Scanner(wordlist);
             char currkey = 'A'; // initial character to serve as first key
@@ -28,7 +27,7 @@ public class ScrabbleDictionary {
                 if (line.charAt(0) == currkey) { //if the word starts with the key
                     currlist.add(line); //adds the current word to the array
                 } else { //if the word doesn't start with they key
-                    dictionary.put(String.valueOf(currkey), currlist); // adds the key/value pair to the HashMap
+                    this.dictionary.put(String.valueOf(currkey), currlist); // adds the key/value pair to the HashMap
                     currkey = line.charAt(0); //sets the new key
                     currlist = new ArrayList<String>(); //creates a new empty array
                     currlist.add(line);
@@ -43,11 +42,11 @@ public class ScrabbleDictionary {
 
     }
 
-    public static boolean inDictionary(ArrayList<List<List<Integer>>> move, GameBoard board) { //searches for words in the dictionary
+    public boolean inDictionary(ArrayList<List<List<Integer>>> move, GameBoard board) { //searches for words in the dictionary
         List<String> wordlist = wordParser(move, board); //calls wordParser to return a list of words
         for (String word : wordlist) {
             String key = String.valueOf(word.charAt(0)); //takes the first letter of the word as the key
-            ArrayList<String> dict = dictionary.get(key); //an ArrayList of all the words starting with that letter
+            ArrayList<String> dict = this.dictionary.get(key); //an ArrayList of all the words starting with that letter
             if (!dict.contains(word)) {
                 return false; //returns false if the word is not in the list
             }
