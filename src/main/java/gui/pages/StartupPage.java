@@ -48,15 +48,15 @@ public class StartupPage implements ActionListener {
 
         int buttonOffset = 75; // offset used for all 3 buttons to align in the centre
         gameButton = new Button(); // button for loading a game that we had already on file
-        gameButton.createButton(dialogueBox.frame, "Start Old Game", WIDTH / 3 + buttonOffset, HEIGHT / 3, 200, 50, null);
+        gameButton.createButton(dialogueBox.frame, "Create Game", WIDTH / 3 + buttonOffset, HEIGHT / 3, 200, 50, null);
         gameButton.getButton().addActionListener(this);
 
         rulesButton = new Button(); // button for checking the rules of our game (they are different than the regular scrabble game)
-        rulesButton.createButton(dialogueBox.frame, "Rules", WIDTH / 3 + buttonOffset, HEIGHT / 2, 200, 50, null);
+        rulesButton.createButton(dialogueBox.frame, "Load Game", WIDTH / 3 + buttonOffset, HEIGHT / 2, 200, 50, null);
         rulesButton.getButton().addActionListener(this);
 
         createButton = new Button(); // button for creating a new game
-        createButton.createButton(dialogueBox.frame, "Create Game", WIDTH / 3 + buttonOffset, HEIGHT - 200, 200, 50, null);
+        createButton.createButton(dialogueBox.frame, "Rules", WIDTH / 3 + buttonOffset, HEIGHT - 200, 200, 50, null);
         createButton.getButton().addActionListener(this);
 
         dialogueBox.frame.setVisible(true); // update contents of the frame
@@ -68,13 +68,13 @@ public class StartupPage implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         System.out.println((e.getActionCommand()));
         switch (e.getActionCommand()) {
-            case "Create Game":
+            case "Create Game" -> {
                 // when the create game button has been pressed
                 System.out.println("Create game button pressed");
                 NewGamePage newGamePage = new NewGamePage(); // create a new game through the NewGamePage frame
                 newGamePage.createGamePage();
-                break;
-            case "Rules":
+            }
+            case "Rules" -> {
                 // when the rules button has been pressed
                 System.out.println("Rules button pressed");
                 RulesPage rules = new RulesPage(); // create a rules page to allow people to review the rules of the game
@@ -82,15 +82,15 @@ public class StartupPage implements ActionListener {
                     rules.createRulesPage();
                 } catch (FileNotFoundException ex) { // we want to try to read the file, and catch any errors
                     throw new RuntimeException(ex);
-                }   break;
-            case "Start Old Game":
-                System.out.println("Start old game button pressed");
+                }
+            }
+            case "Load Game" -> {
+                System.out.println("Create game button pressed");
                 GamePage game = new GamePage("placeholder1", "placeholder2", true);
                 game.createGame(true);
-
-                break;
-            default:
-                break;
+            }
+            default -> {
+            }
         }
     }
 }

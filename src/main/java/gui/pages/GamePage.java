@@ -61,10 +61,10 @@ public class GamePage implements ActionListener, View {
     private String clickedValue;
 
     Button createGameButton, endGameButton, swapHands, recallTiles, shuffleHand;
-    final int BOARD_DIM = 450; // dimension of the board (can be changed)
+    final int BOARD_DIM = 600; // dimension of the board (can be changed)
     final int BOARD_ROWS = 15; // same as columns
-    final int WIDTH = 1000; // width of the frame
-    final int HEIGHT = 700; // height of the frame
+    final int WIDTH = 1280; // width of the frame
+    final int HEIGHT = 865; // height of the frame
 
     public ArrayList<String> letters = new ArrayList<>();
     public ArrayList<int[]> coordinates = new ArrayList<>();
@@ -99,7 +99,7 @@ public class GamePage implements ActionListener, View {
         // add title label for rules box
         gamePageLabel = new Label();
 
-        gamePageLabel.createLabel(16, 10, 100, WIDTH / 4, 20, dialogueBox.frame, "Welcome to scrabble!", Color.BLACK);
+        gamePageLabel.createLabel(16, 10, 100, WIDTH / 4, 20, dialogueBox.frame, "Welcome to Scrabble!", Color.BLACK);
 		
         gamePageLabel.setCentreAlignment();
 
@@ -194,7 +194,7 @@ public class GamePage implements ActionListener, View {
             int xBound = boundX + BOARD_DIM / 4 + BOARD_DIM / BOARD_ROWS * i;
 
             // for empty holders
-            if(currentLetters[i] == "-"){
+            if(currentLetters[i].equals("-")){
                 icon = createImageIcon("wood.jpg");
                 holderButton.createButtonWithID(dialogueBox.frame, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "holder " + i + " -");
             }
@@ -232,7 +232,7 @@ public class GamePage implements ActionListener, View {
             // check if the component is a button, whether it has a name, and whether it starts with holder
             if(holderButtons.contains(component)){
                 JButton b = (JButton) component; // cast the button to a JButton.
-                if(currentLetters[holderIndex] == "-"){
+                if(currentLetters[holderIndex].equals("-")){
                     b.setIcon(createImageIcon("wood.jpg")); // set the icon back to the original empty state
                 }
                 else{
@@ -412,11 +412,12 @@ public class GamePage implements ActionListener, View {
         dialogueBox.frame.dispose(); // close dialogue box permanently
         // for now, we display the end game page
         String winner;
-        if(player1Score > player2Score){
-            winner = player1Name;
-        }
-        else if(player1Score==player2Score){
+        String firstWinner = winners[0].getName();
+        if (winners.length > 1){
             winner = "Tie";
+        }
+        else if (player1Name.equals(firstWinner)){
+            winner = player1Name;
         }
         else{
             winner = player2Name;
