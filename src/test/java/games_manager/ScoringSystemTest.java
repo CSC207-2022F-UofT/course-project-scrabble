@@ -23,9 +23,9 @@ public class ScoringSystemTest {
 
         // initializing board state and adding letters
         GameBoard board = game.getGameBoard();
-        BoardManager.boardManagerSetBoardCell(0, 4, c0, board);
-        BoardManager.boardManagerSetBoardCell(0, 5, c1, board);
-        BoardManager.boardManagerSetBoardCell(0, 6, c2, board);
+        BoardManager.SetBoardCell(0, 4, c0, board);
+        BoardManager.SetBoardCell(0, 5, c1, board);
+        BoardManager.SetBoardCell(0, 6, c2, board);
 
         ArrayList<List<Integer>> pos = new ArrayList<>(); // creating 2d position arraylist of new word
 
@@ -58,11 +58,11 @@ public class ScoringSystemTest {
 
         // initializing board state and adding letters
         GameBoard board = game.getGameBoard();
-        BoardManager.boardManagerSetBoardCell(0, 0, c0, board);
-        BoardManager.boardManagerSetBoardCell(0, 1, c1, board);
-        BoardManager.boardManagerSetBoardCell(0, 2, c2, board);
-        BoardManager.boardManagerSetBoardCell(0, 3, c3, board);
-        BoardManager.boardManagerSetBoardCell(0, 4, c4, board);
+        BoardManager.SetBoardCell(0, 0, c0, board);
+        BoardManager.SetBoardCell(0, 1, c1, board);
+        BoardManager.SetBoardCell(0, 2, c2, board);
+        BoardManager.SetBoardCell(0, 3, c3, board);
+        BoardManager.SetBoardCell(0, 4, c4, board);
 
 
         ScoringSystem scorer = new ScoringSystem();
@@ -106,13 +106,13 @@ public class ScoringSystemTest {
         // initializing board state and adding letters
         GameBoard board = game.getGameBoard();
 
-        BoardManager.boardManagerSetBoardCell(0, 0, c0, board);
-        BoardManager.boardManagerSetBoardCell(0, 1, c1, board);
-        BoardManager.boardManagerSetBoardCell(0, 2, c2, board);
-        BoardManager.boardManagerSetBoardCell(0, 3, c3, board);
-        BoardManager.boardManagerSetBoardCell(0, 4, c4, board);
-        BoardManager.boardManagerSetBoardCell(0, 5, c5, board);
-        BoardManager.boardManagerSetBoardCell(0, 6, c6, board);
+        BoardManager.SetBoardCell(0, 0, c0, board);
+        BoardManager.SetBoardCell(0, 1, c1, board);
+        BoardManager.SetBoardCell(0, 2, c2, board);
+        BoardManager.SetBoardCell(0, 3, c3, board);
+        BoardManager.SetBoardCell(0, 4, c4, board);
+        BoardManager.SetBoardCell(0, 5, c5, board);
+        BoardManager.SetBoardCell(0, 6, c6, board);
 
         ScoringSystem scorer = new ScoringSystem();
         ArrayList<List<Integer>> pos = new ArrayList<>(); // creating 2d position arraylist of new word
@@ -166,15 +166,15 @@ public class ScoringSystemTest {
         // initializing board state and adding letters
         GameBoard board = game.getGameBoard();
 
-        BoardManager.boardManagerSetBoardCell(0, 0, c0, board);
-        BoardManager.boardManagerSetBoardCell(0, 1, c1, board);
-        BoardManager.boardManagerSetBoardCell(0, 2, c2, board);
-        BoardManager.boardManagerSetBoardCell(0, 3, c3, board);
+        BoardManager.SetBoardCell(0, 0, c0, board);
+        BoardManager.SetBoardCell(0, 1, c1, board);
+        BoardManager.SetBoardCell(0, 2, c2, board);
+        BoardManager.SetBoardCell(0, 3, c3, board);
 
-        BoardManager.boardManagerSetBoardCell(3, 4, w0, board);
-        BoardManager.boardManagerSetBoardCell(2, 4, w1, board);
-        BoardManager.boardManagerSetBoardCell(1, 4, w2, board);
-        BoardManager.boardManagerSetBoardCell(0, 4, w3, board);
+        BoardManager.SetBoardCell(3, 4, w0, board);
+        BoardManager.SetBoardCell(2, 4, w1, board);
+        BoardManager.SetBoardCell(1, 4, w2, board);
+        BoardManager.SetBoardCell(0, 4, w3, board);
 
         ScoringSystem scorer = new ScoringSystem();
         ArrayList<List<List<Integer>>> pos = new ArrayList<>(); // creating 3d position arraylist of new words
@@ -256,7 +256,7 @@ public class ScoringSystemTest {
         Cell c0 = new Cell("V", 1);
         ScoringSystem scorer = new ScoringSystem();
         scorer.initializeCellScore(c0);
-        Assertions.assertEquals(4, BoardManager.boardManagerGetCellScore(c0));
+        Assertions.assertEquals(4, BoardManager.GetCellScore(c0));
 
     }
 }

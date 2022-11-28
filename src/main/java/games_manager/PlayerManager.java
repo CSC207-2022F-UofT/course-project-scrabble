@@ -34,7 +34,7 @@ public class PlayerManager implements FillHand, DrawHand, SwapHand, RemoveTile, 
         } while (bag.getValue(character) == 0); // check if that letter still has tiles in the bag
 
         bag.removeTile(character); // remove that tile from the bag
-        BoardManager.boardManagerSetCellValue(letter, character); // update the cell to have the random value
+        BoardManager.SetCellValue(letter, character); // update the cell to have the random value
         int i = 0;
         while (player.getHand()[i] != null) { // loop to find index of hand that is null
             i++;
@@ -70,7 +70,7 @@ public class PlayerManager implements FillHand, DrawHand, SwapHand, RemoveTile, 
         LetterBag bag = game.getLetterBag();
         Player player = game.getCurrentPlayer();
         for (Cell tile: player.getHand()){
-            bag.putTile(BoardManager.boardManagerGetCellValue(tile));
+            bag.putTile(BoardManager.GetCellValue(tile));
         }
         // clear player hand
         Cell[] null_array = new Cell[player.getHand().length];
@@ -106,7 +106,7 @@ public class PlayerManager implements FillHand, DrawHand, SwapHand, RemoveTile, 
         for (int i=0; i<PlayerManager.getHand(player).length; i++){
             Cell cell = PlayerManager.getHand(player)[i];
             if (cell != null) {
-                if (letter.equals(BoardManager.boardManagerGetCellValue(cell))) { // checks if cell's value is the same as letter
+                if (letter.equals(BoardManager.GetCellValue(cell))) { // checks if cell's value is the same as letter
                     PlayerManager.getHand(player)[i] = null; // removes tile
                     return;
                 }
