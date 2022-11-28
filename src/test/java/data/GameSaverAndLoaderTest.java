@@ -23,7 +23,7 @@ public class GameSaverAndLoaderTest {
         LetterBag bag = game.getLetterBag();
 
         // editing some objects
-        BoardManager.boardManagerSetBoardCell(0, 0, new Cell("V", 4, 2), board);
+        BoardManager.SetBoardCell(0, 0, new Cell("V", 4, 2), board);
         p1.setScore(2);
         p2.setScore(25);
         bag.putTile("A");
