@@ -229,6 +229,10 @@ public class PlayerManager implements FillHand, DrawHand, SwapHand, RemoveTile, 
 
     }
 
+    public boolean returnTrue(){
+        return true;
+    }
+
 }
 
 

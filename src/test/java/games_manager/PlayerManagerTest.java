@@ -246,4 +246,9 @@ public class PlayerManagerTest {
         Assertions.assertArrayEquals(pm.endGame(game), playerArray);        // assert equivalency
     }
 
+    @Test
+    public void returnTrueTest(){
+        PlayerManager player = new PlayerManager();
+        assert !player.returnTrue();
+    }
 }
