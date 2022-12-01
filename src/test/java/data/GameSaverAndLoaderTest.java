@@ -26,11 +26,11 @@ public class GameSaverAndLoaderTest {
 
         // editing some objects
 
-        BoardManager.SetBoardCell(0, 0, new Cell("V", 4, 2), board);
-        p1.setScore(2);
-        p2.setScore(25);
-        bag.putTile("A");
-        bag.removeTile("C");
+        BoardManager.SetBoardCell(0, 0, new Cell("V", 4, 2), boardSaved);
+        p1Saved.setScore(2);
+        p2Saved.setScore(25);
+        bagSaved.putTile("A");
+        bagSaved.removeTile("C");
 
         // saving all objects into data.ser
         game_saver.saveGame(gameSaved);

@@ -128,10 +128,10 @@ public class BoardManagerTest {
         b_manager.resetMoves(game);
 
         // check if each of the cells on the board that were changed by the moves have been reset
-        Assertions.assertEquals(game.getGameBoard().getBoard()[7][5].getValue(), "-");
-        Assertions.assertEquals(game.getGameBoard().getBoard()[7][6].getValue(), "-");
-        Assertions.assertEquals(game.getGameBoard().getBoard()[7][7].getValue(), "-");
-        Assertions.assertEquals(game.getGameBoard().getBoard()[7][8].getValue(), "-");
-        Assertions.assertEquals(game.getGameBoard().getBoard()[7][9].getValue(), "-");
+        Assertions.assertEquals("-", game.getGameBoard().getBoard()[7][5].getValue());
+        Assertions.assertEquals("-", game.getGameBoard().getBoard()[7][6].getValue());
+        Assertions.assertEquals("-", game.getGameBoard().getBoard()[7][7].getValue());
+        Assertions.assertEquals("-", game.getGameBoard().getBoard()[7][8].getValue());
+        Assertions.assertEquals("-", game.getGameBoard().getBoard()[7][9].getValue());
     }
 }
