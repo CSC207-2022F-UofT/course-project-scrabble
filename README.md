@@ -50,3 +50,5 @@ Continue playing words and scoring words correctly.
 
 ## Final Step: Ending Game
 If both players agree to end the game, then they can press the `End Game` button, which will calculate the scores of the game and display them back through our Exit page. Our application will also calculate if there are no tiles left to be played, which will also end the game according to our rules. The winner will then be displayed for everyone to see. 
+
+[Download Executable](https://drive.google.com/uc?export=download&id=1K_wloTWNG1AsT0AmSG4YRdBUTN8fZaE7)
