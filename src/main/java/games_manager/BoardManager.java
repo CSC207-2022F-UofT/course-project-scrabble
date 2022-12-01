@@ -1,12 +1,12 @@
 package games_manager;
 
-import UsecaseInterfaces.PlaceTile;
-import UsecaseInterfaces.PlaceWord;
-import UsecaseInterfaces.ResetMove;
+import use_case_interfaces.PlaceTile;
+import use_case_interfaces.PlaceWord;
+import use_case_interfaces.ResetMove;
 import entities.Cell;
 import entities.Game;
 import entities.GameBoard;
-import ScrabbleGame.tile_checker.TileChecker;
+import scrabble_game.tile_checker.TileChecker;
 import scrabble_dictionary.ScrabbleDictionary;
 
 import java.util.ArrayList;

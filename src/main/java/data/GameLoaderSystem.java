@@ -1,6 +1,6 @@
 package data;
 
-import UsecaseInterfaces.GameLoad;
+import use_case_interfaces.GameLoad;
 import entities.*;
 
 import java.io.*;

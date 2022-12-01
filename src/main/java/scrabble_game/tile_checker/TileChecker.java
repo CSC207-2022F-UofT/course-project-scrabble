@@ -1,6 +1,6 @@
-package ScrabbleGame.tile_checker;
+package scrabble_game.tile_checker;
 
-import UsecaseInterfaces.PlacementChecker;
+import use_case_interfaces.PlacementChecker;
 import entities.GameBoard;
 import scrabble_dictionary.ScrabbleDictionary;
 

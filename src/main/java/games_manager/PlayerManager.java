@@ -1,5 +1,5 @@
 package games_manager;
-import UsecaseInterfaces.*;
+import use_case_interfaces.*;
 
 import java.util.ArrayList;
 import java.util.List;

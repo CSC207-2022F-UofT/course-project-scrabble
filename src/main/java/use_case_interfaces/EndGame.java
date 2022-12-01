@@ -1,4 +1,4 @@
-package UsecaseInterfaces;
+package use_case_interfaces;
 
 import entities.Game;
 import entities.Player;

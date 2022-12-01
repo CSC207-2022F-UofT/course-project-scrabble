@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 import java.util.*;
 import java.util.List;
 
-import ScrabbleGame.ScrabbleGameController;
+import scrabble_game.ScrabbleGameController;
 
 public class GamePage implements ActionListener, View {
     private String player1Name;

@@ -4,7 +4,7 @@
  */
 package games_manager;
 
-import UsecaseInterfaces.IncrementTurnUsecase;
+import use_case_interfaces.IncrementTurnUsecase;
 import entities.Game;
 /**
  *

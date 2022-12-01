@@ -2,14 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package ScrabbleGame;
+package scrabble_game;
 import entities.*;
 import data.*;
-import UsecaseInterfaces.*;
+import use_case_interfaces.*;
 import games_manager.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import gui.View;
 import scrabble_dictionary.ScrabbleDictionary;

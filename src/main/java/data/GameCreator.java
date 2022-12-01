@@ -1,7 +1,7 @@
 package data;
 
-import UsecaseInterfaces.CreateGame;
-import UsecaseInterfaces.GameLoad;
+import use_case_interfaces.CreateGame;
+import use_case_interfaces.GameLoad;
 import entities.*;
 
 import java.io.FileInputStream;

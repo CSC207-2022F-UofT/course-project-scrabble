@@ -1,10 +1,8 @@
-package UsecaseInterfaces;
+package use_case_interfaces;
 
 import entities.*;
-import games_manager.MoveInfo;
 import scrabble_dictionary.ScrabbleDictionary;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

@@ -1,6 +1,6 @@
 package data;
 
-import UsecaseInterfaces.GameSave;
+import use_case_interfaces.GameSave;
 import entities.*;
 
 import java.io.*;

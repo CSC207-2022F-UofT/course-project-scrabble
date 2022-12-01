@@ -1,4 +1,4 @@
-package UsecaseInterfaces;
+package use_case_interfaces;
 
 import java.io.File;
 import entities.Game;
