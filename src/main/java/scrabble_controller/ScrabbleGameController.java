@@ -3,9 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package scrabble_controller;
-import Usecases.usecase_implementations.GameSaverSystem;
-import Usecases.usecase_implementations.GameLoaderSystem;
-import Usecases.usecase_implementations.GameCreator;
+import data_gateways.GameSaverSystem;
+import data_gateways.GameLoaderSystem;
+import data_gateways.GameCreator;
 import Usecases.usecase_implementations.ScoringSystem;
 import Usecases.usecase_implementations.MoveInfo;
 import Usecases.usecase_implementations.BoardManager;
@@ -28,7 +28,7 @@ import entities.*;
 import java.util.ArrayList;
 import java.util.List;
 import gui.View;
-import scrabble_dictionary.ScrabbleDictionary;
+import Usecases.usecase_implementations.ScrabbleDictionary;
 import Usecases.usecase_interfaces.CalculateWordScoreUsecase;
 
 /**

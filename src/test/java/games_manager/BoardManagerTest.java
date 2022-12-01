@@ -4,7 +4,7 @@ import Usecases.usecase_implementations.BoardManager;
 import entities.Game;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
-import scrabble_dictionary.ScrabbleDictionary;
+import Usecases.usecase_implementations.ScrabbleDictionary;
 
 import java.util.ArrayList;
 import java.util.List;

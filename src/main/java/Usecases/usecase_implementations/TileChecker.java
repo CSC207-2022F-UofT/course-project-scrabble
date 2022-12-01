@@ -1,7 +1,6 @@
 package Usecases.usecase_implementations;
 
 import entities.GameBoard;
-import scrabble_dictionary.ScrabbleDictionary;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -167,7 +166,7 @@ public class TileChecker implements PlacementCheckerUsecase {
         }
         // checks for horizontal words
         for (List<Integer> tile : newword) {
-            List<List<Integer>> wordstring1 = new ArrayList<List<Integer>>();
+            List<List<Integer>> wordstring1 = new ArrayList<>();
             int row2 = tile.get(0);
             int column2 = tile.get(1);
             List<Integer> cur1 = new ArrayList<>();
@@ -176,7 +175,7 @@ public class TileChecker implements PlacementCheckerUsecase {
             wordstring1.add(cur1);
             while (adjacentTileLeft(row2, column2, board) && (row2 == tile.get(0))) {
                 if (!Objects.equals(board.getBoardCellValue(row2, column2 - 1), "-")) { // checks horizontal adjacent tile
-                    List<Integer> cord = new ArrayList<Integer>();
+                    List<Integer> cord = new ArrayList<>();
                     cord.add(row2);
                     cord.add(column2 - 1);
                     wordstring1.add(0, cord);
@@ -187,7 +186,7 @@ public class TileChecker implements PlacementCheckerUsecase {
             int column3 = tile.get(1);
             while (adjacentTileRight(row3, column3, board) && (row3 == tile.get(0))) {
                 if (!Objects.equals(board.getBoardCellValue(row3, column3 + 1), "-")) { // checks horizontal adjacent tile
-                    List<Integer> cord = new ArrayList<Integer>();
+                    List<Integer> cord = new ArrayList<>();
                     cord.add(row3);
                     cord.add(column3 + 1);
                     wordstring1.add(cord);

@@ -1,4 +1,4 @@
-package scrabble_dictionary;
+package Usecases.usecase_implementations;
 import entities.GameBoard;
 
 import java.io.File; //the File class
@@ -10,7 +10,7 @@ import java.util.Scanner; //to read the files
 
 
 public class ScrabbleDictionary {
-    private final String filepath = "src/main/java/scrabble_dictionary/CollinsScrabbleWords(2019).txt";
+    private final String filepath = "src/main/game_resources";
     
     private HashMap<String, ArrayList<String>> dictionary; //made static so that static methods can access
     public static void main(String[] args) { //apparently I needed this to test it

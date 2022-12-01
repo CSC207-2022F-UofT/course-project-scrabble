@@ -1,4 +1,4 @@
-package Usecases.usecase_implementations;
+package data_gateways;
 
 import entities.*;
 

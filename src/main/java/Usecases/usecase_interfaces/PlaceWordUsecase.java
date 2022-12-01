@@ -2,7 +2,7 @@ package Usecases.usecase_interfaces;
 
 import entities.*;
 import Usecases.usecase_implementations.MoveInfo;
-import scrabble_dictionary.ScrabbleDictionary;
+import Usecases.usecase_implementations.ScrabbleDictionary;
 
 import java.util.ArrayList;
 import java.util.List;

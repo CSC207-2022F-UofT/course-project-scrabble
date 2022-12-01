@@ -1,8 +1,8 @@
 package data;
 
-import Usecases.usecase_implementations.GameSaverSystem;
-import Usecases.usecase_implementations.GameLoaderSystem;
-import Usecases.usecase_implementations.GameCreator;
+import data_gateways.GameSaverSystem;
+import data_gateways.GameLoaderSystem;
+import data_gateways.GameCreator;
 import entities.*;
 import Usecases.usecase_implementations.BoardManager;
 import org.junit.Test;

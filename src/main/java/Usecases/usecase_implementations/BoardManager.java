@@ -3,7 +3,6 @@ package Usecases.usecase_implementations;
 import entities.Cell;
 import entities.Game;
 import entities.GameBoard;
-import scrabble_dictionary.ScrabbleDictionary;
 
 import java.util.ArrayList;
 import java.util.List;
