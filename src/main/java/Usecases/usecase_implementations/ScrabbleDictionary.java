@@ -10,9 +10,11 @@ import java.util.Scanner; //to read the files
 
 
 public class ScrabbleDictionary {
-    private final String filepath = "src/main/game_resources";
+    private final String filepath = "src/main/game_resources/CollinsScrabbleWords(2019).txt";
     
     private HashMap<String, ArrayList<String>> dictionary; //made static so that static methods can access
+    
+    
     public static void main(String[] args) { //apparently I needed this to test it
         ScrabbleDictionary scrabbleDictionary = new ScrabbleDictionary();
     }

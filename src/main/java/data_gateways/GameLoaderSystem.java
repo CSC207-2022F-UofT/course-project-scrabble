@@ -4,7 +4,6 @@ import entities.*;
 
 import java.io.*;
 import Usecases.usecase_interfaces.GameLoadUsecase;
-import Usecases.usecase_interfaces.GameLoadUsecase;
 
 /**
  * This class is responsible for loading an instance of a Game from a file that stored the object called "data.ser" file.

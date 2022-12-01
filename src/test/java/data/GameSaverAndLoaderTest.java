@@ -11,34 +11,29 @@ import org.junit.jupiter.api.Assertions;
 public class GameSaverAndLoaderTest {
 
     @Test
-    public void saveData(){ // run this test before load test
+    public void saveAndLoadDataTest(){ // checks if the objects are loaded correctly
         // creating objects to be saved
         GameSaverSystem game_saver = new GameSaverSystem();
         GameCreator gameCreator = new GameCreator();
 
         String[] playerInputNames = new String[]{"Billy", "Mario", "Harry"};
-        Game game = gameCreator.createNewGame(playerInputNames);
+        Game gameSaved = gameCreator.createNewGame(playerInputNames);
 
-        Player p1 = game.getPlayers().get(0);
-        Player p2 = game.getPlayers().get(1);
-        Player p3 = game.getPlayers().get(2);
-        GameBoard board = game.getGameBoard();
-        LetterBag bag = game.getLetterBag();
+        Player p1Saved = gameSaved.getPlayers().get(0);
+        Player p2Saved = gameSaved.getPlayers().get(1);
+        GameBoard boardSaved = gameSaved.getGameBoard();
+        LetterBag bagSaved = gameSaved.getLetterBag();
 
         // editing some objects
-        BoardManager.boardManagerSetBoardCell(0, 0, new Cell("V", 4, 2), board);
-        p1.setScore(2);
-        p2.setScore(25);
-        bag.putTile("A");
-        bag.removeTile("C");
+        BoardManager.boardManagerSetBoardCell(0, 0, new Cell("V", 4, 2), boardSaved);
+        p1Saved.setScore(2);
+        p2Saved.setScore(25);
+        bagSaved.putTile("A");
+        bagSaved.removeTile("C");
 
 
         // saving all objects into data.ser
-        game_saver.saveGame(game);
-    }
-
-    @Test
-    public void loadData(){ // checks if the objects are loaded correctly
+        game_saver.saveGame(gameSaved);
         // loading objects from data.ser into array
         GameLoaderSystem game_loader = new GameLoaderSystem();
         Game game = game_loader.loadGame();

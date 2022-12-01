@@ -24,7 +24,7 @@ public class BoardManagerTest {
         b_manager.checkLetter(coordinates, letter, game);
 
         // check if value of cell on the board has updated with new move
-        Assertions.assertEquals(game.getGameBoard().getBoardCellValue(7,3), "A");
+        Assertions.assertEquals("A", game.getGameBoard().getBoardCellValue(7,3));
     }
     @Test
     public void checkLetterTestOverlap(){
@@ -95,7 +95,7 @@ public class BoardManagerTest {
 
         // check if the list of correct words returned by checkWord method is the same as the actual list of words
         // the only valid word should be "HELLO"
-        Assertions.assertEquals(b_manager.checkWord(game, new ScrabbleDictionary(), b_manager.getPrevBoard()), list_of_words);
+        Assertions.assertEquals(list_of_words, b_manager.checkWord(game, new ScrabbleDictionary(), b_manager.getPrevBoard()));
     }
     @Test
     public void resetMovesTest(){

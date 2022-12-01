@@ -4,7 +4,6 @@ import entities.*;
 
 import java.io.*;
 import Usecases.usecase_interfaces.GameSaveUsecase;
-import Usecases.usecase_interfaces.GameSaveUsecase;
 
 /**
  * This class is responsible for saving the current Game entity present in the game to a file named "data.ser".
