@@ -1,4 +1,4 @@
-package UsecaseInterfaces;
+package Usecases.usecase_interfaces;
 
 import entities.Game;
 import java.io.File;
@@ -8,7 +8,7 @@ import java.io.File;
 * @author Jazli
 */
 
-public interface GameSave {
+public interface GameSaveUsecase {
     final static File filename = new File("src/main/java/data/data.ser");
 
     public void saveGame(Game game);

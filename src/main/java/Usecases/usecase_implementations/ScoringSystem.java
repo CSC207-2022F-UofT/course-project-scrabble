@@ -1,17 +1,17 @@
-package games_manager;
-import UsecaseInterfaces.WordScoreCalculator;
-import UsecaseInterfaces.HandScoreCalculator;
+package Usecases.usecase_implementations;
 import entities.*;
 
 import java.util.HashMap;
 import java.util.List;
+import Usecases.usecase_interfaces.CalculateHandScoreUsecase;
+import Usecases.usecase_interfaces.CalculateWordScoreUsecase;
 /**
  * This class is responsible for scoring words and tiles
  * @author Umair
  */
 
 
-public class ScoringSystem implements WordScoreCalculator, HandScoreCalculator {
+public class ScoringSystem implements CalculateWordScoreUsecase, CalculateHandScoreUsecase {
     final int[] LETTER_SCORE = {1, 3, 3, 2, 1, 4, 2, 4, 1, 8, 5, 1, 3,
             1, 1, 3, 10, 1, 1, 1, 1, 4, 4, 8, 4, 10};
     final String[] LETTERS = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K",

@@ -1,7 +1,10 @@
 package data;
 
+import Usecases.usecase_implementations.GameSaverSystem;
+import Usecases.usecase_implementations.GameLoaderSystem;
+import Usecases.usecase_implementations.GameCreator;
 import entities.*;
-import games_manager.BoardManager;
+import Usecases.usecase_implementations.BoardManager;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 

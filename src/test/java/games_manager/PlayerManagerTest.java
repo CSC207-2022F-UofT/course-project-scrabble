@@ -1,6 +1,7 @@
 package games_manager;
 
-import data.GameCreator;
+import Usecases.usecase_implementations.PlayerManager;
+import Usecases.usecase_implementations.GameCreator;
 import entities.*;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;

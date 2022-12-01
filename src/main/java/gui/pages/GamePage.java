@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 import java.util.*;
 import java.util.List;
 
-import ScrabbleGame.ScrabbleGameController;
+import scrabble_controller.ScrabbleGameController;
 
 public class GamePage implements ActionListener, View {
     private String player1Name;
@@ -21,7 +21,7 @@ public class GamePage implements ActionListener, View {
     public int player1Score;
     public int player2Score;
 
-    private static int[][] TILE_MULTIPLIERS = new int[][]
+    private static final int[][] TILE_MULTIPLIERS = new int[][]
             {{3,1,1,2,1,1,1,3,1,1,1,2,1,1,3},
                     {1,2,1,1,1,3,1,1,1,3,1,1,1,2,1},
                     {1,1,2,1,1,1,2,1,2,1,1,1,2,1,1},
@@ -38,7 +38,7 @@ public class GamePage implements ActionListener, View {
                     {1,2,1,1,1,3,1,1,1,3,1,1,1,2,1},
                     {3,1,1,2,1,1,1,3,1,1,1,2,1,1,3}};
 
-    private ScrabbleGameController controller;
+    private final ScrabbleGameController controller;
     
     public GamePage(String player1Name, String player2Name, boolean newGame){
         this.player1Name = player1Name;
@@ -52,7 +52,6 @@ public class GamePage implements ActionListener, View {
 
     DialogueBox dialogueBox;
     Label gamePageLabel, gamePageTitle, player1Label, player2Label, turnLabel;
-    final static String[] STARTING_LETTERS = new String[]{"A", "C", "H", "I", "E", "V", "E"};
     private String[] currentLetters;
     int boundX, boundY;
 
@@ -222,7 +221,7 @@ public class GamePage implements ActionListener, View {
             int xBound = boundX + BOARD_DIM / 4 + BOARD_DIM / BOARD_ROWS * i;
 
             // for empty holders
-            if(currentLetters[i] == "-"){
+            if("-".equals(currentLetters[i])){
                 icon = createImageIcon("wood.jpg");
                 holderButton.createButtonWithID(dialogueBox.frame, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "holder " + i + " -");
             }
@@ -412,20 +411,20 @@ public class GamePage implements ActionListener, View {
 
         turnLabel.getLabel().setText("It is " + currentPlayer.getName() + "'s turn!"); // set the name to the current player
 
-        String[] letters = new String[]{"-", "-", "-", "-", "-", "-", "-"};
+        String[] handLetters = new String[]{"-", "-", "-", "-", "-", "-", "-"};
         // update the entire hand with new letters or nothing if it's a dash.
         System.out.println("Printing hand");
-        for(int i = 0; i<letters.length; i++){
+        for(int i = 0; i<handLetters.length; i++){
             if(hand[i] == null){
-                letters[i] = "-";
+                handLetters[i] = "-";
                 System.out.println("null");
             }
             else{
-                letters[i] = hand[i].getValue();
+                handLetters[i] = hand[i].getValue();
                 System.out.println(hand[i].getValue());
             }
         }
-        currentLetters = letters;
+        currentLetters = handLetters;
         System.out.println("current letters: " + Arrays.toString(currentLetters));
 
         // update cells
@@ -433,7 +432,6 @@ public class GamePage implements ActionListener, View {
         gameBoard.printBoard();
 
         Button letter = new Button();
-        int letterIndex = 0;
         ImageIcon icon;
 
         // calculate the middle coords

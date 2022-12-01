@@ -1,5 +1,6 @@
 package games_manager;
 
+import Usecases.usecase_implementations.BoardManager;
 import entities.Game;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;

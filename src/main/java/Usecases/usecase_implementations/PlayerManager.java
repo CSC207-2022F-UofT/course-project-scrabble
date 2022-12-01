@@ -1,5 +1,10 @@
-package games_manager;
-import UsecaseInterfaces.*;
+package Usecases.usecase_implementations;
+import Usecases.usecase_interfaces.RemoveTileUsecase;
+import Usecases.usecase_interfaces.EndGameUsecase;
+import Usecases.usecase_interfaces.UpdateScoreUsecase;
+import Usecases.usecase_interfaces.SwapHandUsecase;
+import Usecases.usecase_interfaces.DrawHandUsecase;
+import Usecases.usecase_interfaces.FillHandUsecase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +15,7 @@ import entities.*;
  * This class is responsible for managing the Player entity
  * @author Umair & Jazli
  */
-public class PlayerManager implements FillHand, DrawHand, SwapHand, RemoveTile, UpdateScoreUsecase, EndGame{
+public class PlayerManager implements FillHandUsecase, DrawHandUsecase, SwapHandUsecase, RemoveTileUsecase, UpdateScoreUsecase, EndGameUsecase{
 
     /**
      * This method is responsible for drawing a tile into the player's hand.
@@ -87,7 +92,6 @@ public class PlayerManager implements FillHand, DrawHand, SwapHand, RemoveTile, 
      */
     @Override
     public void drawHand(Game game){
-        LetterBag bag = game.getLetterBag();
         Player player = game.getCurrentPlayer();
         for (int i=0; i<player.getHand().length; i++) {
             this.drawTile(game);

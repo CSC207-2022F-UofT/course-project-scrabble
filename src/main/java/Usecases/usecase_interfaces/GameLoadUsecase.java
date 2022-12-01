@@ -1,4 +1,4 @@
-package UsecaseInterfaces;
+package Usecases.usecase_interfaces;
 
 import java.io.File;
 import entities.Game;
@@ -9,7 +9,7 @@ import entities.Game;
 */
 
 
-public interface GameLoad {
+public interface GameLoadUsecase {
     final static File filename = new File("src/main/java/data/data.ser");
     public Game loadGame();
 }

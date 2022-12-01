@@ -10,34 +10,36 @@ import java.util.Scanner; //to read the files
 
 
 public class ScrabbleDictionary {
+    private final String filepath = "src/main/java/scrabble_dictionary/CollinsScrabbleWords(2019).txt";
+    
     private HashMap<String, ArrayList<String>> dictionary; //made static so that static methods can access
     public static void main(String[] args) { //apparently I needed this to test it
-        new ScrabbleDictionary();
+        ScrabbleDictionary scrabbleDictionary = new ScrabbleDictionary();
     }
 
     public ScrabbleDictionary() {
         try { //if the file can be found, this happens
-            this.dictionary = new HashMap<String, ArrayList<String>>();
-            File wordlist = new File("src/main/java/scrabble_dictionary/CollinsScrabbleWords(2019).txt");
-            Scanner fileReader = new Scanner(wordlist);
-            char currkey = 'A'; // initial character to serve as first key
-            ArrayList<String> currlist = new ArrayList<String>(); // empty array to be filled with words
-            String line = fileReader.nextLine();//first line
-            while (fileReader.hasNextLine()) {
-                if (line.charAt(0) == currkey) { //if the word starts with the key
-                    currlist.add(line); //adds the current word to the array
-                } else { //if the word doesn't start with they key
-                    this.dictionary.put(String.valueOf(currkey), currlist); // adds the key/value pair to the HashMap
-                    currkey = line.charAt(0); //sets the new key
-                    currlist = new ArrayList<String>(); //creates a new empty array
-                    currlist.add(line);
+            this.dictionary = new HashMap<>();
+            File wordlist = new File(filepath);
+            try (Scanner fileReader = new Scanner(wordlist)) {
+                char currkey = 'A'; // initial character to serve as first key
+                ArrayList<String> currlist = new ArrayList<>(); // empty array to be filled with words
+                String line = fileReader.nextLine();//first line
+                while (fileReader.hasNextLine()) {
+                    if (line.charAt(0) == currkey) { //if the word starts with the key
+                        currlist.add(line); //adds the current word to the array
+                    } else { //if the word doesn't start with they key
+                        this.dictionary.put(String.valueOf(currkey), currlist); // adds the key/value pair to the HashMap
+                        currkey = line.charAt(0); //sets the new key
+                        currlist = new ArrayList<>(); //creates a new empty array
+                        currlist.add(line);
+                    }
+                    line = fileReader.nextLine(); //moves on to the next line
                 }
-                line = fileReader.nextLine(); //moves on to the next line
-            }
-            fileReader.close(); //closes the file
+                //closes the file
+            } // initial character to serve as first key
         } catch (FileNotFoundException e) { //if the file can't be found, prints the error and the stack trace
             System.out.println("error: couldn't find the file");
-            e.printStackTrace();
         }
 
     }
@@ -55,7 +57,7 @@ public class ScrabbleDictionary {
     } //after looping through the entire list of words, returns true
 
     private static List<String> wordParser(ArrayList<List<List<Integer>>> move, GameBoard board) { //determines words from tile coordinates
-        List<String> wordlist = new ArrayList<String>(); //the list of all words made from a move
+        List<String> wordlist = new ArrayList<>(); //the list of all words made from a move
         for (List<List<Integer>> word : move) { //for each separate word in the list
             StringBuilder newword = new StringBuilder();
             for (List<Integer> letter: word) { //for each letter in the word

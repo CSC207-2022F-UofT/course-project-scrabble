@@ -1,22 +1,21 @@
-package games_manager;
+package Usecases.usecase_implementations;
 
-import UsecaseInterfaces.PlaceTile;
-import UsecaseInterfaces.PlaceWord;
-import UsecaseInterfaces.ResetMove;
 import entities.Cell;
 import entities.Game;
 import entities.GameBoard;
-import ScrabbleGame.tile_checker.TileChecker;
 import scrabble_dictionary.ScrabbleDictionary;
 
 import java.util.ArrayList;
 import java.util.List;
+import Usecases.usecase_interfaces.PlaceTileUsecase;
+import Usecases.usecase_interfaces.PlaceWordUsecase;
+import Usecases.usecase_interfaces.ResetMoveUsecase;
 
 /**
  * This class is responsible for managing the GameBoard entity
  * @author Davit
  */
-public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
+public class BoardManager implements PlaceTileUsecase, PlaceWordUsecase, ResetMoveUsecase {
     private ArrayList<MoveInfo> moves; // list of coordinates and letters
     private GameBoard previous_board; // saved previous board state
     public BoardManager(){
@@ -59,14 +58,13 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
      */
     @Override
     public List<List<List<Integer>>> checkWord(Game game, ScrabbleDictionary scrabbleDictionary, GameBoard prevBoard){
-        ArrayList<List<Integer>> move_list = new ArrayList<List<Integer>>();
+        ArrayList<List<Integer>> move_list = new ArrayList<>();
         createListOfCoordinates(move_list);
         TileChecker validate_word = new TileChecker();
-        GameBoard blankBoard = new GameBoard();
         if (game.getTurn() == 0) { // check if it's first turn of thr game
-            if (checkFirstTurnCondition(game)) { // check if the word is on center of board
+            if (checkFirstTurnCondition()) { // check if the word is on center of board
                 ArrayList<List<List<Integer>>> first_word_list = validate_word.validateMove(move_list, game.getGameBoard(), scrabbleDictionary, prevBoard, game.getTurn());
-                if (first_word_list.size() == 0) {
+                if (first_word_list.isEmpty()) {
                     resetMoves(game); // change board back to previous state if no valid words.
                 }
                 return first_word_list; // return list of coordinates of new word on board
@@ -77,7 +75,7 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
         }
         else {
             ArrayList<List<List<Integer>>> word_list = validate_word.validateMove(move_list, game.getGameBoard(), scrabbleDictionary, prevBoard, game.getTurn());
-            if (word_list.size() == 0) {
+            if (word_list.isEmpty()) {
                 resetMoves(game); // change board back to previous state if no valid words.
             }
             return word_list; // return list of valid words that can be made from the moves
@@ -135,9 +133,9 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
      * @param game The game object with the board.
      * @return true if it's the first move and word is on center cell, if not on center cell return false.
      */
-    private boolean checkFirstTurnCondition(Game game){
+    private boolean checkFirstTurnCondition(){
         // if it's the first turn check if the word is on the center cell
-        ArrayList<Boolean> verifier_array = new ArrayList<Boolean>();
+        ArrayList<Boolean> verifier_array = new ArrayList<>();
         for (MoveInfo move : moves) { // iterate through new moves and check if one of the coordinates are in the center.
             if (move.getX() == 7 & move.getY() == 7){
                 verifier_array.add(true); // add true to list if move is in the center
@@ -158,7 +156,7 @@ public class BoardManager implements PlaceTile, PlaceWord, ResetMove {
             ArrayList<Integer> coordinates = new ArrayList<>();
             coordinates.add(move.getY());
             coordinates.add(move.getX());
-            move_list.add(new ArrayList<Integer>(coordinates));
+            move_list.add(new ArrayList<>(coordinates));
         }
     }
 

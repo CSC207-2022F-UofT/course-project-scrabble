@@ -1,4 +1,4 @@
-package UsecaseInterfaces;
+package Usecases.usecase_interfaces;
 
 import entities.Game;
 
@@ -6,7 +6,7 @@ import entities.Game;
  * This interface resets the new moves on the board during player's turn.
  * @author Davit
  */
-public interface ResetMove {
+public interface ResetMoveUsecase {
     // function resets the new moves on the board
     public void resetMoves(Game game);
     //function that resets the moves in MoveInfo list

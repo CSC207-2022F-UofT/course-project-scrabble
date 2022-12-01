@@ -1,16 +1,17 @@
-package data;
+package Usecases.usecase_implementations;
 
-import UsecaseInterfaces.GameSave;
 import entities.*;
 
 import java.io.*;
+import Usecases.usecase_interfaces.GameSaveUsecase;
+import Usecases.usecase_interfaces.GameSaveUsecase;
 
 /**
  * This class is responsible for saving the current Game entity present in the game to a file named "data.ser".
  * @author Jazli & Umair
  */
 
-public class GameSaverSystem implements GameSave {
+public class GameSaverSystem implements GameSaveUsecase {
     /**
      * This function is responsible for saving the Game entity to a file named "data.ser" which acts as the database.
      * @param game This is the Game entity that will be saved to the "data.ser" file.

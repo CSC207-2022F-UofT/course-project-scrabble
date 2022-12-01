@@ -1,7 +1,6 @@
 package gui.components;
 
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * The TextField class creates a text field based on the JTextField module of Java Swing.

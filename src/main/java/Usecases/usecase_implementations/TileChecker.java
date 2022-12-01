@@ -1,6 +1,5 @@
-package ScrabbleGame.tile_checker;
+package Usecases.usecase_implementations;
 
-import UsecaseInterfaces.PlacementChecker;
 import entities.GameBoard;
 import scrabble_dictionary.ScrabbleDictionary;
 
@@ -8,12 +7,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.List;
+import Usecases.usecase_interfaces.PlacementCheckerUsecase;
 
-public class TileChecker implements PlacementChecker {
+public class TileChecker implements PlacementCheckerUsecase {
 
     public ArrayList<List<List<Integer>>> validateMove(ArrayList<List<Integer>> move, GameBoard board,
                                                        ScrabbleDictionary scrabbleDictionary, GameBoard prevBoard, int turn) { //call to other functions that will validate move
-        ArrayList<List<List<Integer>>> falseResult = new ArrayList<List<List<Integer>>>();
+        ArrayList<List<List<Integer>>> falseResult = new ArrayList<>();
         if (!isConsecutive(move, board)) { //if tiles aren't consecutive, return false
             return falseResult;
         }
@@ -53,7 +53,7 @@ public class TileChecker implements PlacementChecker {
         Collections.sort(movelist);
         for (int i = 0; i < movelist.toArray().length - 1; i++) {
             if (movelist.get(i + 1) != movelist.get(i) + 1) { // checks for non-sequential numbers
-                if (board.getBoardCellValue(refNum, movelist.get(i) + 1) == "-") { // checks whether the skipped tiles are occupied
+                if (board.getBoardCellValue(refNum, movelist.get(i) + 1).equals("-")) { // checks whether the skipped tiles are occupied
                     return false; // if the skipped tiles are not occupied, the move is invalid
                 }
             }
@@ -64,7 +64,7 @@ public class TileChecker implements PlacementChecker {
         Collections.sort(movelist);
         for (int i = 0; i < movelist.toArray().length - 1; i++) {
             if (movelist.get(i + 1) != movelist.get(i) + 1) { // checks for non-sequential numbers
-                if (board.getBoardCellValue(movelist.get(i) + 1, refNum) == "-") { // checks whether the skipped tiles are occupied
+                if ("-".equals(board.getBoardCellValue(movelist.get(i) + 1, refNum))) { // checks whether the skipped tiles are occupied
                     return false; // if the skipped tiles are not occupied, the move is invalid
                 }
             }
@@ -130,11 +130,11 @@ public class TileChecker implements PlacementChecker {
 
     public ArrayList<List<List<Integer>>> wordList(ArrayList<List<Integer>> newword, GameBoard board){
         //a word parser function that returns a list of words that need to be checked
-        ArrayList<List<List<Integer>>> words = new ArrayList<List<List<Integer>>>();
+        ArrayList<List<List<Integer>>> words = new ArrayList<>();
 
         // check for vertical words
         for (List<Integer> tile : newword) {
-            List<List<Integer>> wordstring = new ArrayList<List<Integer>>();
+            List<List<Integer>> wordstring = new ArrayList<>();
             int row = tile.get(0);
             int column = tile.get(1);
             List<Integer> cur = new ArrayList<>();
@@ -143,7 +143,7 @@ public class TileChecker implements PlacementChecker {
             wordstring.add(cur);
             while (adjacentTileTop(row, column, board) && (column == tile.get(1))) {
                 if (!Objects.equals(board.getBoardCellValue(row - 1, column), "-")) { // checks for a top vertically adjacent tile
-                    List<Integer> cord = new ArrayList<Integer>();
+                    List<Integer> cord = new ArrayList<>();
                     cord.add(row - 1);
                     cord.add(column);
                     wordstring.add(0, cord);
@@ -154,7 +154,7 @@ public class TileChecker implements PlacementChecker {
             int column1 = tile.get(1);
             while (adjacentTileBottom(row1, column1, board) && (column1 == tile.get(1))) {
                 if (!Objects.equals(board.getBoardCellValue(row1 + 1, column1), "-")) { // checks for a vertically adjacent tile
-                    List<Integer> cord = new ArrayList<Integer>();
+                    List<Integer> cord = new ArrayList<>();
                     cord.add(row1 + 1);
                     cord.add(column1);
                     wordstring.add(cord);

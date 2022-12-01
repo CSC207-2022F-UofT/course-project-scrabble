@@ -1,19 +1,21 @@
-package data;
+package Usecases.usecase_implementations;
 
-import UsecaseInterfaces.CreateGame;
-import UsecaseInterfaces.GameLoad;
 import entities.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import Usecases.usecase_interfaces.CreateGameUsecase;
+import Usecases.usecase_interfaces.CreateGameUsecase;
+import Usecases.usecase_interfaces.GameLoadUsecase;
+import Usecases.usecase_interfaces.GameLoadUsecase;
 
 /**
  * This class is responsible for creating a new Game instance or loading a previous Game instance from file.
  * @author Jazli
  */
 
-public class GameCreator implements GameLoad, CreateGame {
+public class GameCreator implements GameLoadUsecase, CreateGameUsecase {
 
     public GameCreator(){
 

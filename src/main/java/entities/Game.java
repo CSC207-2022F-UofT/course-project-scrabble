@@ -12,10 +12,10 @@ Holds all the instances of entitis and remembers gamestate.
 
 public class Game implements Serializable { 
 
-    private GameBoard gameBoard;
-    private List<Player> players;
+    private final GameBoard gameBoard;
+    private final List<Player> players;
     private int turn;
-    private LetterBag letterBag;
+    private final LetterBag letterBag;
     
     public Game() {
         gameBoard = new GameBoard();

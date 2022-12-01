@@ -1,4 +1,4 @@
-package games_manager;
+package Usecases.usecase_implementations;
 
 /**
  * This class is responsible for storing moves made during a turn.

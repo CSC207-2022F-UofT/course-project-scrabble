@@ -16,7 +16,7 @@ public class LetterBag implements Serializable {
     // no blanks, extra z and k
     private final String[] LETTERS = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
     
-    private HashMap<String, Integer> bag = new HashMap<>();
+    private final HashMap<String, Integer> bag = new HashMap<>();
     public LetterBag() {
         for(int i = 0; i<LETTERS.length; i++)
             bag.put(LETTERS[i], NUM_LETTERS[i]);

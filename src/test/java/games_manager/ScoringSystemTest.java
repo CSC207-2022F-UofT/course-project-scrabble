@@ -1,5 +1,8 @@
 package games_manager;
 
+import Usecases.usecase_implementations.BoardManager;
+import Usecases.usecase_implementations.PlayerManager;
+import Usecases.usecase_implementations.ScoringSystem;
 import entities.Cell;
 import entities.Game;
 import entities.GameBoard;

@@ -2,17 +2,34 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package ScrabbleGame;
+package scrabble_controller;
+import Usecases.usecase_implementations.GameSaverSystem;
+import Usecases.usecase_implementations.GameLoaderSystem;
+import Usecases.usecase_implementations.GameCreator;
+import Usecases.usecase_implementations.ScoringSystem;
+import Usecases.usecase_implementations.MoveInfo;
+import Usecases.usecase_implementations.BoardManager;
+import Usecases.usecase_implementations.TurnManager;
+import Usecases.usecase_implementations.PlayerManager;
+import Usecases.usecase_interfaces.RemoveTileUsecase;
+import Usecases.usecase_interfaces.GameLoadUsecase;
+import Usecases.usecase_interfaces.SwapHandUsecase;
+import Usecases.usecase_interfaces.PlaceWordUsecase;
+import Usecases.usecase_interfaces.PlaceTileUsecase;
+import Usecases.usecase_interfaces.EndGameUsecase;
+import Usecases.usecase_interfaces.UpdateScoreUsecase;
+import Usecases.usecase_interfaces.FillHandUsecase;
+import Usecases.usecase_interfaces.GameSaveUsecase;
+import Usecases.usecase_interfaces.ResetMoveUsecase;
+import Usecases.usecase_interfaces.IncrementTurnUsecase;
+import Usecases.usecase_interfaces.CreateGameUsecase;
 import entities.*;
-import data.*;
-import UsecaseInterfaces.*;
-import games_manager.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import gui.View;
 import scrabble_dictionary.ScrabbleDictionary;
+import Usecases.usecase_interfaces.CalculateWordScoreUsecase;
 
 /**
  *
@@ -20,18 +37,18 @@ import scrabble_dictionary.ScrabbleDictionary;
  */
 public class ScrabbleGameController{
     
-    private BoardManager boardManager;
-    private PlayerManager playerManager;
-    private GameLoaderSystem  gameLoader;
-    private GameSaverSystem gameSaver;
-    private ScoringSystem gameScorer;
-    private GameCreator gameCreator;
-    private TurnManager turnManager;
+    private final BoardManager boardManager;
+    private final PlayerManager playerManager;
+    private final GameLoaderSystem  gameLoader;
+    private final GameSaverSystem gameSaver;
+    private final ScoringSystem gameScorer;
+    private final GameCreator gameCreator;
+    private final TurnManager turnManager;
     private Game game;
-    private ScrabbleDictionary scrabbleDictionary;
+    private final ScrabbleDictionary scrabbleDictionary;
     
     
-    private View view; 
+    private final View view; 
     
     public ScrabbleGameController(View v) {
         boardManager = new BoardManager(); // this class implements checkword checktile
@@ -47,7 +64,7 @@ public class ScrabbleGameController{
     
     public void resetMove() {
         System.out.println("RESET MOVE");
-        ((ResetMove) boardManager).resetMoves(game);
+        ((ResetMoveUsecase) boardManager).resetMoves(game);
         ArrayList<MoveInfo> moveInfos = boardManager.getMoves();
 
         for(MoveInfo move : moveInfos){
@@ -60,17 +77,17 @@ public class ScrabbleGameController{
     }
     
     public void swapTiles() {
-        ((SwapHand) playerManager).swapHand(game);
+        ((SwapHandUsecase) playerManager).swapHand(game);
         ((IncrementTurnUsecase) turnManager).incrementTurn(game);
-        ((FillHand)playerManager).fillHand(game);// fill the next player's hand
+        ((FillHandUsecase)playerManager).fillHand(game);// fill the next player's hand
 
         view.updateView(game);
     }
     
     public void placeTile(int[] coords, String letter) {
-        boolean placeTileTrueness = ((PlaceTile) boardManager).checkLetter(coords, letter, game);
+        boolean placeTileTrueness = ((PlaceTileUsecase) boardManager).checkLetter(coords, letter, game);
         if(placeTileTrueness){
-            ((RemoveTile)playerManager).removeTile(game, letter); // remove the tile
+            ((RemoveTileUsecase)playerManager).removeTile(game, letter); // remove the tile
         }
         else{
             System.out.println("Invalid Move Played in placeTile");
@@ -84,14 +101,14 @@ public class ScrabbleGameController{
     public void playMove() {
 
         GameBoard prevBoard = boardManager.getPrevBoard();
-        List<List<List<Integer>>> words = ((PlaceWord) boardManager).checkWord(game, scrabbleDictionary, prevBoard);
+        List<List<List<Integer>>> words = ((PlaceWordUsecase) boardManager).checkWord(game, scrabbleDictionary, prevBoard);
         
         //boardmanager checkword returns list of coordinates and list of letters used by the player
         
         if(!words.isEmpty())
         {
             // ScoringSystem 
-            int score = ((WordScoreCalculator) gameScorer).calculateMultiWordScore(game, words);
+            int score = ((CalculateWordScoreUsecase) gameScorer).calculateMultiWordScore(game, words);
             // calculate the total score of all the words found
             ((UpdateScoreUsecase) playerManager).updateScoreForCurrentPlayer(game.getCurrentPlayer().getScore() + score, game);
             // place word usecase
@@ -99,7 +116,7 @@ public class ScrabbleGameController{
 
             ((IncrementTurnUsecase) turnManager).incrementTurn(game);
 
-            ((FillHand)playerManager).fillHand(game);// fill the next player's hand
+            ((FillHandUsecase)playerManager).fillHand(game);// fill the next player's hand
         }
         else{
             ArrayList<MoveInfo> moves = boardManager.getMoves();
@@ -116,22 +133,22 @@ public class ScrabbleGameController{
     
     
     public void createGameFromFile() {
-        game = ((GameLoad)gameLoader).loadGame(); // loadgame usecase
+        game = ((GameLoadUsecase)gameLoader).loadGame(); // loadgame usecase
         view.updateView(game);
     }
     
     public void saveGameToFile() { // make sure this is not called before a game is created
-        ((GameSave)gameSaver).saveGame(game);// savegame usecase
+        ((GameSaveUsecase)gameSaver).saveGame(game);// savegame usecase
     }
     
     public void startGame(String[] names) { // create game usecase
-        game = ((CreateGame)gameCreator).createNewGame(names);
-        ((FillHand)playerManager).fillHand(game);
+        game = ((CreateGameUsecase)gameCreator).createNewGame(names);
+        ((FillHandUsecase)playerManager).fillHand(game);
         view.updateView(game);
     }
     
     public void endGame() { // get score
-        Player[] winners = ((EndGame) playerManager).endGame(game);
+        Player[] winners = ((EndGameUsecase) playerManager).endGame(game);
         view.updateVictoryScreen(winners);
     }
     
