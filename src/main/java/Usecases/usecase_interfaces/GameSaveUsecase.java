@@ -9,7 +9,7 @@ import java.io.File;
 */
 
 public interface GameSaveUsecase {
-    final static File filename = new File("src/main/java/data/data.ser");
+    final static String filename = "src/main/java/data/data.ser";
 
     public void saveGame(Game game);
 

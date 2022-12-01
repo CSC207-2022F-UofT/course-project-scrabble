@@ -22,15 +22,21 @@ public class GameSaverSystem implements GameSaveUsecase {
         // Serialization
         try {
             // Saving objects in a file
-            FileOutputStream file = new FileOutputStream(filename); // output stream to write data to file
+            File saveFile = new File("filename");
+            FileOutputStream file = new FileOutputStream(saveFile); // output stream to write data to file
             ObjectOutputStream out = new ObjectOutputStream(file); // used to write objects to file
 
             // Method for serialization of objects
             out.writeObject(game); // write game object to output stream
 
             out.close(); // closes stream
+            
+            
+            assert saveFile.exists();
+                    
+            
             file.close();
-
+            
             System.out.println("Game state saved.");
 
         } catch (IOException ex) {
