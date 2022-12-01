@@ -43,8 +43,6 @@ public class GameSaverAndLoaderTest {
         GameLoaderSystem game_loader = new GameLoaderSystem();
         Game game = game_loader.loadGame();
 
-        // loaded objects returned with a GameBoard, Player1, Player2 and a LetterBag
-        assert game != null;
         // assigning objects the loaded values
         GameBoard board = game.getGameBoard();
         Player p1 = game.getPlayers().get(0);
