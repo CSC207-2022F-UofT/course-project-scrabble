@@ -167,7 +167,7 @@ public class GamePage implements ActionListener, View {
      */
     public ImageIcon createImageIcon(String filename){
         // determine whether the path is set correctly
-        String path = "src/main/java/gui/resources/letters/" + filename;
+        String path = "resources/letters/" + filename;
         // create an ImageIcon to display as the button image
         ImageIcon icon = new ImageIcon(path);
         Image image = icon.getImage(); // scale image to fit the board size
