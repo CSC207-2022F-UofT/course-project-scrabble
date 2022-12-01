@@ -60,7 +60,7 @@ public class BoardManager implements PlaceTileUsecase, PlaceWordUsecase, ResetMo
         ArrayList<List<Integer>> move_list = new ArrayList<>();
         createListOfCoordinates(move_list);
         TileChecker validate_word = new TileChecker();
-        if (game.getTurn() == 0) { // check if it's first turn of thr game
+        if (prevBoard.isEmpty()) { // check if it's first turn of thr game
             if (checkFirstTurnCondition()) { // check if the word is on center of board
                 ArrayList<List<List<Integer>>> first_word_list = validate_word.validateMove(move_list, game.getGameBoard(), scrabbleDictionary, prevBoard, game.getTurn());
                 if (first_word_list.isEmpty()) {
@@ -129,7 +129,6 @@ public class BoardManager implements PlaceTileUsecase, PlaceWordUsecase, ResetMo
 
     /**
      * This helper method of BoardManager verifies the first turn condition.
-     * @param game The game object with the board.
      * @return true if it's the first move and word is on center cell, if not on center cell return false.
      */
     private boolean checkFirstTurnCondition(){
@@ -159,40 +158,30 @@ public class BoardManager implements PlaceTileUsecase, PlaceWordUsecase, ResetMo
         }
     }
 
-    public static Cell boardManagerGetCell(int row, int column, GameBoard board) {
+    public static Cell GetCell(int row, int column, GameBoard board) {
         return board.getBoard()[row][column];
     }
-    public static String boardManagerGetCellValue(int row, int column, GameBoard board) {
-        return board.getBoard()[row][column].getValue();
-    }
-    public static String boardManagerGetCellValue(Cell letter) {
+    public static String GetCellValue(Cell letter) {
         return letter.getValue();
     }
-    public static int boardManagerGetCellScore(int row, int column, GameBoard board) {
-        return board.getBoard()[row][column].getScore();
-    }
-    public static int boardManagerGetCellScore(Cell cell) {
+
+    public static int GetCellScore(Cell cell) {
         return cell.getScore();
     }
-    public static int boardManagerGetCellMultiplier(int row, int column, GameBoard board) {
-        return board.getBoard()[row][column].getMultiplier();
-    }
-    public static int boardManagerGetCellMultiplier(Cell cell) {
+
+    public static int GetCellMultiplier(Cell cell) {
         return cell.getMultiplier();
     }
 
-    public static Cell[][] boardManagerGetBoard(GameBoard board) {
-        return board.getBoard();
-    }
-    public static void boardManagerSetBoardCell(int row, int column, Cell letter, GameBoard board){
+    public static void SetBoardCell(int row, int column, Cell letter, GameBoard board){
         int multiplier = board.getBoard()[row][column].getMultiplier();
         letter.setMultiplier(multiplier); // The letter cell takes on the multiplier value of the board space
         board.getBoard()[row][column] = letter; // Set the space on the board to the letter cell
     }
-    public static void boardManagerSetCellScore(Cell letter, int score) {
+    public static void SetCellScore(Cell letter, int score) {
         letter.setScore(score);
     }
-    public static void boardManagerSetCellValue(Cell letter, String value){ letter.setValue(value);}
+    public static void SetCellValue(Cell letter, String value){ letter.setValue(value);}
 
     public ArrayList<MoveInfo> getMoves(){
         return this.moves;

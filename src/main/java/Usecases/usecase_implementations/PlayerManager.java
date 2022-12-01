@@ -26,7 +26,6 @@ public class PlayerManager implements FillHandUsecase, DrawHandUsecase, SwapHand
 
         LetterBag bag = game.getLetterBag();
         Player player = game.getCurrentPlayer();
-        ScoringSystem scorer = new ScoringSystem();
         Random rand = new Random();
         Cell letter = new Cell();
         String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
@@ -39,12 +38,11 @@ public class PlayerManager implements FillHandUsecase, DrawHandUsecase, SwapHand
         } while (bag.getValue(character) == 0); // check if that letter still has tiles in the bag
 
         bag.removeTile(character); // remove that tile from the bag
-        BoardManager.boardManagerSetCellValue(letter, character); // update the cell to have the random value
+        letter.setValue(character); // update the cell to have the random value
         int i = 0;
         while (player.getHand()[i] != null) { // loop to find index of hand that is null
             i++;
         }
-        scorer.initializeCellScore(letter); // assigns the correct score to the cell
         player.getHand()[i] = letter; // assign the null space the value of the new hand
     }
 
@@ -75,7 +73,7 @@ public class PlayerManager implements FillHandUsecase, DrawHandUsecase, SwapHand
         LetterBag bag = game.getLetterBag();
         Player player = game.getCurrentPlayer();
         for (Cell tile: player.getHand()){
-            bag.putTile(BoardManager.boardManagerGetCellValue(tile));
+            bag.putTile(tile.getValue());
         }
         // clear player hand
         Cell[] null_array = new Cell[player.getHand().length];
@@ -107,11 +105,11 @@ public class PlayerManager implements FillHandUsecase, DrawHandUsecase, SwapHand
     @Override
     public void removeTile(Game game, String letter){
         Player player = game.getCurrentPlayer();
-        for (int i=0; i<PlayerManager.getHand(player).length; i++){
-            Cell cell = PlayerManager.getHand(player)[i];
+        for (int i=0; i<player.getHand().length; i++){
+            Cell cell = player.getHand()[i];
             if (cell != null) {
-                if (letter.equals(BoardManager.boardManagerGetCellValue(cell))) { // checks if cell's value is the same as letter
-                    PlayerManager.getHand(player)[i] = null; // removes tile
+                if (letter.equals(cell.getValue())){ // checks if cell's value is the same as letter
+                    player.getHand()[i] = null; // removes tile
                     return;
                 }
             }
@@ -222,12 +220,11 @@ public class PlayerManager implements FillHandUsecase, DrawHandUsecase, SwapHand
 
     public void addTile(Game game, String letter){
         Player player = game.getCurrentPlayer();
-        for (int i=0; i<PlayerManager.getHand(player).length; i++){
-            Cell cell = PlayerManager.getHand(player)[i];
+        for (int i=0; i<player.getHand().length; i++){
+            Cell cell = player.getHand()[i];
             if (cell == null) {
-                PlayerManager.getHand(player)[i] = new Cell(letter, 0); // removes tile
+                player.getHand()[i] = new Cell(letter, 0); // removes tile
                 return;
-
             }
         }
 
