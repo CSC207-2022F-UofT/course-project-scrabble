@@ -27,6 +27,8 @@ public class ScrabbleGameController{
     private GameSaverSystem gameSaver;
     private ScoringSystem gameScorer;
     private GameCreator gameCreator;
+
+    private EndGameManager endGameManager;
     private TurnManager turnManager;
     private Game game;
     private ScrabbleDictionary scrabbleDictionary;
@@ -44,6 +46,7 @@ public class ScrabbleGameController{
         turnManager = new TurnManager();
         gameScorer = new ScoringSystem();
         scrabbleDictionary = new ScrabbleDictionary();
+        endGameManager = new EndGameManager();
         view = v;
     }
     
@@ -133,7 +136,7 @@ public class ScrabbleGameController{
     }
     
     public void endGame() { // get score
-        Player[] winners = ((EndGame) playerManager).endGame(game);
+        Player[] winners = ((EndGame) endGameManager).endGame(game);
         view.updateVictoryScreen(winners);
     }
     
