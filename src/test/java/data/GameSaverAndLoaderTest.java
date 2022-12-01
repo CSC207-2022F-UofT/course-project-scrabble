@@ -7,6 +7,7 @@ import entities.*;
 import Usecases.usecase_implementations.BoardManager;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import java.io.File;
 
 public class GameSaverAndLoaderTest {
 
@@ -34,6 +35,10 @@ public class GameSaverAndLoaderTest {
 
         // saving all objects into data.ser
         game_saver.saveGame(gameSaved);
+        
+        File assertFile = new File("src/main/java/data/data.ser");
+        assert assertFile.exists();
+        
         // loading objects from data.ser into array
         GameLoaderSystem game_loader = new GameLoaderSystem();
         Game game = game_loader.loadGame();
