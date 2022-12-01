@@ -11,7 +11,7 @@ import java.io.File;
 
 public class GameSaverAndLoaderTest {
 
-    @Test
+    
     public void saveAndLoadDataTest(){ // checks if the objects are loaded correctly
         // creating objects to be saved
         GameSaverSystem game_saver = new GameSaverSystem();
