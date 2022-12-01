@@ -27,7 +27,7 @@ public class GameLoaderSystem implements GameLoadUsecase {
             // Creates object that converts stream of bytes to this object
 
             // Method for deserialization of object
-            Game game = (Game) in.readObject(); // Read GameBoard
+            Game game = (Game) in.readObject(); // Read Game
 
             in.close();
             file.close();
