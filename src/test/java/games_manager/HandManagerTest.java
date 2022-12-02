@@ -6,6 +6,8 @@ import entities.LetterBag;
 import entities.Player;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import usecases.usecase_implementations.HandManager;
+import usecases.usecase_implementations.PlayerManager;
 
 public class HandManagerTest {
     @Test

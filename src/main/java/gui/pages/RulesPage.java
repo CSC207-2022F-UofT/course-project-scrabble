@@ -2,10 +2,7 @@ package gui.pages;
 
 import gui.components.DialogueBox;
 import gui.components.Label;
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -24,9 +21,6 @@ public class RulesPage {
     final int WIDTH = 1100;
     final int HEIGHT = 750;
 
-    public static void main(String[] args) {
-        new StartupPage();
-    }
 
     public void createRulesPage() throws FileNotFoundException { // throw an exception because we are reading a file
         // create a dialogue box for the entire page

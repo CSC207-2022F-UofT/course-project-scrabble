@@ -1,10 +1,12 @@
 package games_manager;
 
-import data.GameCreator;
+import data_gateways.GameCreator;
 import entities.Game;
 import entities.Player;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import usecases.usecase_implementations.EndGameManager;
+import usecases.usecase_implementations.PlayerManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;

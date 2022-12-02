@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 import java.util.*;
 import java.util.List;
 
-import ScrabbleGame.ScrabbleGameController;
+import scrabble_controller.ScrabbleGameController;
 
 public class GamePage implements ActionListener, View {
     private String player1Name;
@@ -190,7 +190,7 @@ public class GamePage implements ActionListener, View {
             int xBound = boundX + BOARD_DIM / 4 + BOARD_DIM / BOARD_ROWS * i;
 
             // for empty holders
-            if(Objects.equals(currentLetters[i], "-")){
+            if("-".equals(currentLetters[i])){
                 icon = createImageIcon("wood.jpg");
                 holderButton.createButtonWithID(dialogueBox.frame, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "holder " + i + " -");
             }
@@ -333,20 +333,20 @@ public class GamePage implements ActionListener, View {
 
         turnLabel.getLabel().setText("It is " + currentPlayer.getName() + "'s turn!"); // set the name to the current player
 
-        String[] letters = new String[]{"-", "-", "-", "-", "-", "-", "-"};
+        String[] handLetters = new String[]{"-", "-", "-", "-", "-", "-", "-"};
         // update the entire hand with new letters or nothing if it's a dash.
         System.out.println("Printing hand");
-        for(int i = 0; i<letters.length; i++){
+        for(int i = 0; i<handLetters.length; i++){
             if(hand[i] == null){
-                letters[i] = "-";
+                handLetters[i] = "-";
                 System.out.println("null");
             }
             else{
-                letters[i] = hand[i].getValue();
+                handLetters[i] = hand[i].getValue();
                 System.out.println(hand[i].getValue());
             }
         }
-        currentLetters = letters;
+        currentLetters = handLetters;
         System.out.println("current letters: " + Arrays.toString(currentLetters));
 
         // update cells
