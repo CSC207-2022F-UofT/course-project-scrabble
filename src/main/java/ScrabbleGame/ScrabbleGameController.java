@@ -22,6 +22,7 @@ public class ScrabbleGameController{
     
     private BoardManager boardManager;
     private PlayerManager playerManager;
+    private HandManager handManager;
     private GameLoaderSystem  gameLoader;
     private GameSaverSystem gameSaver;
     private ScoringSystem gameScorer;
@@ -38,6 +39,7 @@ public class ScrabbleGameController{
     public ScrabbleGameController(View v) {
         boardManager = new BoardManager(); // this class implements checkword checktile
         playerManager = new PlayerManager();// this class implements updatescore, drawtiles
+        handManager = new HandManager();
         gameLoader = new GameLoaderSystem();
         gameSaver = new GameSaverSystem();
         gameCreator = new GameCreator();
@@ -54,7 +56,7 @@ public class ScrabbleGameController{
         ArrayList<MoveInfo> moveInfos = boardManager.getMoves();
 
         for(MoveInfo move : moveInfos){
-            playerManager.addTile(game, move.getLetter());
+            handManager.addTile(game, move.getLetter());
             System.out.println("Letters");
             System.out.println(move.getLetter());
         }
@@ -63,9 +65,9 @@ public class ScrabbleGameController{
     }
     
     public void swapTiles() {
-        ((SwapHand) playerManager).swapHand(game);
+        ((SwapHand) handManager).swapHand(game);
         ((IncrementTurnUsecase) turnManager).incrementTurn(game);
-        ((FillHand)playerManager).fillHand(game);// fill the next player's hand
+        ((FillHand)handManager).fillHand(game);// fill the next player's hand
 
         view.updateView(game);
     }
@@ -73,7 +75,7 @@ public class ScrabbleGameController{
     public void placeTile(int[] coords, String letter) {
         boolean placeTileTrueness = ((PlaceTile) boardManager).checkLetter(coords, letter, game);
         if(placeTileTrueness){
-            ((RemoveTile)playerManager).removeTile(game, letter); // remove the tile
+            ((RemoveTile)handManager).removeTile(game, letter); // remove the tile
         }
         else{
             System.out.println("Invalid Move Played in placeTile");
@@ -102,13 +104,13 @@ public class ScrabbleGameController{
 
             ((IncrementTurnUsecase) turnManager).incrementTurn(game);
 
-            ((FillHand)playerManager).fillHand(game);// fill the next player's hand
+            ((FillHand)handManager).fillHand(game);// fill the next player's hand
         }
         else{
             ArrayList<MoveInfo> moves = boardManager.getMoves();
-
+            resetMove();
             for(MoveInfo move : moves){
-                playerManager.addTile(game, move.getLetter());
+                handManager.addTile(game, move.getLetter());
             }
         }
         boardManager.clearMoves();// reset moves for next turn
@@ -116,7 +118,10 @@ public class ScrabbleGameController{
         saveGameToFile();
         view.updateView(game);
     }
-    
+
+    public boolean checkFullHand(){
+        return handManager.checkHand(game);
+    }
     
     public void createGameFromFile() {
         game = ((GameLoad)gameLoader).loadGame(); // loadgame usecase
@@ -129,7 +134,7 @@ public class ScrabbleGameController{
     
     public void startGame(String[] names) { // create game usecase
         game = ((CreateGame)gameCreator).createNewGame(names);
-        ((FillHand)playerManager).fillHand(game);
+        ((FillHand)handManager).fillHand(game);
         view.updateView(game);
     }
     

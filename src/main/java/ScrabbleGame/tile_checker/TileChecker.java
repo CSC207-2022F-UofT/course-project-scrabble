@@ -17,7 +17,7 @@ public class TileChecker implements PlacementChecker {
         if (!isConsecutive(move, board)) { //if tiles aren't consecutive, return false
             return falseResult;
         }
-        if (turn != 0 && !isTouching(move, prevBoard)) { //if tiles aren't touching already played tiles, return false
+        if (!prevBoard.isEmpty() && !isTouching(move, prevBoard)) { //if tiles aren't touching already played tiles, return false
             return falseResult;
         }
         if (!scrabbleDictionary.inDictionary((wordList(move, board)), board)) {
