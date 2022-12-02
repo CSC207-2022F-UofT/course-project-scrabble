@@ -29,13 +29,15 @@ public class HandManager implements FillHand, DrawHand, SwapHand, RemoveTile{
             character = alphabet[int_random]; // use that number to get the associated letter
         } while (bag.getValue(character) == 0); // check if that letter still has tiles in the bag
 
-        bag.removeTile(character); // remove that tile from the bag
         letter.setValue(character); // update the cell to have the random value
-        int i = 0;
-        while (player.getHand()[i] != null) { // loop to find index of hand that is null
-            i++;
+        for (int i=0; i<7; i++) { // loop to find index of hand that is null
+            Cell cell = player.getHand()[i];
+            if (cell == null){
+                bag.removeTile(character); // remove that tile from the bag
+                player.getHand()[i] = letter; // assign the null space the value of the new hand
+                break;
+            }
         }
-        player.getHand()[i] = letter; // assign the null space the value of the new hand
     }
 
     /**

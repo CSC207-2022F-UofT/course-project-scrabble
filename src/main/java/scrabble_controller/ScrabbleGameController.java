@@ -61,6 +61,7 @@ public class ScrabbleGameController{
         turnManager = new TurnManager();
         gameScorer = new ScoringSystem();
         scrabbleDictionary = new ScrabbleDictionary();
+        endGameManager = new EndGameManager();
         view = v;
     }
     

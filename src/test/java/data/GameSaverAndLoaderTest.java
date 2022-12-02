@@ -10,9 +10,10 @@ import org.junit.jupiter.api.Assertions;
 import java.io.File;
 
 public class GameSaverAndLoaderTest {
-    
+
     @Test
-    public void saveDataTest() {
+    public void saveAndLoadDataTest(){ // checks if the objects are loaded correctly
+        // creating objects to be saved
         GameSaverSystem game_saver = new GameSaverSystem();
         GameCreator gameCreator = new GameCreator();
 
@@ -34,12 +35,7 @@ public class GameSaverAndLoaderTest {
 
         // saving all objects into data.ser
         game_saver.saveGame(gameSaved);
-    }
-    
-    @Test
-    public void saveAndLoadDataTest(){ // checks if the objects are loaded correctly
-        // creating objects to be saved
-        
+
         
         File assertFile = new File("src/main/java/data/data.ser");
         assert assertFile.exists();
