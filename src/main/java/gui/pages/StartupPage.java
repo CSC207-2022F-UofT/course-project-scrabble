@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileNotFoundException;
 
 /**
@@ -44,15 +45,15 @@ public class StartupPage implements ActionListener {
 
         int buttonOffset = 75; // offset used for all 3 buttons to align in the centre
         gameButton = new Button(); // button for loading a game that we had already on file
-        gameButton.createButton(dialogueBox.frame, "Start Old Game", WIDTH / 3 + buttonOffset, HEIGHT / 3, 200, 50, null);
+        gameButton.createButton(dialogueBox.frame, "Create Game", WIDTH / 3 + buttonOffset, HEIGHT / 3, 200, 50, null);
         gameButton.getButton().addActionListener(this);
 
         rulesButton = new Button(); // button for checking the rules of our game (they are different than the regular scrabble game)
-        rulesButton.createButton(dialogueBox.frame, "Rules", WIDTH / 3 + buttonOffset, HEIGHT / 2, 200, 50, null);
+        rulesButton.createButton(dialogueBox.frame, "Load Game", WIDTH / 3 + buttonOffset, HEIGHT / 2, 200, 50, null);
         rulesButton.getButton().addActionListener(this);
 
         createButton = new Button(); // button for creating a new game
-        createButton.createButton(dialogueBox.frame, "Create Game", WIDTH / 3 + buttonOffset, HEIGHT - 200, 200, 50, null);
+        createButton.createButton(dialogueBox.frame, "Rules", WIDTH / 3 + buttonOffset, HEIGHT - 200, 200, 50, null);
         createButton.getButton().addActionListener(this);
 
         dialogueBox.frame.setVisible(true); // update contents of the frame
@@ -79,12 +80,21 @@ public class StartupPage implements ActionListener {
                 } catch (FileNotFoundException ex) { // we want to try to read the file, and catch any errors
                     throw new RuntimeException(ex);
                 }   break;
-            case "Start Old Game":
-                System.out.println("Start old game button pressed");
-                GamePage game = new GamePage("placeholder1", "placeholder2", true);
-                game.createGame(true);
+            case "Load Game":
 
+                File old_file = new File("src/main/java/data/data.ser");
+                if (old_file.exists()) {        // if a previously created game exists, load the game
+                    System.out.println("Load game button was pressed");
+                    GamePage game = new GamePage("placeholder1", "placeholder2", true);
+                    game.createGame(true);
+
+                }
+                else {          // if a previously created game does NOT exist, give the user an error pop-up
+                    JOptionPane.showMessageDialog(null, "A game hasn't been created!", "Oops!",
+                            JOptionPane.ERROR_MESSAGE);
+                }
                 break;
+
             default:
                 break;
         }

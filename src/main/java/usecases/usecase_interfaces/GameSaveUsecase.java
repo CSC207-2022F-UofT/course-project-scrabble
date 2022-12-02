@@ -8,8 +8,8 @@ import entities.Game;
 */
 
 public interface GameSaveUsecase {
-    final static String filename = "src/main/java/data/data.ser";
+    String filename = "src/main/java/data/data.ser";
 
-    public void saveGame(Game game);
+    void saveGame(Game game);
 
 }
