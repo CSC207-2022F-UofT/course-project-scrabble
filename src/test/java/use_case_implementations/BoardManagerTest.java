@@ -1,4 +1,4 @@
-package games_manager;
+package use_case_implementations;
 
 import usecases.usecase_implementations.BoardManager;
 import entities.Game;

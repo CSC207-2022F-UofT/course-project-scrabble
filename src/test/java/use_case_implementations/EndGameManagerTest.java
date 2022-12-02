@@ -1,4 +1,4 @@
-package games_manager;
+package use_case_implementations;
 
 import data_gateways.GameCreator;
 import entities.Game;

@@ -1,4 +1,4 @@
-package data;
+package data_gateways;
 
 import data_gateways.GameCreator;
 import entities.*;

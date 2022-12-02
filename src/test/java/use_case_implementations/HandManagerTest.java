@@ -1,4 +1,4 @@
-package games_manager;
+package use_case_implementations;
 
 import entities.Cell;
 import entities.Game;
