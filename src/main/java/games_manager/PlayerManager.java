@@ -46,7 +46,6 @@ public class PlayerManager implements UpdateScoreUsecase{
      * This method is responsible for drawing a tile into the player's hand until their hand is filled with tiles.
      * @param game the game with the current player who wants to fill hand.
      */
-    @Override
     public void fillHand(Game game){
         Player player = game.getCurrentPlayer();
         for (Cell letter: player.getHand()){ // loop over player hand
@@ -62,7 +61,6 @@ public class PlayerManager implements UpdateScoreUsecase{
      * @param game the game with the current player who wants to swap hand.
      * The current player's hand must be filled with tiles.
      */
-    @Override
     public void swapHand(Game game){
 
         // add all tiles in hand back to bag
@@ -84,7 +82,6 @@ public class PlayerManager implements UpdateScoreUsecase{
      * @param game the game with the current player who wants to draw hand.
      * The current player's hand must be empty.
      */
-    @Override
     public void drawHand(Game game){
         LetterBag bag = game.getLetterBag();
         Player player = game.getCurrentPlayer();
@@ -99,7 +96,6 @@ public class PlayerManager implements UpdateScoreUsecase{
      * @param game the game with the current player who wants to remove a tile hand.
      * @param letter the Tile's value which needs to be removed from player's hand
      */
-    @Override
     public void removeTile(Game game, String letter){
         Player player = game.getCurrentPlayer();
         for (int i=0; i<player.getHand().length; i++){
