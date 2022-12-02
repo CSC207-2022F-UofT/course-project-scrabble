@@ -26,10 +26,6 @@ public class StartupPage implements ActionListener {
     final int WIDTH = 1000;
     final int HEIGHT = 600;
 
-    public static void main(String[] args) {
-        new StartupPage();
-    }
-
     // Creates the startup page that we first see.
     public void createStartupPage() {
         dialogueBox = new DialogueBox(); // create dialogue box (the background)

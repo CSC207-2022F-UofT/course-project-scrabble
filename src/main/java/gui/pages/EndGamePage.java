@@ -4,9 +4,6 @@ import gui.components.DialogueBox;
 import gui.components.Label;
 
 import java.awt.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 /**
  * The EndGamePage is the final page after the game is completed. It displays the final result of the match with the player's information and who won.
