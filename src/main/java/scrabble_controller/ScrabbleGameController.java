@@ -157,7 +157,7 @@ public class ScrabbleGameController{
     }
     
     public void endGame() { // get score
-        Player[] winners = ((EndGameUsecase) playerManager).endGame(game);
+        Player[] winners = ((EndGameUsecase) endGameManager).endGame(game);
         view.updateVictoryScreen(winners);
     }
     
