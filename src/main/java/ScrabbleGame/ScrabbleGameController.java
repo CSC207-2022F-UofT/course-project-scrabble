@@ -9,7 +9,6 @@ import UsecaseInterfaces.*;
 import games_manager.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import gui.View;
 import scrabble_dictionary.ScrabbleDictionary;

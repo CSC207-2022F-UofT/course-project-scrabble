@@ -87,13 +87,13 @@ public class StartupPage implements ActionListener {
             case "Load Game":
 
                 File old_file = new File("src/main/java/data/data.ser");
-                if (old_file.exists()) {
+                if (old_file.exists()) {        // if a previously created game exists, load the game
                     System.out.println("Load game button was pressed");
                     GamePage game = new GamePage("placeholder1", "placeholder2", true);
                     game.createGame(true);
 
                 }
-                else {
+                else {          // if a previously created game does NOT exist, give the user an error pop-up
                     JOptionPane.showMessageDialog(null, "A game hasn't been created!", "Oops!",
                             JOptionPane.ERROR_MESSAGE);
                 }
