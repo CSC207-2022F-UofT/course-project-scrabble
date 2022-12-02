@@ -29,11 +29,7 @@ public class GameSaverSystem implements GameSaveUsecase {
             // Method for serialization of objects
             out.writeObject(game); // write game object to output stream
 
-            out.close(); // closes stream
-            
-            
-            assert saveFile.exists();
-                    
+            out.close(); // closes stream             
             
             file.close();
             
