@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Assertions;
 import java.io.File;
 
 public class GameSaverAndLoaderTest {
-
     @Test
     public void saveDataTest(){
         // checks if the objects are loaded correctly
@@ -38,7 +37,6 @@ public class GameSaverAndLoaderTest {
         game_saver.saveGame(gameSaved);
 
     }
-    @Test
     public void saveAndLoadDataTest(){
         
         File assertFile = new File("src/main/java/data/data.ser");
