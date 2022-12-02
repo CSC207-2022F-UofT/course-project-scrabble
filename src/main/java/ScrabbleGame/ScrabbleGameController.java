@@ -117,7 +117,7 @@ public class ScrabbleGameController{
     }
 
     public boolean checkFullHand(){
-        return playerManager.checkHand(game);
+        return handManager.checkHand(game);
     }
     
     public void createGameFromFile() {
