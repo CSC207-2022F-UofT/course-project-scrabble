@@ -42,7 +42,7 @@ public class RulesPage {
         rulesHeaderLabel.setCentreAlignment();
 
         // add rules to the rules page from the revised rules of scrabble page we made
-        File rules = new File("src/main/java/gui/resources/revised_rules_of_scrabble.txt");
+        File rules = new File("src/main/game_resources/revised_rules_of_scrabble.txt");
         Scanner reader = new Scanner(rules);
         StringBuilder finalString = new StringBuilder();
 
