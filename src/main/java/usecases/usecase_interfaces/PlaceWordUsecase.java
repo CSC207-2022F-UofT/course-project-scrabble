@@ -1,10 +1,8 @@
-package Usecases.usecase_interfaces;
+package usecases.usecase_interfaces;
 
 import entities.*;
-import Usecases.usecase_implementations.MoveInfo;
-import Usecases.usecase_implementations.ScrabbleDictionary;
+import usecases.usecase_implementations.ScrabbleDictionary;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

@@ -1,13 +1,13 @@
-package games_manager;
+package usecases.usecase_implementations;
 
-import UsecaseInterfaces.EndGame;
+import usecases.usecase_interfaces.EndGameUsecase;
 import entities.Game;
 import entities.Player;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EndGameManager implements EndGame {
+public class EndGameManager implements EndGameUsecase {
     /**
      * This method is responsible for returning an array of players that won at the end of the game.
      * @param game the game with the players of the game.

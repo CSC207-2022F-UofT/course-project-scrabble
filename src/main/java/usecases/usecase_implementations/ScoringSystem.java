@@ -1,10 +1,10 @@
-package Usecases.usecase_implementations;
+package usecases.usecase_implementations;
 import entities.*;
 
 import java.util.HashMap;
 import java.util.List;
-import Usecases.usecase_interfaces.CalculateHandScoreUsecase;
-import Usecases.usecase_interfaces.CalculateWordScoreUsecase;
+import usecases.usecase_interfaces.CalculateHandScoreUsecase;
+import usecases.usecase_interfaces.CalculateWordScoreUsecase;
 /**
  * This class is responsible for scoring words and tiles
  * @author Umair

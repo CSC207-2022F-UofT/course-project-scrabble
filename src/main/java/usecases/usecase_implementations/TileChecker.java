@@ -1,4 +1,4 @@
-package Usecases.usecase_implementations;
+package usecases.usecase_implementations;
 
 import entities.GameBoard;
 
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.List;
-import Usecases.usecase_interfaces.PlacementCheckerUsecase;
+import usecases.usecase_interfaces.PlacementCheckerUsecase;
 
 public class TileChecker implements PlacementCheckerUsecase {
 

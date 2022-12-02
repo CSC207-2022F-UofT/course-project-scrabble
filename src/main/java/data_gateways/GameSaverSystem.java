@@ -3,7 +3,7 @@ package data_gateways;
 import entities.*;
 
 import java.io.*;
-import Usecases.usecase_interfaces.GameSaveUsecase;
+import usecases.usecase_interfaces.GameSaveUsecase;
 
 /**
  * This class is responsible for saving the current Game entity present in the game to a file named "data.ser".
@@ -22,7 +22,7 @@ public class GameSaverSystem implements GameSaveUsecase {
         // Serialization
         try {
             // Saving objects in a file
-            File saveFile = new File("filename");
+            File saveFile = new File(filename);
             FileOutputStream file = new FileOutputStream(saveFile); // output stream to write data to file
             ObjectOutputStream out = new ObjectOutputStream(file); // used to write objects to file
 

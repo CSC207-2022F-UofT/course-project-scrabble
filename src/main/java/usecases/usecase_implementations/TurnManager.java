@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Usecases.usecase_implementations;
+package usecases.usecase_implementations;
 
-import Usecases.usecase_interfaces.IncrementTurnUsecase;
+import usecases.usecase_interfaces.IncrementTurnUsecase;
 import entities.Game;
 /**
  *

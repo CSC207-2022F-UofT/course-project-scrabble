@@ -1,4 +1,4 @@
-package Usecases.usecase_implementations;
+package usecases.usecase_implementations;
 import entities.GameBoard;
 
 import java.io.File; //the File class

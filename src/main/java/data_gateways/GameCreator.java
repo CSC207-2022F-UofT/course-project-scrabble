@@ -5,10 +5,8 @@ import entities.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import Usecases.usecase_interfaces.CreateGameUsecase;
-import Usecases.usecase_interfaces.CreateGameUsecase;
-import Usecases.usecase_interfaces.GameLoadUsecase;
-import Usecases.usecase_interfaces.GameLoadUsecase;
+import usecases.usecase_interfaces.CreateGameUsecase;
+import usecases.usecase_interfaces.GameLoadUsecase;
 
 /**
  * This class is responsible for creating a new Game instance or loading a previous Game instance from file.

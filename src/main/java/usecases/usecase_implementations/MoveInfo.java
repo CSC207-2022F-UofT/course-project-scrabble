@@ -1,4 +1,4 @@
-package Usecases.usecase_implementations;
+package usecases.usecase_implementations;
 
 /**
  * This class is responsible for storing moves made during a turn.

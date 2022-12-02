@@ -4,7 +4,7 @@ import data_gateways.GameSaverSystem;
 import data_gateways.GameLoaderSystem;
 import data_gateways.GameCreator;
 import entities.*;
-import Usecases.usecase_implementations.BoardManager;
+import usecases.usecase_implementations.BoardManager;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import java.io.File;
@@ -12,7 +12,8 @@ import java.io.File;
 public class GameSaverAndLoaderTest {
 
     @Test
-    public void saveAndLoadDataTest(){ // checks if the objects are loaded correctly
+    public void saveDataTest(){
+        // checks if the objects are loaded correctly
         // creating objects to be saved
         GameSaverSystem game_saver = new GameSaverSystem();
         GameCreator gameCreator = new GameCreator();
@@ -36,6 +37,9 @@ public class GameSaverAndLoaderTest {
         // saving all objects into data.ser
         game_saver.saveGame(gameSaved);
 
+    }
+    @Test
+    public void saveAndLoadDataTest(){
         
         File assertFile = new File("src/main/java/data/data.ser");
         assert assertFile.exists();

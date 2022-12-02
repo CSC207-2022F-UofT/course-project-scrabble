@@ -1,10 +1,10 @@
 package games_manager;
 
-import Usecases.usecase_implementations.BoardManager;
+import usecases.usecase_implementations.BoardManager;
 import entities.Game;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
-import Usecases.usecase_implementations.ScrabbleDictionary;
+import usecases.usecase_implementations.ScrabbleDictionary;
 
 import java.util.ArrayList;
 import java.util.List;

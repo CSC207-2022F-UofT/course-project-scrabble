@@ -1,6 +1,6 @@
-package games_manager;
+package usecases.usecase_implementations;
 
-import UsecaseInterfaces.*;
+import usecases.usecase_interfaces.*;
 import entities.Cell;
 import entities.Game;
 import entities.LetterBag;
@@ -8,7 +8,7 @@ import entities.Player;
 
 import java.util.Random;
 
-public class HandManager implements FillHand, DrawHand, SwapHand, RemoveTile{
+public class HandManager implements FillHandUsecase, DrawHandUsecase, SwapHandUsecase, RemoveTileUsecase{
     /**
      * This method is responsible for drawing a tile into the player's hand.
      * @param game the game with the current player who wants to draw a tile.

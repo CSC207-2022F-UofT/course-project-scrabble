@@ -6,30 +6,32 @@ package scrabble_controller;
 import data_gateways.GameSaverSystem;
 import data_gateways.GameLoaderSystem;
 import data_gateways.GameCreator;
-import Usecases.usecase_implementations.ScoringSystem;
-import Usecases.usecase_implementations.MoveInfo;
-import Usecases.usecase_implementations.BoardManager;
-import Usecases.usecase_implementations.TurnManager;
-import Usecases.usecase_implementations.PlayerManager;
-import Usecases.usecase_interfaces.RemoveTileUsecase;
-import Usecases.usecase_interfaces.GameLoadUsecase;
-import Usecases.usecase_interfaces.SwapHandUsecase;
-import Usecases.usecase_interfaces.PlaceWordUsecase;
-import Usecases.usecase_interfaces.PlaceTileUsecase;
-import Usecases.usecase_interfaces.EndGameUsecase;
-import Usecases.usecase_interfaces.UpdateScoreUsecase;
-import Usecases.usecase_interfaces.FillHandUsecase;
-import Usecases.usecase_interfaces.GameSaveUsecase;
-import Usecases.usecase_interfaces.ResetMoveUsecase;
-import Usecases.usecase_interfaces.IncrementTurnUsecase;
-import Usecases.usecase_interfaces.CreateGameUsecase;
+import usecases.usecase_implementations.ScoringSystem;
+import usecases.usecase_implementations.MoveInfo;
+import usecases.usecase_implementations.BoardManager;
+import usecases.usecase_implementations.TurnManager;
+import usecases.usecase_implementations.PlayerManager;
+import usecases.usecase_interfaces.RemoveTileUsecase;
+import usecases.usecase_interfaces.GameLoadUsecase;
+import usecases.usecase_interfaces.SwapHandUsecase;
+import usecases.usecase_interfaces.PlaceWordUsecase;
+import usecases.usecase_interfaces.PlaceTileUsecase;
+import usecases.usecase_interfaces.EndGameUsecase;
+import usecases.usecase_interfaces.UpdateScoreUsecase;
+import usecases.usecase_interfaces.FillHandUsecase;
+import usecases.usecase_interfaces.GameSaveUsecase;
+import usecases.usecase_interfaces.ResetMoveUsecase;
+import usecases.usecase_interfaces.IncrementTurnUsecase;
+import usecases.usecase_interfaces.CreateGameUsecase;
+import usecases.usecase_implementations.HandManager;
+import usecases.usecase_implementations.EndGameManager;
 import entities.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import gui.View;
-import Usecases.usecase_implementations.ScrabbleDictionary;
-import Usecases.usecase_interfaces.CalculateWordScoreUsecase;
+import usecases.usecase_implementations.ScrabbleDictionary;
+import usecases.usecase_interfaces.CalculateWordScoreUsecase;
 
 /**
  *
@@ -44,7 +46,8 @@ public class ScrabbleGameController{
     private final ScoringSystem gameScorer;
     private final GameCreator gameCreator;
     private final TurnManager turnManager;
-    private final HandManager handmanager;
+    private final HandManager handManager;
+    private final EndGameManager endGameManager;
     private Game game;
     private final ScrabbleDictionary scrabbleDictionary;
     
@@ -80,9 +83,9 @@ public class ScrabbleGameController{
     }
     
     public void swapTiles() {
-        ((SwapHandUsecase) playerManager).swapHand(game);
+        ((SwapHandUsecase) handManager).swapHand(game);
         ((IncrementTurnUsecase) turnManager).incrementTurn(game);
-        ((FillHandUsecase)playerManager).fillHand(game);// fill the next player's hand
+        ((FillHandUsecase)handManager).fillHand(game);// fill the next player's hand
 
         view.updateView(game);
     }
@@ -90,7 +93,7 @@ public class ScrabbleGameController{
     public void placeTile(int[] coords, String letter) {
         boolean placeTileTrueness = ((PlaceTileUsecase) boardManager).checkLetter(coords, letter, game);
         if(placeTileTrueness){
-            ((RemoveTileUsecase)playerManager).removeTile(game, letter); // remove the tile
+            ((RemoveTileUsecase)handManager).removeTile(game, letter); // remove the tile
         }
         else{
             System.out.println("Invalid Move Played in placeTile");
@@ -119,8 +122,7 @@ public class ScrabbleGameController{
 
             ((IncrementTurnUsecase) turnManager).incrementTurn(game);
 
-            ((FillHandUsecase)playerManager).fillHand(game);// fill the next player's hand
-            ((FillHand)handManager).fillHand(game);// fill the next player's hand
+            ((FillHandUsecase)handManager).fillHand(game);// fill the next player's hand
         }
         else{
             ArrayList<MoveInfo> moves = boardManager.getMoves();
@@ -150,7 +152,7 @@ public class ScrabbleGameController{
     
     public void startGame(String[] names) { // create game usecase
         game = ((CreateGameUsecase)gameCreator).createNewGame(names);
-        ((FillHandUsecase)playerManager).fillHand(game);
+        ((FillHandUsecase)handManager).fillHand(game);
         view.updateView(game);
     }
     
