@@ -44,15 +44,17 @@ public class ScrabbleGameController{
     private final ScoringSystem gameScorer;
     private final GameCreator gameCreator;
     private final TurnManager turnManager;
+    private final HandManager handmanager;
     private Game game;
     private final ScrabbleDictionary scrabbleDictionary;
     
     
-    private final View view; 
+    private final View view;
     
     public ScrabbleGameController(View v) {
         boardManager = new BoardManager(); // this class implements checkword checktile
         playerManager = new PlayerManager();// this class implements updatescore, drawtiles
+        handManager = new HandManager();
         gameLoader = new GameLoaderSystem();
         gameSaver = new GameSaverSystem();
         gameCreator = new GameCreator();
@@ -68,7 +70,7 @@ public class ScrabbleGameController{
         ArrayList<MoveInfo> moveInfos = boardManager.getMoves();
 
         for(MoveInfo move : moveInfos){
-            playerManager.addTile(game, move.getLetter());
+            handManager.addTile(game, move.getLetter());
             System.out.println("Letters");
             System.out.println(move.getLetter());
         }
@@ -117,12 +119,13 @@ public class ScrabbleGameController{
             ((IncrementTurnUsecase) turnManager).incrementTurn(game);
 
             ((FillHandUsecase)playerManager).fillHand(game);// fill the next player's hand
+            ((FillHand)handManager).fillHand(game);// fill the next player's hand
         }
         else{
             ArrayList<MoveInfo> moves = boardManager.getMoves();
             resetMove();
             for(MoveInfo move : moves){
-                playerManager.addTile(game, move.getLetter());
+                handManager.addTile(game, move.getLetter());
             }
         }
         boardManager.clearMoves();// reset moves for next turn
@@ -132,7 +135,7 @@ public class ScrabbleGameController{
     }
 
     public boolean checkFullHand(){
-        return playerManager.checkHand(game);
+        return handManager.checkHand(game);
     }
     
     public void createGameFromFile() {

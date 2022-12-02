@@ -13,13 +13,6 @@ public class TextField {
     public JTextField textField;
 
     /**
-     * @return returns a Java Swing textField
-     */
-    public JTextField getTextField() {
-        return textField;
-    }
-
-    /**
      * Creates a label and (optionally) adds it to an existing DialogueBox.
      *
      * @param dialogueBox   indicates which place to add the text field
