@@ -3,6 +3,12 @@ package entities;
 
 import java.io.Serializable;
 
+/**
+ * This class represents the GameBoard entity and is responsible for handling GameBoard actions, where each holds value,
+ * score and multiplier.
+ * @author Jazli & Umair
+ */
+
 public class GameBoard implements Serializable {
     private final int DEFAULT_SIZE = 15;
     private static int[][] TILE_MULTIPLIERS = new int[][]
@@ -23,7 +29,10 @@ public class GameBoard implements Serializable {
             {3,1,1,2,1,1,1,3,1,1,1,2,1,1,3}};
     
     private Cell[][] board;
-    
+
+    /**
+     * This method is responsible for being the constructor of the GameBoard class with no parameters
+     */
     public GameBoard() {
         board = new Cell[DEFAULT_SIZE][DEFAULT_SIZE];
 
@@ -33,18 +42,31 @@ public class GameBoard implements Serializable {
             }
         }
 
-    }  
-        
+    }
+
+    /**
+     * This method is responsible for being the constructor of the Cell class passed with previous cells
+     */
     public GameBoard(Cell[][] loaded_cells) {
         board = loaded_cells;
     }
-    
 
-    
-    
+
+    /**
+     * This method is responsible for returning the cell from the board
+     * @param row This is an integer representing the row
+     * @param column This is an integer representing the column
+     * @return Returns the cell itself from the board.
+     */
     public Cell getBoardCell(int row, int column) {
         return this.board[row][column];
     }
+
+    /**
+     * This method is responsible for returning the cell value from the board
+     * @param row This is an integer representing the row
+     * @param column This is an integer representing the column
+     */
     public String getBoardCellValue(int row, int column) {
         return this.board[row][column].getValue();
     }

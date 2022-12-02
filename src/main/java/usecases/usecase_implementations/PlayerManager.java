@@ -12,6 +12,11 @@ import entities.*;
  */
 
 public class PlayerManager implements UpdateScoreUsecase{
+    /**
+     * This method sets the score of the player to new_score
+     * @param player The player to have their hand changed
+     * @param new_hand New hand to be set to player's hand
+     */
     public static void setHand(Cell[] new_hand, Player player){ player.setHand(new_hand); }
 
     /**
@@ -29,18 +34,6 @@ public class PlayerManager implements UpdateScoreUsecase{
     @Override
     public void updateScoreForCurrentPlayer(int newScore, Game game) {
         game.getCurrentPlayer().setScore(newScore);
-    }
-
-    public void addTile(Game game, String letter){
-        Player player = game.getCurrentPlayer();
-        for (int i=0; i<player.getHand().length; i++){
-            Cell cell = player.getHand()[i];
-            if (cell == null) {
-                player.getHand()[i] = new Cell(letter, 0); // removes tile
-                return;
-            }
-        }
-
     }
 }
 
