@@ -1,7 +1,6 @@
 package gui.components;
 
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * The TextField class creates a text field based on the JTextField module of Java Swing.
@@ -12,13 +11,6 @@ import java.awt.*;
 
 public class TextField {
     public JTextField textField;
-
-    /**
-     * @return returns a Java Swing textField
-     */
-    public JTextField getTextField() {
-        return textField;
-    }
 
     /**
      * Creates a label and (optionally) adds it to an existing DialogueBox.
