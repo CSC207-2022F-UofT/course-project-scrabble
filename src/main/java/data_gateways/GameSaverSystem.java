@@ -34,7 +34,8 @@ public class GameSaverSystem implements GameSaveUsecase {
             
             assert saveFile.exists();
                     
-            
+            out.close();  // closed the stream
+
             file.close();
             
             System.out.println("Game state saved.");
