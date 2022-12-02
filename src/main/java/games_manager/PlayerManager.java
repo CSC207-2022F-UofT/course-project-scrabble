@@ -74,9 +74,6 @@ public class PlayerManager implements UpdateScoreUsecase{
         game.getCurrentPlayer().setScore(newScore);
     }
 
-
-    }
-
 }
 
 
