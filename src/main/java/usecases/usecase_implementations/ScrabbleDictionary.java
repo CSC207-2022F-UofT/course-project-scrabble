@@ -19,6 +19,9 @@ public class ScrabbleDictionary {
         ScrabbleDictionary scrabbleDictionary = new ScrabbleDictionary();
     }
 
+    /**
+     * Constructor for the ScrabbleDictionary class. Reads the scrabble dictionary file and creates a hashmap for it
+     */
     public ScrabbleDictionary() {
         try { //if the file can be found, this happens
             this.dictionary = new HashMap<>();
@@ -46,6 +49,11 @@ public class ScrabbleDictionary {
 
     }
 
+    /**
+     * This method is responsible for searching for words in the dictionary
+     * @param move nested list of words corresponding to the coordinates of all letters.
+     * @return boolean returns whether the move is in the dictionary
+     */
     public boolean inDictionary(ArrayList<List<List<Integer>>> move, GameBoard board) { //searches for words in the dictionary
         List<String> wordlist = wordParser(move, board); //calls wordParser to return a list of words
         for (String word : wordlist) {
@@ -58,6 +66,11 @@ public class ScrabbleDictionary {
         return true;
     } //after looping through the entire list of words, returns true
 
+    /**
+     * This method is responsible for determining the words created given the tile coordinates
+     * @param move nested list of words corresponding to the coordinates of all letters.
+     * @return List<String> A list of words created
+     */
     private static List<String> wordParser(ArrayList<List<List<Integer>>> move, GameBoard board) { //determines words from tile coordinates
         List<String> wordlist = new ArrayList<>(); //the list of all words made from a move
         for (List<List<Integer>> word : move) { //for each separate word in the list
