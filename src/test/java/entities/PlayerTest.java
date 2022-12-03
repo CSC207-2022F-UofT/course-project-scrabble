@@ -4,7 +4,9 @@ import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
 public class PlayerTest {
-
+    /**
+     * Tests getName and setName by comparing with Player name of "Abel"
+     */
     @Test
     public void getNameTest(){
         Player p = new Player("Abel");
@@ -12,6 +14,9 @@ public class PlayerTest {
 
     }
 
+    /**
+     * Tests setScore and getScore by comparing with integer value of "90210"
+     */
     @Test
     public void setAndGetScoreTest(){
         Player p = new Player("Abel");
@@ -19,6 +24,10 @@ public class PlayerTest {
         Assertions.assertEquals(90210, p.getScore());
     }
 
+    /**
+     * Tests setHand and getHand by comparing with Player "Abel" and comparing with an array of cells with values
+     * "VALUEFU"
+     */
     @Test
     public void setAndGetHandTest(){
         Player p = new Player("Abel");
