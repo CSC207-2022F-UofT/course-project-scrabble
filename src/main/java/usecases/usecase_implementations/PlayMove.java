@@ -2,6 +2,7 @@ package usecases.usecase_implementations;
 
 import entities.Game;
 import entities.GameBoard;
+import entities.MoveInfo;
 import scrabble_controller.ScrabbleGameController;
 import usecases.usecase_interfaces.*;
 

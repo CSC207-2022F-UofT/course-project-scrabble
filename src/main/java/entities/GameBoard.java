@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * This class represents the GameBoard entity and is responsible for handling GameBoard actions, where each holds value,
  * score and multiplier.
- * @author Jazli & Umair
+ * @author Jazli & Umair & Davit
  */
 
 public class GameBoard implements Serializable {
@@ -26,9 +26,9 @@ public class GameBoard implements Serializable {
             {2,1,1,2,1,1,1,2,1,1,1,2,1,1,2},
             {1,1,2,1,1,1,2,1,2,1,1,1,2,1,1},
             {1,2,1,1,1,3,1,1,1,3,1,1,1,2,1},
-            {3,1,1,2,1,1,1,3,1,1,1,2,1,1,3}};
+            {3,1,1,2,1,1,1,3,1,1,1,2,1,1,3}}; // two-dimensional array of multiplier values for the board
     
-    private Cell[][] board;
+    private Cell[][] board; // two-dimensional array of cells for the board
 
     /**
      * This method is responsible for being the constructor of the GameBoard class with no parameters
