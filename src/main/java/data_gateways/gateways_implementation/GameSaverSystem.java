@@ -1,9 +1,9 @@
-package data_gateways;
+package data_gateways.gateways_implementation;
 
 import entities.*;
 
 import java.io.*;
-import usecases.usecase_interfaces.GameSaveUsecase;
+import data.gateway_interfaces.GameSaveUsecase;
 
 /**
  * This class is responsible for saving the current Game entity present in the game to a file named "data.ser".

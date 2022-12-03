@@ -1,6 +1,6 @@
 package use_case_implementations;
 
-import data_gateways.GameCreator;
+import data_gateways.gateways_implementation.GameCreator;
 import entities.Game;
 import entities.Player;
 import org.junit.Test;

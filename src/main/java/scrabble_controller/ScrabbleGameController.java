@@ -3,29 +3,30 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package scrabble_controller;
-import data_gateways.GameSaverSystem;
-import data_gateways.GameLoaderSystem;
-import data_gateways.GameCreator;
+import data_gateways.gateways_implementation.GameSaverSystem;
+import data_gateways.gateways_implementation.GameLoaderSystem;
+import data_gateways.gateways_implementation.GameCreator;
+import data.gateway_interfaces.GameLoadUsecase;
+import data.gateway_interfaces.GameSaveUsecase;
+import entities.*;
 import usecases.usecase_implementations.ScoringSystem;
 import usecases.usecase_implementations.MoveInfo;
 import usecases.usecase_implementations.BoardManager;
 import usecases.usecase_implementations.TurnManager;
 import usecases.usecase_implementations.PlayerManager;
 import usecases.usecase_interfaces.RemoveTileUsecase;
-import usecases.usecase_interfaces.GameLoadUsecase;
 import usecases.usecase_interfaces.SwapHandUsecase;
 import usecases.usecase_interfaces.PlaceWordUsecase;
 import usecases.usecase_interfaces.PlaceTileUsecase;
 import usecases.usecase_interfaces.EndGameUsecase;
 import usecases.usecase_interfaces.UpdateScoreUsecase;
 import usecases.usecase_interfaces.FillHandUsecase;
-import usecases.usecase_interfaces.GameSaveUsecase;
 import usecases.usecase_interfaces.ResetMoveUsecase;
 import usecases.usecase_interfaces.IncrementTurnUsecase;
 import usecases.usecase_interfaces.CreateGameUsecase;
 import usecases.usecase_implementations.HandManager;
 import usecases.usecase_implementations.EndGameManager;
-import entities.*;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,14 +70,11 @@ public class ScrabbleGameController{
     }
     
     public void resetMove() {
-        System.out.println("RESET MOVE");
         ((ResetMoveUsecase) boardManager).resetMoves(game);
         ArrayList<MoveInfo> moveInfos = boardManager.getMoves();
 
         for(MoveInfo move : moveInfos){
             handManager.addTile(game, move.getLetter());
-            System.out.println("Letters");
-            System.out.println(move.getLetter());
         }
         boardManager.clearMoves();
         view.updateView(game);
@@ -132,7 +130,6 @@ public class ScrabbleGameController{
             }
         }
         boardManager.clearMoves();// reset moves for next turn
-        System.out.println("DONE PLAY MOVE");
         saveGameToFile();
         view.updateView(game);
     }

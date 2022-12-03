@@ -1,4 +1,4 @@
-package usecases.usecase_interfaces;
+package data.gateway_interfaces;
 
 import entities.Game;
 
