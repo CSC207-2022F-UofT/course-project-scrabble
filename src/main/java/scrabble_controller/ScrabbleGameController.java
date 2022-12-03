@@ -25,14 +25,10 @@ import usecases.usecase_interfaces.CreateGameUsecase;
 import usecases.usecase_implementations.HandManager;
 import usecases.usecase_implementations.EndGameManager;
 import usecases.usecase_implementations.PlayMove;
-
-
 import java.util.ArrayList;
 import gui.View;
 import usecases.usecase_implementations.ScrabbleDictionary;
-import usecases.usecase_interfaces.CheckHandUsecase;
-import usecases.usecase_interfaces.PlayMoveUsecase;
-import usecases.usecase_interfaces.ResetHandUsecase;
+
 /**
  *
  * @author jingw
@@ -162,7 +158,7 @@ public class ScrabbleGameController{
     public void endGame() { // get score
         Player[] winners = ((EndGameUsecase) endGameManager).endGame(game);
         view.updateVictoryScreen(winners);
-    }
+    }   
     
     public Game getData() {
         return game;
