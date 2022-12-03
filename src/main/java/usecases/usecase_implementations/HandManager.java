@@ -8,7 +8,7 @@ import entities.Player;
 
 import java.util.Random;
 
-public class HandManager implements FillHandUsecase, DrawHandUsecase, SwapHandUsecase, RemoveTileUsecase{
+public class HandManager implements FillHandUsecase, DrawHandUsecase, SwapHandUsecase, RemoveTileUsecase, CheckHandUsecase{
     /**
      * This method is responsible for drawing a tile into the player's hand.
      * @param game the game with the current player who wants to draw a tile.
@@ -109,12 +109,12 @@ public class HandManager implements FillHandUsecase, DrawHandUsecase, SwapHandUs
             }
         }
     }
-
     /**
      * This method is responsible for checking whether the player's hand is full or not
      * @param game the game with the current player whose hand needs to be checked.
      * @return boolean returns whether the player's hand is full
      */
+    @Override
     public boolean checkHand(Game game){
         Cell[] hand = game.getCurrentPlayer().getHand();
         for (Cell tile : hand){
