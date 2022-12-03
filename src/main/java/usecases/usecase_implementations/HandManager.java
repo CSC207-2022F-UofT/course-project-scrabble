@@ -5,10 +5,11 @@ import entities.Cell;
 import entities.Game;
 import entities.LetterBag;
 import entities.Player;
+import java.util.ArrayList;
 
 import java.util.Random;
 
-public class HandManager implements FillHandUsecase, DrawHandUsecase, SwapHandUsecase, RemoveTileUsecase, CheckHandUsecase{
+public class HandManager implements FillHandUsecase, DrawHandUsecase, SwapHandUsecase, RemoveTileUsecase, CheckHandUsecase, ResetHandUsecase{
     /**
      * This method is responsible for drawing a tile into the player's hand.
      * @param game the game with the current player who wants to draw a tile.
@@ -85,7 +86,7 @@ public class HandManager implements FillHandUsecase, DrawHandUsecase, SwapHandUs
     @Override
     public void drawHand(Game game){
         Player player = game.getCurrentPlayer();
-        for (int i=0; i<player.getHand().length; i++) {
+        for (int i = 0; i<player.getHand().length; i++) {
             this.drawTile(game);
         }
     }
@@ -138,6 +139,18 @@ public class HandManager implements FillHandUsecase, DrawHandUsecase, SwapHandUs
                 player.getHand()[i] = new Cell(letter, 0); // removes tile
                 return;
             }
+        }
+    }
+    
+    /**
+     * This method is responsible for resetting a player's hand
+     * @param game the game with the current player whose hand needs letter added to it
+     * @param moves a list of MoveInfo objects that represents a player's moves in the turn
+     */
+    @Override
+    public void resetHand(Game game, ArrayList<MoveInfo> moves) {
+        for(MoveInfo move : moves){
+            addTile(game, move.getLetter());
         }
     }
 }

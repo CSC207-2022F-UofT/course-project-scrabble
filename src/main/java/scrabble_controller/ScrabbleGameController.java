@@ -34,6 +34,9 @@ import java.util.List;
 import gui.View;
 import usecases.usecase_implementations.ScrabbleDictionary;
 import usecases.usecase_interfaces.CalculateWordScoreUsecase;
+import usecases.usecase_interfaces.CheckHandUsecase;
+import usecases.usecase_interfaces.PlayMoveUsecase;
+import usecases.usecase_interfaces.ResetHandUsecase;
 
 /**
  *
@@ -76,18 +79,11 @@ public class ScrabbleGameController{
 
 
     /**
-     * This method is responsible for calling the resetMoves usecase
-     *
-     *
+     * This method is responsible for calling the resetMoves usecase.
      */
     public void resetMove() {
-        ((ResetMoveUsecase) boardManager).resetMoves(game);
-        ArrayList<MoveInfo> moveInfos = boardManager.getMoves();
-
-        for(MoveInfo move : moveInfos){
-            handManager.addTile(game, move.getLetter());
-        }
-        boardManager.clearMoves();
+        ArrayList<MoveInfo> moveInfos = ((ResetMoveUsecase) boardManager).resetMoves(game);
+        ((ResetHandUsecase) handManager).resetHand(game, moveInfos);
         view.updateView(game);
     }
     
@@ -127,11 +123,10 @@ public class ScrabbleGameController{
     
 
     /**
-     * This method is responsible for calling the usecases that check if a word is valid, calculating its score, incrementing the turn counter
-     * and refilling the next player's hand
+     * This method is responsible for calling the playmove usecase. 
      */
     public void playMove() {
-        playMove.playMove(handManager, boardManager, playerManager, turnManager, gameScorer, game,
+        ((PlayMoveUsecase)playMove).playMove(handManager, boardManager, playerManager, turnManager, gameScorer, game,
                 scrabbleDictionary, this);
         saveGameToFile();
         view.updateView(game);
@@ -139,7 +134,7 @@ public class ScrabbleGameController{
 
 
     public boolean checkFullHand(){
-        return handManager.checkHand(game);
+        return ((CheckHandUsecase)handManager).checkHand(game);
     }
     
     /**

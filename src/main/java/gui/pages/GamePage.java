@@ -323,8 +323,8 @@ public class GamePage implements ActionListener, View {
         player1Label.getLabel().setText(player1Name + "'s score is: "  + player1Score); // set the name to the current player
         player2Label.getLabel().setText(player2Name + "'s score is: " + player2Score); // set the name to the current player
 
-        System.out.println(player1Name + ": " + player1Score);
-        System.out.println(player2Name + ": " +  player2Score);
+        //System.out.println(player1Name + ": " + player1Score);
+        //System.out.println(player2Name + ": " +  player2Score);
 
         // get whose turn it is
         Player currentPlayer = game.getCurrentPlayer();
@@ -335,15 +335,15 @@ public class GamePage implements ActionListener, View {
 
         String[] handLetters = new String[]{"-", "-", "-", "-", "-", "-", "-"};
         // update the entire hand with new letters or nothing if it's a dash.
-        System.out.println("Printing hand");
+        //System.out.println("Printing hand");
         for(int i = 0; i<handLetters.length; i++){
             if(hand[i] == null){
                 handLetters[i] = "-";
-                System.out.println("null");
+                //System.out.println("null");
             }
             else{
                 handLetters[i] = hand[i].getValue();
-                System.out.println(hand[i].getValue());
+                //System.out.println(hand[i].getValue());
             }
         }
         currentLetters = handLetters;
@@ -351,7 +351,7 @@ public class GamePage implements ActionListener, View {
 
         // update cells
         GameBoard gameBoard = game.getGameBoard();
-        gameBoard.printBoard();
+        //gameBoard.printBoard();
 
         Button letter = new Button();
         ImageIcon icon;
@@ -432,7 +432,7 @@ public class GamePage implements ActionListener, View {
         // check if we need to start a new game
         if (s.equals("Play Move")) {
             System.out.println("play move button pressed");
-            printLettersAndCoordinates();
+            //printLettersAndCoordinates();
             controller.playMove();
         }
 

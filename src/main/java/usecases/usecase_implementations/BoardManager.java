@@ -32,12 +32,12 @@ public class BoardManager implements PlaceTileUsecase, PlaceWordUsecase, ResetMo
     @Override
     public boolean checkLetter(int[] coordinates, String letter, Game game){
         TileChecker validate_move = new TileChecker();
-        System.out.println("CHECK LETTER METHOD");
-        System.out.println(moves);
+        //System.out.println("CHECK LETTER METHOD");
+        //System.out.println(moves);
         if (moves.isEmpty()) {
             previous_board = savePreviousBoardState(game.getGameBoard()); // save the previous board state if first move
-            previous_board.printBoard();
-            System.out.println("I GOT UPDATED");
+            //previous_board.printBoard();
+            //System.out.println("I GOT UPDATED");
         }
         if (validate_move.isValid(coordinates[0], coordinates[1], game.getGameBoard())){ // check if move is valid
             MoveInfo move = new MoveInfo(coordinates, letter);
@@ -84,12 +84,18 @@ public class BoardManager implements PlaceTileUsecase, PlaceWordUsecase, ResetMo
     /**
      * This method resets the moves placed on the board during the turn.
      * @param game The game object with the board.
+     * @return returns a list of moveInfos which represents the moves made by the player during the turn that have been reset
      */
     @Override
-    public void resetMoves(Game game){
+    public ArrayList<MoveInfo> resetMoves(Game game){
         game.getGameBoard().setBoard(previous_board.getBoard()); // change board back to previous state.
-
-        game.getGameBoard().printBoard();
+        ArrayList<MoveInfo> moveInfos = new ArrayList<>();
+        for(MoveInfo move : getMoves())
+        {
+            moveInfos.add(move);
+        }
+        clearMoves();
+        return moveInfos;
     }
 
     @Override
