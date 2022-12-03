@@ -1,4 +1,4 @@
-package data_gateways;
+package data_gateways.gateways_implementation;
 
 import entities.*;
 
@@ -6,7 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import usecases.usecase_interfaces.CreateGameUsecase;
-import usecases.usecase_interfaces.GameLoadUsecase;
+import data.gateway_interfaces.GameLoadUsecase;
 
 /**
  * This class is responsible for creating a new Game instance or loading a previous Game instance from file.
