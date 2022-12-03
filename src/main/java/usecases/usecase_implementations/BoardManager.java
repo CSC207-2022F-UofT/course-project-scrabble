@@ -62,7 +62,7 @@ public class BoardManager implements PlaceTileUsecase, PlaceWordUsecase, ResetMo
         TileChecker validate_word = new TileChecker();
         if (prevBoard.isEmpty()) { // check if it's first turn of thr game
             if (checkFirstTurnCondition()) { // check if the word is on center of board
-                ArrayList<List<List<Integer>>> first_word_list = validate_word.validateMove(move_list, game.getGameBoard(), scrabbleDictionary, prevBoard, game.getTurn());
+                ArrayList<List<List<Integer>>> first_word_list = validate_word.validateMove(move_list, game.getGameBoard(), scrabbleDictionary, prevBoard);
                 if (first_word_list.isEmpty()) {
                     resetMoves(game); // change board back to previous state if no valid words.
                 }
@@ -73,7 +73,7 @@ public class BoardManager implements PlaceTileUsecase, PlaceWordUsecase, ResetMo
             }
         }
         else {
-            ArrayList<List<List<Integer>>> word_list = validate_word.validateMove(move_list, game.getGameBoard(), scrabbleDictionary, prevBoard, game.getTurn());
+            ArrayList<List<List<Integer>>> word_list = validate_word.validateMove(move_list, game.getGameBoard(), scrabbleDictionary, prevBoard);
             if (word_list.isEmpty()) {
                 resetMoves(game); // change board back to previous state if no valid words.
             }
@@ -181,7 +181,6 @@ public class BoardManager implements PlaceTileUsecase, PlaceWordUsecase, ResetMo
     public static void SetCellScore(Cell letter, int score) {
         letter.setScore(score);
     }
-    public static void SetCellValue(Cell letter, String value){ letter.setValue(value);}
 
     public ArrayList<MoveInfo> getMoves(){
         return this.moves;
