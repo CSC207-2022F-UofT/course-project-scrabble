@@ -1,4 +1,4 @@
-package games_manager;
+package use_case_implementations;
 
 import usecases.usecase_implementations.BoardManager;
 import entities.Game;
@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BoardManagerTest {
+    /**
+     * Tests checkLetter for happy flow to place a valid tile/letter in a correct place. Using the getBoardCellValue
+     * method of BoardManager to test if it equaled "A".
+     */
     @Test
     public void checkLetterTestValid(){
         // initialize game and board manager
@@ -26,6 +30,9 @@ public class BoardManagerTest {
         // check if value of cell on the board has updated with new move
         Assertions.assertEquals("A", game.getGameBoard().getBoardCellValue(7,3));
     }
+    /**
+     * Tests checkLetter for unhappy flow when it asserted false to because the placed tile was overlapped with another.
+     */
     @Test
     public void checkLetterTestOverlap(){
         // initialize game and board manager
@@ -45,6 +52,9 @@ public class BoardManagerTest {
         // check if new move with identical coordinates will return false when added to the board using checkLetter method
         Assertions.assertFalse(b_manager.checkLetter(coordinates, letter2, game));
     }
+    /**
+     * Tests checkWord test to see if it accurately checked and placed a word on the board which should be HELLO
+     */
     @Test
     public void checkWordTest(){
         // initialize game and board manager
@@ -97,6 +107,9 @@ public class BoardManagerTest {
         // the only valid word should be "HELLO"
         Assertions.assertEquals(list_of_words, b_manager.checkWord(game, new ScrabbleDictionary(), b_manager.getPrevBoard()));
     }
+    /**
+     * Tests resetMoves to see if the move list was accurately wiped for the next turn.
+     */
     @Test
     public void resetMovesTest(){
         // initialize game and board manager
