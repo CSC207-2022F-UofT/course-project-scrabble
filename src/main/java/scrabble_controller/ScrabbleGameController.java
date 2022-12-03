@@ -10,16 +10,14 @@ import data.gateway_interfaces.GameLoadUsecase;
 import data.gateway_interfaces.GameSaveUsecase;
 import entities.*;
 import usecases.usecase_implementations.ScoringSystem;
-import usecases.usecase_implementations.MoveInfo;
+import entities.MoveInfo;
 import usecases.usecase_implementations.BoardManager;
 import usecases.usecase_implementations.TurnManager;
 import usecases.usecase_implementations.PlayerManager;
 import usecases.usecase_interfaces.RemoveTileUsecase;
 import usecases.usecase_interfaces.SwapHandUsecase;
-import usecases.usecase_interfaces.PlaceWordUsecase;
 import usecases.usecase_interfaces.PlaceTileUsecase;
 import usecases.usecase_interfaces.EndGameUsecase;
-import usecases.usecase_interfaces.UpdateScoreUsecase;
 import usecases.usecase_interfaces.FillHandUsecase;
 import usecases.usecase_interfaces.ResetMoveUsecase;
 import usecases.usecase_interfaces.IncrementTurnUsecase;
@@ -30,14 +28,11 @@ import usecases.usecase_implementations.PlayMove;
 
 
 import java.util.ArrayList;
-import java.util.List;
 import gui.View;
 import usecases.usecase_implementations.ScrabbleDictionary;
-import usecases.usecase_interfaces.CalculateWordScoreUsecase;
 import usecases.usecase_interfaces.CheckHandUsecase;
 import usecases.usecase_interfaces.PlayMoveUsecase;
 import usecases.usecase_interfaces.ResetHandUsecase;
-
 /**
  *
  * @author jingw

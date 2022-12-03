@@ -1,5 +1,6 @@
 package usecases.usecase_implementations;
 
+import entities.MoveInfo;
 import entities.Cell;
 import entities.Game;
 import entities.GameBoard;

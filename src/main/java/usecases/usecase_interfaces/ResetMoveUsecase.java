@@ -2,7 +2,7 @@ package usecases.usecase_interfaces;
 
 import entities.Game;
 import java.util.ArrayList;
-import usecases.usecase_implementations.MoveInfo;
+import entities.MoveInfo;
 
 /**
  * This interface resets the new moves on the board during player's turn.
