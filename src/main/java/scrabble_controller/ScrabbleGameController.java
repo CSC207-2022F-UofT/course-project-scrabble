@@ -26,6 +26,7 @@ import usecases.usecase_interfaces.IncrementTurnUsecase;
 import usecases.usecase_interfaces.CreateGameUsecase;
 import usecases.usecase_implementations.HandManager;
 import usecases.usecase_implementations.EndGameManager;
+import usecases.usecase_implementations.PlayMove;
 
 
 import java.util.ArrayList;
@@ -49,9 +50,9 @@ public class ScrabbleGameController{
     private final TurnManager turnManager;
     private final HandManager handManager;
     private final EndGameManager endGameManager;
-    private final ScrabbleDictionary scrabbleDictionary;
-    
+    private final PlayMove playMove;
     private Game game;
+    private final ScrabbleDictionary scrabbleDictionary;
     
     
     private final View view;
@@ -67,16 +68,17 @@ public class ScrabbleGameController{
         gameScorer = new ScoringSystem();
         scrabbleDictionary = new ScrabbleDictionary();
         endGameManager = new EndGameManager();
+        playMove = new PlayMove();
         view = v;
     }
     
-    
-    
-    
+
+
+
     /**
      * This method is responsible for calling the resetMoves usecase
-     * 
-     * 
+     *
+     *
      */
     public void resetMove() {
         ((ResetMoveUsecase) boardManager).resetMoves(game);
@@ -89,8 +91,8 @@ public class ScrabbleGameController{
         view.updateView(game);
     }
     
-    
-    
+
+
     /**
      * This method is responsible for calling the swapHand, incrementTurn, and fillHand usecases
      * Then updates the view
@@ -123,42 +125,19 @@ public class ScrabbleGameController{
         view.updateView(game);
     }
     
-    
+
     /**
      * This method is responsible for calling the usecases that check if a word is valid, calculating its score, incrementing the turn counter
      * and refilling the next player's hand
      */
     public void playMove() {
-
-        GameBoard prevBoard = boardManager.getPrevBoard();
-        List<List<List<Integer>>> words = ((PlaceWordUsecase) boardManager).checkWord(game, scrabbleDictionary, prevBoard);
-        
-        //boardmanager checkword returns list of coordinates and list of letters used by the player
-        
-        if(!words.isEmpty())
-        {
-            // ScoringSystem 
-            int score = ((CalculateWordScoreUsecase) gameScorer).calculateMultiWordScore(game, words);
-            // calculate the total score of all the words found
-            ((UpdateScoreUsecase) playerManager).updateScoreForCurrentPlayer(game.getCurrentPlayer().getScore() + score, game);
-                
-            ((IncrementTurnUsecase) turnManager).incrementTurn(game);
-
-            ((FillHandUsecase)handManager).fillHand(game);// fill the next player's hand
-        }
-        else{
-            ArrayList<MoveInfo> moves = boardManager.getMoves();
-            resetMove();
-            for(MoveInfo move : moves){
-                handManager.addTile(game, move.getLetter());
-            }
-        }
-        boardManager.clearMoves();// reset moves for next turn
+        playMove.playMove(handManager, boardManager, playerManager, turnManager, gameScorer, game,
+                scrabbleDictionary, this);
         saveGameToFile();
         view.updateView(game);
     }
-    
-    
+
+
     public boolean checkFullHand(){
         return handManager.checkHand(game);
     }
@@ -194,5 +173,10 @@ public class ScrabbleGameController{
         Player[] winners = ((EndGameUsecase) endGameManager).endGame(game);
         view.updateVictoryScreen(winners);
     }
+    
+    public Game getData() {
+        return game;
+    }
+    
     
 }
