@@ -6,7 +6,10 @@ import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
 public class PlayerManagerTest {
-    
+
+    /**
+     * Tests updateCurrentPlayerScore by updating it with score 10 and comparing it to one another using getScore.
+     */
     @Test
     public void updateCurrentPlayerScoreTest() {
         Game game = new Game();

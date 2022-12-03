@@ -16,6 +16,10 @@ import java.util.List;
 public class ScoringSystemTest {
 
     // following tests are for word scores
+    /**
+     * Tests noMultipliers to see if it accurately calculated the score of the game. This will check it with no
+     * multipliers where the board score should equal 5.
+     */
     @Test
     public void noMultipliers (){
         Game game = new Game();
@@ -48,7 +52,10 @@ public class ScoringSystemTest {
         ScoringSystem scorer = new ScoringSystem();
         Assertions.assertEquals(5, scorer.calculateWordScore(game, pos));
     }
-
+    /**
+     * Tests noMultipliers to see if it accurately calculated the score of the game. This will check it with
+     * multipliers instead where the board score should equal 17.
+     */
     @Test
     public void withMultipliers (){
         Game game = new Game();
@@ -95,6 +102,10 @@ public class ScoringSystemTest {
         Assertions.assertEquals(17, scorer.calculateWordScore(game, pos));
     }
 
+    /**
+     * Tests noMultipliers to see if it accurately calculated and scored a bingo. Where 7 scrabble pieces were placed in
+     * a row which equals 99.
+     */
     @Test
     public void checkBingo(){
         Game game = new Game();
@@ -152,6 +163,11 @@ public class ScoringSystemTest {
 
         Assertions.assertEquals(99, scorer.calculateWordScore(game, pos));
     }
+
+    /**
+     * Tests scoring system to see if it can handle multiple scores at once from multiples tiles being placed down.
+     * Tests if it can accurately score each and accumulate their scores. This should equal 23.
+     */
     @Test
     public void multiScoreTest(){
         Game game = new Game();
@@ -227,6 +243,10 @@ public class ScoringSystemTest {
     }
 
     // following tests are for hand scores
+
+    /**
+     * Tests calculateUnplacedLetters to see if it accurately asserts to 0 because of an empty hand.
+     */
     @Test
     public void calculateEmptyHandUnplacedLetters(){
         Game game = new Game();
@@ -237,6 +257,10 @@ public class ScoringSystemTest {
         Assertions.assertEquals(0, scorer.calculateUnplacedLetters(game));
     }
 
+
+    /**
+     * Tests calculateUnplacedLetters to see if it accurately scored them correctly where 4 + 1 + 1 + 1 equals 7
+     */
     @Test
     public void calculateUnplacedLettersTest(){
         Game game = new Game();
@@ -253,7 +277,10 @@ public class ScoringSystemTest {
 
         Assertions.assertEquals(7, scorer.calculateUnplacedLetters(game));
     }
-
+    /**
+     * Tests initializeCellScore to see if it accurately calculated and scored a when it was initialized with a score.
+     * Loaded a value of 1 multiplier and times the value of "V" which was 4 to assert equal 4.
+     */
     @Test
     public void initializeCellScoreTest(){
         Cell c0 = new Cell("V", 1);

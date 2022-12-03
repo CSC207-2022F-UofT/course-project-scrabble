@@ -13,7 +13,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class EndGameManagerTest {
-
+    /**
+     * Tests endGame function with just One winner where Player Tyler added a score of 20 and tested if
+     * endGame correctly identified Tyler as the winner
+     */
     @Test
     public void endGameTestOneWinner(){
         GameCreator gm = new GameCreator();
@@ -35,6 +38,10 @@ public class EndGameManagerTest {
         Assertions.assertArrayEquals(playerArray, em.endGame(game));
     }
 
+    /**
+     * Tests endGame function with Two winners where Player Tyler and Player Creator added a score of 20 and tested if
+     * endGame correctly identified both Tyler and Creator as the winner.
+     */
     @Test
     public void endGameTestTwoWinners(){
         GameCreator gm = new GameCreator();
@@ -63,6 +70,10 @@ public class EndGameManagerTest {
         Assertions.assertArrayEquals(em.endGame(game), playerArray);        // assert equivalency
     }
 
+    /**
+     * Tests endGame function with a more in depth test for one winner while all three Players had their scores
+     * edited and tested if Player Creator won.
+     */
     @Test
     public void endGameTestOneWinnerWithMultipleScores(){
         GameCreator gm = new GameCreator();
