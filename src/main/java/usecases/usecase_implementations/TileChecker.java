@@ -8,6 +8,11 @@ import java.util.Objects;
 import java.util.List;
 import usecases.usecase_interfaces.PlacementCheckerUsecase;
 
+/**
+ * This class is responsible for checking the tiles to be a valid moves in blank spots or valid words.
+ * @author Claire & Francisco
+ */
+
 public class TileChecker implements PlacementCheckerUsecase {
 
     /**
@@ -29,6 +34,14 @@ public class TileChecker implements PlacementCheckerUsecase {
         }
         return wordList(move, board);
     }
+
+    /**
+     * This method is responsible for returning a boolean if the tiles had been placed in a blank spot
+     * @param row  Integer representing the row of the board
+     * @param column  Integer representing the column of the board
+     * @param board  GameBoard entity to be searched
+     * @return  Boolean that returns if the tile was placed in a valid spot
+     */
     @Override
     public boolean isValid(int row, int column, GameBoard board) {
         if (!Objects.equals(board.getBoardCellValue(row, column), "-")) { // checks that no letters are already in that space

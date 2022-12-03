@@ -8,6 +8,11 @@ import java.util.HashMap; //key-value pairs for easy searching
 import java.util.List; //the List class
 import java.util.Scanner; //to read the files
 
+/**
+ * This class is responsible for parsing through a ScrabbleDictionary and getting a HashMap for the dictionary to be
+ * used in the game
+ * @author Claire
+ */
 
 public class ScrabbleDictionary {
     private final String filepath = "src/main/game_resources/CollinsScrabbleWords(2019).txt";

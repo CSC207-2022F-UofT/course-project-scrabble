@@ -1,6 +1,5 @@
 package data_gateways;
 
-import data_gateways.*;
 import entities.*;
 import usecases.usecase_implementations.BoardManager;
 import org.junit.Test;
@@ -8,6 +7,10 @@ import org.junit.jupiter.api.Assertions;
 import java.io.File;
 
 public class GameSaverAndLoaderTest {
+
+    /**
+     * Test is responsible for accurately saving a game state to a data.ser file located in data package in main.
+     */
     @Test
     public void saveDataTest(){
         // checks if the objects are loaded correctly
@@ -35,6 +38,7 @@ public class GameSaverAndLoaderTest {
         game_saver.saveGame(gameSaved);
 
     }
+
 //    public void saveAndLoadDataTest(){
 //
 //        File assertFile = new File("src/main/java/data/data.ser");
