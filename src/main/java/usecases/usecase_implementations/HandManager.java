@@ -109,8 +109,6 @@ public class HandManager implements FillHandUsecase, DrawHandUsecase, SwapHandUs
             }
         }
     }
-
-
     /**
      * This method is responsible for checking whether the player's hand is full or not
      * @param game the game with the current player whose hand needs to be checked.
@@ -141,6 +139,5 @@ public class HandManager implements FillHandUsecase, DrawHandUsecase, SwapHandUs
                 return;
             }
         }
-
     }
 }
