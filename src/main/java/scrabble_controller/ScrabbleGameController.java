@@ -69,14 +69,11 @@ public class ScrabbleGameController{
     }
     
     public void resetMove() {
-        System.out.println("RESET MOVE");
         ((ResetMoveUsecase) boardManager).resetMoves(game);
         ArrayList<MoveInfo> moveInfos = boardManager.getMoves();
 
         for(MoveInfo move : moveInfos){
             handManager.addTile(game, move.getLetter());
-            System.out.println("Letters");
-            System.out.println(move.getLetter());
         }
         boardManager.clearMoves();
         view.updateView(game);
@@ -132,7 +129,6 @@ public class ScrabbleGameController{
             }
         }
         boardManager.clearMoves();// reset moves for next turn
-        System.out.println("DONE PLAY MOVE");
         saveGameToFile();
         view.updateView(game);
     }
