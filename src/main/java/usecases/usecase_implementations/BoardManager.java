@@ -32,12 +32,8 @@ public class BoardManager implements PlaceTileUsecase, PlaceWordUsecase, ResetMo
     @Override
     public boolean checkLetter(int[] coordinates, String letter, Game game){
         TileChecker validate_move = new TileChecker();
-        System.out.println("CHECK LETTER METHOD");
-        System.out.println(moves);
         if (moves.isEmpty()) {
             previous_board = savePreviousBoardState(game.getGameBoard()); // save the previous board state if first move
-            previous_board.printBoard();
-            System.out.println("I GOT UPDATED");
         }
         if (validate_move.isValid(coordinates[0], coordinates[1], game.getGameBoard())){ // check if move is valid
             MoveInfo move = new MoveInfo(coordinates, letter);
