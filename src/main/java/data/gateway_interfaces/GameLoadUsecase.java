@@ -1,4 +1,4 @@
-package usecases.usecase_interfaces;
+package data.gateway_interfaces;
 
 import java.io.File;
 import entities.Game;
