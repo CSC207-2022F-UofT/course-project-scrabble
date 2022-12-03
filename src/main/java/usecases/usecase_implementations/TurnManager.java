@@ -7,7 +7,7 @@ package usecases.usecase_implementations;
 import usecases.usecase_interfaces.IncrementTurnUsecase;
 import entities.Game;
 /**
- *
+ * This class is responsible for updating the turn of the game by incrementing it by 1.
  * @author jingw
  */
 
