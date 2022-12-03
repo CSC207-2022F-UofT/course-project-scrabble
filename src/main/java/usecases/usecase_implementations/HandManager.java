@@ -27,7 +27,7 @@ public class HandManager implements FillHandUsecase, DrawHandUsecase, SwapHandUs
         do {
             int_random = rand.nextInt(26); // get a random number from 0-25
             character = alphabet[int_random]; // use that number to get the associated letter
-        } while (bag.getValue(character) == 0); // check if that letter still has tiles in the bag
+        } while (bag.getNumTile(character) == 0); // check if that letter still has tiles in the bag
 
         letter.setValue(character); // update the cell to have the random value
         for (int i=0; i<7; i++) { // loop to find index of hand that is null
@@ -110,6 +110,11 @@ public class HandManager implements FillHandUsecase, DrawHandUsecase, SwapHandUs
         }
     }
 
+    /**
+     * This method is responsible for checking whether the player's hand is full or not
+     * @param game the game with the current player whose hand needs to be checked.
+     * @return boolean returns whether the player's hand is full
+     */
     public boolean checkHand(Game game){
         Cell[] hand = game.getCurrentPlayer().getHand();
         for (Cell tile : hand){
@@ -120,6 +125,11 @@ public class HandManager implements FillHandUsecase, DrawHandUsecase, SwapHandUs
         return true;
     }
 
+    /**
+     * This method is responsible for adding a specific letter to the player's hand
+     * @param game the game with the current player whose hand needs letter added to it
+     * @param letter the string which corresponds to the tile needed to be added to player's hand
+     */
     public void addTile(Game game, String letter){
         Player player = game.getCurrentPlayer();
         for (int i=0; i<player.getHand().length; i++){
@@ -129,6 +139,5 @@ public class HandManager implements FillHandUsecase, DrawHandUsecase, SwapHandUs
                 return;
             }
         }
-
     }
 }

@@ -8,10 +8,20 @@ import java.util.Objects;
 import java.util.List;
 import usecases.usecase_interfaces.PlacementCheckerUsecase;
 
+/**
+ * This class is responsible for checking the tiles to be a valid moves in blank spots or valid words.
+ * @author Claire & Francisco
+ */
+
 public class TileChecker implements PlacementCheckerUsecase {
 
+    /**
+     * This method is responsible for validating a move and returning the list of words created by the move
+     * @param move nested list of coordinates corresponding to the word being placed.
+     * @return ArrayList<List<List<Integer>>> the coordinates of all the words created after placing move
+     */
     public ArrayList<List<List<Integer>>> validateMove(ArrayList<List<Integer>> move, GameBoard board,
-                                                       ScrabbleDictionary scrabbleDictionary, GameBoard prevBoard, int turn) { //call to other functions that will validate move
+                                                       ScrabbleDictionary scrabbleDictionary, GameBoard prevBoard) { //call to other functions that will validate move
         ArrayList<List<List<Integer>>> falseResult = new ArrayList<>();
         if (!isConsecutive(move, board)) { //if tiles aren't consecutive, return false
             return falseResult;
@@ -24,16 +34,30 @@ public class TileChecker implements PlacementCheckerUsecase {
         }
         return wordList(move, board);
     }
+
+    /**
+     * This method is responsible for returning a boolean if the tiles had been placed in a blank spot
+     * @param row  Integer representing the row of the board
+     * @param column  Integer representing the column of the board
+     * @param board  GameBoard entity to be searched
+     * @return  Boolean that returns if the tile was placed in a valid spot
+     */
     @Override
     public boolean isValid(int row, int column, GameBoard board) {
         if (!Objects.equals(board.getBoardCellValue(row, column), "-")) { // checks that no letters are already in that space
             return false;
-        } else { // need board size to make this better
+        } else {
             return row <= 15 & column <= 15; //based on the default board size, 15 can be replaced with board.size or something
         }
     }
+
+    /**
+     * Checks whether all tiles in move are placed in a row or column
+     * @param move nested list of coordinates corresponding to the word being placed.
+     * @return boolean whether the word is placed in a row or column
+     */
     @Override
-    public boolean isConsecutive(ArrayList<List<Integer>> move, GameBoard board) { //hopefully a list of ordered row/column pairs.
+    public boolean isConsecutive(ArrayList<List<Integer>> move, GameBoard board) {
         ArrayList<Integer> row = new ArrayList<>(); // a list of all the desired row coordinates
         ArrayList<Integer> column = new ArrayList<>(); // a list of all the desired column coordinates
         for (List<Integer> tiles : move) {
@@ -48,6 +72,14 @@ public class TileChecker implements PlacementCheckerUsecase {
             return false;
         }
     }
+
+    /**
+     * Checks whether all tiles in move are placed in a row i.e. no gaps
+     * @param refNum referring to the row move is placed on 0-14
+     * @param movelist the x values of the move
+     * @param board the game board where move will be checked on
+     * @return boolean whether the word is placed in a row
+     */
     private boolean isRow (int refNum, ArrayList<Integer> movelist, GameBoard board) { // determines whether or not there are any gaps
         Collections.sort(movelist);
         for (int i = 0; i < movelist.toArray().length - 1; i++) {
@@ -59,6 +91,14 @@ public class TileChecker implements PlacementCheckerUsecase {
         }
         return true;
     }
+
+    /**
+     * Checks whether all tiles in move are placed in a column i.e. no gaps
+     * @param refNum referring to the column move is placed on 0-14
+     * @param movelist the y values of the move
+     * @param board the game board where move will be checked on
+     * @return boolean whether the word is placed in a column
+     */
     private boolean isCol (int refNum, ArrayList<Integer> movelist, GameBoard board) { // determines whether or not there are any gaps
         Collections.sort(movelist);
         for (int i = 0; i < movelist.toArray().length - 1; i++) {
@@ -70,10 +110,15 @@ public class TileChecker implements PlacementCheckerUsecase {
         }
         return true;
     }
+
+    /**
+     * Checks whether all tiles are touching each other
+     * @param move nested list of the coordinates of move
+     * @param board the game board where move will be checked on
+     * @return boolean whether the word is touching other tiles
+     */
     @Override
     public boolean isTouching(ArrayList<List<Integer>> move, GameBoard board) { // determines whether the desired tiles touch already placed tiles
-        // TODO: add something here to tell whether or not it's the first move // (francisco) first move shouldn't
-        //  matter since we get a list of moves, so the "first" coordinate is also touching.
         for (List<Integer> coordinates : move) {
             if (adjacentTile(coordinates.get(0), coordinates.get(1), board)) { // calls helper function
                 return true;
@@ -82,6 +127,13 @@ public class TileChecker implements PlacementCheckerUsecase {
         return false;
     }
 
+    /**
+     * Checks whether there are adjacent tiles given the row and column a tile is placed on
+     * @param row row tile to be checked is placed on 0-14
+     * @param column column tile to be checked is placed on
+     * @param board the game board where move will be checked on
+     * @return boolean whether the tile is adjacent
+     */
     private boolean adjacentTile(int row, int column, GameBoard board) { // determines the adjacency for single tiles
         if (adjacentTileLeft(row, column, board)) { // checks for a horizontally adjacent tile
             return true;
@@ -94,6 +146,13 @@ public class TileChecker implements PlacementCheckerUsecase {
             } else return adjacentTileBottom(row, column, board);
     }
 
+    /**
+     * Checks whether the tile has a tile adjacent to it on its left
+     * @param row row tile to be checked is placed on 0-14
+     * @param column column tile to be checked is placed on
+     * @param board the game board where move will be checked on
+     * @return boolean whether the tile is adjacent
+     */
     private boolean adjacentTileLeft(int row, int column, GameBoard board){
         // checks for a horizontally adjacent tile
         if (column - 1 >= 0) {
@@ -102,6 +161,14 @@ public class TileChecker implements PlacementCheckerUsecase {
             return false;
         }
     }
+
+    /**
+     * Checks whether the tile has a tile adjacent to it on its right
+     * @param row row tile to be checked is placed on 0-14
+     * @param column column tile to be checked is placed on
+     * @param board the game board where move will be checked on
+     * @return boolean whether the tile is adjacent
+     */
     private boolean adjacentTileRight(int row, int column, GameBoard board){
         // checks for a horizontally adjacent tile
         if (column + 1 <= 14) {
@@ -110,6 +177,14 @@ public class TileChecker implements PlacementCheckerUsecase {
             return false;
         }
     }
+
+    /**
+     * Checks whether the tile has a tile adjacent to it on top
+     * @param row row tile to be checked is placed on 0-14
+     * @param column column tile to be checked is placed on
+     * @param board the game board where move will be checked on
+     * @return boolean whether the tile is adjacent
+     */
     private boolean adjacentTileTop(int row, int column, GameBoard board){
         // checks for a vertically adjacent tile
         if (row - 1 >= 0) {
@@ -118,6 +193,14 @@ public class TileChecker implements PlacementCheckerUsecase {
             return false;
         }
     }
+
+    /**
+     * Checks whether the tile has a tile directly below it
+     * @param row row tile to be checked is placed on 0-14
+     * @param column column tile to be checked is placed on
+     * @param board the game board where move will be checked on
+     * @return boolean whether the tile is adjacent
+     */
     private boolean adjacentTileBottom(int row, int column, GameBoard board){
         // checks for a vertically adjacent tile
         if (row + 1 <= 14) {
@@ -127,6 +210,12 @@ public class TileChecker implements PlacementCheckerUsecase {
         }
     }
 
+    /**
+     * A word parser function that returns a list of words that need to be checked
+     * @param newword List of coordinates corresponding to a word needed to be checked
+     * @param board the game board where move will parsec
+     * @return ArrayList<List<List<Integer>>> A list of possible words after placing down newword
+     */
     public ArrayList<List<List<Integer>>> wordList(ArrayList<List<Integer>> newword, GameBoard board){
         //a word parser function that returns a list of words that need to be checked
         ArrayList<List<List<Integer>>> words = new ArrayList<>();

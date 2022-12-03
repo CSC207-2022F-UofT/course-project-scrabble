@@ -1,6 +1,6 @@
 package data;
 
-import data_gateways.gateways_implementation.GameCreator;
+import data_gateways.GameCreator;
 import entities.*;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -8,6 +8,10 @@ import org.junit.jupiter.api.Assertions;
 import java.util.List;
 
 public class GameCreatorTest {
+    /**
+     * Tests whether the GameCreator has actually created a game that has been modified. Used names "First" and "Second"
+     * while changing the scores, while asserting that the number of tiles in the game = the original bag tiles
+     */
     @Test
     public void bagAndBoardTest(){
         // test to check whether all values are default for bag and board
@@ -32,6 +36,10 @@ public class GameCreatorTest {
         }
     }
 
+    /**
+     * This is a test that is responsible players to see if the Game accurately filled their hands and each Player's
+     * names and scores are accurate.
+     */
     @Test
     public void playerTest(){
         GameCreator gameCreator = new GameCreator();
