@@ -1,6 +1,6 @@
 package data;
 
-import data_gateways.GameCreator;
+import data_gateways.gateways_implementation.GameCreator;
 import entities.*;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;

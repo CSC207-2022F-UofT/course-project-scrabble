@@ -1,9 +1,9 @@
-package data_gateways;
+package data_gateways.gateways_implementation;
 
 import entities.*;
 
 import java.io.*;
-import usecases.usecase_interfaces.GameLoadUsecase;
+import data.gateway_interfaces.GameLoadUsecase;
 
 /**
  * This class is responsible for loading an instance of a Game from a file that stored the object called "data.ser" file.
