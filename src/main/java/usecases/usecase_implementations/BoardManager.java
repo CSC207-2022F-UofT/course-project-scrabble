@@ -6,6 +6,8 @@ import entities.GameBoard;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import entities.MoveInfo;
 import usecases.usecase_interfaces.PlaceTileUsecase;
 import usecases.usecase_interfaces.PlaceWordUsecase;
 import usecases.usecase_interfaces.ResetMoveUsecase;
