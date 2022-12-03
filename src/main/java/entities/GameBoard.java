@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 public class GameBoard implements Serializable {
     private final int DEFAULT_SIZE = 15;
-    private static int[][] TILE_MULTIPLIERS = new int[][]
+    private static final int[][] TILE_MULTIPLIERS = new int[][]
             {{3,1,1,2,1,1,1,3,1,1,1,2,1,1,3},
             {1,2,1,1,1,3,1,1,1,3,1,1,1,2,1},
             {1,1,2,1,1,1,2,1,2,1,1,1,2,1,1},
@@ -95,7 +95,7 @@ public class GameBoard implements Serializable {
      * This method is responsible for printing the board values in the console.
      */
     public void printBoard() {
-        for(int i=0; i<board.length; i++) {
+        for (int i=0; i<board.length; i++) {
             for(int j=0; j<board[0].length; j++) {
                 System.out.print(board[i][j].getValue()+" ");
             }
