@@ -30,6 +30,7 @@ import usecases.usecase_implementations.PlayMove;
 
 
 import java.util.ArrayList;
+import java.util.List;
 import gui.View;
 import usecases.usecase_implementations.ScrabbleDictionary;
 import usecases.usecase_interfaces.CalculateWordScoreUsecase;
@@ -71,6 +72,14 @@ public class ScrabbleGameController{
         view = v;
     }
     
+
+
+
+    /**
+     * This method is responsible for calling the resetMoves usecase
+     *
+     *
+     */
     public void resetMove() {
         ((ResetMoveUsecase) boardManager).resetMoves(game);
         ArrayList<MoveInfo> moveInfos = boardManager.getMoves();
@@ -82,6 +91,12 @@ public class ScrabbleGameController{
         view.updateView(game);
     }
     
+
+
+    /**
+     * This method is responsible for calling the swapHand, incrementTurn, and fillHand usecases
+     * Then updates the view
+     */
     public void swapTiles() {
         ((SwapHandUsecase) handManager).swapHand(game);
         ((IncrementTurnUsecase) turnManager).incrementTurn(game);
@@ -90,6 +105,12 @@ public class ScrabbleGameController{
         view.updateView(game);
     }
     
+    /**
+     * This method is responsible for calling the checkLetter and removeTile usecases
+     * Then updates the view
+     * @param coords the coordinates of the letter being placed
+     * @param letter the letter being placed
+     */
     public void placeTile(int[] coords, String letter) {
         boolean placeTileTrueness = ((PlaceTileUsecase) boardManager).checkLetter(coords, letter, game);
         if(placeTileTrueness){
@@ -104,6 +125,11 @@ public class ScrabbleGameController{
         view.updateView(game);
     }
     
+
+    /**
+     * This method is responsible for calling the usecases that check if a word is valid, calculating its score, incrementing the turn counter
+     * and refilling the next player's hand
+     */
     public void playMove() {
         playMove.playMove(handManager, boardManager, playerManager, turnManager, gameScorer, game,
                 scrabbleDictionary, this);
@@ -111,25 +137,38 @@ public class ScrabbleGameController{
         view.updateView(game);
     }
 
+
     public boolean checkFullHand(){
         return handManager.checkHand(game);
     }
     
+    /**
+     * This method is responsible for creating a game from the file stored locally on the users computer
+     */
     public void createGameFromFile() {
         game = ((GameLoadUsecase)gameLoader).loadGame(); // loadgame usecase
         view.updateView(game);
     }
-    
+    /**
+     * This method is responsible for saving the current game state to a file
+     */
     public void saveGameToFile() { // make sure this is not called before a game is created
         ((GameSaveUsecase)gameSaver).saveGame(game);// savegame usecase
     }
     
+    /**
+     * This method is responsible for creating a new game given a list of names
+     * @param names a list of the players' names
+     */
     public void startGame(String[] names) { // create game usecase
         game = ((CreateGameUsecase)gameCreator).createNewGame(names);
         ((FillHandUsecase)handManager).fillHand(game);
         view.updateView(game);
     }
     
+    /**
+     * This method is responsible for ending the game and calculating the winner
+     */
     public void endGame() { // get score
         Player[] winners = ((EndGameUsecase) endGameManager).endGame(game);
         view.updateVictoryScreen(winners);
