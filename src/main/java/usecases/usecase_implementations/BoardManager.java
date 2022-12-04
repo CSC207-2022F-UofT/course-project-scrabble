@@ -1,5 +1,6 @@
 package usecases.usecase_implementations;
 
+import entities.MoveInfo;
 import entities.Cell;
 import entities.Game;
 import entities.GameBoard;
@@ -82,12 +83,18 @@ public class BoardManager implements PlaceTileUsecase, PlaceWordUsecase, ResetMo
     /**
      * This method resets the moves placed on the board during the turn.
      * @param game The game object with the board.
+     * @return returns a list of moveInfos which represents the moves made by the player during the turn that have been reset
      */
     @Override
-    public void resetMoves(Game game){
+    public ArrayList<MoveInfo> resetMoves(Game game){
         game.getGameBoard().setBoard(previous_board.getBoard()); // change board back to previous state.
-
-        game.getGameBoard().printBoard();
+        ArrayList<MoveInfo> moveInfos = new ArrayList<>();
+        for(MoveInfo move : getMoves())
+        {
+            moveInfos.add(move);
+        }
+        clearMoves();
+        return moveInfos;
     }
 
     /**

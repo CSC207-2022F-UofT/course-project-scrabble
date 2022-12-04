@@ -319,6 +319,7 @@ public class GamePage implements ActionListener, View {
 
         String[] handLetters = new String[]{"-", "-", "-", "-", "-", "-", "-"};
         // update the entire hand with new letters or nothing if it's a dash.
+
         for(int i = 0; i<handLetters.length; i++){
             if(hand[i] == null){
                 handLetters[i] = "-";

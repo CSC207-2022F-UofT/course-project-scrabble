@@ -4,10 +4,14 @@ import entities.Cell;
 import entities.Game;
 import entities.LetterBag;
 import entities.Player;
+import entities.MoveInfo;
+import java.util.ArrayList;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import usecases.usecase_implementations.HandManager;
 import usecases.usecase_implementations.PlayerManager;
+
+
 
 public class HandManagerTest {
     /**
@@ -276,7 +280,68 @@ public class HandManagerTest {
         Assertions.assertEquals("A", hand[4].getValue());
         Assertions.assertEquals("A", hand[5].getValue());
         Assertions.assertEquals("A", hand[6].getValue()); // no change
-
-
+    }
+    
+    @Test
+    public void resetHandOneTileTest() {
+        
+        Game game = new Game();
+        HandManager h_manager = new HandManager();
+        Player p1 = new Player("Jeff");
+        game.addPlayer(p1);
+        PlayerManager.getHand(p1)[1] = new Cell("C", 3, 1);
+        PlayerManager.getHand(p1)[2] = new Cell ("A", 1, 1);
+        PlayerManager.getHand(p1)[3] = new Cell ("R", 1, 1);
+        PlayerManager.getHand(p1)[4] = new Cell ("R", 1, 1);
+        PlayerManager.getHand(p1)[5] = new Cell ("R", 1, 1);
+        PlayerManager.getHand(p1)[6] = new Cell ("R", 1, 1);
+        ArrayList<MoveInfo> moves = new ArrayList<>();
+        
+        int[] coords = {0,1};
+        MoveInfo move = new MoveInfo(coords, "x");
+        moves.add(move);
+        
+        h_manager.resetHand(game, moves);
+        
+        Cell[] hand = PlayerManager.getHand(p1);
+        
+        String[] expected = {"x", "C", "A", "R", "R", "R", "R"};
+        for(int i = 0; i< hand.length; i++){
+            assert hand[i].getValue().equals(expected[i]);
+        }
+        
+    }
+    
+    @Test
+    public void resetHandMultipleTileTest() {
+        
+        Game game = new Game();
+        HandManager h_manager = new HandManager();
+        Player p1 = new Player("Jeff");
+        game.addPlayer(p1);
+        PlayerManager.getHand(p1)[1] = new Cell("C", 3, 1);
+        PlayerManager.getHand(p1)[2] = new Cell ("A", 1, 1);
+        PlayerManager.getHand(p1)[3] = new Cell ("R", 1, 1);
+        PlayerManager.getHand(p1)[5] = new Cell ("R", 1, 1);
+        PlayerManager.getHand(p1)[6] = new Cell ("R", 1, 1);
+        ArrayList<MoveInfo> moves = new ArrayList<>();
+        
+        int[] coords1 = {0,1};
+        MoveInfo move = new MoveInfo(coords1, "x");
+        moves.add(move);
+        
+        int[] coords2 = {0,1};
+        MoveInfo move1 = new MoveInfo(coords2, "x");
+        moves.add(move1);
+        
+        h_manager.resetHand(game, moves);
+        
+        Cell[] hand = PlayerManager.getHand(p1);
+        
+        String[] expected = {"x", "C", "A", "R", "x", "R", "R"};
+        for(int i = 0; i< hand.length; i++){
+            assert hand[i].getValue().equals(expected[i]);
+        }
+        
     }
 }
