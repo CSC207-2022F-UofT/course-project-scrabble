@@ -16,7 +16,6 @@ import usecases.usecase_implementations.TurnManager;
 import usecases.usecase_implementations.PlayerManager;
 import usecases.usecase_implementations.HandManager;
 import usecases.usecase_implementations.EndGameManager;
-import usecases.usecase_implementations.PlayMove;
 import usecases.usecase_interfaces.*;
 import java.util.ArrayList;
 import gui.View;
