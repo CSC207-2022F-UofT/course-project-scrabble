@@ -61,27 +61,21 @@ public class BoardManager implements PlaceTileUsecase, PlaceWordUsecase, ResetMo
         TileChecker validate_word = new TileChecker();
         if (prevBoard.isEmpty()) { // check if it's first turn of thr game
             if (checkFirstTurnCondition()) { // check if the word is on center of board
-                ArrayList<List<List<Integer>>> first_word_list = validate_word.validateMove(move_list, game.getGameBoard(), scrabbleDictionary, prevBoard);
-                if (first_word_list.isEmpty()) {
-                    resetMoves(game); // change board back to previous state if no valid words.
-                }
-                return first_word_list; // return list of coordinates of new word on board
+                return validate_word.validateMove(move_list, game.getGameBoard(), scrabbleDictionary, prevBoard);
+                // return list of coordinates of new word on board
             }
             else {
                 return new ArrayList<>(); // return empty ArrayList if word not on the center
             }
         }
         else {
-            ArrayList<List<List<Integer>>> word_list = validate_word.validateMove(move_list, game.getGameBoard(), scrabbleDictionary, prevBoard);
-            if (word_list.isEmpty()) {
-                resetMoves(game); // change board back to previous state if no valid words.
-            }
-            return word_list; // return list of valid words that can be made from the moves
+            return validate_word.validateMove(move_list, game.getGameBoard(), scrabbleDictionary, prevBoard);
+            // return list of valid words that can be made from the moves
         }
     }
 
     /**
-     * This method resets the moves placed on the board during the turn.
+     * This method resets the moves placed on the board during the turn and returns the moves.
      * @param game The game object with the board.
      * @return returns a list of moveInfos which represents the moves made by the player during the turn that have been reset
      */
@@ -89,11 +83,11 @@ public class BoardManager implements PlaceTileUsecase, PlaceWordUsecase, ResetMo
     public ArrayList<MoveInfo> resetMoves(Game game){
         game.getGameBoard().setBoard(previous_board.getBoard()); // change board back to previous state.
         ArrayList<MoveInfo> moveInfos = new ArrayList<>();
-        for(MoveInfo move : getMoves())
+        for(MoveInfo move : getMoves()) // iterate through moves list and add to new list
         {
             moveInfos.add(move);
         }
-        clearMoves();
+        clearMoves(); // clear moves list
         return moveInfos;
     }
 
