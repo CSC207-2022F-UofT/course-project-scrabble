@@ -69,7 +69,6 @@ public class ScrabbleGameController{
         gameScorer = new ScoringSystem();
         scrabbleDictionary = new ScrabbleDictionary();
         endGameManager = new EndGameManager();
-        playMove = new PlayMove();
         game = new Game();
         view = new GamePage("P1", "P2", true);
 
