@@ -38,7 +38,6 @@ public class ScrabbleGameController{
     private final TurnManager turnManager;
     private final HandManager handManager;
     private final EndGameManager endGameManager;
-    private final PlayMove playMove;
     private Game game;
     private final ScrabbleDictionary scrabbleDictionary;
     
@@ -108,7 +107,7 @@ public class ScrabbleGameController{
     
 
     /**
-     * This method is responsible for calling . 
+     * This method is responsible for placing
      */
     public void playMove() {
         GameBoard prevBoard = boardManager.getPrevBoard();
@@ -122,14 +121,9 @@ public class ScrabbleGameController{
             int score = ((CalculateWordScoreUsecase) gameScorer).calculateMultiWordScore(game, words);
             // calculate the total score of all the words found
             ((UpdateScoreUsecase) playerManager).updateScoreForCurrentPlayer(game.getCurrentPlayer().getScore() + score, game);
-            // place word usecase
-
-
-            ((IncrementTurnUsecase) turnManager).incrementTurn(game);
-
-            ((FillHandUsecase)handManager).fillHand(game);// fill the next player's hand
-            
             ((ResetMoveUsecase)boardManager).clearMoves();
+            ((IncrementTurnUsecase) turnManager).incrementTurn(game);
+            ((FillHandUsecase)handManager).fillHand(game);// fill the next player's hand
         }
         else {
             System.out.println("not valid");
