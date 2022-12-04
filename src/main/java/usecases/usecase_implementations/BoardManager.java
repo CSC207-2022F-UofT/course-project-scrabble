@@ -1,6 +1,6 @@
 package usecases.usecase_implementations;
 
-import entities.MoveInfo;
+//import entities.MoveInfo;
 import entities.Cell;
 import entities.Game;
 import entities.GameBoard;
@@ -59,7 +59,7 @@ public class BoardManager implements PlaceTileUsecase, PlaceWordUsecase, ResetMo
         ArrayList<List<Integer>> move_list = new ArrayList<>();
         createListOfCoordinates(move_list);
         TileChecker validate_word = new TileChecker();
-        if (prevBoard.isEmpty()) { // check if it's first turn of thr game
+        if (prevBoard.isEmpty()) { // check if it's first turn of the game
             if (checkFirstTurnCondition()) { // check if the word is on center of board
                 return validate_word.validateMove(move_list, game.getGameBoard(), scrabbleDictionary, prevBoard);
                 // return list of coordinates of new word on board
@@ -112,6 +112,7 @@ public class BoardManager implements PlaceTileUsecase, PlaceWordUsecase, ResetMo
     /**
      * This method returns the variable previous_board from BoardManager class.
      * @return previous_board, a GameBoard object with the previous moves.
+     *
      */
     public GameBoard getPrevBoard(){
         return this.previous_board;

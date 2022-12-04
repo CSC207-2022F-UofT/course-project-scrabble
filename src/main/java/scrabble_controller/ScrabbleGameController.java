@@ -17,10 +17,10 @@ import usecases.usecase_implementations.PlayerManager;
 import gui.pages.GamePage;
 import usecases.usecase_implementations.HandManager;
 import usecases.usecase_implementations.EndGameManager;
-import usecases.usecase_implementations.PlayMove;
 import usecases.usecase_interfaces.*;
 import java.util.ArrayList;
 import gui.View;
+import java.util.List;
 import usecases.usecase_implementations.ScrabbleDictionary;
 
 /**
@@ -38,7 +38,6 @@ public class ScrabbleGameController{
     private final TurnManager turnManager;
     private final HandManager handManager;
     private final EndGameManager endGameManager;
-    private final PlayMove playMove;
     private Game game;
     private final ScrabbleDictionary scrabbleDictionary;
     
@@ -56,7 +55,6 @@ public class ScrabbleGameController{
         gameScorer = new ScoringSystem();
         scrabbleDictionary = new ScrabbleDictionary();
         endGameManager = new EndGameManager();
-        playMove = new PlayMove();
         view = v;
     }
 
@@ -71,7 +69,6 @@ public class ScrabbleGameController{
         gameScorer = new ScoringSystem();
         scrabbleDictionary = new ScrabbleDictionary();
         endGameManager = new EndGameManager();
-        playMove = new PlayMove();
         game = new Game();
         view = new GamePage("P1", "P2", true);
 
@@ -156,11 +153,28 @@ public class ScrabbleGameController{
     
 
     /**
-     * This method is responsible for calling the playmove usecase. 
+     * This method is responsible for placing
      */
     public void playMove() {
-        ((PlayMoveUsecase)playMove).playMove(handManager, boardManager, playerManager, turnManager, gameScorer, game,
-                scrabbleDictionary, this);
+        GameBoard prevBoard = boardManager.getPrevBoard();
+        List<List<List<Integer>>> words = ((PlaceWordUsecase) boardManager).checkWord(game, scrabbleDictionary, prevBoard);
+
+        //boardmanager checkword returns list of coordinates and list of letters used by the player
+
+        if(!words.isEmpty()) {
+            System.out.println("valid word");
+            // ScoringSystem
+            int score = ((CalculateWordScoreUsecase) gameScorer).calculateMultiWordScore(game, words);
+            // calculate the total score of all the words found
+            ((UpdateScoreUsecase) playerManager).updateScoreForCurrentPlayer(game.getCurrentPlayer().getScore() + score, game);
+            ((ResetMoveUsecase)boardManager).clearMoves();
+            ((IncrementTurnUsecase) turnManager).incrementTurn(game);
+            ((FillHandUsecase)handManager).fillHand(game);// fill the next player's hand
+        }
+        else {
+            System.out.println("not valid");
+            resetMove();
+        }
         saveGameToFile();
         view.updateView(game);
     }
