@@ -9,7 +9,7 @@ import entities.MoveInfo;
  * @author Davit
  */
 public interface ResetMoveUsecase {
-    // function resets the new moves on the board
+    // function resets the new moves on the board and returns the list of moves
     public ArrayList<MoveInfo> resetMoves(Game game);
     //function that resets the moves in MoveInfo list
     public void clearMoves();
