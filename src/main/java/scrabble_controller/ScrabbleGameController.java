@@ -14,6 +14,7 @@ import entities.MoveInfo;
 import usecases.usecase_implementations.BoardManager;
 import usecases.usecase_implementations.TurnManager;
 import usecases.usecase_implementations.PlayerManager;
+import gui.pages.GamePage;
 import usecases.usecase_implementations.HandManager;
 import usecases.usecase_implementations.EndGameManager;
 import usecases.usecase_interfaces.*;
@@ -56,6 +57,24 @@ public class ScrabbleGameController{
         endGameManager = new EndGameManager();
         view = v;
     }
+
+    public ScrabbleGameController() {       // for testing
+        boardManager = new BoardManager(); // this class implements checkword checktile
+        playerManager = new PlayerManager();// this class implements updatescore, drawtiles
+        handManager = new HandManager();
+        gameLoader = new GameLoaderSystem();
+        gameSaver = new GameSaverSystem();
+        gameCreator = new GameCreator();
+        turnManager = new TurnManager();
+        gameScorer = new ScoringSystem();
+        scrabbleDictionary = new ScrabbleDictionary();
+        endGameManager = new EndGameManager();
+        playMove = new PlayMove();
+        game = new Game();
+        view = new GamePage("P1", "P2", true);
+
+
+    }
     
 
 
@@ -68,7 +87,20 @@ public class ScrabbleGameController{
         ((ResetHandUsecase) handManager).resetHand(game, moveInfos);
         view.updateView(game);
     }
-    
+
+    /**
+     * This method is responsible for calling the resetMoves usecase but is without updating the view
+     * as this is used for testing
+     */
+    public void resetMoveTester() {
+        ((ResetMoveUsecase) boardManager).resetMoves(game);
+        ArrayList<MoveInfo> moveInfos = boardManager.getMoves();
+
+        for(MoveInfo move : moveInfos){
+            handManager.addTile(game, move.getLetter());
+        }
+        boardManager.clearMoves();
+    }
 
 
     /**
@@ -101,6 +133,23 @@ public class ScrabbleGameController{
 
         // place tile usecase 
         view.updateView(game);
+    }
+
+    /**
+     * This method is responsible for calling the checkLetter and removeTile use cases but instead without
+     * updating the view as this is used for testing
+     * @param coords the coordinates of the letter being placed
+     * @param letter the letter being placed
+     */
+    public void placeTileTester(int[] coords, String letter) {
+        boolean placeTileTrueness = ((PlaceTileUsecase) boardManager).checkLetter(coords, letter, game);
+        if(placeTileTrueness){
+            ((RemoveTileUsecase)handManager).removeTile(game, letter); // remove the tile
+        }
+        else{
+            System.out.println("Invalid Move Played in placeTile");
+        }
+
     }
     
 
@@ -170,6 +219,10 @@ public class ScrabbleGameController{
     
     public Game getData() {
         return game;
+    }
+
+    public BoardManager getBoardManager(){
+        return boardManager;
     }
     
     
