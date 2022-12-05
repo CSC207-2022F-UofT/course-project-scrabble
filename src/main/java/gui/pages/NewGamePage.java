@@ -1,12 +1,9 @@
 package gui.pages;
-import entities.*;
 
-import gui.pages.GamePage;
 import gui.components.TextField;
 import gui.components.DialogueBox;
 import gui.components.Label;
 import gui.components.Button;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,10 +23,6 @@ public class NewGamePage implements ActionListener {
 
     final int WIDTH = 500;
     final int HEIGHT = 400;
-
-    public static void main(String[] args) {
-        new StartupPage().createStartupPage();
-    }
 
     public void createGamePage() {
         dialogueBox = new DialogueBox();

@@ -2,8 +2,6 @@ package gui.components;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * The Panel class creates a panel based on the JButton module of Java Swing.
@@ -32,7 +30,6 @@ public class Panel {
     public void createPanel(int boundX, int boundY, int width, int height, JFrame dialogueBox) {
         panel = new JPanel();
         System.out.println("creating new panel");
-//        label.setText(convertToMultiline(labelText));
         panel.setBounds(boundX, boundY, width, height);
         panel.setBackground(Color.lightGray);
         if (dialogueBox != null) {

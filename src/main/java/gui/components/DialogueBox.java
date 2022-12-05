@@ -13,12 +13,6 @@ import java.awt.*;
 public class DialogueBox {
     public JFrame frame;
 
-    /**
-     * Returns the dialogueBox JFrame
-     */
-    public JFrame getJFrame() {
-        return frame;
-    }
 
     /**
      * Creates a JFrame UI component as per the specs provided

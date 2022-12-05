@@ -55,11 +55,11 @@ public class ConsoleSimulator {
      */
     public static void printGameBoard(String[][] gameBoard) {
         // iterate through the length of the board
-        for (int i = 0; i < gameBoard.length; i++) {
-            String rowPrint = "";
+        for (String[] strings : gameBoard) {
+            StringBuilder rowPrint = new StringBuilder();
             // iterate through each row
-            for (int j = 0; j < gameBoard[i].length; j++) {
-                rowPrint += gameBoard[i][j] + " ";
+            for (String string : strings) {
+                rowPrint.append(string).append(" ");
             }
             System.out.println(rowPrint);
         }

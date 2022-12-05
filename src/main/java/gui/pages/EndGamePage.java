@@ -4,9 +4,6 @@ import gui.components.DialogueBox;
 import gui.components.Label;
 
 import java.awt.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 /**
  * The EndGamePage is the final page after the game is completed. It displays the final result of the match with the player's information and who won.
@@ -50,12 +47,12 @@ public class EndGamePage {
 
         // add label for player 1
         player1Label = new Label();
-        player1Label.createLabel(16, 10, 100, WIDTH / 4, 20, dialogueBox.frame, player1Name + "'s Score: " + player1Score, Color.BLACK);
+        player1Label.createLabel(16, 10, 100, WIDTH / 2, 20, dialogueBox.frame, player1Name + "'s Score: " + player1Score, Color.BLACK);
         player1Label.setCentreAlignment();
 
         // add label for player 2
         player2Label = new Label();
-        player2Label.createLabel(16, 10, 120, WIDTH / 4, 20, dialogueBox.frame, player2Name + "'s Score: " + player2Score, Color.BLACK);
+        player2Label.createLabel(16, 10, 120, WIDTH / 2, 20, dialogueBox.frame, player2Name + "'s Score: " + player2Score, Color.BLACK);
         player2Label.setCentreAlignment();
 
         winnerLabel = new Label();
