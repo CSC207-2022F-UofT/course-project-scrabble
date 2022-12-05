@@ -32,10 +32,9 @@ public class ScoringSystem implements CalculateWordScoreUsecase, CalculateHandSc
         GameBoard board = game.getGameBoard();
         int points_so_far = 0; // variable to store points of word
         for (List<Integer> coordinates: word){ // loops over coordinates
-            Cell letter = BoardManager.GetCell(coordinates.get(0), coordinates.get(1), board); // saves the cell representing the letter in letter
+            Cell letter = board.getBoardCell(coordinates.get(0), coordinates.get(1)); // saves the cell representing the letter in letter
             initializeCellScore(letter);
-            points_so_far += BoardManager.GetCellScore(letter)
-                    *BoardManager.GetCellMultiplier(letter); // multiplies the score of the cell by the multiplier
+            points_so_far += letter.getScore() * letter.getMultiplier(); // multiplies the score of the cell by the multiplier
         }
         if (word.size() == 7) { // If all words in hand are used then add 50 points to turn
             points_so_far += 50;
@@ -55,11 +54,11 @@ public class ScoringSystem implements CalculateWordScoreUsecase, CalculateHandSc
          * given the players hand
          */
         Player p = game.getCurrentPlayer();
-        Cell[] letters = PlayerManager.getHand(p);
+        Cell[] letters = p.getHand();
         int points_so_far = 0;
         for (Cell letter: letters){
             if (letter != null) {
-                points_so_far += BoardManager.GetCellScore(letter);
+                points_so_far += letter.getScore();
             }
         }
         return points_so_far;
@@ -75,9 +74,9 @@ public class ScoringSystem implements CalculateWordScoreUsecase, CalculateHandSc
         // Precondition: The cell's value is a capital letter from A-Z
         // Given a cell the function will assign the correct score to that cell
 
-        String value = BoardManager.GetCellValue(letter); // gets the letter represented by the cell
+        String value = letter.getValue(); // gets the letter represented by the cell
         int score = this.letter_to_score.get(value); // gets the score of the letter
-        BoardManager.SetCellScore(letter, score); // changes the cell's score to that of the letter it represents
+        letter.setScore(score); // changes the cell's score to that of the letter it represents
     }
 
     /**

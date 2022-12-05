@@ -9,10 +9,14 @@ import usecases.usecase_implementations.ScrabbleDictionary;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class tests the BoardManager class.
+ * @author Davit
+ */
 public class BoardManagerTest {
     /**
-     * Tests checkLetter for happy flow to place a valid tile/letter in a correct place. Using the getBoardCellValue
-     * method of BoardManager to test if it equaled "A".
+     * Tests checkLetter for happy flow for when the player places a tile on the board. Using the getBoardCellValue
+     * method of BoardManager to test if the letter placed is equal to an "A".
      */
     @Test
     public void checkLetterTestValid(){
@@ -30,8 +34,10 @@ public class BoardManagerTest {
         // check if value of cell on the board has updated with new move
         Assertions.assertEquals("A", game.getGameBoard().getBoardCellValue(7,3));
     }
+
     /**
-     * Tests checkLetter for unhappy flow when it asserted false to because the placed tile was overlapped with another.
+     * Test checkLetter for unhappy flow when the player places a letter on the board on top of a previously placed letter.
+     * Using checkLetter method, asserts false for the coordinates of the two letters.
      */
     @Test
     public void checkLetterTestOverlap(){
@@ -52,11 +58,13 @@ public class BoardManagerTest {
         // check if new move with identical coordinates will return false when added to the board using checkLetter method
         Assertions.assertFalse(b_manager.checkLetter(coordinates, letter2, game));
     }
+
     /**
-     * Tests checkWord test to see if it accurately checked and placed a word on the board which should be HELLO
+     * Tests checkWord for happy flow when the player places the word HELLO on the board. Using checkWord, the return
+     * list of words is compared to the actual word using assertEquals.
      */
     @Test
-    public void checkWordTest(){
+    public void checkWordTestHappy(){
         // initialize game and board manager
         Game game = new Game();
         BoardManager b_manager = new BoardManager();
@@ -107,8 +115,45 @@ public class BoardManagerTest {
         // the only valid word should be "HELLO"
         Assertions.assertEquals(list_of_words, b_manager.checkWord(game, new ScrabbleDictionary(), b_manager.getPrevBoard()));
     }
+
+
     /**
-     * Tests resetMoves to see if the move list was accurately wiped for the next turn.
+     * Tests checkWord for unhappy flow when the player places the letters "H","L","L","O" on the board. Using checkWord,
+     * the length of the return list of words is compared to the int value 0 since there should be no valid words using these letters.
+     */
+    @Test
+    public void checkWordTestUnhappy(){
+        // initialize game and board manager
+        Game game = new Game();
+        BoardManager b_manager = new BoardManager();
+
+        // create coordinates for four moves
+        int[] coordinates1 = new int[]{7,5};
+        int[] coordinates2 = new int[]{7,6};
+        int[] coordinates3 = new int[]{7,7};
+        int[] coordinates4 = new int[]{7,8};
+
+        // create letters for four moves forming am invalid word
+        String letter1 = "H";
+        String letter2 = "L";
+        String letter3 = "L";
+        String letter4 = "O";
+
+        // add four letters to board using checkLetter method
+        b_manager.checkLetter(coordinates1, letter1, game);
+        b_manager.checkLetter(coordinates2, letter2, game);
+        b_manager.checkLetter(coordinates3, letter3, game);
+        b_manager.checkLetter(coordinates4, letter4, game);
+
+        // check if the size of the list of correct words returned by checkWord method is 0 since the given moves don't
+        // form any valid English words.
+        Assertions.assertEquals(0, b_manager.checkWord(game, new ScrabbleDictionary(), b_manager.getPrevBoard()).size());
+    }
+
+
+
+    /**
+     * Tests resetMoves to see if the values on the board from the moves have been reset to their default values.
      */
     @Test
     public void resetMovesTest(){

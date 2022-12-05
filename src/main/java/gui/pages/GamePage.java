@@ -77,9 +77,6 @@ public class GamePage implements ActionListener, View {
         //create the new game page
         dialogueBox = new DialogueBox();
         
-        System.out.println("dialoguebox created");
-        
-        
         dialogueBox.createDialogueBox("Scrabble Game Page", WIDTH, HEIGHT, false);
         dialogueBox.frame.setVisible(true);
         // we want to ignore the exit when we close only the rules page
@@ -211,16 +208,9 @@ public class GamePage implements ActionListener, View {
      * Scuffles the current hand
      */
     public void shuffleHand(){
-        // shuffle the current letters hand
-        System.out.println("letters before and after");
-        System.out.println(Arrays.toString(currentLetters));
         List<String> strList = Arrays.asList(currentLetters); // change array to list
         Collections.shuffle(strList);
         strList.toArray(this.currentLetters);
-        System.out.println(Arrays.toString(currentLetters));
-
-//        resetHolder(); // reset the holder in the view
-
         // initialize a counter to change the index to find the button
         int holderIndex = 0;
         // get the components and update the icons and names
@@ -258,12 +248,10 @@ public class GamePage implements ActionListener, View {
                 if (name != null){
                     // delete button
                     // length of a button index is less than 6
-//                    System.out.println("Button: " + name + " " + name.length());
                     if(name.startsWith("holder") || name.length() < 6){
                         dialogueBox.frame.remove(component);
                     }
                 }
-//                ((JButton) component).removeAll();
             }
         }
         dialogueBox.frame.setVisible(true);
@@ -291,7 +279,7 @@ public class GamePage implements ActionListener, View {
     }
 
     /**
-     * Prints the letter and its coordinates
+     * Prints the letter and its coordinates. Will format letters and coordinates for easier readability
      */
     public void printLettersAndCoordinates() {
         if (letters.isEmpty()){
@@ -311,7 +299,6 @@ public class GamePage implements ActionListener, View {
         // board deleted
         deleteBoard();
 
-        System.out.println("----------Beginning of UpdateView--------------");
         // update scores of players
         List<Player> players = game.getPlayers();
         // we're going to assume only 2 players for version 1. Will try to implement multiple players in the future
@@ -323,9 +310,6 @@ public class GamePage implements ActionListener, View {
         player1Label.getLabel().setText(player1Name + "'s score is: "  + player1Score); // set the name to the current player
         player2Label.getLabel().setText(player2Name + "'s score is: " + player2Score); // set the name to the current player
 
-        System.out.println(player1Name + ": " + player1Score);
-        System.out.println(player2Name + ": " +  player2Score);
-
         // get whose turn it is
         Player currentPlayer = game.getCurrentPlayer();
         // get the holder tiles
@@ -335,30 +319,26 @@ public class GamePage implements ActionListener, View {
 
         String[] handLetters = new String[]{"-", "-", "-", "-", "-", "-", "-"};
         // update the entire hand with new letters or nothing if it's a dash.
-        System.out.println("Printing hand");
+
         for(int i = 0; i<handLetters.length; i++){
             if(hand[i] == null){
                 handLetters[i] = "-";
-                System.out.println("null");
             }
             else{
                 handLetters[i] = hand[i].getValue();
-                System.out.println(hand[i].getValue());
             }
         }
         currentLetters = handLetters;
-        System.out.println("current letters: " + Arrays.toString(currentLetters));
 
         // update cells
         GameBoard gameBoard = game.getGameBoard();
-        gameBoard.printBoard();
+        // gameBoard.printBoard();
 
         Button letter = new Button();
         ImageIcon icon;
 
         // calculate the middle coords
         int middleCoord = BOARD_ROWS/2;
-        System.out.println(middleCoord);
         // create the middle icon
         ImageIcon middleIcon = createImageIcon("StarDesign.png");
         ImageIcon doubleIcon = createImageIcon("double.png");
@@ -393,8 +373,6 @@ public class GamePage implements ActionListener, View {
                 }
                 else{
                     icon = createImageIcon(val + ".jpg");
-//                    letterIndex += 1;
-                    System.out.println("ADDED LETTER: " + val);
                     letter.createButtonWithID(dialogueBox.frame, "", xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, "" + i + " " + j);
                 }
                 letter.getButton().addActionListener(this); // add listener to the button to see when it gets pressed
@@ -423,7 +401,6 @@ public class GamePage implements ActionListener, View {
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("--------------------------------------------------------------- ACTION ------------------");
         String s = e.getActionCommand();
 
         // check if button has been pressed
@@ -431,31 +408,24 @@ public class GamePage implements ActionListener, View {
 
         // check if we need to start a new game
         if (s.equals("Play Move")) {
-            System.out.println("play move button pressed");
-            printLettersAndCoordinates();
             controller.playMove();
         }
 
         else if (s.equals("End Game")) {
-            System.out.println("end game button pressed");
             controller.endGame();
         }
 
         else if (s.equals("Shuffle Hand")) {
-            System.out.println("shuffle hand button pressed");
             shuffleHand();
         }
 
         else if (s.equals("Recall Tiles")){
-            System.out.println("recall tiles button pressed");
-//            resetHolder();
             if (!controller.checkFullHand()){
                 controller.resetMove();
             }
         }
 
         else if (s.equals("Swap Hands")) {
-            System.out.println("swap hands button pressed");
             controller.swapTiles();
         }
 
@@ -467,10 +437,8 @@ public class GamePage implements ActionListener, View {
 
             // if the button was not clicked, and it starts with holder
             if(buttonClick.startsWith("holder") && clickedValue == null && !buttonClick.endsWith("-")){
-                System.out.println("holder pressed");
                 String[] holderLetter = buttonClick.split(" ");
                 clickedValue = holderLetter[2];
-                System.out.println(clickedValue);
                 source.setVisible(false);
 //                updateLetterHolder();
                 dialogueBox.frame.setVisible(true);
@@ -478,34 +446,15 @@ public class GamePage implements ActionListener, View {
             else {
                 // if the button was not clicked, and it doesn't start with holder or an empty tile
                 if(clickedValue != null && !buttonClick.startsWith("holder") && !buttonClick.endsWith("-")){
-                    //if (!source.getName().equals("empty")){
-                    // System.out.println(location); // print out location of button
                     String[] yxLoc = buttonClick.split(" ");
                     int yLoc = Integer.parseInt(yxLoc[0]); // determine the y location
                     int xLoc = Integer.parseInt(yxLoc[1]); // determine the x location
-                    System.out.println("" + yLoc + " " + xLoc); // print out location
 
                     // create an array consisting of yLoc and xLoc
                     int[] coord = new int[]{yLoc, xLoc};
 
-                    // boolean for determining whether this is a valid tile placement
-//                    boolean playLetter = true;
-
-//                    // check if letter is being played on an already played tile
-//                    for(int[] coordinate : coordinates){
-//                        System.out.println(Arrays.toString(coordinate));
-//                        if(Arrays.equals(coordinate, coord)){ // check if array is equivalent
-//                            System.out.println("board square already occupied");
-//                            playLetter = false;
-//                        }
-//                    }
-//                    // play letter only if it is valid
-//                    if (playLetter){
-                        // call play letter function
                     playLetter(clickedValue, coord, source);
                     clickedValue = null; // set the button to be ready for next turn
-                    printLettersAndCoordinates(); // print out the moves that were played
-//                    }
                 }
             }
         }

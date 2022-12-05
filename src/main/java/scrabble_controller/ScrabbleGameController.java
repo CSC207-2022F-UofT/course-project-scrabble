@@ -10,30 +10,18 @@ import data.gateway_interfaces.GameLoadUsecase;
 import data.gateway_interfaces.GameSaveUsecase;
 import entities.*;
 import usecases.usecase_implementations.ScoringSystem;
-import usecases.usecase_implementations.MoveInfo;
+import entities.MoveInfo;
 import usecases.usecase_implementations.BoardManager;
 import usecases.usecase_implementations.TurnManager;
 import usecases.usecase_implementations.PlayerManager;
-import usecases.usecase_interfaces.RemoveTileUsecase;
-import usecases.usecase_interfaces.SwapHandUsecase;
-import usecases.usecase_interfaces.PlaceWordUsecase;
-import usecases.usecase_interfaces.PlaceTileUsecase;
-import usecases.usecase_interfaces.EndGameUsecase;
-import usecases.usecase_interfaces.UpdateScoreUsecase;
-import usecases.usecase_interfaces.FillHandUsecase;
-import usecases.usecase_interfaces.ResetMoveUsecase;
-import usecases.usecase_interfaces.IncrementTurnUsecase;
-import usecases.usecase_interfaces.CreateGameUsecase;
+import gui.pages.GamePage;
 import usecases.usecase_implementations.HandManager;
 import usecases.usecase_implementations.EndGameManager;
-import usecases.usecase_implementations.PlayMove;
-
-
+import usecases.usecase_interfaces.*;
 import java.util.ArrayList;
-import java.util.List;
 import gui.View;
+import java.util.List;
 import usecases.usecase_implementations.ScrabbleDictionary;
-import usecases.usecase_interfaces.CalculateWordScoreUsecase;
 
 /**
  *
@@ -50,7 +38,6 @@ public class ScrabbleGameController{
     private final TurnManager turnManager;
     private final HandManager handManager;
     private final EndGameManager endGameManager;
-    private final PlayMove playMove;
     private Game game;
     private final ScrabbleDictionary scrabbleDictionary;
     
@@ -68,19 +55,43 @@ public class ScrabbleGameController{
         gameScorer = new ScoringSystem();
         scrabbleDictionary = new ScrabbleDictionary();
         endGameManager = new EndGameManager();
-        playMove = new PlayMove();
         view = v;
+    }
+
+    public ScrabbleGameController() {       // for testing
+        boardManager = new BoardManager(); // this class implements checkword checktile
+        playerManager = new PlayerManager();// this class implements updatescore, drawtiles
+        handManager = new HandManager();
+        gameLoader = new GameLoaderSystem();
+        gameSaver = new GameSaverSystem();
+        gameCreator = new GameCreator();
+        turnManager = new TurnManager();
+        gameScorer = new ScoringSystem();
+        scrabbleDictionary = new ScrabbleDictionary();
+        endGameManager = new EndGameManager();
+        game = new Game();
+        view = new GamePage("P1", "P2", true);
+
+
     }
     
 
 
 
     /**
-     * This method is responsible for calling the resetMoves usecase
-     *
-     *
+     * This method is responsible for calling the resetMoves usecase.
      */
     public void resetMove() {
+        ArrayList<MoveInfo> moveInfos = ((ResetMoveUsecase) boardManager).resetMoves(game);
+        ((ResetHandUsecase) handManager).resetHand(game, moveInfos);
+        view.updateView(game);
+    }
+
+    /**
+     * This method is responsible for calling the resetMoves usecase but is without updating the view
+     * as this is used for testing
+     */
+    public void resetMoveTester() {
         ((ResetMoveUsecase) boardManager).resetMoves(game);
         ArrayList<MoveInfo> moveInfos = boardManager.getMoves();
 
@@ -88,9 +99,7 @@ public class ScrabbleGameController{
             handManager.addTile(game, move.getLetter());
         }
         boardManager.clearMoves();
-        view.updateView(game);
     }
-    
 
 
     /**
@@ -124,22 +133,55 @@ public class ScrabbleGameController{
         // place tile usecase 
         view.updateView(game);
     }
+
+    /**
+     * This method is responsible for calling the checkLetter and removeTile use cases but instead without
+     * updating the view as this is used for testing
+     * @param coords the coordinates of the letter being placed
+     * @param letter the letter being placed
+     */
+    public void placeTileTester(int[] coords, String letter) {
+        boolean placeTileTrueness = ((PlaceTileUsecase) boardManager).checkLetter(coords, letter, game);
+        if(placeTileTrueness){
+            ((RemoveTileUsecase)handManager).removeTile(game, letter); // remove the tile
+        }
+        else{
+            System.out.println("Invalid Move Played in placeTile");
+        }
+
+    }
     
 
     /**
-     * This method is responsible for calling the usecases that check if a word is valid, calculating its score, incrementing the turn counter
-     * and refilling the next player's hand
+     * This method is responsible for placing
      */
     public void playMove() {
-        playMove.playMove(handManager, boardManager, playerManager, turnManager, gameScorer, game,
-                scrabbleDictionary, this);
+        GameBoard prevBoard = boardManager.getPrevBoard();
+        List<List<List<Integer>>> words = ((PlaceWordUsecase) boardManager).checkWord(game, scrabbleDictionary, prevBoard);
+
+        //boardmanager checkword returns list of coordinates and list of letters used by the player
+
+        if(!words.isEmpty()) {
+            System.out.println("valid word");
+            // ScoringSystem
+            int score = ((CalculateWordScoreUsecase) gameScorer).calculateMultiWordScore(game, words);
+            // calculate the total score of all the words found
+            ((UpdateScoreUsecase) playerManager).updateScoreForCurrentPlayer(game.getCurrentPlayer().getScore() + score, game);
+            ((ResetMoveUsecase)boardManager).clearMoves();
+            ((IncrementTurnUsecase) turnManager).incrementTurn(game);
+            ((FillHandUsecase)handManager).fillHand(game);// fill the next player's hand
+        }
+        else {
+            System.out.println("not valid");
+            resetMove();
+        }
         saveGameToFile();
         view.updateView(game);
     }
 
 
     public boolean checkFullHand(){
-        return handManager.checkHand(game);
+        return ((CheckHandUsecase)handManager).checkHand(game);
     }
     
     /**
@@ -176,6 +218,10 @@ public class ScrabbleGameController{
     
     public Game getData() {
         return game;
+    }
+
+    public BoardManager getBoardManager(){
+        return boardManager;
     }
     
     

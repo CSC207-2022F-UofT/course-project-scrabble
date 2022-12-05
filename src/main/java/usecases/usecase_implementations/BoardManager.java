@@ -1,11 +1,14 @@
 package usecases.usecase_implementations;
 
+//import entities.MoveInfo;
 import entities.Cell;
 import entities.Game;
 import entities.GameBoard;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import entities.MoveInfo;
 import usecases.usecase_interfaces.PlaceTileUsecase;
 import usecases.usecase_interfaces.PlaceWordUsecase;
 import usecases.usecase_interfaces.ResetMoveUsecase;
@@ -32,12 +35,8 @@ public class BoardManager implements PlaceTileUsecase, PlaceWordUsecase, ResetMo
     @Override
     public boolean checkLetter(int[] coordinates, String letter, Game game){
         TileChecker validate_move = new TileChecker();
-        System.out.println("CHECK LETTER METHOD");
-        System.out.println(moves);
         if (moves.isEmpty()) {
             previous_board = savePreviousBoardState(game.getGameBoard()); // save the previous board state if first move
-            previous_board.printBoard();
-            System.out.println("I GOT UPDATED");
         }
         if (validate_move.isValid(coordinates[0], coordinates[1], game.getGameBoard())){ // check if move is valid
             MoveInfo move = new MoveInfo(coordinates, letter);
@@ -60,38 +59,41 @@ public class BoardManager implements PlaceTileUsecase, PlaceWordUsecase, ResetMo
         ArrayList<List<Integer>> move_list = new ArrayList<>();
         createListOfCoordinates(move_list);
         TileChecker validate_word = new TileChecker();
-        if (prevBoard.isEmpty()) { // check if it's first turn of thr game
+        if (prevBoard.isEmpty()) { // check if it's first turn of the game
             if (checkFirstTurnCondition()) { // check if the word is on center of board
-                ArrayList<List<List<Integer>>> first_word_list = validate_word.validateMove(move_list, game.getGameBoard(), scrabbleDictionary, prevBoard);
-                if (first_word_list.isEmpty()) {
-                    resetMoves(game); // change board back to previous state if no valid words.
-                }
-                return first_word_list; // return list of coordinates of new word on board
+                return validate_word.validateMove(move_list, game.getGameBoard(), scrabbleDictionary, prevBoard);
+                // return list of coordinates of new word on board
             }
             else {
                 return new ArrayList<>(); // return empty ArrayList if word not on the center
             }
         }
         else {
-            ArrayList<List<List<Integer>>> word_list = validate_word.validateMove(move_list, game.getGameBoard(), scrabbleDictionary, prevBoard);
-            if (word_list.isEmpty()) {
-                resetMoves(game); // change board back to previous state if no valid words.
-            }
-            return word_list; // return list of valid words that can be made from the moves
+            return validate_word.validateMove(move_list, game.getGameBoard(), scrabbleDictionary, prevBoard);
+            // return list of valid words that can be made from the moves
         }
     }
 
     /**
-     * This method resets the moves placed on the board during the turn.
+     * This method resets the moves placed on the board during the turn and returns the moves.
      * @param game The game object with the board.
+     * @return returns a list of moveInfos which represents the moves made by the player during the turn that have been reset
      */
     @Override
-    public void resetMoves(Game game){
+    public ArrayList<MoveInfo> resetMoves(Game game){
         game.getGameBoard().setBoard(previous_board.getBoard()); // change board back to previous state.
-
-        game.getGameBoard().printBoard();
+        ArrayList<MoveInfo> moveInfos = new ArrayList<>();
+        for(MoveInfo move : getMoves()) // iterate through moves list and add to new list
+        {
+            moveInfos.add(move);
+        }
+        clearMoves(); // clear moves list
+        return moveInfos;
     }
 
+    /**
+     * This method removes all the elements in the moves list.
+     */
     @Override
     public void clearMoves(){
         moves.clear(); //clears moves in the moves list
@@ -107,6 +109,11 @@ public class BoardManager implements PlaceTileUsecase, PlaceWordUsecase, ResetMo
         }
     }
 
+    /**
+     * This method returns the variable previous_board from BoardManager class.
+     * @return previous_board, a GameBoard object with the previous moves.
+     *
+     */
     public GameBoard getPrevBoard(){
         return this.previous_board;
     }
@@ -158,30 +165,70 @@ public class BoardManager implements PlaceTileUsecase, PlaceWordUsecase, ResetMo
         }
     }
 
+    /**
+     * This method of BoardManager class returns the cell on the board at a given location.
+     * @param row int value of the y coordinate on the board.
+     * @param column int value of the x coordinate on the board.
+     * @param board GameBoard object that holds a two-dimensional array of cells.
+     * @return The cell on the board given the row and column values.
+     */
     public static Cell GetCell(int row, int column, GameBoard board) {
         return board.getBoard()[row][column];
     }
+
+    /**
+     * This method returns the Sting value of the cell.
+     * @param letter Cell with the letter value.
+     * @return The String value of the given cell.
+     */
     public static String GetCellValue(Cell letter) {
         return letter.getValue();
     }
 
+    /**
+     * This method returns the score of the cell.
+     * @param cell The Cell object.
+     * @return The int score value of the given Cell.
+     */
     public static int GetCellScore(Cell cell) {
         return cell.getScore();
     }
 
+    /**
+     * This method returns the multiplier of the cell.
+     * @param cell The Cell object.
+     * @return The int multiplier value of the given Cell.
+     */
     public static int GetCellMultiplier(Cell cell) {
         return cell.getMultiplier();
     }
 
+    /**
+     * This method of BoardManager class sets a cell in the board by changing cell on given coordinates.
+     * @param row int value of the y coordinate on the board.
+     * @param column int value of the x coordinate on the board.
+     * @param letter The Cell object to be added to the board.
+     * @param board The GameBoard object that will get new cell.
+     */
     public static void SetBoardCell(int row, int column, Cell letter, GameBoard board){
         int multiplier = board.getBoard()[row][column].getMultiplier();
         letter.setMultiplier(multiplier); // The letter cell takes on the multiplier value of the board space
         board.getBoard()[row][column] = letter; // Set the space on the board to the letter cell
     }
+
+    /**
+     * This method of BoardManager class sets the score of given cell.
+     * @param letter The Cell object that will get new score.
+     * @param score int value of the cell's new score.
+     */
     public static void SetCellScore(Cell letter, int score) {
         letter.setScore(score);
     }
 
+    /**
+     * This method returns the player's moves during their turn.
+     * @return The ArrayList of MoveInfo elements which holds the coordinates and letter value of the moves.
+     */
     public ArrayList<MoveInfo> getMoves(){
         return this.moves;
     }
