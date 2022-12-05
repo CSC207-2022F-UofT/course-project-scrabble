@@ -46,8 +46,8 @@ public class ScrabbleDictionary {
                     }
                     line = fileReader.nextLine(); //moves on to the next line
                 }
-                //closes the file
-            } // initial character to serve as first key
+                this.dictionary.put(String.valueOf(currkey), currlist); //adds last letter to the dictionary
+            }
         } catch (FileNotFoundException e) { //if the file can't be found, prints the error and the stack trace
             System.out.println("error: couldn't find the file");
         }
