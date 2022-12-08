@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ScrabbleDictionaryTest {
-    ScrabbleDictionary dictionary = new ScrabbleDictionary();
+    ScrabbleDictionary dictionary = new ScrabbleDictionary(); //initialize dictionary here since it stays the same throughout
     /**
      * Test ScrabbleDictionary for happy flow when there is only one word to check.
      * Using inDictionary method, asserts true for a valid word
