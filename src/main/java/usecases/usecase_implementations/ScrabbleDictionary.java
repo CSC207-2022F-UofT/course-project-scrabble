@@ -1,6 +1,4 @@
 package usecases.usecase_implementations;
-import entities.GameBoard;
-
 import java.io.File; //the File class
 import java.io.FileNotFoundException; //handle errors in File class
 import java.util.ArrayList; //the ArrayList class
@@ -56,11 +54,10 @@ public class ScrabbleDictionary {
 
     /**
      * This method is responsible for searching for words in the dictionary
-     * @param move nested list of words corresponding to the coordinates of all letters.
-     * @return boolean returns whether the move is in the dictionary
+     * @param wordlist list of words that need to be checked
+     * @return boolean returns whether the words are in the dictionary
      */
-    public boolean inDictionary(ArrayList<List<List<Integer>>> move, GameBoard board) { //searches for words in the dictionary
-        List<String> wordlist = wordParser(move, board); //calls wordParser to return a list of words
+    public boolean inDictionary(List<String> wordlist) { //searches for words in the dictionary
         for (String word : wordlist) {
             String key = String.valueOf(word.charAt(0)); //takes the first letter of the word as the key
             ArrayList<String> dict = this.dictionary.get(key); //an ArrayList of all the words starting with that letter
@@ -70,23 +67,5 @@ public class ScrabbleDictionary {
         }
         return true;
     } //after looping through the entire list of words, returns true
-
-    /**
-     * This method is responsible for determining the words created given the tile coordinates
-     * @param move nested list of words corresponding to the coordinates of all letters.
-     * @return List<String> A list of words created
-     */
-    private static List<String> wordParser(ArrayList<List<List<Integer>>> move, GameBoard board) { //determines words from tile coordinates
-        List<String> wordlist = new ArrayList<>(); //the list of all words made from a move
-        for (List<List<Integer>> word : move) { //for each separate word in the list
-            StringBuilder newword = new StringBuilder();
-            for (List<Integer> letter: word) { //for each letter in the word
-                newword.append(board.getBoardCellValue(letter.get(0), letter.get(1))); //appends the letter to the current string
-            }
-            wordlist.add(newword.toString()); //adds the string to the wordlist
-        }
-        return wordlist;
-    }
-
 
 }
