@@ -29,7 +29,7 @@ public class TileChecker implements PlacementCheckerUsecase {
         if (!prevBoard.isEmpty() && !isTouching(move, prevBoard)) { //if tiles aren't touching already played tiles, return false
             return falseResult;
         }
-        if (!scrabbleDictionary.inDictionary((wordList(move, board)), board)) {
+        if (!scrabbleDictionary.inDictionary(wordParser((wordList(move, board)), board))) {
             return falseResult;
         }
         return wordList(move, board);
@@ -287,6 +287,23 @@ public class TileChecker implements PlacementCheckerUsecase {
             }
         }
         return words;
+    }
+
+    /**
+     * This method is responsible for determining the words created given the tile coordinates
+     * @param move nested list of words corresponding to the coordinates of all letters.
+     * @return List<String> A list of words created
+     */
+    private static List<String> wordParser(ArrayList<List<List<Integer>>> move, GameBoard board) { //determines words from tile coordinates
+        List<String> wordlist = new ArrayList<>(); //the list of all words made from a move
+        for (List<List<Integer>> word : move) { //for each separate word in the list
+            StringBuilder newword = new StringBuilder();
+            for (List<Integer> letter: word) { //for each letter in the word
+                newword.append(board.getBoardCellValue(letter.get(0), letter.get(1))); //appends the letter to the current string
+            }
+            wordlist.add(newword.toString()); //adds the string to the wordlist
+        }
+        return wordlist;
     }
 
 
