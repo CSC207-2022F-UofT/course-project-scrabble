@@ -1,0 +1,150 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > MoveInfo</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">entities</a>
+</div>
+
+<h1>Coverage Summary for Class: MoveInfo (entities)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MoveInfo</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/7)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package entities;
+&nbsp;
+&nbsp;/**
+&nbsp; * This class is responsible for storing moves made during a turn.
+&nbsp; * @author Davit
+&nbsp; */
+&nbsp;public class MoveInfo {
+&nbsp;    // variables for x coordinate, y coordinate and string letter of move
+&nbsp;    private int y;
+&nbsp;    private int x;
+&nbsp;    private String letter;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method is responsible for being the constructor of the MoveInfo class given coordinates and a letter.
+&nbsp;     * @param coordinates int array that represents the x and y coordinates of a move.
+&nbsp;     * @param letter String value representing the letter of the move.
+&nbsp;     */
+<b class="fc">&nbsp;    public MoveInfo(int[] coordinates, String letter){</b>
+<b class="fc">&nbsp;        this.y = coordinates[0];</b>
+<b class="fc">&nbsp;        this.x = coordinates[1];</b>
+<b class="fc">&nbsp;        this.letter = letter;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method is responsible for retuning the y coordinate of the move.
+&nbsp;     * @return int y value representing the y coordinate.
+&nbsp;     */
+&nbsp;    public int getY() {
+<b class="fc">&nbsp;        return this.y; //returns the y coordinate</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method is responsible for retuning the x coordinate of the move.
+&nbsp;     * @return int x value representing the x coordinate.
+&nbsp;     */
+&nbsp;    public int getX() {
+<b class="fc">&nbsp;        return this.x; //returns the x coordinate</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method is responsible for retuning the letter value of the move.
+&nbsp;     * @return String letter value representing the letter of the move.
+&nbsp;     */
+&nbsp;    public String getLetter() {
+<b class="fc">&nbsp;        return this.letter; //returns the letter value</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-12-08 19:23</div>
+</div>
+</body>
+</html>
