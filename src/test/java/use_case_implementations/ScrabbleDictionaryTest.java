@@ -15,10 +15,10 @@ public class ScrabbleDictionaryTest {
      */
     @Test
     public void checkOneValidWord() {
-        List<String> word = new ArrayList<String>();
-        word.add("WORD");
+        List<String> word = new ArrayList<String>(); //create new empty list for words
+        word.add("WORD"); //add new word
 
-        Assertions.assertTrue(dictionary.inDictionary(word));
+        Assertions.assertTrue(dictionary.inDictionary(word)); //check if word exists in the dictionary
     }
     /**
      * Test ScrabbleDictionary for happy flow when there are multiple words to check.
@@ -53,7 +53,7 @@ public class ScrabbleDictionaryTest {
     @Test
     public void checkListStartInvalidWord() {
         List<String> word = new ArrayList<String>();
-        word.add("AHDHJIKS");
+        word.add("AHDHJIKS"); //adds an invalid word to the list
         word.add("THESE");
         word.add("ARE");
         word.add("VALID");
@@ -71,7 +71,7 @@ public class ScrabbleDictionaryTest {
         word.add("THIS");
         word.add("HAS");
         word.add("AN");
-        word.add("XJSOJD");
+        word.add("XJSOJD"); //adds an invalid word to the list
         word.add("INVALID");
         word.add("WORD");
 
@@ -88,7 +88,7 @@ public class ScrabbleDictionaryTest {
         word.add("ZEBRA");
         word.add("XYLOPHONE");
         word.add("YAK");
-        word.add("AHSKDJC");
+        word.add("AHSKDJC"); //adds an invalid word to the list
 
         Assertions.assertFalse(dictionary.inDictionary(word));
     }
