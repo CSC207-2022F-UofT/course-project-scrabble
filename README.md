@@ -86,8 +86,7 @@ If the user decides that their preferred candidate move to play, they can press 
 ![image](/resources/updated_picture_of_game.png)
 
 ## Eighth Step: Game Play
-Continue playing words and scoring words correctly.
-![image](/resources/real-game.png)
+Continue playing words and scoring words correctly. Players can keep playing and can close the application and reopen it. Data abstraction is implemented via the ability to open and close the application via the `Load Game` button on the Welcome Page in the [First Step](#first-step-running-the-game). 
 
 ## Final Step: Ending Game
 If both players agree to end the game, then they can press the `End Game` button, which will calculate the scores of the game and display them back through our Exit page. Our application will also calculate if there are no tiles left to be played, which will also end the game according to our rules. The winner will then be displayed for everyone to see.
