@@ -1,0 +1,331 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ScrabbleGameController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">scrabble_controller</a>
+</div>
+
+<h1>Coverage Summary for Class: ScrabbleGameController (scrabble_controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ScrabbleGameController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/72)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;/*
+&nbsp; * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+&nbsp; * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+&nbsp; */
+&nbsp;package scrabble_controller;
+&nbsp;import data_gateways.gateways_implementation.GameSaverSystem;
+&nbsp;import data_gateways.gateways_implementation.GameLoaderSystem;
+&nbsp;import data_gateways.gateways_implementation.GameCreator;
+&nbsp;import data.gateway_interfaces.GameLoadUsecase;
+&nbsp;import data.gateway_interfaces.GameSaveUsecase;
+&nbsp;import entities.*;
+&nbsp;import usecases.usecase_implementations.ScoringSystem;
+&nbsp;import entities.MoveInfo;
+&nbsp;import usecases.usecase_implementations.BoardManager;
+&nbsp;import usecases.usecase_implementations.TurnManager;
+&nbsp;import usecases.usecase_implementations.PlayerManager;
+&nbsp;import gui.pages.GamePage;
+&nbsp;import usecases.usecase_implementations.HandManager;
+&nbsp;import usecases.usecase_implementations.EndGameManager;
+&nbsp;import usecases.usecase_interfaces.*;
+&nbsp;import java.util.ArrayList;
+&nbsp;import gui.View;
+&nbsp;import java.util.List;
+&nbsp;import usecases.usecase_implementations.ScrabbleDictionary;
+&nbsp;
+&nbsp;/**
+&nbsp; *
+&nbsp; * @author jingw
+&nbsp; */
+&nbsp;public class ScrabbleGameController{
+&nbsp;    
+&nbsp;    private final BoardManager boardManager;
+&nbsp;    private final PlayerManager playerManager;
+&nbsp;    private final GameLoaderSystem  gameLoader;
+&nbsp;    private final GameSaverSystem gameSaver;
+&nbsp;    private final ScoringSystem gameScorer;
+&nbsp;    private final GameCreator gameCreator;
+&nbsp;    private final TurnManager turnManager;
+&nbsp;    private final HandManager handManager;
+&nbsp;    private final EndGameManager endGameManager;
+&nbsp;    private Game game;
+&nbsp;    private final ScrabbleDictionary scrabbleDictionary;
+&nbsp;    
+&nbsp;    
+&nbsp;    private final View view;
+&nbsp;    
+<b class="nc">&nbsp;    public ScrabbleGameController(View v) {</b>
+<b class="nc">&nbsp;        boardManager = new BoardManager(); // this class implements checkword checktile</b>
+<b class="nc">&nbsp;        playerManager = new PlayerManager();// this class implements updatescore, drawtiles</b>
+<b class="nc">&nbsp;        handManager = new HandManager();</b>
+<b class="nc">&nbsp;        gameLoader = new GameLoaderSystem();</b>
+<b class="nc">&nbsp;        gameSaver = new GameSaverSystem();</b>
+<b class="nc">&nbsp;        gameCreator = new GameCreator();</b>
+<b class="nc">&nbsp;        turnManager = new TurnManager();</b>
+<b class="nc">&nbsp;        gameScorer = new ScoringSystem();</b>
+<b class="nc">&nbsp;        scrabbleDictionary = new ScrabbleDictionary();</b>
+<b class="nc">&nbsp;        endGameManager = new EndGameManager();</b>
+<b class="nc">&nbsp;        view = v;</b>
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    public ScrabbleGameController() {       // for testing</b>
+<b class="nc">&nbsp;        boardManager = new BoardManager(); // this class implements checkword checktile</b>
+<b class="nc">&nbsp;        playerManager = new PlayerManager();// this class implements updatescore, drawtiles</b>
+<b class="nc">&nbsp;        handManager = new HandManager();</b>
+<b class="nc">&nbsp;        gameLoader = new GameLoaderSystem();</b>
+<b class="nc">&nbsp;        gameSaver = new GameSaverSystem();</b>
+<b class="nc">&nbsp;        gameCreator = new GameCreator();</b>
+<b class="nc">&nbsp;        turnManager = new TurnManager();</b>
+<b class="nc">&nbsp;        gameScorer = new ScoringSystem();</b>
+<b class="nc">&nbsp;        scrabbleDictionary = new ScrabbleDictionary();</b>
+<b class="nc">&nbsp;        endGameManager = new EndGameManager();</b>
+<b class="nc">&nbsp;        game = new Game();</b>
+<b class="nc">&nbsp;        view = new GamePage(&quot;P1&quot;, &quot;P2&quot;, true);</b>
+&nbsp;
+&nbsp;
+&nbsp;    }
+&nbsp;    
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method is responsible for calling the resetMoves usecase.
+&nbsp;     */
+&nbsp;    public void resetMove() {
+<b class="nc">&nbsp;        ArrayList&lt;MoveInfo&gt; moveInfos = ((ResetMoveUsecase) boardManager).resetMoves(game);</b>
+<b class="nc">&nbsp;        ((ResetHandUsecase) handManager).resetHand(game, moveInfos);</b>
+<b class="nc">&nbsp;        view.updateView(game);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method is responsible for calling the resetMoves usecase but is without updating the view
+&nbsp;     * as this is used for testing
+&nbsp;     */
+&nbsp;    public void resetMoveTester() {
+<b class="nc">&nbsp;        ((ResetMoveUsecase) boardManager).resetMoves(game);</b>
+<b class="nc">&nbsp;        ArrayList&lt;MoveInfo&gt; moveInfos = boardManager.getMoves();</b>
+&nbsp;
+<b class="nc">&nbsp;        for(MoveInfo move : moveInfos){</b>
+<b class="nc">&nbsp;            handManager.addTile(game, move.getLetter());</b>
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        boardManager.clearMoves();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method is responsible for calling the swapHand, incrementTurn, and fillHand usecases
+&nbsp;     * Then updates the view
+&nbsp;     */
+&nbsp;    public void swapTiles() {
+<b class="nc">&nbsp;        ((SwapHandUsecase) handManager).swapHand(game);</b>
+<b class="nc">&nbsp;        ((IncrementTurnUsecase) turnManager).incrementTurn(game);</b>
+<b class="nc">&nbsp;        ((FillHandUsecase)handManager).fillHand(game);// fill the next player&#39;s hand</b>
+&nbsp;
+<b class="nc">&nbsp;        view.updateView(game);</b>
+&nbsp;    }
+&nbsp;    
+&nbsp;    /**
+&nbsp;     * This method is responsible for calling the checkLetter and removeTile usecases
+&nbsp;     * Then updates the view
+&nbsp;     * @param coords the coordinates of the letter being placed
+&nbsp;     * @param letter the letter being placed
+&nbsp;     */
+&nbsp;    public void placeTile(int[] coords, String letter) {
+<b class="nc">&nbsp;        boolean placeTileTrueness = ((PlaceTileUsecase) boardManager).checkLetter(coords, letter, game);</b>
+<b class="nc">&nbsp;        if(placeTileTrueness){</b>
+<b class="nc">&nbsp;            ((RemoveTileUsecase)handManager).removeTile(game, letter); // remove the tile</b>
+&nbsp;        }
+&nbsp;        else{
+<b class="nc">&nbsp;            System.out.println(&quot;Invalid Move Played in placeTile&quot;);</b>
+&nbsp;        }
+&nbsp;        // call boardmanager checkLetter 
+&nbsp;
+&nbsp;        // place tile usecase 
+<b class="nc">&nbsp;        view.updateView(game);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method is responsible for calling the checkLetter and removeTile use cases but instead without
+&nbsp;     * updating the view as this is used for testing
+&nbsp;     * @param coords the coordinates of the letter being placed
+&nbsp;     * @param letter the letter being placed
+&nbsp;     */
+&nbsp;    public void placeTileTester(int[] coords, String letter) {
+<b class="nc">&nbsp;        boolean placeTileTrueness = ((PlaceTileUsecase) boardManager).checkLetter(coords, letter, game);</b>
+<b class="nc">&nbsp;        if(placeTileTrueness){</b>
+<b class="nc">&nbsp;            ((RemoveTileUsecase)handManager).removeTile(game, letter); // remove the tile</b>
+&nbsp;        }
+&nbsp;        else{
+<b class="nc">&nbsp;            System.out.println(&quot;Invalid Move Played in placeTile&quot;);</b>
+&nbsp;        }
+&nbsp;
+&nbsp;    }
+&nbsp;    
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method is responsible for placing
+&nbsp;     */
+&nbsp;    public void playMove() {
+<b class="nc">&nbsp;        GameBoard prevBoard = boardManager.getPrevBoard();</b>
+<b class="nc">&nbsp;        List&lt;List&lt;List&lt;Integer&gt;&gt;&gt; words = ((PlaceWordUsecase) boardManager).checkWord(game, scrabbleDictionary, prevBoard);</b>
+&nbsp;
+&nbsp;        //boardmanager checkword returns list of coordinates and list of letters used by the player
+&nbsp;
+<b class="nc">&nbsp;        if(!words.isEmpty()) {</b>
+<b class="nc">&nbsp;            System.out.println(&quot;valid word&quot;);</b>
+&nbsp;            // ScoringSystem
+<b class="nc">&nbsp;            int score = ((CalculateWordScoreUsecase) gameScorer).calculateMultiWordScore(game, words);</b>
+&nbsp;            // calculate the total score of all the words found
+<b class="nc">&nbsp;            ((UpdateScoreUsecase) playerManager).updateScoreForCurrentPlayer(game.getCurrentPlayer().getScore() + score, game);</b>
+<b class="nc">&nbsp;            ((ResetMoveUsecase)boardManager).clearMoves();</b>
+<b class="nc">&nbsp;            ((IncrementTurnUsecase) turnManager).incrementTurn(game);</b>
+<b class="nc">&nbsp;            ((FillHandUsecase)handManager).fillHand(game);// fill the next player&#39;s hand</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;        else {
+<b class="nc">&nbsp;            System.out.println(&quot;not valid&quot;);</b>
+<b class="nc">&nbsp;            resetMove();</b>
+&nbsp;        }
+<b class="nc">&nbsp;        saveGameToFile();</b>
+<b class="nc">&nbsp;        view.updateView(game);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public boolean checkFullHand(){
+<b class="nc">&nbsp;        return ((CheckHandUsecase)handManager).checkHand(game);</b>
+&nbsp;    }
+&nbsp;    
+&nbsp;    /**
+&nbsp;     * This method is responsible for creating a game from the file stored locally on the users computer
+&nbsp;     */
+&nbsp;    public void createGameFromFile() {
+<b class="nc">&nbsp;        game = ((GameLoadUsecase)gameLoader).loadGame(); // loadgame usecase</b>
+<b class="nc">&nbsp;        view.updateView(game);</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * This method is responsible for saving the current game state to a file
+&nbsp;     */
+&nbsp;    public void saveGameToFile() { // make sure this is not called before a game is created
+<b class="nc">&nbsp;        ((GameSaveUsecase)gameSaver).saveGame(game);// savegame usecase</b>
+&nbsp;    }
+&nbsp;    
+&nbsp;    /**
+&nbsp;     * This method is responsible for creating a new game given a list of names
+&nbsp;     * @param names a list of the players&#39; names
+&nbsp;     */
+&nbsp;    public void startGame(String[] names) { // create game usecase
+<b class="nc">&nbsp;        game = ((CreateGameUsecase)gameCreator).createNewGame(names);</b>
+<b class="nc">&nbsp;        ((FillHandUsecase)handManager).fillHand(game);</b>
+<b class="nc">&nbsp;        view.updateView(game);</b>
+&nbsp;    }
+&nbsp;    
+&nbsp;    /**
+&nbsp;     * This method is responsible for ending the game and calculating the winner
+&nbsp;     */
+&nbsp;    public void endGame() { // get score
+<b class="nc">&nbsp;        Player[] winners = ((EndGameUsecase) endGameManager).endGame(game);</b>
+<b class="nc">&nbsp;        view.updateVictoryScreen(winners);</b>
+&nbsp;    }   
+&nbsp;    
+&nbsp;    public Game getData() {
+<b class="nc">&nbsp;        return game;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public BoardManager getBoardManager(){
+<b class="nc">&nbsp;        return boardManager;</b>
+&nbsp;    }
+&nbsp;    
+&nbsp;    
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-12-08 19:23</div>
+</div>
+</body>
+</html>

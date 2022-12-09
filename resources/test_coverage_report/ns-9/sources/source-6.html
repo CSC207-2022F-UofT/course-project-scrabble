@@ -1,0 +1,174 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ScrabbleDictionary</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">usecases.usecase_implementations</a>
+</div>
+
+<h1>Coverage Summary for Class: ScrabbleDictionary (usecases.usecase_implementations)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ScrabbleDictionary</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    66.7%
+  </span>
+  <span class="absValue">
+    (2/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    89.7%
+  </span>
+  <span class="absValue">
+    (26/29)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package usecases.usecase_implementations;
+&nbsp;import java.io.File; //the File class
+&nbsp;import java.io.FileNotFoundException; //handle errors in File class
+&nbsp;import java.util.ArrayList; //the ArrayList class
+&nbsp;import java.util.HashMap; //key-value pairs for easy searching
+&nbsp;import java.util.List; //the List class
+&nbsp;import java.util.Scanner; //to read the files
+&nbsp;
+&nbsp;/**
+&nbsp; * This class is responsible for parsing through a ScrabbleDictionary and getting a HashMap for the dictionary to be
+&nbsp; * used in the game
+&nbsp; * @author Claire
+&nbsp; */
+&nbsp;
+&nbsp;public class ScrabbleDictionary {
+<b class="fc">&nbsp;    private final String filepath = &quot;src/main/game_resources/CollinsScrabbleWords(2019).txt&quot;;</b>
+&nbsp;    
+&nbsp;    private HashMap&lt;String, ArrayList&lt;String&gt;&gt; dictionary; //made static so that static methods can access
+&nbsp;    
+&nbsp;    
+&nbsp;    public static void main(String[] args) { //apparently I needed this to test it
+<b class="nc">&nbsp;        ScrabbleDictionary scrabbleDictionary = new ScrabbleDictionary();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Constructor for the ScrabbleDictionary class. Reads the scrabble dictionary file and creates a hashmap for it
+&nbsp;     */
+<b class="fc">&nbsp;    public ScrabbleDictionary() {</b>
+&nbsp;        try { //if the file can be found, this happens
+<b class="fc">&nbsp;            this.dictionary = new HashMap&lt;&gt;();</b>
+<b class="fc">&nbsp;            File wordlist = new File(filepath);</b>
+<b class="fc">&nbsp;            try (Scanner fileReader = new Scanner(wordlist)) {</b>
+<b class="fc">&nbsp;                char currkey = &#39;A&#39;; // initial character to serve as first key</b>
+<b class="fc">&nbsp;                ArrayList&lt;String&gt; currlist = new ArrayList&lt;&gt;(); // empty array to be filled with words</b>
+<b class="fc">&nbsp;                String line = fileReader.nextLine();//first line</b>
+<b class="fc">&nbsp;                while (fileReader.hasNextLine()) {</b>
+<b class="fc">&nbsp;                    if (line.charAt(0) == currkey) { //if the word starts with the key</b>
+<b class="fc">&nbsp;                        currlist.add(line); //adds the current word to the array</b>
+&nbsp;                    } else { //if the word doesn&#39;t start with they key
+<b class="fc">&nbsp;                        this.dictionary.put(String.valueOf(currkey), currlist); // adds the key/value pair to the HashMap</b>
+<b class="fc">&nbsp;                        currkey = line.charAt(0); //sets the new key</b>
+<b class="fc">&nbsp;                        currlist = new ArrayList&lt;&gt;(); //creates a new empty array</b>
+<b class="fc">&nbsp;                        currlist.add(line);</b>
+&nbsp;                    }
+<b class="fc">&nbsp;                    line = fileReader.nextLine(); //moves on to the next line</b>
+&nbsp;                }
+<b class="fc">&nbsp;                this.dictionary.put(String.valueOf(currkey), currlist); //adds last letter to the dictionary</b>
+<b class="fc">&nbsp;            }</b>
+<b class="nc">&nbsp;        } catch (FileNotFoundException e) { //if the file can&#39;t be found, prints the error and the stack trace</b>
+<b class="nc">&nbsp;            System.out.println(&quot;error: couldn&#39;t find the file&quot;);</b>
+<b class="fc">&nbsp;        }</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method is responsible for searching for words in the dictionary
+&nbsp;     * @param wordlist list of words that need to be checked
+&nbsp;     * @return boolean returns whether the words are in the dictionary
+&nbsp;     */
+&nbsp;    public boolean inDictionary(List&lt;String&gt; wordlist) { //searches for words in the dictionary
+<b class="fc">&nbsp;        for (String word : wordlist) {</b>
+<b class="fc">&nbsp;            String key = String.valueOf(word.charAt(0)); //takes the first letter of the word as the key</b>
+<b class="fc">&nbsp;            ArrayList&lt;String&gt; dict = this.dictionary.get(key); //an ArrayList of all the words starting with that letter</b>
+<b class="fc">&nbsp;            if (!dict.contains(word)) {</b>
+<b class="fc">&nbsp;                return false; //returns false if the word is not in the list</b>
+&nbsp;            }
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        return true;</b>
+&nbsp;    } //after looping through the entire list of words, returns true
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-12-08 19:23</div>
+</div>
+</body>
+</html>

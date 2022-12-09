@@ -1,0 +1,566 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > GamePage</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">gui.pages</a>
+</div>
+
+<h1>Coverage Summary for Class: GamePage (gui.pages)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GamePage</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/13)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/196)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package gui.pages;
+&nbsp;
+&nbsp;import entities.*;
+&nbsp;
+&nbsp;import gui.components.DialogueBox;
+&nbsp;import gui.components.Label;
+&nbsp;import gui.components.Button;
+&nbsp;import gui.View;
+&nbsp;import javax.swing.*;
+&nbsp;import java.awt.*;
+&nbsp;import java.awt.event.ActionEvent;
+&nbsp;import java.awt.event.ActionListener;
+&nbsp;import java.util.*;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;import scrabble_controller.ScrabbleGameController;
+&nbsp;
+&nbsp;public class GamePage implements ActionListener, View {
+&nbsp;    private String player1Name;
+&nbsp;    private String player2Name;
+&nbsp;    public int player1Score;
+&nbsp;    public int player2Score;
+&nbsp;
+<b class="nc">&nbsp;    private static final int[][] TILE_MULTIPLIERS = new int[][]</b>
+&nbsp;            {{3,1,1,2,1,1,1,3,1,1,1,2,1,1,3},
+&nbsp;                    {1,2,1,1,1,3,1,1,1,3,1,1,1,2,1},
+&nbsp;                    {1,1,2,1,1,1,2,1,2,1,1,1,2,1,1},
+&nbsp;                    {2,1,1,2,1,1,1,2,1,1,1,2,1,1,2},
+&nbsp;                    {1,1,1,1,2,1,1,1,1,1,2,1,1,1,1},
+&nbsp;                    {1,3,1,1,1,3,1,1,1,3,1,1,1,3,1},
+&nbsp;                    {1,1,2,1,1,1,2,1,2,1,1,1,2,1,1},
+&nbsp;                    {3,1,1,2,1,1,1,1,1,1,1,2,1,1,3},
+&nbsp;                    {1,1,2,1,1,1,2,1,2,1,1,1,2,1,1},
+&nbsp;                    {1,3,1,1,1,3,1,1,1,3,1,1,1,3,1},
+&nbsp;                    {1,1,1,1,2,1,1,1,1,1,2,1,1,1,1},
+&nbsp;                    {2,1,1,2,1,1,1,2,1,1,1,2,1,1,2},
+&nbsp;                    {1,1,2,1,1,1,2,1,2,1,1,1,2,1,1},
+&nbsp;                    {1,2,1,1,1,3,1,1,1,3,1,1,1,2,1},
+&nbsp;                    {3,1,1,2,1,1,1,3,1,1,1,2,1,1,3}};
+&nbsp;
+&nbsp;    private final ScrabbleGameController controller;
+&nbsp;    
+<b class="nc">&nbsp;    public GamePage(String player1Name, String player2Name, boolean newGame){</b>
+<b class="nc">&nbsp;        this.player1Name = player1Name;</b>
+<b class="nc">&nbsp;        this.player2Name = player2Name;</b>
+<b class="nc">&nbsp;        if(newGame){</b>
+<b class="nc">&nbsp;            this.player1Score = 0;</b>
+<b class="nc">&nbsp;            this.player2Score = 0;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        controller = new ScrabbleGameController(this);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    DialogueBox dialogueBox;
+&nbsp;    Label gamePageLabel, gamePageTitle, player1Label, player2Label, turnLabel;
+&nbsp;    private String[] currentLetters;
+&nbsp;    int boundX, boundY;
+&nbsp;
+<b class="nc">&nbsp;    ArrayList&lt;JButton&gt; playedButtons = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;    ArrayList&lt;JButton&gt; holderButtons = new ArrayList&lt;&gt;();</b>
+&nbsp;    private String clickedValue;
+&nbsp;
+&nbsp;    Button createGameButton, endGameButton, swapHands, recallTiles, shuffleHand;
+<b class="nc">&nbsp;    final int BOARD_DIM = 600; // dimension of the board (can be changed)</b>
+<b class="nc">&nbsp;    final int BOARD_ROWS = 15; // same as columns</b>
+<b class="nc">&nbsp;    final int WIDTH = 1200; // width of the frame</b>
+<b class="nc">&nbsp;    final int HEIGHT = 900; // height of the frame</b>
+&nbsp;
+<b class="nc">&nbsp;    public ArrayList&lt;String&gt; letters = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;    public ArrayList&lt;int[]&gt; coordinates = new ArrayList&lt;&gt;();</b>
+&nbsp;
+&nbsp;    public ArrayList&lt;String&gt; getLetters(){
+<b class="nc">&nbsp;        return letters;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void createGame(boolean fromFile) {
+&nbsp;        //create the new game object
+&nbsp;        //create the new game page
+<b class="nc">&nbsp;        dialogueBox = new DialogueBox();</b>
+&nbsp;        
+<b class="nc">&nbsp;        dialogueBox.createDialogueBox(&quot;Scrabble Game Page&quot;, WIDTH, HEIGHT, false);</b>
+<b class="nc">&nbsp;        dialogueBox.frame.setVisible(true);</b>
+&nbsp;        // we want to ignore the exit when we close only the rules page
+<b class="nc">&nbsp;        dialogueBox.frame.setResizable(false);</b>
+<b class="nc">&nbsp;        Color col = new Color(255, 230, 230);</b>
+<b class="nc">&nbsp;        dialogueBox.frame.getContentPane().setBackground(col);</b>
+&nbsp;
+&nbsp;        // add title label for rules box
+<b class="nc">&nbsp;        gamePageTitle = new Label();</b>
+<b class="nc">&nbsp;        gamePageTitle.createLabel(30, 10, 40, WIDTH - 100, 40, dialogueBox.frame, &quot;Play Scrabble&quot;, Color.BLACK);</b>
+<b class="nc">&nbsp;        gamePageTitle.setCentreAlignment();</b>
+&nbsp;
+&nbsp;        // add title label for rules box
+<b class="nc">&nbsp;        gamePageLabel = new Label();</b>
+<b class="nc">&nbsp;        gamePageLabel.createLabel(16, 10, 100, WIDTH / 4, 20, dialogueBox.frame, &quot;Welcome to Scrabble!&quot;, Color.BLACK);</b>
+&nbsp;		
+<b class="nc">&nbsp;        gamePageLabel.setCentreAlignment();</b>
+&nbsp;
+&nbsp;        // add label for player 1
+<b class="nc">&nbsp;        player1Label = new Label();</b>
+<b class="nc">&nbsp;        player1Label.createLabel(16, 10, 160, WIDTH / 4, 20, dialogueBox.frame, player1Name + &quot;&#39;s Score: &quot; + player1Score, Color.BLACK);</b>
+<b class="nc">&nbsp;        player1Label.setCentreAlignment();</b>
+&nbsp;
+&nbsp;        // add label for player 2
+<b class="nc">&nbsp;        player2Label = new Label();</b>
+<b class="nc">&nbsp;        player2Label.createLabel(16, 10, 200, WIDTH / 4, 20, dialogueBox.frame, player2Name + &quot;&#39;s Score: &quot; + player2Score, Color.BLACK);</b>
+<b class="nc">&nbsp;        player2Label.setCentreAlignment();</b>
+&nbsp;
+&nbsp;        // add label for whose turn it is
+<b class="nc">&nbsp;        turnLabel = new Label();</b>
+&nbsp;        // init with Player 1 Name
+<b class="nc">&nbsp;        turnLabel.createLabel(16, 10, 240, WIDTH / 4, 20, dialogueBox.frame, &quot;It is &quot; + player1Name + &quot;&#39;s turn!&quot;, Color.BLACK);</b>
+<b class="nc">&nbsp;        turnLabel.setCentreAlignment();</b>
+&nbsp;
+<b class="nc">&nbsp;        createGameButton = new Button();</b>
+<b class="nc">&nbsp;        createGameButton.createButton(dialogueBox.frame, &quot;Play Move&quot;, WIDTH - 300, HEIGHT - 100, 100, 30, null);</b>
+<b class="nc">&nbsp;        createGameButton.getButton().addActionListener(this);</b>
+&nbsp;
+<b class="nc">&nbsp;        recallTiles = new Button();</b>
+<b class="nc">&nbsp;        recallTiles.createButton(dialogueBox.frame, &quot;Recall Tiles&quot;, WIDTH - 450, HEIGHT - 100, 100, 30, null);</b>
+<b class="nc">&nbsp;        recallTiles.getButton().addActionListener(this);</b>
+&nbsp;
+<b class="nc">&nbsp;        endGameButton = new Button();</b>
+<b class="nc">&nbsp;        endGameButton.createButton(dialogueBox.frame, &quot;End Game&quot;, WIDTH - 150, HEIGHT - 100, 100, 30, null);</b>
+<b class="nc">&nbsp;        endGameButton.getButton().addActionListener(this);</b>
+&nbsp;
+<b class="nc">&nbsp;        swapHands = new Button();</b>
+<b class="nc">&nbsp;        swapHands.createButton(dialogueBox.frame, &quot;Swap Hands&quot;, WIDTH - 625, HEIGHT - 100, 120, 30, null);</b>
+<b class="nc">&nbsp;        swapHands.getButton().addActionListener(this);</b>
+&nbsp;
+<b class="nc">&nbsp;        shuffleHand = new Button();</b>
+<b class="nc">&nbsp;        shuffleHand.createButton(dialogueBox.frame, &quot;Shuffle Hand&quot;, WIDTH - 800, HEIGHT - 100, 120, 30, null);</b>
+<b class="nc">&nbsp;        shuffleHand.getButton().addActionListener(this);</b>
+&nbsp;
+&nbsp;        //currentLetters = STARTING_LETTERS; // assign the current letters to the starting letters at the start
+&nbsp;
+<b class="nc">&nbsp;        boundX = 300; // set the x and y bounds at the start for the scrabble board</b>
+<b class="nc">&nbsp;        boundY = 50;</b>
+&nbsp;        //createInitialBoard(); // create the starting board
+&nbsp;        //createLetterHolder(); // create the initial letter holder at the bottom of the board
+&nbsp;
+&nbsp;        // refresh the page to allow the board to be visible
+<b class="nc">&nbsp;        dialogueBox.frame.setVisible(true);</b>
+<b class="nc">&nbsp;        dialogueBox.frame.setResizable(false);</b>
+&nbsp;        
+&nbsp;        // create the game
+<b class="nc">&nbsp;        String[] names = new String[]{player1Name, player2Name};</b>
+<b class="nc">&nbsp;        if(fromFile){</b>
+<b class="nc">&nbsp;            controller.createGameFromFile();</b>
+&nbsp;        }
+&nbsp;        else{
+<b class="nc">&nbsp;            controller.startGame(names);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates an imageIcon based on the file name
+&nbsp;     *
+&nbsp;     * @param filename the file name that we want to create
+&nbsp;     */
+&nbsp;    public ImageIcon createImageIcon(String filename){
+&nbsp;        // determine whether the path is set correctly
+<b class="nc">&nbsp;        String path = &quot;src/main/game_resources/letters/&quot; + filename;</b>
+&nbsp;        // create an ImageIcon to display as the button image
+<b class="nc">&nbsp;        ImageIcon icon = new ImageIcon(path);</b>
+<b class="nc">&nbsp;        Image image = icon.getImage(); // scale image to fit the board size</b>
+&nbsp;        // make sure that the image is the same size as the button
+<b class="nc">&nbsp;        Image newImg = image.getScaledInstance(BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, Image.SCALE_SMOOTH);</b>
+&nbsp;        // replace old imageIcon with the new one
+<b class="nc">&nbsp;        icon = new ImageIcon(newImg);</b>
+<b class="nc">&nbsp;        return icon;</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates a letter holder at the bottom of the board with all regular tiles
+&nbsp;     */
+&nbsp;    public void updateLetterHolder(){
+<b class="nc">&nbsp;        Button holderButton = new Button();</b>
+&nbsp;        // create holders for buttons
+<b class="nc">&nbsp;        int yBound = boundY + BOARD_DIM + 50;</b>
+&nbsp;        ImageIcon icon;
+&nbsp;
+&nbsp;        // create a holder for the tiles to start
+<b class="nc">&nbsp;        for(int i = 0; i &lt; currentLetters.length; i++){</b>
+&nbsp;            // create initial starting position with an increment for each tile
+<b class="nc">&nbsp;            int xBound = boundX + BOARD_DIM / 4 + BOARD_DIM / BOARD_ROWS * i;</b>
+&nbsp;
+&nbsp;            // for empty holders
+<b class="nc">&nbsp;            if(&quot;-&quot;.equals(currentLetters[i])){</b>
+<b class="nc">&nbsp;                icon = createImageIcon(&quot;wood.jpg&quot;);</b>
+<b class="nc">&nbsp;                holderButton.createButtonWithID(dialogueBox.frame, &quot;&quot;, xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, &quot;holder &quot; + i + &quot; -&quot;);</b>
+&nbsp;            }
+&nbsp;            else {
+<b class="nc">&nbsp;                icon = createImageIcon(currentLetters[i] + &quot;.jpg&quot;);</b>
+<b class="nc">&nbsp;                holderButton.createButtonWithID(dialogueBox.frame, &quot;&quot;, xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, &quot;holder &quot; + i + &quot; &quot; + currentLetters[i]);</b>
+&nbsp;            }
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;            holderButton.getButton().addActionListener(this);</b>
+<b class="nc">&nbsp;            holderButtons.add(holderButton.button);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        dialogueBox.frame.setVisible(true);</b>
+<b class="nc">&nbsp;        dialogueBox.frame.setResizable(false);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Scuffles the current hand
+&nbsp;     */
+&nbsp;    public void shuffleHand(){
+<b class="nc">&nbsp;        List&lt;String&gt; strList = Arrays.asList(currentLetters); // change array to list</b>
+<b class="nc">&nbsp;        Collections.shuffle(strList);</b>
+<b class="nc">&nbsp;        strList.toArray(this.currentLetters);</b>
+&nbsp;        // initialize a counter to change the index to find the button
+<b class="nc">&nbsp;        int holderIndex = 0;</b>
+&nbsp;        // get the components and update the icons and names
+<b class="nc">&nbsp;        Component[] components = dialogueBox.frame.getContentPane().getComponents();</b>
+<b class="nc">&nbsp;        for (Component component : components){ // iterate through each component in the frame</b>
+&nbsp;            // check if the component is a button, whether it has a name, and whether it starts with holder
+<b class="nc">&nbsp;            if(holderButtons.contains(component)){</b>
+<b class="nc">&nbsp;                JButton b = (JButton) component; // cast the button to a JButton.</b>
+<b class="nc">&nbsp;                if(Objects.equals(currentLetters[holderIndex], &quot;-&quot;)){</b>
+<b class="nc">&nbsp;                    b.setIcon(createImageIcon(&quot;wood.jpg&quot;)); // set the icon back to the original empty state</b>
+&nbsp;                }
+&nbsp;                else{
+<b class="nc">&nbsp;                    b.setIcon(createImageIcon(currentLetters[holderIndex] + &quot;.jpg&quot;)); // set the icon back to the original empty state</b>
+&nbsp;                }
+<b class="nc">&nbsp;                String currentName = b.getName(); // get the current name of the button</b>
+<b class="nc">&nbsp;                b.setName(currentName.substring(0,currentName.length() - 1) + currentLetters[holderIndex]); // set new name</b>
+<b class="nc">&nbsp;                holderIndex += 1; // increase the holder index by 1</b>
+&nbsp;
+<b class="nc">&nbsp;                b.setVisible(true); // set the visibility back to true for viewing</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        dialogueBox.frame.setVisible(true);</b>
+<b class="nc">&nbsp;        dialogueBox.frame.setResizable(false);</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Deletes all the current buttons on the board and the holder
+&nbsp;     */
+&nbsp;    public void deleteBoard() {
+<b class="nc">&nbsp;        Component[] components = dialogueBox.frame.getContentPane().getComponents();</b>
+<b class="nc">&nbsp;        for (Component component : components) { // iterate through each component in the frame</b>
+&nbsp;            // check if the component is a button, whether it has a name, and whether it starts with holder
+<b class="nc">&nbsp;            if (component instanceof JButton) {</b>
+<b class="nc">&nbsp;                String name = component.getName();</b>
+<b class="nc">&nbsp;                if (name != null){</b>
+&nbsp;                    // delete button
+&nbsp;                    // length of a button index is less than 6
+<b class="nc">&nbsp;                    if(name.startsWith(&quot;holder&quot;) || name.length() &lt; 6){</b>
+<b class="nc">&nbsp;                        dialogueBox.frame.remove(component);</b>
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        dialogueBox.frame.setVisible(true);</b>
+<b class="nc">&nbsp;        dialogueBox.frame.setResizable(false);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Plays the specified move and updates the button
+&nbsp;     *
+&nbsp;     * @param value the letter that we want played
+&nbsp;     * @param coord the [y, x] coords of the letter
+&nbsp;     */
+&nbsp;    // helper method to update the game when a letter has been played by a player
+&nbsp;    public void playLetter(String value, int[] coord, JButton button) {
+<b class="nc">&nbsp;        playedButtons.add(button);</b>
+&nbsp;        // play the tile onto the board
+<b class="nc">&nbsp;        controller.placeTile(coord, value);</b>
+&nbsp;
+<b class="nc">&nbsp;        button.setIcon(createImageIcon(value + &quot;.jpg&quot;)); // set the button to the letter&#39;s icon</b>
+<b class="nc">&nbsp;        letters.add(value);</b>
+<b class="nc">&nbsp;        coordinates.add(coord);</b>
+&nbsp;
+<b class="nc">&nbsp;        dialogueBox.frame.setVisible(true);</b>
+<b class="nc">&nbsp;        dialogueBox.frame.setResizable(false);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Prints the letter and its coordinates. Will format letters and coordinates for easier readability
+&nbsp;     */
+&nbsp;    public void printLettersAndCoordinates() {
+<b class="nc">&nbsp;        if (letters.isEmpty()){</b>
+<b class="nc">&nbsp;            System.out.println(&quot;No letters&quot;);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        for (int i = 0; i &lt; letters.size(); i++) {</b>
+<b class="nc">&nbsp;            System.out.println(&quot;Letter &quot; + letters.get(i) + &quot; played at coordinate: &quot; + Arrays.toString(coordinates.get(i)));</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates a board based on the inputted board
+&nbsp;     * @param game is the entire game that is passed into the coordinates
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void updateView(Game game){
+&nbsp;        // board deleted
+<b class="nc">&nbsp;        deleteBoard();</b>
+&nbsp;
+&nbsp;        // update scores of players
+<b class="nc">&nbsp;        List&lt;Player&gt; players = game.getPlayers();</b>
+&nbsp;        // we&#39;re going to assume only 2 players for version 1. Will try to implement multiple players in the future
+<b class="nc">&nbsp;        player1Name = players.get(0).getName();</b>
+<b class="nc">&nbsp;        player1Score = players.get(0).getScore();</b>
+<b class="nc">&nbsp;        player2Name = players.get(1).getName();</b>
+<b class="nc">&nbsp;        player2Score = players.get(1).getScore();</b>
+&nbsp;
+<b class="nc">&nbsp;        player1Label.getLabel().setText(player1Name + &quot;&#39;s score is: &quot;  + player1Score); // set the name to the current player</b>
+<b class="nc">&nbsp;        player2Label.getLabel().setText(player2Name + &quot;&#39;s score is: &quot; + player2Score); // set the name to the current player</b>
+&nbsp;
+&nbsp;        // get whose turn it is
+<b class="nc">&nbsp;        Player currentPlayer = game.getCurrentPlayer();</b>
+&nbsp;        // get the holder tiles
+<b class="nc">&nbsp;        Cell[] hand = currentPlayer.getHand();</b>
+&nbsp;
+<b class="nc">&nbsp;        turnLabel.getLabel().setText(&quot;It is &quot; + currentPlayer.getName() + &quot;&#39;s turn!&quot;); // set the name to the current player</b>
+&nbsp;
+<b class="nc">&nbsp;        String[] handLetters = new String[]{&quot;-&quot;, &quot;-&quot;, &quot;-&quot;, &quot;-&quot;, &quot;-&quot;, &quot;-&quot;, &quot;-&quot;};</b>
+&nbsp;        // update the entire hand with new letters or nothing if it&#39;s a dash.
+&nbsp;
+<b class="nc">&nbsp;        for(int i = 0; i&lt;handLetters.length; i++){</b>
+<b class="nc">&nbsp;            if(hand[i] == null){</b>
+<b class="nc">&nbsp;                handLetters[i] = &quot;-&quot;;</b>
+&nbsp;            }
+&nbsp;            else{
+<b class="nc">&nbsp;                handLetters[i] = hand[i].getValue();</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        currentLetters = handLetters;</b>
+&nbsp;
+&nbsp;        // update cells
+<b class="nc">&nbsp;        GameBoard gameBoard = game.getGameBoard();</b>
+&nbsp;        // gameBoard.printBoard();
+&nbsp;
+<b class="nc">&nbsp;        Button letter = new Button();</b>
+&nbsp;        ImageIcon icon;
+&nbsp;
+&nbsp;        // calculate the middle coords
+<b class="nc">&nbsp;        int middleCoord = BOARD_ROWS/2;</b>
+&nbsp;        // create the middle icon
+<b class="nc">&nbsp;        ImageIcon middleIcon = createImageIcon(&quot;StarDesign.png&quot;);</b>
+<b class="nc">&nbsp;        ImageIcon doubleIcon = createImageIcon(&quot;double.png&quot;);</b>
+<b class="nc">&nbsp;        ImageIcon tripleIcon = createImageIcon(&quot;tripple.png&quot;);</b>
+&nbsp;
+&nbsp;        // iterate through the board rows to set the board based on the cells
+<b class="nc">&nbsp;        for(int i = 0; i&lt;BOARD_ROWS; i++){</b>
+<b class="nc">&nbsp;            int yBound = boundY + BOARD_DIM / BOARD_ROWS * i;</b>
+&nbsp;            // iterate through each letter index, add the letters back based on [j,i] coordinates
+<b class="nc">&nbsp;            for(int j = 0; j&lt;BOARD_ROWS; j++) {</b>
+<b class="nc">&nbsp;                String val = gameBoard.getBoardCellValue(i, j);</b>
+&nbsp;
+<b class="nc">&nbsp;                int xBound = boundX + BOARD_DIM / BOARD_ROWS * j; // buttons on the x-axis</b>
+&nbsp;
+<b class="nc">&nbsp;                if((Objects.equals(val, &quot;-&quot;))){</b>
+<b class="nc">&nbsp;                    icon = createImageIcon(&quot;wood.jpg&quot;);</b>
+&nbsp;                    // if the tile is in the middle and is empty, then we set is as the star
+<b class="nc">&nbsp;                    if(j == middleCoord &amp;&amp; i == middleCoord){</b>
+<b class="nc">&nbsp;                        letter.createButtonWithID(dialogueBox.frame, &quot;&quot;, xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, middleIcon, &quot;&quot; + i + &quot; &quot; + j);</b>
+&nbsp;                    }
+&nbsp;                    else{
+<b class="nc">&nbsp;                        if(TILE_MULTIPLIERS[i][j] == 1){</b>
+<b class="nc">&nbsp;                            letter.createButtonWithID(dialogueBox.frame, &quot;&quot;, xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, &quot;&quot; + i + &quot; &quot; + j);</b>
+&nbsp;                        }
+<b class="nc">&nbsp;                        else if(TILE_MULTIPLIERS[i][j] == 2){</b>
+<b class="nc">&nbsp;                            letter.createButtonWithID(dialogueBox.frame, &quot;&quot;, xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, doubleIcon, &quot;&quot; + i + &quot; &quot; + j);</b>
+&nbsp;                        }
+<b class="nc">&nbsp;                        else if(TILE_MULTIPLIERS[i][j] == 3){</b>
+<b class="nc">&nbsp;                            letter.createButtonWithID(dialogueBox.frame, &quot;&quot;, xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, tripleIcon, &quot;&quot; + i + &quot; &quot; + j);</b>
+&nbsp;                        }
+&nbsp;                    }
+&nbsp;                }
+&nbsp;                else{
+<b class="nc">&nbsp;                    icon = createImageIcon(val + &quot;.jpg&quot;);</b>
+<b class="nc">&nbsp;                    letter.createButtonWithID(dialogueBox.frame, &quot;&quot;, xBound, yBound, BOARD_DIM / BOARD_ROWS, BOARD_DIM / BOARD_ROWS, icon, &quot;&quot; + i + &quot; &quot; + j);</b>
+&nbsp;                }
+<b class="nc">&nbsp;                letter.getButton().addActionListener(this); // add listener to the button to see when it gets pressed</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        updateLetterHolder(); // updates the letter holder</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void updateVictoryScreen(Player[] winners) { // to be implemented 
+<b class="nc">&nbsp;        dialogueBox.frame.dispose(); // close dialogue box permanently</b>
+&nbsp;        // for now, we display the end game page
+&nbsp;        String winner;
+<b class="nc">&nbsp;        if(player1Score &gt; player2Score){</b>
+<b class="nc">&nbsp;            winner = player1Name;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        else if(player1Score==player2Score){</b>
+<b class="nc">&nbsp;            winner = &quot;Tie&quot;;</b>
+&nbsp;        }
+&nbsp;        else{
+<b class="nc">&nbsp;            winner = player2Name;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        EndGamePage endGamePage = new EndGamePage(player1Score, player2Score, player1Name,player2Name, winner);</b>
+<b class="nc">&nbsp;        endGamePage.createEndGamePage();</b>
+&nbsp;    }
+&nbsp;    
+&nbsp;    @Override
+&nbsp;    public void actionPerformed(ActionEvent e) {
+<b class="nc">&nbsp;        String s = e.getActionCommand();</b>
+&nbsp;
+&nbsp;        // check if button has been pressed
+<b class="nc">&nbsp;        Object actionSource = e.getSource();</b>
+&nbsp;
+&nbsp;        // check if we need to start a new game
+<b class="nc">&nbsp;        if (s.equals(&quot;Play Move&quot;)) {</b>
+<b class="nc">&nbsp;            controller.playMove();</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        else if (s.equals(&quot;End Game&quot;)) {</b>
+<b class="nc">&nbsp;            controller.endGame();</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        else if (s.equals(&quot;Shuffle Hand&quot;)) {</b>
+<b class="nc">&nbsp;            shuffleHand();</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        else if (s.equals(&quot;Recall Tiles&quot;)){</b>
+<b class="nc">&nbsp;            if (!controller.checkFullHand()){</b>
+<b class="nc">&nbsp;                controller.resetMove();</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        else if (s.equals(&quot;Swap Hands&quot;)) {</b>
+<b class="nc">&nbsp;            controller.swapTiles();</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        // if it is neither starting nor ending, check to see if it&#39;s a move played
+<b class="nc">&nbsp;        else if (actionSource instanceof JButton) {</b>
+<b class="nc">&nbsp;            JButton source = (JButton) e.getSource(); // cast button to a button</b>
+&nbsp;
+<b class="nc">&nbsp;            String buttonClick = source.getName();</b>
+&nbsp;
+&nbsp;            // if the button was not clicked, and it starts with holder
+<b class="nc">&nbsp;            if(buttonClick.startsWith(&quot;holder&quot;) &amp;&amp; clickedValue == null &amp;&amp; !buttonClick.endsWith(&quot;-&quot;)){</b>
+<b class="nc">&nbsp;                String[] holderLetter = buttonClick.split(&quot; &quot;);</b>
+<b class="nc">&nbsp;                clickedValue = holderLetter[2];</b>
+<b class="nc">&nbsp;                source.setVisible(false);</b>
+&nbsp;//                updateLetterHolder();
+<b class="nc">&nbsp;                dialogueBox.frame.setVisible(true);</b>
+<b class="nc">&nbsp;            }</b>
+&nbsp;            else {
+&nbsp;                // if the button was not clicked, and it doesn&#39;t start with holder or an empty tile
+<b class="nc">&nbsp;                if(clickedValue != null &amp;&amp; !buttonClick.startsWith(&quot;holder&quot;) &amp;&amp; !buttonClick.endsWith(&quot;-&quot;)){</b>
+<b class="nc">&nbsp;                    String[] yxLoc = buttonClick.split(&quot; &quot;);</b>
+<b class="nc">&nbsp;                    int yLoc = Integer.parseInt(yxLoc[0]); // determine the y location</b>
+<b class="nc">&nbsp;                    int xLoc = Integer.parseInt(yxLoc[1]); // determine the x location</b>
+&nbsp;
+&nbsp;                    // create an array consisting of yLoc and xLoc
+<b class="nc">&nbsp;                    int[] coord = new int[]{yLoc, xLoc};</b>
+&nbsp;
+<b class="nc">&nbsp;                    playLetter(clickedValue, coord, source);</b>
+<b class="nc">&nbsp;                    clickedValue = null; // set the button to be ready for next turn</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+&nbsp;
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-12-08 19:23</div>
+</div>
+</body>
+</html>
