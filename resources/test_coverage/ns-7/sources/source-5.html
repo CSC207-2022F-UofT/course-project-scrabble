@@ -1,0 +1,207 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > StartupPage</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">gui.pages</a>
+</div>
+
+<h1>Coverage Summary for Class: StartupPage (gui.pages)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">StartupPage</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/47)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package gui.pages;
+&nbsp;
+&nbsp;import gui.components.DialogueBox;
+&nbsp;import gui.components.Label;
+&nbsp;import gui.components.Button;
+&nbsp;
+&nbsp;import javax.swing.*;
+&nbsp;import java.awt.*;
+&nbsp;import java.awt.event.ActionEvent;
+&nbsp;import java.awt.event.ActionListener;
+&nbsp;import java.io.File;
+&nbsp;import java.io.FileNotFoundException;
+&nbsp;
+&nbsp;/**
+&nbsp; * The StartupPage is the page that is started up when we start the game. There are a few buttons that allow the user
+&nbsp; * to select which type of game they want to play.
+&nbsp; * @author Victor Zheng
+&nbsp; * @version 1.0
+&nbsp; * @since 2022-11-19
+&nbsp; */
+&nbsp;
+<b class="nc">&nbsp;public class StartupPage implements ActionListener {</b>
+&nbsp;    DialogueBox dialogueBox;
+&nbsp;    Label welcomeTitle, contributors;
+&nbsp;    Button gameButton, rulesButton, createButton;
+<b class="nc">&nbsp;    final int WIDTH = 1000;</b>
+<b class="nc">&nbsp;    final int HEIGHT = 600;</b>
+&nbsp;
+&nbsp;    // Creates the startup page that we first see.
+&nbsp;    public void createStartupPage() {
+<b class="nc">&nbsp;        dialogueBox = new DialogueBox(); // create dialogue box (the background)</b>
+<b class="nc">&nbsp;        dialogueBox.createDialogueBox(&quot;Scrabble Game&quot;, WIDTH, HEIGHT, true); // name of the box</b>
+<b class="nc">&nbsp;        dialogueBox.frame.setVisible(true); // make it visible</b>
+<b class="nc">&nbsp;        dialogueBox.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // close when someone hits the red x button</b>
+<b class="nc">&nbsp;        dialogueBox.frame.setResizable(false); // remove ability to resize frame</b>
+<b class="nc">&nbsp;        Color col = new Color(200, 255, 255); // set colour</b>
+<b class="nc">&nbsp;        dialogueBox.frame.getContentPane().setBackground(col);</b>
+&nbsp;
+<b class="nc">&nbsp;        welcomeTitle = new Label(); // create welcome title label</b>
+<b class="nc">&nbsp;        welcomeTitle.createLabel(30, WIDTH / 2 - 130, 50, 500, 50, dialogueBox.frame, &quot;Welcome to Scrabble&quot;, Color.BLACK);</b>
+&nbsp;
+<b class="nc">&nbsp;        contributors = new Label(); // create contributors label</b>
+<b class="nc">&nbsp;        contributors.createLabel(12, WIDTH / 2 - 150, HEIGHT / 4 - 20, 350, 20, dialogueBox.frame, &quot;Created by: Victor, Jazli, Umair, Claire, Francisco, Davit, and Clark&quot;, Color.BLACK);</b>
+<b class="nc">&nbsp;        contributors.setCentreAlignment();</b>
+&nbsp;
+<b class="nc">&nbsp;        int buttonOffset = 75; // offset used for all 3 buttons to align in the centre</b>
+<b class="nc">&nbsp;        gameButton = new Button(); // button for loading a game that we had already on file</b>
+<b class="nc">&nbsp;        gameButton.createButton(dialogueBox.frame, &quot;Create Game&quot;, WIDTH / 3 + buttonOffset, HEIGHT / 3, 200, 50, null);</b>
+<b class="nc">&nbsp;        gameButton.getButton().addActionListener(this);</b>
+&nbsp;
+<b class="nc">&nbsp;        rulesButton = new Button(); // button for checking the rules of our game (they are different than the regular scrabble game)</b>
+<b class="nc">&nbsp;        rulesButton.createButton(dialogueBox.frame, &quot;Load Game&quot;, WIDTH / 3 + buttonOffset, HEIGHT / 2, 200, 50, null);</b>
+<b class="nc">&nbsp;        rulesButton.getButton().addActionListener(this);</b>
+&nbsp;
+<b class="nc">&nbsp;        createButton = new Button(); // button for creating a new game</b>
+<b class="nc">&nbsp;        createButton.createButton(dialogueBox.frame, &quot;Rules&quot;, WIDTH / 3 + buttonOffset, HEIGHT - 200, 200, 50, null);</b>
+<b class="nc">&nbsp;        createButton.getButton().addActionListener(this);</b>
+&nbsp;
+<b class="nc">&nbsp;        dialogueBox.frame.setVisible(true); // update contents of the frame</b>
+<b class="nc">&nbsp;        dialogueBox.frame.setResizable(false);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // actionPeformed allows us to check when a button has been pressed
+&nbsp;    @Override
+&nbsp;    public void actionPerformed(ActionEvent e) {
+<b class="nc">&nbsp;        System.out.println((e.getActionCommand()));</b>
+<b class="nc">&nbsp;        switch (e.getActionCommand()) {</b>
+&nbsp;            case &quot;Create Game&quot;:
+&nbsp;                // when the create game button has been pressed
+<b class="nc">&nbsp;                System.out.println(&quot;Create game button pressed&quot;);</b>
+<b class="nc">&nbsp;                NewGamePage newGamePage = new NewGamePage(); // create a new game through the NewGamePage frame</b>
+<b class="nc">&nbsp;                newGamePage.createGamePage();</b>
+<b class="nc">&nbsp;                break;</b>
+&nbsp;            case &quot;Rules&quot;:
+&nbsp;                // when the rules button has been pressed
+<b class="nc">&nbsp;                System.out.println(&quot;Rules button pressed&quot;);</b>
+<b class="nc">&nbsp;                RulesPage rules = new RulesPage(); // create a rules page to allow people to review the rules of the game</b>
+&nbsp;                try {
+<b class="nc">&nbsp;                    rules.createRulesPage();</b>
+<b class="nc">&nbsp;                } catch (FileNotFoundException ex) { // we want to try to read the file, and catch any errors</b>
+<b class="nc">&nbsp;                    throw new RuntimeException(ex);</b>
+<b class="nc">&nbsp;                }   break;</b>
+&nbsp;            case &quot;Load Game&quot;:
+&nbsp;
+<b class="nc">&nbsp;                File old_file = new File(&quot;src/main/java/data/data.ser&quot;);</b>
+<b class="nc">&nbsp;                if (old_file.exists()) {        // if a previously created game exists, load the game</b>
+<b class="nc">&nbsp;                    System.out.println(&quot;Load game button was pressed&quot;);</b>
+<b class="nc">&nbsp;                    GamePage game = new GamePage(&quot;placeholder1&quot;, &quot;placeholder2&quot;, true);</b>
+<b class="nc">&nbsp;                    game.createGame(true);</b>
+&nbsp;
+<b class="nc">&nbsp;                }</b>
+&nbsp;                else {          // if a previously created game does NOT exist, give the user an error pop-up
+<b class="nc">&nbsp;                    JOptionPane.showMessageDialog(null, &quot;A game hasn&#39;t been created!&quot;, &quot;Oops!&quot;,</b>
+&nbsp;                            JOptionPane.ERROR_MESSAGE);
+&nbsp;                }
+<b class="nc">&nbsp;                break;</b>
+&nbsp;
+&nbsp;            default:
+&nbsp;                break;
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+&nbsp;
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-12-08 18:59</div>
+</div>
+</body>
+</html>

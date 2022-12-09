@@ -1,0 +1,166 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > RulesPage</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">gui.pages</a>
+</div>
+
+<h1>Coverage Summary for Class: RulesPage (gui.pages)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RulesPage</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/24)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package gui.pages;
+&nbsp;
+&nbsp;import gui.components.DialogueBox;
+&nbsp;import gui.components.Label;
+&nbsp;import java.awt.*;
+&nbsp;import java.io.File;
+&nbsp;import java.io.FileNotFoundException;
+&nbsp;import java.util.Scanner;
+&nbsp;
+&nbsp;/**
+&nbsp; * The RulesPage is the UI page that displays the rules of our Scrabble Game. It is designed so that it reads and
+&nbsp; * displays the rules of our game stored in a text file.
+&nbsp; * @author Victor Zheng
+&nbsp; * @version 1.0
+&nbsp; * @since 2022-11-19
+&nbsp; */
+&nbsp;
+<b class="nc">&nbsp;public class RulesPage {</b>
+&nbsp;    DialogueBox dialogueBox;
+&nbsp;    Label rulesTitleLabel, rulesHeaderLabel, rulesTextLabel;
+<b class="nc">&nbsp;    final int WIDTH = 1100;</b>
+<b class="nc">&nbsp;    final int HEIGHT = 750;</b>
+&nbsp;
+&nbsp;
+&nbsp;    public void createRulesPage() throws FileNotFoundException { // throw an exception because we are reading a file
+&nbsp;        // create a dialogue box for the entire page
+<b class="nc">&nbsp;        dialogueBox = new DialogueBox();</b>
+<b class="nc">&nbsp;        dialogueBox.createDialogueBox(&quot;Scrabble Games Rules&quot;, WIDTH, HEIGHT, false);</b>
+<b class="nc">&nbsp;        dialogueBox.frame.setVisible(true);</b>
+<b class="nc">&nbsp;        dialogueBox.frame.setResizable(false);</b>
+<b class="nc">&nbsp;        Color col = new Color(255, 240, 240);</b>
+<b class="nc">&nbsp;        dialogueBox.frame.getContentPane().setBackground(col);</b>
+&nbsp;
+&nbsp;        // add title label for rules box
+<b class="nc">&nbsp;        rulesTitleLabel = new Label();</b>
+<b class="nc">&nbsp;        rulesTitleLabel.createLabel(30, 50, 40, WIDTH - 100, 30, dialogueBox.frame, &quot;Revised Rules of Scrabble&quot;, Color.BLACK);</b>
+<b class="nc">&nbsp;        rulesTitleLabel.setCentreAlignment();</b>
+&nbsp;
+&nbsp;        // add header label for rules box
+<b class="nc">&nbsp;        rulesHeaderLabel = new Label();</b>
+<b class="nc">&nbsp;        rulesHeaderLabel.createLabel(16, 50, 100, WIDTH - 100, 30, dialogueBox.frame, &quot;These rules were revised from the official Hasbro Rules of Scrabble&quot;, Color.BLACK);</b>
+<b class="nc">&nbsp;        rulesHeaderLabel.setCentreAlignment();</b>
+&nbsp;
+&nbsp;        // add rules to the rules page from the revised rules of scrabble page we made
+<b class="nc">&nbsp;        File rules = new File(&quot;src/main/game_resources/revised_rules_of_scrabble.txt&quot;);</b>
+<b class="nc">&nbsp;        Scanner reader = new Scanner(rules);</b>
+<b class="nc">&nbsp;        StringBuilder finalString = new StringBuilder();</b>
+&nbsp;
+&nbsp;        // read line by line the file
+<b class="nc">&nbsp;        while (reader.hasNextLine()) {</b>
+<b class="nc">&nbsp;            String data = reader.nextLine();</b>
+&nbsp;            // System.out.println(data); // print the rules in the console
+<b class="nc">&nbsp;            finalString.append(data).append(&quot;\n&quot;); // add a new line to allow the label to print it all</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+&nbsp;        // set rules text
+<b class="nc">&nbsp;        rulesTextLabel = new Label();</b>
+&nbsp;        // create a label that is multiline and shows all the rules
+<b class="nc">&nbsp;        rulesTextLabel.createMultiLineLabel(12, 30, 60, WIDTH - 50, HEIGHT - 50, dialogueBox.frame, finalString.toString(), Color.BLACK);</b>
+&nbsp;    }
+&nbsp;}
+&nbsp;
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-12-08 18:59</div>
+</div>
+</body>
+</html>
