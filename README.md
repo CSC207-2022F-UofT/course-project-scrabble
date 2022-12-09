@@ -56,7 +56,7 @@ We have written up [revised rules for scrabble](https://github.com/CSC207-2022F-
 The rules of scrabble can also be visible through our UI pages.
 
 ### First Step: Running the Game
-To run our game, a player can `Run Main.java` in their console or through Intellij. Immediately following the run, the following page should display.
+To run our game, a player can `Run Main.java` in their console or through Intellij. Immediately following the run, the following page should display. 
 ![image](/resources/WelcomePage.png)
 
 ### Second Step: Rules
@@ -64,8 +64,7 @@ Clicking on the `Rules` button will result in the following page. This can be co
 ![image](/resources/RulesPage.png)
 
 ## Third Step: Create Game
-Clicking on the `Create Game` button will result in the following page. This button allows a user to start a new game from scratch with new player's names. The resulting page will pop up asking for the user to input their names.
-
+Clicking on the `Create Game` button will result in the following page. This button allows a user to start a new game from scratch with new player's names. The resulting page will pop up asking for the user to input their names. The `Load Game` button will bypass the next step and skip to step 5. If the user loads a game that does not exist, a small popup warning will appear. Otherwise, the `Load Game` feature allows for games to start and stop while saving locally.
 ![image](/resources/CreateGamePage.png)
 
 ## Fourth Step: Start Game
