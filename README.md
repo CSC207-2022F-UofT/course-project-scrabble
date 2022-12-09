@@ -73,25 +73,25 @@ Clicking on the `Start Game` button on this page will result in the game loading
 
 ## Fifth Step: Playing a Letter
 If a user wants to play a letter, they must first click on the letter from the holder. They can click on any button on the holder. This will make the letter disappear, and the user will be only allowed to click on any tile in the 15x15 range to play their move. Following a click on any empty tile on the board, the letter will be immediately placed on the board. This continues until the user plays all of their moves. 
-![image](/resources/PlayingA.png)
+![image](/resources/AfterClickingD.png)
 
 ## Sixth Step: Playing a Word 
 If the user decides that their preferred candidate move to play, they can press the `Play Move` button. This button will send the result to the "brain" of our application, and will spit back a result. If the word is valid, then it will indicate that it is the next player's turn to play. If the move is invalid, it will indicate that the move is invalid and display "Invalid Move" on the screen.
 ![image](/resources/PlayingAWord.png)
 
-## Seventh Step: Recalling Tiles
-If the user finds that their moves don't make sense and would like to replace their letters in another order, they can do so by pressing the `Recall Tiles` button. This will recall the tiles in the previous ordering seen at the start of the move.
+## Seventh Step: Swap Hands, Recall Tiles, ShuffleHands buttons
+* If the user finds that their moves don't make sense and would like to replace their letters in another order, they can do so by pressing the `Recall Tiles` button. This will recall the tiles in the previous ordering seen at the start of the move.
+* If the user finds that they really can't find a move, then the user can call the `Swap Hands` method to swap all 7 tiles in their hand. The softare will recall these tiles, place them back into the dictionary, and then draw another 7 tiles. 
+* If the user finds that the hand is hard to read, and would like to move their tiles around, they can call the `Shuffle Hand` button, which moves the tiles on the holder around in a randomized order.
+![image](/resources/updated_picture_of_game.png)
 
-## Eighth Step: Shuffling Hands
-If the user finds that the hand is hard to read, and would like to move their tiles around, they can call the `Shuffle Hand` button, which moves the tiles on the holder around in a randomized order.
-![image](/resources/ShuffleHandButton.png)
-
-## Ninth Step: Game Play
+## Eighth Step: Game Play
 Continue playing words and scoring words correctly.
 ![image](/resources/real-game.png)
 
 ## Final Step: Ending Game
 If both players agree to end the game, then they can press the `End Game` button, which will calculate the scores of the game and display them back through our Exit page. Our application will also calculate if there are no tiles left to be played, which will also end the game according to our rules. The winner will then be displayed for everyone to see.
+![image](/resources/EndGamePage.png)
 
 # GitHub Features
 We have tried to use the full functionality of GitHub by using GitHub projects, pull requests, issues, code reviews, and actions. In particular, we realized that our original use of the `main` branch as the running code wasn't the greatest idea. Whenever we were merging various changes together, there would be errors that made us have to spend hours debugging. Thus, we decided to create a `develop` branch to develop code, and only have `main` have running code. This is something that we found out after looking through the following [GitHub recommendation](/resources/github_pipeline.png).
