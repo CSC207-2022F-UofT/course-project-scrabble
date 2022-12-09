@@ -1,0 +1,190 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ConsoleSimulator</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">gui</a>
+</div>
+
+<h1>Coverage Summary for Class: ConsoleSimulator (gui)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ConsoleSimulator</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/27)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package gui;
+&nbsp;
+&nbsp;import java.io.BufferedReader;
+&nbsp;import java.io.IOException;
+&nbsp;import java.io.InputStreamReader;
+&nbsp;
+&nbsp;/**
+&nbsp; * The ConsoleSimulator implements an application that displays the onto the console a 15x15 representation of the game.
+&nbsp; * @author Victor Zheng
+&nbsp; * @version 1.0
+&nbsp; * @since 2022-11-19
+&nbsp; */
+&nbsp;
+&nbsp;// class to simulate game in the console.
+&nbsp;public class ConsoleSimulator {
+&nbsp;    final private String[][] gameBoard; // create the gameBoard
+<b class="nc">&nbsp;    int DEFAULT_SIZE = 15;</b>
+&nbsp;
+&nbsp;    // constructor to create the game based on the default sizes of the board
+&nbsp;    public ConsoleSimulator()
+<b class="nc">&nbsp;            throws IOException {</b>
+<b class="nc">&nbsp;        this.gameBoard = initializeGameBoard(DEFAULT_SIZE, DEFAULT_SIZE); // initialize board to default size</b>
+&nbsp;
+<b class="nc">&nbsp;        System.out.println(&quot;Player Number 1 Name: &quot;);</b>
+<b class="nc">&nbsp;        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));</b>
+<b class="nc">&nbsp;        String name1 = reader.readLine();</b>
+&nbsp;
+<b class="nc">&nbsp;        System.out.println(&quot;Player Number 2 Name: &quot;);</b>
+<b class="nc">&nbsp;        BufferedReader reader2 = new BufferedReader(new InputStreamReader(System.in));</b>
+<b class="nc">&nbsp;        String name2 = reader2.readLine();</b>
+&nbsp;
+<b class="nc">&nbsp;        System.out.println(&quot;Game Between: &quot; + name1 + &quot; &amp; &quot; + name2);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @return Returns an initial grid of the game
+&nbsp;     * @param columns initialize the game based on the number of columns
+&nbsp;     * @param rows initialize the game based on the number of rows
+&nbsp;     */
+&nbsp;    private static String[][] initializeGameBoard(int rows, int columns) {
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        String[][] outputDisplay = new String[rows][columns];</b>
+&nbsp;        // ArrayList&lt;ArrayList&lt;String&gt;&gt; outputDisplay = new ArrayList&lt;ArrayList&lt;String&gt;&gt;();
+<b class="nc">&nbsp;        for (int i = 0; i &lt; rows; i++) {</b>
+<b class="nc">&nbsp;            for (int j = 0; j &lt; rows; j++) {</b>
+<b class="nc">&nbsp;                outputDisplay[i][j] = &quot;-&quot;;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return (outputDisplay);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /** Prints the game board into the console
+&nbsp;     * @param gameBoard state to be printed
+&nbsp;     */
+&nbsp;    public static void printGameBoard(String[][] gameBoard) {
+&nbsp;        // iterate through the length of the board
+<b class="nc">&nbsp;        for (String[] strings : gameBoard) {</b>
+<b class="nc">&nbsp;            StringBuilder rowPrint = new StringBuilder();</b>
+&nbsp;            // iterate through each row
+<b class="nc">&nbsp;            for (String string : strings) {</b>
+<b class="nc">&nbsp;                rowPrint.append(string).append(&quot; &quot;);</b>
+&nbsp;            }
+<b class="nc">&nbsp;            System.out.println(rowPrint);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        System.out.println(&quot;\n&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /** Plays a move and updates the gameBoard
+&nbsp;     * @param letter is the letter we want to add
+&nbsp;     * @param coordinate is the coordinate of the x and y location of the new placed cell
+&nbsp;     *
+&nbsp;     */
+&nbsp;    public void playMove(String letter, int[] coordinate) {
+&nbsp;
+<b class="nc">&nbsp;        this.gameBoard[coordinate[0]][coordinate[1]] = letter;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void main(String[] args) // for testing the console app
+&nbsp;            throws IOException {
+<b class="nc">&nbsp;        ConsoleSimulator game = new ConsoleSimulator();</b>
+<b class="nc">&nbsp;        printGameBoard(game.gameBoard);</b>
+<b class="nc">&nbsp;        int[] coord = {2, 2};</b>
+<b class="nc">&nbsp;        game.playMove(&quot;A&quot;, coord);</b>
+<b class="nc">&nbsp;        printGameBoard(game.gameBoard);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-12-08 18:59</div>
+</div>
+</body>
+</html>

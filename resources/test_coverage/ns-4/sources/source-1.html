@@ -1,0 +1,200 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Cell</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">entities</a>
+</div>
+
+<h1>Coverage Summary for Class: Cell (entities)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Cell</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (18/18)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;/*
+&nbsp; * To change this license header, choose License Headers in Project Properties.
+&nbsp; * To change this template file, choose Tools | Templates
+&nbsp; * and open the template in the editor.
+&nbsp; */
+&nbsp;package entities;
+&nbsp;
+&nbsp;import java.io.Serializable;
+&nbsp;
+&nbsp;/**
+&nbsp; * This class represents the Cell entity and is responsible for handling Cell actions, where each holds value,
+&nbsp; * score and multiplier.
+&nbsp; * @author Clark &amp; Jazli
+&nbsp; */
+&nbsp;public class Cell implements Serializable {
+&nbsp;    private String value;
+&nbsp;    private int score;
+&nbsp;    private int multiplier;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method is responsible for being the constructor of the Cell class with no parameters
+&nbsp;     */
+<b class="fc">&nbsp;    public Cell() {</b>
+&nbsp;
+<b class="fc">&nbsp;        value = &quot;&quot;;</b>
+<b class="fc">&nbsp;        score = 0;</b>
+<b class="fc">&nbsp;        multiplier = 0;</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * This method is responsible for being the constructor of the Cell class passed with a value and multiplier
+&nbsp;     * @param val This is a string that represents the value of the cell
+&nbsp;     * @param mult This is an integer for being the multiplier of the cell score
+&nbsp;     */
+&nbsp;
+<b class="fc">&nbsp;    public Cell(String val, int mult) {</b>
+<b class="fc">&nbsp;        value = val;</b>
+<b class="fc">&nbsp;        score = 0;</b>
+<b class="fc">&nbsp;        multiplier = mult;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method is responsible for being the constructor of the Cell class passed with a value and multiplier
+&nbsp;     * @param val This is a string that represents the value of the cell
+&nbsp;     * @param score This is an integer that represents the score of the cell.
+&nbsp;     * @param mult This is an integer for being the multiplier of the cell score
+&nbsp;     */
+&nbsp;
+<b class="fc">&nbsp;    public Cell(String val, int score, int mult){</b>
+<b class="fc">&nbsp;        value = val;</b>
+<b class="fc">&nbsp;        this.score = score;</b>
+<b class="fc">&nbsp;        multiplier = mult;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method is responsible reassigning the value of a cell
+&nbsp;     * @param value This is a String that will set the value of the cell to be this.
+&nbsp;     */
+&nbsp;    public void setValue(String value) {
+<b class="fc">&nbsp;        this.value = value;</b>
+&nbsp;   
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * This method is responsible reassigning the score of a cell
+&nbsp;     * @param score This is an integer that will set the score of the cell to be this.
+&nbsp;     */
+&nbsp;    public void setScore(int score) {
+<b class="fc">&nbsp;        this.score = score;</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * This method is responsible reassigning the multiplier of a cell
+&nbsp;     * @param multiplier This is an integer that will set the multiplier of the cell to be this.
+&nbsp;     */
+&nbsp;    public void setMultiplier(int multiplier) {
+<b class="fc">&nbsp;        this.multiplier = multiplier;</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * This method is responsible returning the multiplier of a cell
+&nbsp;     * @return Return an integer that represents the multiplier of this cell
+&nbsp;     */
+&nbsp;    public int getMultiplier() {
+<b class="fc">&nbsp;        return this.multiplier;</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * This method is responsible returning the score of a cell
+&nbsp;     * @return Return an integer that represents the score of this cell
+&nbsp;     */
+&nbsp;    public int getScore() {
+<b class="fc">&nbsp;        return this.score;</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * This method is responsible returning the value of a cell
+&nbsp;     * @return Return an integer that represents the value of this cell
+&nbsp;     */
+&nbsp;    public String getValue() {
+<b class="fc">&nbsp;        return this.value;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-12-08 18:59</div>
+</div>
+</body>
+</html>
