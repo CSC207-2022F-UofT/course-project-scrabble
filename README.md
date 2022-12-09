@@ -34,6 +34,7 @@ Our software broadly follows a User Flow Model below. We have omitted many small
 ### Final Presentation and Documentation
 View the slides of our [final presentation](https://github.com/CSC207-2022F-UofT/course-project-scrabble/blob/main/slides.pdf).
 View the documentation PDF for our [final release](CSC207%20Project%20Documentation.pdf)
+View the [Test Coverage Report](https://htmlpreview.github.io/?https://github.com/CSC207-2022F-UofT/course-project-scrabble/blob/main/resources/test_coverage_report/index.html)
 
 ### UI Design 
 The UI we designed looks as follows. The design on the right is the original conception, and the design on the left is the final product.
