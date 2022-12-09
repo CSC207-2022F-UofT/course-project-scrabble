@@ -10,7 +10,7 @@ Team members: [Victor](https://github.com/victor-zheng-codes), [Clark](https://g
 2. [Design Overview](#design-overview)
 3. [UI Design](#ui-design)
 4. [UML Diagram](#uml-diagram)
-5. [Final Presentation](#final-presentation)
+5. [Final Presentation](#final-presentation-and-documentation)
 6. [How to Play Scrabble](#how-to-play-scrabble)
 7. [Rules of the game](#rules-of-the-game)
 8. [Use of GitHub Features](#github-features)
@@ -31,8 +31,9 @@ Our software broadly follows a User Flow Model below. We have omitted many small
 * **Controller**: our main controller is our `ScrabbleGameController`. We follow MVP UI architecture, where the controller acts as the Presenter.
 * **User Interface**: our UI consists of mainly `GamePage`, `EndGamePage`, `CreateGamePage`, `RulesPage`, and `StartupPage`. These pages contain buttons which the user can click and interact with the software.
 
-### Final Presentation
-View the slides of our [final presentation](https://github.com/CSC207-2022F-UofT/course-project-scrabble/blob/main/slides.pdf). 
+### Final Presentation and Documentation
+View the slides of our [final presentation](https://github.com/CSC207-2022F-UofT/course-project-scrabble/blob/main/slides.pdf).
+View the documentation PDF for our [final release](CSC207%20Project%20Documentation.pdf)
 
 ### UI Design 
 The UI we designed looks as follows. The design on the right is the original conception, and the design on the left is the final product.
